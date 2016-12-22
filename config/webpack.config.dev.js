@@ -1,5 +1,7 @@
 var autoprefixer = require('autoprefixer');
-var smartImport = require("postcss-import")
+var smartImport = require("postcss-import");
+var customMedia = require("postcss-custom-media");
+var cssNesting = require('postcss-nesting');
 var precss = require('precss');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -201,6 +203,8 @@ module.exports = {
         path: [ paths.appSrc ]
       }),
       precss(),
+      customMedia(),
+      cssNesting(),
       autoprefixer({
         browsers: [
           '>1%',

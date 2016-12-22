@@ -4,6 +4,17 @@ body {
   background: $backgroundColor;
 }
 
+body {
+  background: red;
+  
+  @media (--small-viewport) {
+    /* styles for small viewport */
+    background: orange;
+  }
+
+}
+
+
 .App {
   text-align: center;
 }

@@ -3,6 +3,8 @@ import { Component, PropTypes } from 'react'
 
 import PaneContainer from './../components/layout/PaneContainer'
 
+import './App.css'
+
 interface Props {
 
 }

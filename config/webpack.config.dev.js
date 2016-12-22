@@ -1,4 +1,5 @@
 var autoprefixer = require('autoprefixer');
+var smartImport = require("postcss-import")
 var precss = require('precss');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -193,8 +194,12 @@ module.exports = {
   },
 
   // We use PostCSS for autoprefixing only.
-  postcss: function () {
+  postcss: function (webpack) {
     return [
+      smartImport({
+        addDependencyTo: webpack,
+        path: [ paths.appSrc ]
+      }),
       precss(),
       autoprefixer({
         browsers: [

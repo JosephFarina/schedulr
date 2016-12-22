@@ -54,6 +54,7 @@
     "node-sass": "^4.1.1",
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
+    "postcss-import": "^9.0.0",
     "postcss-loader": "1.0.0",
     "precss": "^1.4.0",
     "promise": "7.1.1",

@@ -1,6 +1,6 @@
-import thunkMiddleware from 'redux-thunk';
-import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
+import { combineReducers } from 'redux';
 
+// delete after first reducer is created
 const init = (state: any = {}, action: any) => {
   return state
 }

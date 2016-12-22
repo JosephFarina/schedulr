@@ -50,8 +50,10 @@
   "dependencies": {
     "@types/jasmine": "^2.5.38",
     "@types/react": "^0.14.55",
+    "@types/react-css-modules": "^3.7.5",
     "@types/react-dom": "^0.14.19",
     "react": "^15.4.1",
+    "react-css-modules": "^4.1.0",
     "react-dom": "^15.4.1"
   },
   "scripts": {

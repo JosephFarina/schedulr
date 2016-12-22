@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Component, PropTypes } from 'react';
 
-import PaneContainer from './../components/layout/PaneContainer'
+import * as I from 'immutable'
+
+import PaneContainer from './../components/layout/PaneContainer';
 
 interface Props {
 
@@ -17,6 +19,11 @@ class App extends Component<Props, State> {
   }
 
   render() {
+    const x = I.Map({
+      a: 7,
+      b: I.List.of(5, 1, 4, 5)
+    })
+    
     return (
       <PaneContainer>
         <div>asdfd</div>
@@ -25,4 +32,4 @@ class App extends Component<Props, State> {
   }
 }
 
-export default App
+export default App;

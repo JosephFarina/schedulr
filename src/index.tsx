@@ -1,12 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import App from './containers/App';
+import Root from './containers/Root';
 import './index.css';
+
+import configureStore from './state/configureStore'
+
+const store = configureStore()
 
 const root = document.createElement('div');
 document.body.appendChild(root);
 
 ReactDOM.render(
-  <App />,
+  <Root store={store} />,
   root
 );

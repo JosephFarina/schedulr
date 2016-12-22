@@ -10,10 +10,11 @@ interface Props {
 }
 
 const PaneContainer = ({children = null}: Props) => {
-  console.log(styles)
+  console.log(styles.container)
   return (
     <div className={styles.container}>
       {children}
+      <h1 className={styles.h}>asfdf</h1>
     </div >
   );
 }

@@ -10,7 +10,6 @@ interface Props {
 }
 
 const PaneContainer = ({children = null}: Props) => {
-  console.log(styles.container)
   return (
     <div className={styles.container}>
       {children}

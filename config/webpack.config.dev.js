@@ -125,7 +125,13 @@ module.exports = {
       // Process TS with typescript and Bable
 
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.tsx$/,
+        include: paths.appSrc,
+        loader: 'ts-loader',
+      },
+
+      {
+        test: /\.ts$/,
         include: paths.appSrc,
         loader: 'ts-loader',
       },
@@ -181,6 +187,13 @@ module.exports = {
         }
       }
     ]
+  },
+
+  externals: {
+    'cheerio': 'window',
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
   },
 
   // We use PostCSS for autoprefixing only.

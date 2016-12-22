@@ -10,7 +10,7 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
     reporters: ['progress'],
     port: 9876,
-    colors: false,
+    colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
@@ -19,11 +19,11 @@ module.exports = function(config) {
 
     files: [
       paths.appIndexJs,
-      `${paths.appSrc}/**/*.spec.tsx`
+      `${paths.appSrc}/**/*.spec.*`
     ],
     preprocessors: {
       [paths.appIndexJs]: ['webpack'],
-      [`${paths.appSrc}/**/*.spec.tsx`]: ['webpack']
+      [`${paths.appSrc}/**/*.spec.*`]: ['webpack']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
@@ -31,6 +31,9 @@ module.exports = function(config) {
       stats: {
         chunks: false
       }
+    },
+    mime: {
+      'text/x-typescript': ['ts','tsx']
     },
     plugins: [
       require('karma-chrome-launcher'),

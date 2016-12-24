@@ -1,0 +1,8 @@
+@import 'css-vars';
+
+.pane {
+  height: 100%;
+	background-color: $color-Mono--white;
+	position: relative;
+	overflow: hidden;
+}

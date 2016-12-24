@@ -1,0 +1,15 @@
+@import 'css-vars';
+
+.week {
+  composes: week from './Shared.css';
+  flex: 1;
+}
+
+.day {
+  composes: day from './Shared.css';
+}
+
+.month {
+  display: flex;
+  height: 100%;
+}

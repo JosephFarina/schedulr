@@ -1,0 +1,9 @@
+@import 'css-vars';
+
+.container {
+  composes: pane from './Shared.css';
+	width: 100%;
+	max-width: $pane-Sidebar--width;
+	border-right: $border;
+}
+

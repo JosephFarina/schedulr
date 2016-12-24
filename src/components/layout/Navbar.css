@@ -1,0 +1,9 @@
+@import 'css-vars';
+
+.container {
+	width: 100%;
+	height: $navbar-Height;
+	position: absolute;
+	background: $color-Brand;
+	top: 0;
+}

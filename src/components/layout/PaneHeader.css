@@ -1,0 +1,17 @@
+@import 'css-vars';
+
+.container {
+  position: absolute;
+  height: $paneHeader-Height;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: $color-Mono--white;
+  border-bottom: $border;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow-x: scroll;
+  flex-wrap: nowrap;
+}

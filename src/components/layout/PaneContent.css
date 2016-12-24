@@ -1,0 +1,11 @@
+@import 'css-vars';
+
+.container {
+  position: relative;
+	top: 4rem;
+	width: 100%;
+	height: calc(100% - $paneHeader-Height);
+	overflow: scroll;
+	background-color: $color-Mono--white;
+	padding: 1rem;
+}

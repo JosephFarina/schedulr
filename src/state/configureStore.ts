@@ -1,9 +1,13 @@
-import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import {
+  applyMiddleware,
+  compose,
+  createStore,
+} from 'redux'
 import * as createLogger from 'redux-logger'
+import thunk from 'redux-thunk'
 
 import rootReducer from './'
-import DevTools from '../containers/DevTools'
+// import DevTools from '../containers/DevTools'
 
 const configureStore = (preloadedState: any = undefined) => {
   const store = createStore(
@@ -14,7 +18,7 @@ const configureStore = (preloadedState: any = undefined) => {
         thunk, 
         createLogger()
       ),
-      DevTools.instrument()
+      // DevTools.instrument()
     )
   )
 

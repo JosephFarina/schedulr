@@ -1,3 +1,35 @@
 $backgroundColor: orange;
 
 @custom-media --small-viewport (max-width: 30em);
+@custom-media --medium-viewport (max-width: 50em);
+
+
+/* Color Variables */
+$color-Brand: rgba(113, 211, 192, 1);
+$color-Brand--accent: rgba(37, 73, 153, 1);
+
+$color-Mono--white: #fff;
+$color-Mono--lightest: #f7f7f9;
+$color-Mono--light: #eceeef;
+$color-Mono--base: #818a91;
+$color-Mono--dark: #55595c;
+
+
+/*
+Layout Dimensions 
+*/
+
+/*navbar*/
+$navbar-Height: 4rem;
+
+/*pane*/
+
+$paneHeader-Height: 4rem;
+$pane-Sidebar--width: 15rem;
+
+/*calendar*/
+$calendar-Header--height: 2rem;
+
+
+/*Border*/
+$border: 1px solid $color-Mono--light;

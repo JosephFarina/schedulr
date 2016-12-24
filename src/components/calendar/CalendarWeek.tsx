@@ -6,10 +6,10 @@ interface Props {
 
 }
 
-const CalendarWeek = (props: Props) => {
+const CalendarWeek: React.StatelessComponent<any> = (props: Props) => {
   return (
     <div className={styles.week}>
-      <div className={styles.day}></div>
+      <div className={`${styles.day}`}></div>
       <div className={styles.day}></div>
       <div className={styles.day}></div>
       <div className={styles.day}></div>

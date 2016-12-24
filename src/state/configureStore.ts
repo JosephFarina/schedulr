@@ -6,8 +6,8 @@ import {
 import * as createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 
+import DevTools from '../containers/DevTools'
 import rootReducer from './'
-// import DevTools from '../containers/DevTools'
 
 const configureStore = (preloadedState: any = undefined) => {
   const store = createStore(
@@ -18,7 +18,7 @@ const configureStore = (preloadedState: any = undefined) => {
         thunk, 
         createLogger()
       ),
-      // DevTools.instrument()
+      DevTools.instrument()
     )
   )
 

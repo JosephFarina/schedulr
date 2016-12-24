@@ -9,7 +9,6 @@ import PaneContent from './../components/layout/PaneContent'
 import PaneHeader from './../components/layout/PaneHeader'
 import PaneSidebar from './../components/layout/PaneSidebar'
 
-
 import './App.css'
 
 interface Props {
@@ -32,23 +31,14 @@ class App extends Component<Props, State> {
         <PaneContainer>
 
           <PaneSidebar>
-            <PaneHeader>
-              f
-            </PaneHeader>
-            <PaneContent>
-
-            </PaneContent>
+            <PaneHeader>Sidebar Header</PaneHeader>
+            <PaneContent></PaneContent>
           </PaneSidebar>
 
           <PaneBody>
-            <PaneHeader>
-              f
-            </PaneHeader>
+            <PaneHeader>Toolbar Header</PaneHeader>
             <PaneContent>
-
-              <Calendar>
-              </Calendar>
-
+              <Calendar startDate="" endDate=""></Calendar>
             </PaneContent>
           </PaneBody>
 

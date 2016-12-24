@@ -18,7 +18,7 @@ const weekdays = [
 const CalendarHeader = (props: Props) => {
   return (
     <div className={styles.week}>
-      {weekdays.map((day) => <div className={styles.day}>{day}</div>)}
+      {weekdays.map((day, i) => <div key={i} className={styles.day}>{day}</div>)}
     </div>
   )
 }

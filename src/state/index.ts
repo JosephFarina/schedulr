@@ -1,12 +1,9 @@
-import { combineReducers } from 'redux';
+import { combineReducers } from 'redux'
 
-// delete after first reducer is created
-const init = (state: any = {}, action: any) => {
-  return state
-}
+import calendar from './calendar/reducer'
 
 const rootReducer = combineReducers({
-  init
+  calendar
 })
 
 export default rootReducer

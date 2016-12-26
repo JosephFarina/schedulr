@@ -1,6 +1,8 @@
+import * as M from 'moment'
 import * as React from 'react'
-import { PropTypes } from 'react'
+require('moment-range')
 
+import * as DateUtils from './../../utils/date.utils'
 import CalendarContent from './CalendarContent'
 import CalendarHeader from './CalendarHeader'
 import CalendarWeek from './CalendarWeek'
@@ -12,6 +14,14 @@ interface Props {
   endDate: string
 }
 
+const generateWeeks = ({ startDate, endDate }: Props) => {
+  const build = DateUtils.getTimeRangeBuild(
+    M.range([ M(startDate),  M(endDate) ])
+  )
+
+  const keys = Object.keys(build).sort((a, b) => { return +a - +b })
+  return keys.map((key, i) => <CalendarWeek key={i} {...build[key]} />)
+}
 
 const Calendar: React.StatelessComponent<Props> = (props) => {
 
@@ -19,10 +29,7 @@ const Calendar: React.StatelessComponent<Props> = (props) => {
     <div className={styles.container}>
       <CalendarHeader></CalendarHeader>
       <CalendarContent>
-        <CalendarWeek></CalendarWeek>
-        <CalendarWeek></CalendarWeek>
-        <CalendarWeek></CalendarWeek>
-        <CalendarWeek></CalendarWeek>
+        {generateWeeks(props)}
       </CalendarContent>
     </div>
   )

@@ -1,3 +1,4 @@
+import * as M from 'moment'
 import * as React from 'react'
 import { Component, PropTypes } from 'react'
 
@@ -8,6 +9,7 @@ import PaneContainer from './../components/layout/PaneContainer'
 import PaneContent from './../components/layout/PaneContent'
 import PaneHeader from './../components/layout/PaneHeader'
 import PaneSidebar from './../components/layout/PaneSidebar'
+import * as DateUtils from './../utils/date.utils'
 
 import './App.css'
 
@@ -38,7 +40,10 @@ class App extends Component<Props, State> {
           <PaneBody>
             <PaneHeader>Toolbar Header</PaneHeader>
             <PaneContent>
-              <Calendar startDate="" endDate=""></Calendar>
+              <Calendar
+                startDate={DateUtils.startOfMonth(M()).format()}
+                endDate={DateUtils.endOfMonth(M()).format()} >
+              </Calendar>
             </PaneContent>
           </PaneBody>
 

@@ -1,4 +1,5 @@
 import { ActionTypes } from './../state/actionTypes'
+import * as TimeModels from './time'
 
 export interface Action<T> {
   type: ActionTypes
@@ -17,6 +18,6 @@ export interface RState {
 }
 
 export interface RCalendar {
-  startDate: string
-  timeRange: 'week' | 'month'
+  startDate?: string
+  timeRange?: TimeModels.TimeRangeOption
 }

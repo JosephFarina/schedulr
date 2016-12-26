@@ -3,6 +3,7 @@ require('moment-range')
 
 import * as Models from './../models'
 
+// GET BEGIN AND END OF TIME RANGES
 
 /**
  * @Params{Moment Object}
@@ -43,6 +44,32 @@ export const endOfWeek = (input: M.Moment): M.Moment => {
   const date = input.clone()
   return date.endOf('week').startOf('day')
 }
+
+// NEXT, CURR, PREVIOUS START DATE BY TIMERANGE
+
+/**
+ * @Param{date, timeRangeOption} the curr date and the curr option (week, month)
+ * @Returns the next startDate based on the curr one and the time range option
+ */
+
+// TODO: for month needs to calculate the curr month and do calculations based on that
+// maybe store the curr month somewhere else so its easy to just add 1 month 
+
+export const nextRange = (date: string, timeRange: Models.TimeRangeOption): string => {
+  const currDate = M(date)
+
+  if (timeRange === 'month') {
+    currDate.add('month')
+  }
+
+  if (timeRange === 'week') {
+    currDate.add('week')
+  }
+
+  return currDate.format()
+}
+
+// TIME RANGE
 
 /**
  * @Params{Moment.Range}

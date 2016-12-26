@@ -92,4 +92,11 @@ describe('Date Utils', () => {
     })
 
   })
+
+  describe('#nextRange', () => {
+    const startOfMonth = DateUtils.startOfMonth(M())
+    const nextRange = DateUtils.nextRange(startOfMonth.format(), 'month')
+
+    console.log(startOfMonth.format(), nextRange)
+  })
 })

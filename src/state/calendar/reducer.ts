@@ -2,14 +2,15 @@ import * as M from 'moment'
 
 import * as Models from './../../models'
 import * as DateUtils from './../../utils/date.utils'
-import {ActionTypes} from './../actionTypes'
+import { ActionTypes } from './../actionTypes'
 
 const initialState: Models.RCalendar = {
   startDate: DateUtils.startOfMonth(M()).format(),
   timeRange: 'month'
 }
 
-const calendar = (state = initialState, action: Models.Action<Models.RCalendar>) => {
+const calendar = (state = initialState, action: Models.Action<Models.RCalendar>): Models.RCalendar => {
+
   switch (action.type) {
 
     case ActionTypes.nextTimeRange:
@@ -29,7 +30,7 @@ const calendar = (state = initialState, action: Models.Action<Models.RCalendar>)
 
     case ActionTypes.updateTimeRange:
       return Object.assign({}, state, {
-
+        timeRange: action.payload.timeRange
       })
 
     default:

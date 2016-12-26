@@ -16,3 +16,5 @@ export interface Week {
 export interface TimeRange {
   [weekNumber: number]: Week
 }
+
+export type TimeRangeOption = 'week' | 'month'

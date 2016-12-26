@@ -80,3 +80,23 @@ function dayRangeInWeek(range: M.Range): { [dayNumber: number]: Models.Day } {
   return days
 }
 
+/**
+ * 
+ * @Param{M.Range}
+ * Returns a string array of each week in the range
+ * 
+ */
+
+export const getWeeksInRange = (range: M.Range): string[] => {
+  const weeks: number[] = []
+  range.by('day', (m) => {
+    weeks.push(m.week())
+  })
+  const filteredWeeks: string[] = []
+  weeks.forEach((week) => {
+    if (filteredWeeks.indexOf('' + week) === -1) {
+      filteredWeeks.push('' + week)
+    }
+  })
+  return filteredWeeks
+}

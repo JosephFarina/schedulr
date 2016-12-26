@@ -58,7 +58,7 @@ describe('Date Utils', () => {
     })
 
     it('should have as many keys as there are weeks in the range', () => {
-      const weeks = getWeeksInRange(range)
+      const weeks = DateUtils.getWeeksInRange(range)
       expect(Object.keys(timeRange)).toEqual(weeks)
     })
 
@@ -93,17 +93,3 @@ describe('Date Utils', () => {
 
   })
 })
-
-function getWeeksInRange(range: M.Range): string[] {
-  const weeks: number[] = []
-  range.by('day', (m) => {
-    weeks.push(m.week())
-  })
-  const filteredWeeks: string[] = []
-  weeks.forEach((week) => {
-    if (filteredWeeks.indexOf('' + week) === -1) {
-      filteredWeeks.push('' + week)
-    }
-  })
-  return filteredWeeks
-}

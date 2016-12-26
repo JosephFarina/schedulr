@@ -178,7 +178,7 @@ module.exports = {
         test: /\.json$/,
         loader: 'json'
       },
-      // "file" loader for svg
+      // "file" loader for sxvg
       {
         test: /\.svg$/,
         loader: 'file',

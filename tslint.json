@@ -15,8 +15,8 @@
       true,
       "never"
     ],
-    "only-arrow-functions": [
-      true
+    "no-console": [
+      false
     ],
     "eofline": true,
     "no-duplicate-variable": true,
@@ -27,6 +27,9 @@
     "no-unused-variable": [true, "react", {
       "ignore-pattern": "react-css-module"
     }],
+    "trailing-comma": [
+      false
+    ],
     "variable-name": [true,
       "ban-keywords",
       "check-format",

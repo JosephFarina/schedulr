@@ -14,7 +14,10 @@ export interface Week {
 
 // Used for calendar building -- each key is the weeks number in the year 
 export interface TimeRange {
-  [weekNumber: number]: Week
+  month?: number
+  weeks: {
+    [weekNumber: number]: Week
+  }
 }
 
 export type TimeRangeOption = 'week' | 'month'

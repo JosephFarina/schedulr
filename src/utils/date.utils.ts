@@ -59,11 +59,9 @@ export const nextRange = (date: string, timeRange: Models.TimeRangeOption): stri
   const currDate = M(date)
 
   if (timeRange === 'month') {
-    currDate.add('month')
-  }
-
-  if (timeRange === 'week') {
-    currDate.add('week')
+    currDate.add(1, 'month')
+  } else if (timeRange === 'week') {
+    currDate.add(1, 'week')
   }
 
   return currDate.format()
@@ -77,7 +75,9 @@ export const nextRange = (date: string, timeRange: Models.TimeRangeOption): stri
  */
 
 export const getTimeRangeBuild = (range: M.Range): Models.TimeRange => {
-  const weekRange: Models.TimeRange = {}
+  const weekRange: Models.TimeRange = {
+    weeks: {}
+  }
 
   range.by('weeks', (m) => {
     const week = M.range([
@@ -85,14 +85,33 @@ export const getTimeRangeBuild = (range: M.Range): Models.TimeRange => {
       endOfWeek(m)
     ])
 
-    weekRange[+m.week()] = {
+    weekRange.weeks[+m.week()] = {
       days: dayRangeInWeek(week),
       endDate: m.clone().day(6).format(),
       startDate: m.clone().day(0).format()
     }
   })
 
+  weekRange.month = getMonthFromRange(range)
   return weekRange
+}
+
+/**
+ * @Param {Moment.Range}
+ * @Returns the most common month value
+ * it iterates over each day and takes a count of the month numbers and returns the mode
+ */
+
+function getMonthFromRange(range: M.Range): number {
+  const months: { [monthNumber: number]: number } = {}
+  range.by('day', (m) => {
+    if (!months[m.month()]) { months[m.month()]++ }
+    months[m.month()]++
+  })
+
+  return +Object.keys(months).reduce((max, key, i) => {
+    return months[max] > months[key] ? max : key
+  })
 }
 
 function dayRangeInWeek(range: M.Range): { [dayNumber: number]: Models.Day } {

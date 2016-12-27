@@ -18,9 +18,11 @@ const generateWeeks = ({ startDate, endDate }: Props) => {
   const build = DateUtils.getTimeRangeBuild(
     M.range([ M(startDate),  M(endDate) ])
   )
+  const weeks = build.weeks
 
-  const keys = Object.keys(build).sort((a, b) => { return +a - +b })
-  return keys.map((key, i) => <CalendarWeek key={i} {...build[key]} />)
+  const keys = Object.keys(weeks).sort((a, b) => { return +a - +b })
+  console.log(keys)
+  return keys.map((key, i) => <CalendarWeek key={i} {...build.weeks[key]} />)
 }
 
 const Calendar: React.StatelessComponent<Props> = (props) => {

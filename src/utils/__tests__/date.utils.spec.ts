@@ -45,7 +45,7 @@ describe('Date Utils', () => {
 
   })
 
-  describe('#getWeekRange', () => {
+  describe('#getTimeRangeBuild', () => {
     let range: M.Range
     let timeRange: Models.TimeRange
 
@@ -59,7 +59,7 @@ describe('Date Utils', () => {
 
     it('should have as many keys as there are weeks in the range', () => {
       const weeks = DateUtils.getWeeksInRange(range)
-      expect(Object.keys(timeRange)).toEqual(weeks)
+      expect(Object.keys(timeRange.weeks)).toEqual(weeks)
     })
 
     it('each day should have the correct start and end time', () => {
@@ -90,6 +90,10 @@ describe('Date Utils', () => {
         })
       })
     })
+
+    // it('should add the curr month to it', () => {
+    //   expect(timeRange.month).toBeDefined()
+    // })
 
   })
 

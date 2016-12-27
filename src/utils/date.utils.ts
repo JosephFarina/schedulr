@@ -56,7 +56,7 @@ export const endOfWeek = (input: M.Moment): M.Moment => {
 
 
 /**
- * @Param{date, timeRangeOption} the curr date and the curr option (week, month)
+ * @Param{Calendar Slice of the state}
  * @Returns the next startDate based on the curr one and the time range option
  */
 
@@ -72,6 +72,20 @@ export const nextRange = (state: Models.RCalendar): string => {
     nextTime = startOfMonth(currDate.month(month + 1))
   } else if (timeRange === 'week') {
     nextTime = startOfWeek(currDate).add(1, 'week')
+  }
+
+  return nextTime.format()
+}
+
+export const previousRange = (state: Models.RCalendar): string => {
+  const {startDate, timeRange, month} = state
+  const currDate = M(startDate)
+  let nextTime: M.Moment
+
+  if (timeRange === 'month') {
+    nextTime = startOfMonth(currDate.month(month - 1))
+  } else if (timeRange === 'week') {
+    nextTime = startOfWeek(currDate).subtract(1, 'week')
   }
 
   return nextTime.format()

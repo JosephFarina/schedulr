@@ -127,4 +127,35 @@ describe('Date Utils', () => {
     })
 
   })
+
+  describe('#previousRange', () => {
+
+    it('should get previous month if time range is month', () => {
+      const currMonth = M().month()
+      const state: Models.RCalendar = {
+        month: currMonth,
+        startDate: DateUtils.startOfMonth(M()).format(),
+        timeRange: 'month'
+      }
+
+      const expectedStartDate = DateUtils.startOfMonth(M().month(currMonth - 1)).format()
+      const prevRange = DateUtils.previousRange(state)
+
+      expect(prevRange).toEqual(expectedStartDate)
+    })
+
+    it('should get previous week if time range is week', () => {
+      const currWeek = DateUtils.startOfWeek(M()).week()
+      const state: Models.RCalendar = {
+        startDate: DateUtils.startOfWeek(M()).format(),
+        timeRange: 'week'
+      }
+
+      const expectedStartDate = DateUtils.startOfWeek(M()).week(currWeek - 1).format()
+      const prevRange = DateUtils.previousRange(state)
+
+      expect(prevRange).toEqual(expectedStartDate)
+    })
+
+  })
 })

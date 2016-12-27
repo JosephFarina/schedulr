@@ -38,7 +38,6 @@ export const nextTimeRange = () => {
   return (dispatch: Function, getState: Function): void => {
     const calendar: Models.RCalendar = getState().calendar
     const { startDate, timeRange } = calendar
-    
     dispatch()
   }
 }

@@ -6,7 +6,8 @@ import { ActionTypes } from './../actionTypes'
 
 const initialState: Models.RCalendar = {
   startDate: DateUtils.startOfMonth(M()).format(),
-  timeRange: 'month'
+  timeRange: 'month',
+  month: M().month()
 }
 
 const calendar = (state = initialState, action: Models.Action<Models.RCalendar>): Models.RCalendar => {

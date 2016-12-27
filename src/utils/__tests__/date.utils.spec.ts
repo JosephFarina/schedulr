@@ -63,8 +63,10 @@ describe('Date Utils', () => {
     })
 
     it('each day should have the correct start and end time', () => {
-      Object.keys(timeRange).forEach((key) => {
-        const week = timeRange[key]
+      const weeks = timeRange.weeks
+
+      Object.keys(weeks).forEach((key) => {
+        const week = weeks[key]
         const startDate = M().day(0).week(+key).startOf('day').format()
         const endDate = M().day(6).week(+key).startOf('day').format()
 
@@ -74,16 +76,20 @@ describe('Date Utils', () => {
     })
 
     it('each weeks days should have keys 0 - 6', () => {
-      Object.keys(timeRange).forEach((key) => {
-        const week: Models.Week = timeRange[key]
+      const weeks = timeRange.weeks
+
+      Object.keys(weeks).forEach((key) => {
+        const week: Models.Week = weeks[key]
         const dayKeys = Object.keys(week.days)
         expect(dayKeys).toEqual('0123456'.split(''))
       })
     })
 
     it('should say if is the current day', () => {
-      Object.keys(timeRange).forEach((weekKey) => {
-        const week: Models.Week = timeRange[weekKey]
+      const weeks = timeRange.weeks
+
+      Object.keys(weeks).forEach((weekKey) => {
+        const week: Models.Week = weeks[weekKey]
         Object.keys(week.days).forEach((dayKey) => {
           const day: Models.Day = week.days[dayKey]
           expect(M(day.date).isSame(M(), 'day')).toEqual(day.isToday)
@@ -91,16 +97,34 @@ describe('Date Utils', () => {
       })
     })
 
-    // it('should add the curr month to it', () => {
-    //   expect(timeRange.month).toBeDefined()
-    // })
-
   })
 
   describe('#nextRange', () => {
-    const startOfMonth = DateUtils.startOfMonth(M())
-    const nextRange = DateUtils.nextRange(startOfMonth.format(), 'month')
 
-    console.log(startOfMonth.format(), nextRange)
+    it('should get next month if time range is month', () => {
+      const currMonth = M().month()
+      const state: Models.RCalendar = {
+        month: currMonth,
+        startDate: DateUtils.startOfMonth(M()).format(),
+        timeRange: 'month'
+      }
+
+      const expectedStartDate = DateUtils.startOfMonth(M().month(currMonth + 1)).format()
+      const nextRange = DateUtils.nextRange(state)
+      expect(nextRange).toEqual(expectedStartDate)
+    })
+
+    it('should get the next week if time range is week', () => {
+      const currWeek = DateUtils.startOfWeek(M()).week()
+      const state: Models.RCalendar = {
+        startDate: DateUtils.startOfWeek(M()).format(),
+        timeRange: 'week'
+      }
+      const expectedStartDate = DateUtils.startOfWeek(M()).week(currWeek + 1).format()
+      const nextRange = DateUtils.nextRange(state)
+
+      expect(nextRange).toEqual(expectedStartDate)
+    })
+
   })
 })

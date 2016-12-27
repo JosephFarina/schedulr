@@ -3,7 +3,11 @@ require('moment-range')
 
 import * as Models from './../models'
 
+
+
 // GET BEGIN AND END OF TIME RANGES
+
+
 
 /**
  * @Params{Moment Object}
@@ -45,7 +49,11 @@ export const endOfWeek = (input: M.Moment): M.Moment => {
   return date.endOf('week').startOf('day')
 }
 
+
+
 // NEXT, CURR, PREVIOUS START DATE BY TIMERANGE
+
+
 
 /**
  * @Param{date, timeRangeOption} the curr date and the curr option (week, month)
@@ -55,19 +63,25 @@ export const endOfWeek = (input: M.Moment): M.Moment => {
 // TODO: for month needs to calculate the curr month and do calculations based on that
 // maybe store the curr month somewhere else so its easy to just add 1 month 
 
-export const nextRange = (date: string, timeRange: Models.TimeRangeOption): string => {
-  const currDate = M(date)
+export const nextRange = (state: Models.RCalendar): string => {
+  const {startDate, timeRange, month} = state
+  const currDate = M(startDate)
+  let nextTime: M.Moment
 
   if (timeRange === 'month') {
-    currDate.add(1, 'month')
+    nextTime = startOfMonth(currDate.month(month + 1))
   } else if (timeRange === 'week') {
-    currDate.add(1, 'week')
+    nextTime = startOfWeek(currDate).add(1, 'week')
   }
 
-  return currDate.format()
+  return nextTime.format()
 }
 
+
+
 // TIME RANGE
+
+
 
 /**
  * @Params{Moment.Range}
@@ -102,7 +116,7 @@ export const getTimeRangeBuild = (range: M.Range): Models.TimeRange => {
  * it iterates over each day and takes a count of the month numbers and returns the mode
  */
 
-function getMonthFromRange(range: M.Range): number {
+export function getMonthFromRange(range: M.Range): number {
   const months: { [monthNumber: number]: number } = {}
   range.by('day', (m) => {
     if (!months[m.month()]) { months[m.month()]++ }

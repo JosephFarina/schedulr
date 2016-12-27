@@ -103,24 +103,17 @@ describe('Date Utils', () => {
 
     it('should get next month if time range is month', () => {
       const currMonth = M().month()
-      const state: Models.RCalendar = {
-        month: currMonth,
-        startDate: DateUtils.startOfMonth(M()).format(),
-        timeRange: 'month'
-      }
-
-      const expectedStartDate = DateUtils.startOfMonth(M().month(currMonth + 1)).format()
+      const state = monthState(currMonth)
+      const expectedStartDate = expectedMonth(currMonth + 1)
       const nextRange = DateUtils.nextRange(state)
+
       expect(nextRange).toEqual(expectedStartDate)
     })
 
     it('should get the next week if time range is week', () => {
       const currWeek = DateUtils.startOfWeek(M()).week()
-      const state: Models.RCalendar = {
-        startDate: DateUtils.startOfWeek(M()).format(),
-        timeRange: 'week'
-      }
-      const expectedStartDate = DateUtils.startOfWeek(M()).week(currWeek + 1).format()
+      const state = weekState(currWeek)
+      const expectedStartDate = expectedWeek(currWeek + 1)
       const nextRange = DateUtils.nextRange(state)
 
       expect(nextRange).toEqual(expectedStartDate)
@@ -132,13 +125,8 @@ describe('Date Utils', () => {
 
     it('should get previous month if time range is month', () => {
       const currMonth = M().month()
-      const state: Models.RCalendar = {
-        month: currMonth,
-        startDate: DateUtils.startOfMonth(M()).format(),
-        timeRange: 'month'
-      }
-
-      const expectedStartDate = DateUtils.startOfMonth(M().month(currMonth - 1)).format()
+      const state = monthState(currMonth)
+      const expectedStartDate = expectedMonth(currMonth - 1)
       const prevRange = DateUtils.previousRange(state)
 
       expect(prevRange).toEqual(expectedStartDate)
@@ -146,12 +134,8 @@ describe('Date Utils', () => {
 
     it('should get previous week if time range is week', () => {
       const currWeek = DateUtils.startOfWeek(M()).week()
-      const state: Models.RCalendar = {
-        startDate: DateUtils.startOfWeek(M()).format(),
-        timeRange: 'week'
-      }
-
-      const expectedStartDate = DateUtils.startOfWeek(M()).week(currWeek - 1).format()
+      const state = weekState(currWeek)
+      const expectedStartDate = expectedWeek(currWeek - 1)
       const prevRange = DateUtils.previousRange(state)
 
       expect(prevRange).toEqual(expectedStartDate)
@@ -159,3 +143,26 @@ describe('Date Utils', () => {
 
   })
 })
+
+function monthState(currMonth: number): Models.RCalendar {
+  return {
+    month: currMonth,
+    startDate: DateUtils.startOfMonth(M()).format(),
+    timeRange: 'month'
+  }
+}
+
+function weekState(currWeek: number): Models.RCalendar {
+  return {
+    startDate: DateUtils.startOfWeek(M()).format(),
+    timeRange: 'week'
+  }
+}
+
+function expectedWeek(weekNum: number) {
+  return DateUtils.startOfWeek(M()).week(weekNum).format()
+}
+
+function expectedMonth(monthNum: number) {
+  return DateUtils.startOfMonth(M().month(monthNum)).format()
+}

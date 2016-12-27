@@ -102,28 +102,11 @@ describe('Date Utils', () => {
   describe('#nextRange', () => {
 
     it('should get next month if time range is month', () => {
-      const currMonth = M().month()
-      const state: Models.RCalendar = {
-        month: currMonth,
-        startDate: DateUtils.startOfMonth(M()).format(),
-        timeRange: 'month'
-      }
-
-      const expectedStartDate = DateUtils.startOfMonth(M().month(currMonth + 1)).format()
-      const nextRange = DateUtils.nextRange(state)
-      expect(nextRange).toEqual(expectedStartDate)
+      testRangeChangedProperly('next', 'month')
     })
 
     it('should get the next week if time range is week', () => {
-      const currWeek = DateUtils.startOfWeek(M()).week()
-      const state: Models.RCalendar = {
-        startDate: DateUtils.startOfWeek(M()).format(),
-        timeRange: 'week'
-      }
-      const expectedStartDate = DateUtils.startOfWeek(M()).week(currWeek + 1).format()
-      const nextRange = DateUtils.nextRange(state)
-
-      expect(nextRange).toEqual(expectedStartDate)
+      testRangeChangedProperly('prev', 'week')
     })
 
   })
@@ -131,31 +114,65 @@ describe('Date Utils', () => {
   describe('#previousRange', () => {
 
     it('should get previous month if time range is month', () => {
-      const currMonth = M().month()
-      const state: Models.RCalendar = {
-        month: currMonth,
-        startDate: DateUtils.startOfMonth(M()).format(),
-        timeRange: 'month'
-      }
-
-      const expectedStartDate = DateUtils.startOfMonth(M().month(currMonth - 1)).format()
-      const prevRange = DateUtils.previousRange(state)
-
-      expect(prevRange).toEqual(expectedStartDate)
+      testRangeChangedProperly('prev', 'month')
     })
 
     it('should get previous week if time range is week', () => {
-      const currWeek = DateUtils.startOfWeek(M()).week()
-      const state: Models.RCalendar = {
-        startDate: DateUtils.startOfWeek(M()).format(),
-        timeRange: 'week'
-      }
+      testRangeChangedProperly('prev', 'week')
+    })
 
-      const expectedStartDate = DateUtils.startOfWeek(M()).week(currWeek - 1).format()
-      const prevRange = DateUtils.previousRange(state)
+  })
 
-      expect(prevRange).toEqual(expectedStartDate)
+  describe('#currentRange', () => {
+
+    it('should get curr month if time range is month', () => {
+      testRangeChangedProperly('curr', 'month')
     })
 
   })
 })
+
+declare type timeChanger = 'next' | 'prev' | 'curr'
+function testRangeChangedProperly(type: timeChanger, timeRange: Models.TimeRangeOption) {
+  const currMonth = M().month()
+  const currWeek = DateUtils.startOfWeek(M()).week()
+  let startDate
+  let expectedStartDate
+
+  // WILL NEED TO CHANGE IF THERE ARE MORE TYPES THAN JUST WEEK OR MONTH
+  const state: Models.RCalendar = {
+    month: currMonth,
+    startDate: timeRange === 'week' ? DateUtils.startOfWeek(M()).format() : DateUtils.startOfMonth(M()).format(),
+    timeRange,
+  }
+
+  let newWeek
+  let newMonth
+
+  if (type === 'next') {
+    newWeek = currWeek + 1
+    newMonth = currMonth + 1
+  } else if (type === 'prev') {
+    newWeek = currWeek - 1
+    newMonth = currMonth - 1
+  } else if (type === 'curr') {
+    newWeek = M().week()
+    newMonth = M().month()
+  }
+
+  if (timeRange === 'month') {
+    expectedStartDate = DateUtils.startOfMonth(M().month(newMonth)).format()
+  } else if (timeRange === 'week') {
+    expectedStartDate = DateUtils.startOfWeek(M()).week(newWeek).format()
+  }
+
+  if (type === 'next') {
+    startDate = DateUtils.nextRange(state)
+  } else if (type === 'prev') {
+    startDate = DateUtils.previousRange(state)
+  } else if (type === 'curr') {
+    startDate = DateUtils.currentRange(state)
+  }
+
+  expect(startDate).toEqual(expectedStartDate)
+}

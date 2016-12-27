@@ -91,6 +91,18 @@ export const previousRange = (state: Models.RCalendar): string => {
   return nextTime.format()
 }
 
+export const currentRange = (state: Models.RCalendar): string => {
+  const {timeRange} = state
+  let nextTime: M.Moment
+
+  if (timeRange === 'month') {
+    nextTime = startOfMonth(M())
+  } else if (timeRange === 'week') {
+    nextTime = startOfWeek(M())
+  }
+
+  return nextTime.format()
+}
 
 
 // TIME RANGE

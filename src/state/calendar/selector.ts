@@ -14,3 +14,7 @@ export const getCurrentTimeRange = (state: Models.RState): { start: string, end:
     end: DateUtils.endOfMonth(M(startDate)).format()
   }
 }
+
+export const getCalendarState = (state: Models.RState): Models.RCalendar => {
+  return state.calendar
+}

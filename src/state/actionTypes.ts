@@ -6,8 +6,6 @@ export enum ActionTypes {
    * 
    */
 
-  nextTimeRange,
-  previousTimeRange,
-  currentTimeRange,
+  updateStartDate,
   updateTimeRange
 }

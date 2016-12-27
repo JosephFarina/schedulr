@@ -102,7 +102,7 @@ describe('Date Utils', () => {
   describe('#nextRange', () => {
 
     it('should get next month if time range is month', () => {
-      const currMonth = M().month()
+      const currMonth = currentMonth()
       const state = monthState(currMonth)
       const expectedStartDate = expectedMonth(currMonth + 1)
       const nextRange = DateUtils.nextRange(state)
@@ -111,7 +111,7 @@ describe('Date Utils', () => {
     })
 
     it('should get the next week if time range is week', () => {
-      const currWeek = DateUtils.startOfWeek(M()).week()
+      const currWeek = currentWeek()
       const state = weekState(currWeek)
       const expectedStartDate = expectedWeek(currWeek + 1)
       const nextRange = DateUtils.nextRange(state)
@@ -124,7 +124,7 @@ describe('Date Utils', () => {
   describe('#previousRange', () => {
 
     it('should get previous month if time range is month', () => {
-      const currMonth = M().month()
+      const currMonth = currentMonth()
       const state = monthState(currMonth)
       const expectedStartDate = expectedMonth(currMonth - 1)
       const prevRange = DateUtils.previousRange(state)
@@ -133,7 +133,7 @@ describe('Date Utils', () => {
     })
 
     it('should get previous week if time range is week', () => {
-      const currWeek = DateUtils.startOfWeek(M()).week()
+      const currWeek = currentWeek()
       const state = weekState(currWeek)
       const expectedStartDate = expectedWeek(currWeek - 1)
       const prevRange = DateUtils.previousRange(state)
@@ -142,6 +142,32 @@ describe('Date Utils', () => {
     })
 
   })
+
+  describe('#currentRange', () => {
+
+    // FIXME: Make the the state have a random week and start date to test if it 
+    // brings it back to the curr date properly
+
+    it('should get curr month if time range is month', () => {
+      const currMonth = currentMonth()
+      const state = monthState(currMonth)
+      const expectedStartDate = expectedMonth(currMonth)
+      const currRange = DateUtils.currentRange(state)
+
+      expect(currRange).toEqual(expectedStartDate)
+    })
+
+    it('should get curr week if time range is week', () => {
+      const currWeek = currentWeek()
+      const state = weekState(currWeek)
+      const expectedStartDate = expectedWeek(currWeek)
+      const currRange = DateUtils.currentRange(state)
+
+      expect(currRange).toEqual(expectedStartDate)
+    })
+
+  })
+
 })
 
 function monthState(currMonth: number): Models.RCalendar {
@@ -157,6 +183,14 @@ function weekState(currWeek: number): Models.RCalendar {
     startDate: DateUtils.startOfWeek(M()).format(),
     timeRange: 'week'
   }
+}
+
+function currentMonth(): number {
+  return M().month()
+}
+
+function currentWeek() {
+  return DateUtils.startOfWeek(M()).week()
 }
 
 function expectedWeek(weekNum: number) {

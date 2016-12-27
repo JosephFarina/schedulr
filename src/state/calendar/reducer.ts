@@ -14,17 +14,7 @@ const calendar = (state = initialState, action: Models.Action<Models.RCalendar>)
 
   switch (action.type) {
 
-    case ActionTypes.nextTimeRange:
-      return Object.assign({}, state, {
-
-      })
-
-    case ActionTypes.previousTimeRange:
-      return Object.assign({}, state, {
-
-      })
-
-    case ActionTypes.currentTimeRange:
+    case ActionTypes.updateStartDate:
       return Object.assign({}, state, {
 
       })

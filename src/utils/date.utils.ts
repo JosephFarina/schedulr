@@ -56,23 +56,19 @@ export const endOfWeek = (input: M.Moment): M.Moment => {
 
 
 /**
+ * FOR EACH OF THE RANGE FUNCTIONS 
+ * 
  * @Param{Calendar Slice of the state}
  * @Returns the next startDate based on the curr one and the time range option
  */
 
-// TODO: for month needs to calculate the curr month and do calculations based on that
-// maybe store the curr month somewhere else so its easy to just add 1 month 
-
 export const nextRange = (state: Models.RCalendar): string => {
   const {startDate, timeRange, month} = state
   const currDate = M(startDate)
-  let nextTime: M.Moment
-
-  if (timeRange === 'month') {
-    nextTime = startOfMonth(currDate.month(month + 1))
-  } else if (timeRange === 'week') {
-    nextTime = startOfWeek(currDate).add(1, 'week')
-  }
+  const nextTime = getNextTime(timeRange,
+    startOfWeek(currDate).add(1, 'week'),
+    startOfMonth(currDate.month(month + 1))
+  )
 
   return nextTime.format()
 }
@@ -80,28 +76,34 @@ export const nextRange = (state: Models.RCalendar): string => {
 export const previousRange = (state: Models.RCalendar): string => {
   const {startDate, timeRange, month} = state
   const currDate = M(startDate)
-  let nextTime: M.Moment
-
-  if (timeRange === 'month') {
-    nextTime = startOfMonth(currDate.month(month - 1))
-  } else if (timeRange === 'week') {
-    nextTime = startOfWeek(currDate).subtract(1, 'week')
-  }
+  const nextTime = getNextTime(timeRange,
+    startOfWeek(currDate).subtract(1, 'week'),
+    startOfMonth(currDate.month(month - 1))
+  )
 
   return nextTime.format()
 }
 
 export const currentRange = (state: Models.RCalendar): string => {
   const {timeRange} = state
-  let nextTime: M.Moment
-
-  if (timeRange === 'month') {
-    nextTime = startOfMonth(M())
-  } else if (timeRange === 'week') {
-    nextTime = startOfWeek(M())
-  }
+  const nextTime = getNextTime(timeRange,
+    startOfWeek(M()),
+    startOfMonth(M())
+  )
 
   return nextTime.format()
+}
+
+function getNextTime(timeRange: Models.TimeRangeOption, week: M.Moment, month: M.Moment) {
+  let nextTime
+
+  if (timeRange === 'month') {
+    nextTime = month
+  } else if (timeRange === 'week') {
+    nextTime = week
+  }
+
+  return nextTime
 }
 
 

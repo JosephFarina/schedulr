@@ -4,15 +4,23 @@ export interface Day {
 }
 
 // each day key is from 0 - 7 representing sun - sat
-export interface Week {
-  startDate: string
-  endDate: string
-  days: {
-    [dayNumber: number]: Day
-  }
+export interface Days {
+  [dayNumber: number]: Day
 }
 
-// Used for calendar building -- each key is the weeks number in the year 
-export interface TimeRange {
+export interface Week {
+  year: number
+  days: Days
+}
+
+// each key is the weeks number in the year 
+export interface Weeks {
   [weekNumber: number]: Week
 }
+
+// Used for calendar building
+export interface TimeRange {
+  weeks: Weeks
+}
+
+export declare type TimeRangeOption = 'week' | 'month'

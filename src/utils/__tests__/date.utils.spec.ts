@@ -2,94 +2,116 @@ import * as M from 'moment'
 require('moment-range')
 
 import * as Models from './../../models'
-import * as DateUtils from './../date.utils'
-
-const checkForMomentEquality = (start: M.Moment, end: M.Moment) => {
-  expect(start.format()).toEqual(end.format())
-}
+import * as DateUtils from './../dateHelpers.utils'
+import * as MomentHelpers from './../momentHelpers.util'
 
 describe('Date Utils', () => {
 
-  describe('#startOfMonth', () => {
+  describe('#startOfWeek', () => {
 
-    it('should not mutate original date', () => {
-      const today = M()
-      const todayCloned = today.clone()
-      DateUtils.startOfMonth(todayCloned)
-      checkForMomentEquality(today, todayCloned)
+    it('no input should be start of this week', () => {
+      const res = DateUtils.startOfWeek()
+      checkIfDayIsSunday(res)
     })
 
-    it('should output the expected day', () => {
-      const expectedDate = M().startOf('month').startOf('week').startOf('day')
-      expect(DateUtils.startOfMonth(M()).format()).toEqual(expectedDate.format())
+    it('moment input should be start of this week', () => {
+      const res = DateUtils.startOfWeek(M().add(1, 'week').day(3))
+      checkIfDayIsSunday(res)
     })
 
-  })
-
-  describe('#endOfMonth', () => {
-
-    it('should not mutate', () => {
-      const today = M()
-      const todayCloned = today.clone()
-      DateUtils.endOfMonth(todayCloned)
-      checkForMomentEquality(today, todayCloned)
-    })
-
-    it('should output the expected day', () => {
-      const expectedDate = M().endOf('month').endOf('week').startOf('day')
-      checkForMomentEquality(
-        DateUtils.endOfMonth(M()),
-        expectedDate
-      )
+    it('string input should be start of this week', () => {
+      const res = DateUtils.startOfWeek(M().add(1, 'week').day(3).format())
+      checkIfDayIsSunday(res)
     })
 
   })
 
-  describe('#getWeekRange', () => {
-    let range: M.Range
-    let timeRange: Models.TimeRange
+  describe('#endOfWeek', () => {
+
+    it('no input should be end of this week', () => {
+      const res = DateUtils.endOfWeek()
+      checkIfDayIsSaturday(res)
+    })
+
+    it('moment input should be end of this week', () => {
+      const res = DateUtils.endOfWeek(M().add(1, 'week').day(3))
+      checkIfDayIsSaturday(res)
+    })
+
+    it('string input should be end of this week', () => {
+      const res = DateUtils.endOfWeek(M().add(1, 'week').day(3).format())
+      checkIfDayIsSaturday(res)
+    })
+
+  })
+
+  describe('#nextWeek', () => {
+
+    it('should be both start of week and one week more', () => {
+      const initTime = DateUtils.startOfWeek()
+      const res = DateUtils.nextWeek(initTime)
+
+      expect(res.week()).toEqual(initTime.clone().add(1, 'week').week())
+      checkIfDayIsSunday(res)
+    })
+
+  })
+
+  describe('#previousWeek', () => {
+
+    it('should be both start of week and one week behind', () => {
+      const initTime = DateUtils.startOfWeek()
+      const res = DateUtils.previousWeek(initTime)
+
+      expect(res.week()).toEqual(initTime.clone().subtract(1, 'week').week())
+      checkIfDayIsSunday(res)
+    })
+
+  })
+
+  describe('#generateTimeRangeBuild', () => {
+    const start = DateUtils.startOfWeek()
+    let end = DateUtils.endOfWeek()
+    let range: Models.TimeRange
+    let weekKeys: string[]
 
     beforeEach(() => {
-      range = M.range([
-        DateUtils.startOfMonth(M()),
-        DateUtils.endOfMonth(M())
-      ])
-      timeRange = DateUtils.getTimeRangeBuild(range)
+      range = DateUtils.generateTimeRangeBuild(start, end)
+      weekKeys = Object.keys(range.weeks)
     })
 
-    it('should have as many keys as there are weeks in the range', () => {
-      const weeks = DateUtils.getWeeksInRange(range)
-      expect(Object.keys(timeRange)).toEqual(weeks)
+    it('should have as many weeks as there in the range', () => {
+      expect(weekKeys.length).toEqual(1)
+
+      end = DateUtils.nextWeek(end)
+      range = DateUtils.generateTimeRangeBuild(start, end)
+      weekKeys = Object.keys(range.weeks)
+      expect(weekKeys.length).toEqual(2)
     })
 
-    it('each day should have the correct start and end time', () => {
-      Object.keys(timeRange).forEach((key) => {
-        const week = timeRange[key]
-        const startDate = M().day(0).week(+key).startOf('day').format()
-        const endDate = M().day(6).week(+key).startOf('day').format()
+    it('each week should have 7 days', () => {
+      weekKeys.forEach((weekKey) => {
+        const days: Models.Days = range.weeks[weekKey].days
+        const dayKeys = Object.keys(days)
+        expect(dayKeys.length).toEqual(7)
 
-        expect(week.startDate).toEqual(startDate)
-        expect(week.endDate).toEqual(endDate)
-      })
-    })
-
-    it('each weeks days should have keys 0 - 6', () => {
-      Object.keys(timeRange).forEach((key) => {
-        const week: Models.Week = timeRange[key]
-        const dayKeys = Object.keys(week.days)
-        expect(dayKeys).toEqual('0123456'.split(''))
-      })
-    })
-
-    it('should say if is the current day', () => {
-      Object.keys(timeRange).forEach((weekKey) => {
-        const week: Models.Week = timeRange[weekKey]
-        Object.keys(week.days).forEach((dayKey) => {
-          const day: Models.Day = week.days[dayKey]
-          expect(M(day.date).isSame(M(), 'day')).toEqual(day.isToday)
+        dayKeys.forEach((dayKey: string) => {
+          expect(M(days[dayKey].date).day()).toEqual(+dayKey)
         })
       })
     })
 
   })
+
 })
+
+
+function checkIfDayIsSunday(input?: MomentHelpers.MorString): void {
+  const isSaturday = MomentHelpers.cloneOrCreateMo(input).day() === 0
+  expect(isSaturday).toBeTruthy()
+}
+
+function checkIfDayIsSaturday(input?: MomentHelpers.MorString): void {
+  const isSunday = MomentHelpers.cloneOrCreateMo(input).day() === 6
+  expect(isSunday).toBeTruthy()
+}

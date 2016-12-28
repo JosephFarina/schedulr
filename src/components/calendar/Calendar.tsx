@@ -2,6 +2,7 @@ import * as M from 'moment'
 import * as React from 'react'
 require('moment-range')
 
+import * as Models from './../../models'
 import * as DateUtils from './../../utils/date.utils'
 import CalendarContent from './CalendarContent'
 import CalendarHeader from './CalendarHeader'
@@ -9,18 +10,15 @@ import CalendarWeek from './CalendarWeek'
 
 const styles = require('./Calendar.css')
 
-interface Props {
-  startDate: string
-  endDate: string
-}
+interface Props extends Models.TimeRange {}
 
-const generateWeeks = ({ startDate, endDate }: Props) => {
-  const build = DateUtils.getTimeRangeBuild(
-    M.range([ M(startDate),  M(endDate) ])
-  )
+const generateWeeks = (props: Props) => {
+  const { weeks } = props
 
-  const keys = Object.keys(build).sort((a, b) => { return +a - +b })
-  return keys.map((key, i) => <CalendarWeek key={i} {...build[key]} />)
+  return Object.keys(weeks).map((weekKey, i) => {
+    const week = weeks[weekKey]
+    return <CalendarWeek key={i} {...week} />
+  })
 }
 
 const Calendar: React.StatelessComponent<Props> = (props) => {

@@ -22,8 +22,8 @@ module.exports = function(config) {
       `${paths.appSrc}/**/*.spec.*`
     ],
     preprocessors: {
-      [paths.appIndexJs]: ['webpack'],
-      [`${paths.appSrc}/**/*.spec.*`]: ['webpack']
+      [paths.appIndexJs]: ['webpack', 'sourcemap'],
+      [`${paths.appSrc}/**/*.spec.*`]: ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
@@ -38,7 +38,8 @@ module.exports = function(config) {
     plugins: [
       require('karma-chrome-launcher'),
       require('karma-jasmine'),
-      require('karma-webpack')
+      require('karma-webpack'),
+      require('karma-sourcemap-loader')
     ]
   })
 }

@@ -1,18 +1,29 @@
-import * as Models from './../../../models'
-import calendar from './../../calendar/reducer'
-import * as Actions from './../action'
 import * as M from 'moment'
 
+import * as Models from './../../../models'
+import calendar, { initialState } from './../../calendar/reducer'
+import * as Actions from './../action'
+
+let initialWeekState: Models.RState = {
+  calendar: Object.assign({}, initialState)
+}
+
 describe('ACTIONS Calendar', () => {
-  const time = M().format()
+
+  beforeEach(() => {
+    initialWeekState = {
+      calendar: Object.assign({}, initialState)
+    }
+  })
+
   const weekState: Models.RCalendar = {
     timeRange: 'week',
-    startDate: time
+    startDate: M().format()
   }
 
   const monthState: Models.RCalendar = {
     timeRange: 'month',
-    startDate: time
+    startDate: M().format()
   }
 
   it('#switchTimeRangeToMonth', () => {

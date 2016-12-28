@@ -1,20 +1,18 @@
 import * as M from 'moment'
+require('moment-range')
+import { createSelector } from 'reselect'
 
 import * as Models from './../../models'
-import * as DateUtils from './../../utils/date.utils'
+import * as DateUtils from './../../utils/dateHelpers.utils'
 
-export const getCurrentTimeRange = (state: Models.RState): { start: string, end: string } => {
-  const { calendar } = state
-  const { startDate, timeRange } = calendar
+export const getCalendarState = (state: Models.RState): Models.RCalendar => state.calendar
+export const getStartDay = (state: Models.RState): string => state.calendar.startDate
+export const getTimeRange = (state: Models.RState): Models.TimeRangeOption => state.calendar.timeRange
 
-  // Have this check the timerange if it is month or week and return
-  // corresponding end
-  return {
-    start: startDate,
-    end: DateUtils.endOfMonth(M(startDate)).format()
-  }
-}
-
-export const getCalendarState = (state: Models.RState): Models.RCalendar => {
-  return state.calendar
-}
+export const getTimeRangeBuild = createSelector(
+  getStartDay,
+  (startDate) => DateUtils.generateTimeRangeBuild(
+    startDate,
+    DateUtils.endOfWeek(startDate)
+  )
+)

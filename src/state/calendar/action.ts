@@ -1,5 +1,5 @@
 import * as Models from './../../models'
-// import * as DateUtils from './../../utils/date.utils'
+import * as DateUtils from './../../utils/dateHelpers.utils'
 import { ActionTypes } from './../actionTypes'
 import * as Selectors from './selector'
 
@@ -37,19 +37,19 @@ export const switchTimeRangeToWeek = (): Models.Action<Models.RCalendar> => {
  * 
  */
 
-// export const nextTimeRange = () => {
-//   return generateTimeRangeAction(DateUtils.nextRange)
-// }
 
-// export const previousTimeRange = () => {
-//   return generateTimeRangeAction(DateUtils.previousRange)
-// }
+export const nextTimeRange = () => {
+  return generateTimeRangeAction(DateUtils.nextWeek)
+}
+
+export const previousTimeRange = () => {
+  return generateTimeRangeAction(DateUtils.previousWeek)
+}
 
 // export const currentTimeRange = () => {
 //   return generateTimeRangeAction(DateUtils.currentRange)
 // }
 
-// TODO: Test that this works
 function generateTimeRangeAction(selector: Function) {
   return (dispatch: Function, getState: Function): void => {
     const calendar = Selectors.getCalendarState(getState())

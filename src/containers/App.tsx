@@ -9,6 +9,7 @@ import {
 
 import * as Models from './../models'
 import * as CalendarActions from './../state/calendar/action'
+import * as CalendarSelectors from './../state/calendar/selector'
 
 import Calendar from './../components/calendar/Calendar'
 import Navbar from './../components/layout/Navbar'
@@ -21,7 +22,8 @@ import PaneSidebar from './../components/layout/PaneSidebar'
 import './App.css'
 
 interface Props {
-  dispatch: Function
+  dispatch: Function,
+  timeRange: Models.TimeRange
 }
 
 interface State {
@@ -34,6 +36,7 @@ class App extends React.Component<Props, State> {
   }
 
   public render() {
+    const { timeRange } = this.props
     return (
       <div>
         <Navbar></Navbar>
@@ -47,7 +50,7 @@ class App extends React.Component<Props, State> {
           <PaneBody>
             <PaneHeader>Toolbar Header</PaneHeader>
             <PaneContent>
-              
+              <Calendar {...timeRange} />
             </PaneContent>
           </PaneBody>
 
@@ -57,14 +60,8 @@ class App extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => state
+const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => {
+  return { timeRange: CalendarSelectors.getTimeRangeBuild(state) }
+}
 
 export default connect(mapStateToProps)(App)
-
-
-/* 
-<Calendar
-                startDate={DateUtils.startOfMonth(M()).format()}
-                endDate={DateUtils.endOfMonth(M()).format()} >
-              </Calendar>
-*/

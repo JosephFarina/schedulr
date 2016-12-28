@@ -6,7 +6,6 @@ import * as M from 'moment'
 import * as React from 'react'
 
 import * as Models from './../../../models/index'
-// import * as DateUtils from './../../../utils/date.utils'
 import CalendarDay from './../CalendarDay'
 import CalendarWeek from './../CalendarWeek'
 
@@ -14,6 +13,7 @@ describe('Calendar', () => {
 
   describe('Month View', () => {
     const week: Models.Week = {
+      year: 2017,
       days: {
         0: {} as Models.Day,
         1: {} as Models.Day,
@@ -23,8 +23,6 @@ describe('Calendar', () => {
         5: {} as Models.Day,
         6: {} as Models.Day,
       },
-      endDate: '',
-      startDate: '',
     }
 
     let wrapper: ReactWrapper<any, {}>

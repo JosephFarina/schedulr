@@ -1,6 +1,10 @@
+@import 'css-vars';
+
 .week {
   composes: week from './Shared.css';
 }
 .selected {
-  background: blue;
+  color: $color-Mono--white;
+  border-radius: 2px;
+  background: $color-Brand--accent;
 }

@@ -7,7 +7,6 @@ describe('Calendar Selector', () => {
   it('getCurrentTimeRange should return the proper range object', () => {
     const timeRange: Models.TimeRange = Selector.getTimeRangeBuild({
       calendar: {
-        month: null,
         startDate: M().format(),
         timeRange: 'week'
       }

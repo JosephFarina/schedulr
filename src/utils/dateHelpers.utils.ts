@@ -35,13 +35,14 @@ export const endOfWeek = (input?: MomentHelpers.MorString): M.Moment => {
  */
 
 
-export const startOfMonth = (input?: MomentHelpers.MorString): M.Moment => {
-  const date = MomentHelpers.cloneOrCreateMo(input)
+export const startOfMonth = (month: number, year: number): M.Moment => {
+  const date = M().year(year).month(month)
+  console.log(date.month(), date.year())
   return date.startOf('month').startOf('week').startOf('day')
 }
 
-export const endOfMonth = (input?: MomentHelpers.MorString): M.Moment => {
-  const date = MomentHelpers.cloneOrCreateMo(input)
+export const endOfMonth = (month: number, year: number): M.Moment => {
+  const date = M().year(year).month(month)
   return date.endOf('month').endOf('week').endOf('day')
 }
 

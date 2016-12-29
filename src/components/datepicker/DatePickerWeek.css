@@ -1,0 +1,3 @@
+.week {
+  composes: week from './Shared.css';
+}

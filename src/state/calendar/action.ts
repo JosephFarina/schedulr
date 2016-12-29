@@ -53,7 +53,7 @@ export const previousTimeRange = () => {
 function generateTimeRangeAction(selector: Function) {
   return (dispatch: Function, getState: Function): void => {
     const calendar = Selectors.getCalendarState(getState())
-    const nextStartDate = selector.call(null, calendar)
+    const nextStartDate = selector.call(null, calendar.startDate)
     dispatch(changeTimeRange(nextStartDate))
   }
 }

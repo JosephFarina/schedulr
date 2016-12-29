@@ -20,5 +20,4 @@ export interface RState {
 export interface RCalendar {
   startDate?: string
   timeRange?: TimeModels.TimeRangeOption
-  month?: number
 }

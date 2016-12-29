@@ -19,11 +19,14 @@ import PaneContent from './../components/layout/PaneContent'
 import PaneHeader from './../components/layout/PaneHeader'
 import PaneSidebar from './../components/layout/PaneSidebar'
 
+import DatePicker from './../components/datepicker/DatePicker'
+
 import './App.css'
 
 interface Props {
   dispatch: Function,
-  timeRange: Models.TimeRange
+  timeRange: Models.TimeRange,
+  monthTimeRange: Models.TimeRange
 }
 
 interface State {
@@ -35,8 +38,18 @@ class App extends React.Component<Props, State> {
     dispatch: PropTypes.func.isRequired
   }
 
+  public next() {
+    const { dispatch } = this.props
+    dispatch(CalendarActions.nextTimeRange())
+  }
+
+  public prev() {
+    const { dispatch } = this.props
+    dispatch(CalendarActions.previousTimeRange())
+  }
+
   public render() {
-    const { timeRange } = this.props
+    const { timeRange, monthTimeRange } = this.props
     return (
       <div>
         <Navbar></Navbar>
@@ -44,7 +57,13 @@ class App extends React.Component<Props, State> {
 
           <PaneSidebar>
             <PaneHeader>Sidebar Header</PaneHeader>
-            <PaneContent></PaneContent>
+            <PaneContent>
+
+              <button onClick={this.prev.bind(this)} >Prev</button>
+              <button onClick={this.next.bind(this)} >Next</button>
+
+              <DatePicker timeRange={monthTimeRange} />
+            </PaneContent>
           </PaneSidebar>
 
           <PaneBody>
@@ -61,7 +80,10 @@ class App extends React.Component<Props, State> {
 }
 
 const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => {
-  return { timeRange: CalendarSelectors.getTimeRangeBuild(state) }
+  return {
+    timeRange: CalendarSelectors.getTimeRangeBuild(state),
+    monthTimeRange: CalendarSelectors.getCurrentMonthBuild(state)
+  }
 }
 
 export default connect(mapStateToProps)(App)

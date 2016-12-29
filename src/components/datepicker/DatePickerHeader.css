@@ -1,0 +1,10 @@
+@import 'css-vars';
+
+.label {
+  border-bottom: $border;
+  composes: week from './Shared.css';
+}
+
+.day {
+  composes: day from './Shared.css';
+}

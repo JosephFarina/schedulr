@@ -23,7 +23,6 @@ Layout Dimensions
 $navbar-Height: 4rem;
 
 /*pane*/
-
 $paneHeader-Height: 4rem;
 $pane-Sidebar--width: 15rem;
 
@@ -33,3 +32,4 @@ $calendar-Header--height: 2rem;
 
 /*Border*/
 $border: 1px solid $color-Mono--light;
+

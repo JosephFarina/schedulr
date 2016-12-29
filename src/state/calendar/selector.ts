@@ -16,3 +16,19 @@ export const getTimeRangeBuild = createSelector(
     DateUtils.endOfWeek(startDate)
   )
 )
+
+export const getCurrentMonthBuild = createSelector(
+  getStartDay,
+  (startDate) => generateMonthTimeRangeBuild(startDate)
+)
+
+function generateMonthTimeRangeBuild(startDate: string) {
+  const week = M(startDate).week()
+  const year = M(startDate).year()
+  const month = DateUtils.getMonthFromWeek(week, year)
+
+  return DateUtils.generateTimeRangeBuild(
+    DateUtils.startOfMonth(month, year),
+    DateUtils.endOfMonth(month, year),
+  )
+}

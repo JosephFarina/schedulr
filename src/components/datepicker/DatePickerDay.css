@@ -1,0 +1,3 @@
+.day {
+  composes: day from './Shared.css';
+}

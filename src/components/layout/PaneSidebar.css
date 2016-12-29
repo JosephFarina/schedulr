@@ -5,5 +5,5 @@
 	width: 100%;
 	max-width: $pane-Sidebar--width;
 	border-right: $border;
+	padding: 0;
 }
-

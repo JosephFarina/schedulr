@@ -1,0 +1,16 @@
+.day {
+  width: 100%;
+  font-size: inherit;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .2rem;
+}
+
+.week {
+  height: 1.7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

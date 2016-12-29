@@ -59,10 +59,12 @@ class App extends React.Component<Props, State> {
             <PaneHeader>Sidebar Header</PaneHeader>
             <PaneContent>
 
-              <button onClick={this.prev.bind(this)} >Prev</button>
-              <button onClick={this.next.bind(this)} >Next</button>
+              <DatePicker
+                prevRange={this.prev.bind(this)}
+                nextRange={this.next.bind(this)}
+                timeRange={monthTimeRange}
+                />
 
-              <DatePicker timeRange={monthTimeRange} />
             </PaneContent>
           </PaneSidebar>
 

@@ -20,6 +20,7 @@ export interface Weeks {
 
 // Used for calendar building
 export interface TimeRange {
+  month?: number
   weeks: Weeks
 }
 

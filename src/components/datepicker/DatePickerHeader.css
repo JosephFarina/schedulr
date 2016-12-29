@@ -1,6 +1,13 @@
 @import 'css-vars';
 
 .label {
+  height: 2rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.week {
   border-bottom: $border;
   composes: week from './Shared.css';
 }

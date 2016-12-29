@@ -9,7 +9,7 @@ const styles = require('./DatePickerWeek.css')
 interface Props extends Models.Week { }
 
 const generateDays = ({days}: Props) => {
-  return Object.keys(days).map((dayKey) => <DatePickerDay {...days[dayKey]} />)
+  return Object.keys(days).map((dayKey, i) => <DatePickerDay key={i} {...days[dayKey]} />)
 }
 
 const DatePickerWeek: React.StatelessComponent<any> = (props: Props) => {

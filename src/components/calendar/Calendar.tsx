@@ -3,7 +3,6 @@ import * as React from 'react'
 require('moment-range')
 
 import * as Models from './../../models'
-import * as DateUtils from './../../utils/date.utils'
 import CalendarContent from './CalendarContent'
 import CalendarHeader from './CalendarHeader'
 import CalendarWeek from './CalendarWeek'

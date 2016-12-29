@@ -103,6 +103,15 @@ describe('Date Utils', () => {
 
   })
 
+  describe('#getWeekFromMonth', () => {
+
+    it('should look at the week entered and return the most common month', () => {
+      const month = DateUtils.getMonthFromWeek(10, 2016)
+      expect(month).toEqual(2)
+    })
+
+  })
+
 })
 
 

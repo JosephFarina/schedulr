@@ -18,7 +18,6 @@ import PaneContainer from './../components/layout/PaneContainer'
 import PaneContent from './../components/layout/PaneContent'
 import PaneHeader from './../components/layout/PaneHeader'
 import PaneSidebar from './../components/layout/PaneSidebar'
-import * as DateUtils from './../utils/date.utils'
 
 import './App.css'
 

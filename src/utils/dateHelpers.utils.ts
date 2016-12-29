@@ -2,7 +2,9 @@ import * as M from 'moment'
 require('moment-range')
 
 import * as Models from './../models'
+import { mode } from './math.utils'
 import * as MomentHelpers from './momentHelpers.util'
+
 
 /**
  * 
@@ -21,6 +23,26 @@ export const startOfWeek = (input?: MomentHelpers.MorString): M.Moment => {
 export const endOfWeek = (input?: MomentHelpers.MorString): M.Moment => {
   const date = MomentHelpers.cloneOrCreateMo(input)
   return date.endOf('week').endOf('day')
+}
+
+
+/**
+ * 
+ * Input can be empty, a string or a Moment object 
+ * 
+ * if empty it will use the current date 
+ * 
+ */
+
+
+export const startOfMonth = (input?: MomentHelpers.MorString): M.Moment => {
+  const date = MomentHelpers.cloneOrCreateMo(input)
+  return date.startOf('month').startOf('week').startOf('day')
+}
+
+export const endOfMonth = (input?: MomentHelpers.MorString): M.Moment => {
+  const date = MomentHelpers.cloneOrCreateMo(input)
+  return date.endOf('month').endOf('week').endOf('day')
 }
 
 
@@ -61,6 +83,7 @@ export const generateTimeRangeBuild = (startInput: MomentHelpers.MorString, endI
   const timeRange: Models.TimeRange = {
     weeks: generateWeeks(range)
   }
+
   return timeRange
 }
 
@@ -82,7 +105,7 @@ function generateWeek(mo: M.Moment): Models.Week {
 }
 
 function generateDays(mo: M.Moment): Models.Days {
-  return [0, 1, 2, 3, 4, 5, 6].map((dayNum) => generateDay(mo, dayNum))
+  return iterateDays((dayNum: number) => generateDay(mo, dayNum))
 }
 
 function generateDay(mo: M.Moment, dayNumber: number): Models.Day {
@@ -91,4 +114,42 @@ function generateDay(mo: M.Moment, dayNumber: number): Models.Day {
     date: date.format(),
     isToday: M().isSame(date, 'day')
   }
+}
+
+
+/**
+ * 
+ * @Param{week: number, year?: number} 
+ * @Return{month: number}
+ * 
+ * Return the number for the month that the week is in
+ * 
+ * if you dont enter the year it assumes the current year
+ */
+
+
+export const getMonthFromWeek = (week: number, year: number): number => {
+  const monthValuesOfDaysInWeek = monthValueForEachDay(week, year)
+  return mostCommonMonth(monthValuesOfDaysInWeek)
+}
+
+function monthValueForEachDay(week: number, year: number): number[] {
+  const date = M().year(year).week(week)
+  return iterateDays((dayNum: number) => date.clone().day(dayNum).month())
+}
+
+function mostCommonMonth(months: number[]): number {
+  return mode(months)
+}
+
+
+/**
+ * 
+ * Utils
+ * 
+ */
+
+
+function iterateDays(fn: any): any {
+  return [0, 1, 2, 3, 4, 5, 6].map(fn)
 }

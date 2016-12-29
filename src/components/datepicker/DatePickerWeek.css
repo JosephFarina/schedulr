@@ -1,3 +1,6 @@
 .week {
   composes: week from './Shared.css';
 }
+.selected {
+  background: blue;
+}

@@ -9,13 +9,31 @@ const styles = require('./DatePicker.css')
 
 interface Props {
   timeRange: Models.TimeRange,
+  selectedRange: Models.TimeRange
   nextRange: Function,
   prevRange: Function
 }
 
-const generateWeeks = ({timeRange}: Props): any => {
+const generateWeeks = ({timeRange, selectedRange}: Props): any => {
   const { weeks, month } = timeRange
-  return Object.keys(timeRange.weeks).map((weekKey, i) => <DatePickerWeek month={month} key={i} {...weeks[weekKey]} />)
+
+
+  // returns an array of {week: weekNumber<number>, year: <number>}
+  // used to tell week if they are selected
+  const selectedWeeks = Object.keys(selectedRange.weeks).map((weekKey) => {
+    const week = selectedRange.weeks[weekKey]
+    return {
+      week: weekKey,
+      year: week.year
+    }
+  })
+
+  return Object.keys(timeRange.weeks).map((weekKey, i) => <DatePickerWeek
+    weekNumber={weekKey}
+    selected={selectedWeeks}
+    month={month}
+    key={i}
+    {...weeks[weekKey]} />)
 }
 
 const DatePicker: React.StatelessComponent<Props> = (props: Props) => {

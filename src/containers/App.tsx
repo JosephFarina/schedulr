@@ -63,6 +63,7 @@ class App extends React.Component<Props, State> {
                 prevRange={this.prev.bind(this)}
                 nextRange={this.next.bind(this)}
                 timeRange={monthTimeRange}
+                selectedRange={timeRange}
                 />
 
             </PaneContent>

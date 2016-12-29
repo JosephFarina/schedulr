@@ -17,3 +17,8 @@ export const cloneOrCreateMo = (mo?: MorString): M.Moment => {
 
   return date
 }
+
+export const isSameMonth = (input: MorString, month: number) => {
+  const date = cloneOrCreateMo(input)
+  return date.month() === month
+}

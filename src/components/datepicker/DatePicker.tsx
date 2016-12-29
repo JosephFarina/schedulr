@@ -14,8 +14,8 @@ interface Props {
 }
 
 const generateWeeks = ({timeRange}: Props): any => {
-  const { weeks } = timeRange
-  return Object.keys(timeRange.weeks).map((weekKey, i) => <DatePickerWeek key={i} {...weeks[weekKey]} />)
+  const { weeks, month } = timeRange
+  return Object.keys(timeRange.weeks).map((weekKey, i) => <DatePickerWeek month={month} key={i} {...weeks[weekKey]} />)
 }
 
 const DatePicker: React.StatelessComponent<Props> = (props: Props) => {

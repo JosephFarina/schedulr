@@ -28,9 +28,7 @@ export const endOfWeek = (input?: MomentHelpers.MorString): M.Moment => {
 
 /**
  * 
- * Input can be empty, a string or a Moment object 
- * 
- * if empty it will use the current date 
+ * Input requires the month number and the year number
  * 
  */
 

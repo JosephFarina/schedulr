@@ -1,3 +1,9 @@
+@import 'css-vars';
+
 .day {
   composes: day from './Shared.css';
+}
+
+.notInMonth {
+  color: $color-Mono--light;
 }

@@ -6,14 +6,15 @@ import DatePickerDay from './DatePickerDay'
 
 const styles = require('./DatePickerWeek.css')
 
-interface Props extends Models.Week { }
+interface Props extends Models.Week {
+  month: number
+}
 
-const generateDays = ({days}: Props) => {
-  return Object.keys(days).map((dayKey, i) => <DatePickerDay key={i} {...days[dayKey]} />)
+const generateDays = ({days, month}: Props) => {
+  return Object.keys(days).map((dayKey, i) => <DatePickerDay month={month} key={i} {...days[dayKey]} />)
 }
 
 const DatePickerWeek: React.StatelessComponent<any> = (props: Props) => {
-  const {days} = props
   return (
     <div className={styles.week}>
       {generateDays(props)}

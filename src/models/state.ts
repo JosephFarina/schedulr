@@ -17,7 +17,14 @@ export interface RState {
   calendar: RCalendar
 }
 
+
+// The Calendar Slice of State
 export interface RCalendar {
   startDate?: string
   timeRange?: TimeModels.TimeRangeOption
+}
+
+// The Shifts Slice of State
+export interface RShifts {
+  ids: string[]
 }

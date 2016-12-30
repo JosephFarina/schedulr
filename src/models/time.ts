@@ -25,3 +25,14 @@ export interface TimeRange {
 }
 
 export declare type TimeRangeOption = 'week' | 'month'
+
+// export interface DayWithShifts
+
+// export interface CalendarObject<DayType> {
+//   month?: number
+//   // weeks: Weeks<DayType>
+// }
+
+// export interface Weeks<DayType> {
+
+// }

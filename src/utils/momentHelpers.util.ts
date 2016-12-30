@@ -22,3 +22,13 @@ export const isSameMonth = (input: MorString, month: number) => {
   const date = cloneOrCreateMo(input)
   return date.month() === month
 }
+
+export const getWeek = (input: MorString): number => {
+  const date = cloneOrCreateMo(input)
+  return date.week()
+}
+
+export const getYear = (input: MorString): number => {
+  const date = cloneOrCreateMo(input)
+  return date.year()
+}

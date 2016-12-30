@@ -3,3 +3,7 @@ export interface Shift {
   startTime: string
   duration: number
 }
+
+export interface Shifts {
+  [id: string]: Shift
+}

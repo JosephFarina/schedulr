@@ -7,5 +7,14 @@ export enum ActionTypes {
    */
 
   updateStartDate,
-  updateTimeRange
+  updateTimeRange,
+
+  /**
+   * 
+   * Shift ActionTypes
+   * 
+   */
+
+  addShifts
+
 }

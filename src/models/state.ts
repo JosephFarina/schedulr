@@ -15,8 +15,8 @@ export interface Action<T> {
 
 // The Master State
 export interface RState {
-  calendar: RCalendar
-  shifts: RShifts
+  calendar?: RCalendar
+  shifts?: RShifts
 }
 
 // The Calendar Slice of State

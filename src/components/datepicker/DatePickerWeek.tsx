@@ -6,7 +6,7 @@ import DatePickerDay from './DatePickerDay'
 
 const styles = require('./DatePickerWeek.css')
 
-interface Props extends Models.Week<Models.DayOnly> {
+interface Props extends Models.Week<Models.DateOnly> {
   month: number
   selected: { week: number, year: number }[]
   weekNumber: number

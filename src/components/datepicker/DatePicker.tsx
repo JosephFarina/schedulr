@@ -8,8 +8,8 @@ import DatePickerWeek from './DatePickerWeek'
 const styles = require('./DatePicker.css')
 
 interface Props {
-  timeRange: Models.CalendarObject<Models.DayOnly>,
-  selectedRange: Models.CalendarObject<Models.DayOnly>
+  timeRange: Models.CalendarObject<Models.DateOnly>,
+  selectedRange: Models.CalendarObject<Models.DateOnly>
   nextRange: Function,
   prevRange: Function
 }

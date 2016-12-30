@@ -5,7 +5,7 @@ import CalendarDay from './CalendarDay'
 
 const styles = require('./CalendarWeek.css')
 
-interface Props extends Models.Week<Models.DayOnly> { }
+interface Props extends Models.Week<Models.DateOnly> { }
 
 const generateWeek = ({days}: Props) => {
   return Object.keys(days).map((key) => (

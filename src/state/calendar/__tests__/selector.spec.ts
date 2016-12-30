@@ -5,7 +5,7 @@ import * as Selector from './../selector'
 
 describe('Calendar Selector', () => {
   it('getCurrentTimeRange should return the proper range object', () => {
-    const timeRange: Models.CalendarObject<Models.DayOnly> = Selector.getTimeRangeBuild({
+    const timeRange: Models.CalendarObject<Models.DateOnly> = Selector.getTimeRangeBuild({
       calendar: {
         startDate: M().format(),
         timeRange: 'week'

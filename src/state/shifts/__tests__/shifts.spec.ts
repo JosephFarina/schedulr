@@ -28,4 +28,8 @@ describe('Shift State', () => {
     })
   })
 
+  it('should create a CalendarObject for the shifts', () => {
+    
+  })
+
 })

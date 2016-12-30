@@ -14,7 +14,7 @@ describe('Calendar', () => {
   describe('Month View', () => {
 
     let wrapper: ReactWrapper<any, {}>
-    const timeRange = DateUtils.generateTimeRangeBuild(
+    const timeRange = DateUtils.generateCalendarBuildDateOnly(
       DateUtils.startOfWeek(),
       DateUtils.nextWeek(DateUtils.endOfWeek())
     )

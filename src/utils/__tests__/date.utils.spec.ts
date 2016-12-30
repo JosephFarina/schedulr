@@ -69,36 +69,112 @@ describe('Date Utils', () => {
 
   })
 
-  describe('#generateTimeRangeBuild', () => {
-    const start = DateUtils.startOfWeek()
-    let end = DateUtils.endOfWeek()
-    let range: Models.CalendarObject<Models.DayOnly>
-    let weekKeys: string[]
+  describe('generating calendar builds', () => {
+    let start: M.Moment
+    let end: M.Moment
 
     beforeEach(() => {
-      range = DateUtils.generateTimeRangeBuild(start, end)
-      weekKeys = Object.keys(range.weeks)
+      start = DateUtils.startOfWeek()
+      end = DateUtils.endOfWeek()
     })
 
-    it('should have as many weeks as there in the range', () => {
+    // Is checking if there is only one week key 
+    // there is only one cuase the current start and end is just one week
+    function checkWeekKeys(calendarObject: Models.CalendarObject<any>) {
+      const { weeks } = calendarObject
+      const weekKeys = Object.keys(weeks)
       expect(weekKeys.length).toEqual(1)
+    }
 
-      end = DateUtils.nextWeek(end)
-      range = DateUtils.generateTimeRangeBuild(start, end)
-      weekKeys = Object.keys(range.weeks)
-      expect(weekKeys.length).toEqual(2)
-    })
+    function getEachWeeksDayKeys(calendarObject: Models.CalendarObject<any>): number[][] {
+      const { weeks } = calendarObject
+      return Object.keys(weeks).map((weekNum) => {
+        const { year, days} = weeks[weekNum]
+        return Object.keys(days).map((dayNum) => +dayNum)
+      })
+    }
 
-    it('each week should have 7 days', () => {
-      weekKeys.forEach((weekKey) => {
-        const days: Models.Days<Models.DayOnly> = range.weeks[weekKey].days
-        const dayKeys = Object.keys(days)
-        expect(dayKeys.length).toEqual(7)
+    describe('#generateCalendarBuildDateOnly', () => {
+      let range: Models.CalendarObject<Models.DateOnly>
 
-        dayKeys.forEach((dayKey: string) => {
-          expect(M(days[dayKey].date).day()).toEqual(+dayKey)
+      beforeEach(() => {
+        range = DateUtils.generateCalendarBuildDateOnly(start, end)
+      })
+
+      it('should have as many weeks as there in the range', () => {
+        checkWeekKeys(range)
+      })
+
+      it('each week should have 7 days', () => {
+        getEachWeeksDayKeys(range).forEach((days: any[]) => {
+          expect(days.length).toEqual(7)
         })
       })
+
+    })
+
+    describe('#generateCalendarBuildWithShifts', () => {
+      let range: Models.CalendarObject<Models.DayWithShifts>
+
+      const shifts: Models.Shifts = {
+        '0asdfvadadv': {
+          duration: 15,
+          startTime: start.clone().day(0).format()
+        },
+        '2asfsadfsdfva': {
+          duration: 13534,
+          startTime: start.clone().day(2).format()
+        },
+        'asdfdffaavva3': {
+          duration: 123543,
+          startTime: start.clone().day(3).format()
+        },
+        'asdfsdaf6': {
+          duration: 545,
+          startTime: start.clone().day(6).format()
+        }
+      }
+
+      beforeEach(() => {
+        range = DateUtils.generateCalendarBuildWithShifts(
+          start,
+          end,
+          shifts
+        )
+      })
+
+      function findAllShiftsInDay(
+        shifts: Models.Shifts, day: number, week: number, year: number
+      ) {
+        return Object.keys(shifts).filter((shiftId) => {
+          const shiftDate = M(shifts[shiftId].startTime)
+          if (
+            shiftDate.day() === day &&
+            shiftDate.week() === week &&
+            shiftDate.year() === year
+          ) {
+            return true
+          } else {
+            return false
+          }
+        })
+      }
+
+      it('should have as many weeks as there in the range', () => {
+        checkWeekKeys(range)
+      })
+
+      // it('check if ', () => {
+      //   Object.keys(range.weeks).forEach((weekNumber) => {
+      //     const week: Models.Week<Models.DayWithShifts> = range.weeks[weekNumber]
+      //     const year = week.year
+      //     Object.keys(week.days).forEach((dayNumber) => {
+      //       const day: Models.DayWithShifts = week.days[dayNumber]
+      //       day.shifts
+      //     })
+      //   })
+      // })
+
     })
 
   })

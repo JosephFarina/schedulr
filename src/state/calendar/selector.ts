@@ -4,14 +4,13 @@ import { createSelector } from 'reselect'
 
 import * as Models from './../../models'
 import * as DateUtils from './../../utils/dateHelpers.utils'
-import * as MomentHelpers from './../../utils/momentHelpers.util'
 
 export const getCalendarState = (state: Models.RState): Models.RCalendar => state.calendar
 export const getStartDay = (state: Models.RState): string => state.calendar.startDate
 
 export const getTimeRangeBuild = createSelector(
   getStartDay,
-  (startDate) => DateUtils.generateTimeRangeBuild(
+  (startDate) => DateUtils.generateCalendarBuildDateOnly(
     startDate,
     DateUtils.endOfWeek(startDate)
   )
@@ -23,11 +22,9 @@ export const getCurrentMonthBuild = createSelector(
 )
 
 function generateMonthTimeRangeBuild(startDate: string) {
-  const week = MomentHelpers.getWeek(startDate)
-  const year = MomentHelpers.getYear(startDate)
-  const month = DateUtils.getMonthFromWeek(week, year)
+  const { year, month } = DateUtils.getWeekMonthAndYearFromDate(startDate)
 
-  const range: Models.CalendarObject<Models.DayOnly> = DateUtils.generateTimeRangeBuild(
+  const range: Models.CalendarObject<Models.DateOnly> = DateUtils.generateCalendarBuildDateOnly(
     DateUtils.startOfMonth(month, year),
     DateUtils.endOfMonth(month, year),
   )

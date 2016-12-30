@@ -4,7 +4,7 @@ import * as Models from './../../models'
 
 const styles = require('./CalendarDay.css')
 
-interface Props extends Models.DayOnly {
+interface Props extends Models.DateOnly {
 
 }
 

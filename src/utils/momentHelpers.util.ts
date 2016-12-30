@@ -18,6 +18,12 @@ export const cloneOrCreateMo = (mo?: MorString): M.Moment => {
   return date
 }
 
+export const rangeFromMoOrString = (startInput: MorString, endInput: MorString): M.Range => {
+  const start = cloneOrCreateMo(startInput)
+  const end = cloneOrCreateMo(endInput)
+  return M.range([start, end])
+}
+
 export const isSameMonth = (input: MorString, month: number) => {
   const date = cloneOrCreateMo(input)
   return date.month() === month

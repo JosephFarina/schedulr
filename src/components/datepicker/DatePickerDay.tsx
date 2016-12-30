@@ -6,7 +6,7 @@ import * as Models from './../../models'
 import { isSameMonth } from './../../utils/momentHelpers.util'
 import * as TimeFormatter from './../../utils/timeFormatter.utils'
 
-interface Props extends Models.Day {
+interface Props extends Models.DayOnly {
   month: number
 }
 

@@ -72,7 +72,7 @@ describe('Date Utils', () => {
   describe('#generateTimeRangeBuild', () => {
     const start = DateUtils.startOfWeek()
     let end = DateUtils.endOfWeek()
-    let range: Models.TimeRange
+    let range: Models.CalendarObject<Models.DayOnly>
     let weekKeys: string[]
 
     beforeEach(() => {
@@ -91,7 +91,7 @@ describe('Date Utils', () => {
 
     it('each week should have 7 days', () => {
       weekKeys.forEach((weekKey) => {
-        const days: Models.Days = range.weeks[weekKey].days
+        const days: Models.Days<Models.DayOnly> = range.weeks[weekKey].days
         const dayKeys = Object.keys(days)
         expect(dayKeys.length).toEqual(7)
 

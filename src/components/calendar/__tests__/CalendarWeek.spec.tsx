@@ -12,16 +12,16 @@ import CalendarWeek from './../CalendarWeek'
 describe('Calendar', () => {
 
   describe('Month View', () => {
-    const week: Models.Week = {
+    const week: Models.Week<Models.DayOnly> = {
       year: 2017,
       days: {
-        0: {} as Models.Day,
-        1: {} as Models.Day,
-        2: {} as Models.Day,
-        3: {} as Models.Day,
-        4: {} as Models.Day,
-        5: {} as Models.Day,
-        6: {} as Models.Day,
+        0: {} as Models.DayOnly,
+        1: {} as Models.DayOnly,
+        2: {} as Models.DayOnly,
+        3: {} as Models.DayOnly,
+        4: {} as Models.DayOnly,
+        5: {} as Models.DayOnly,
+        6: {} as Models.DayOnly,
       },
     }
 

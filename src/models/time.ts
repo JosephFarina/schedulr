@@ -1,38 +1,57 @@
-export interface Day {
-  date: string
-  isToday: boolean
-}
+// export interface Day {
+//   date: string
+//   isToday: boolean
+// }
 
 // each day key is from 0 - 7 representing sun - sat
-export interface Days {
-  [dayNumber: number]: Day
-}
+// export interface Days {
+//   [dayNumber: number]: Day
+// }
 
-export interface Week {
-  year: number
-  days: Days
-}
+// export interface Week {
+//   year: number
+//   days: Days
+// }
 
-// each key is the weeks number in the year 
-export interface Weeks {
-  [weekNumber: number]: Week
-}
+// // each key is the weeks number in the year 
+// export interface Weeks {
+//   [weekNumber: number]: Week
+// }
 
-// Used for calendar building
-export interface TimeRange {
-  month?: number
-  weeks: Weeks
-}
+// // Used for calendar building
+// export interface TimeRange {
+//   month?: number
+//   weeks: Weeks
+// }
 
 export declare type TimeRangeOption = 'week' | 'month'
 
-// export interface DayWithShifts
+export interface CalendarObject<DayType> {
+  month?: number
+  weeks: Weeks<DayType>
+}
 
-// export interface CalendarObject<DayType> {
-//   month?: number
-//   // weeks: Weeks<DayType>
-// }
+export interface Weeks<DayType> {
+  [weekNumber: number]: Week<DayType>
+}
 
-// export interface Weeks<DayType> {
+export interface Week<DayType> {
+  year: number
+  days: Days<DayType>
+}
 
-// }
+export interface Days<DayType> {
+  [dayNumber: number]: DayType 
+}
+
+interface Day {
+  date: string
+}
+
+export interface DayOnly extends Day {
+  isToday: boolean
+}
+
+export interface DayWithShifts extends Day {
+
+}

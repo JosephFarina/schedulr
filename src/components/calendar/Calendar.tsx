@@ -9,7 +9,7 @@ import CalendarWeek from './CalendarWeek'
 
 const styles = require('./Calendar.css')
 
-interface Props extends Models.TimeRange {}
+interface Props extends Models.CalendarObject<Models.DayOnly> {}
 
 const generateWeeks = (props: Props) => {
   const { weeks } = props

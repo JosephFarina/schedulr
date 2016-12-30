@@ -74,19 +74,20 @@ export const previousWeek = (input?: MomentHelpers.MorString): M.Moment => {
  */
 
 
-export const generateTimeRangeBuild = (startInput: MomentHelpers.MorString, endInput: MomentHelpers.MorString): Models.TimeRange => {
-  const start = MomentHelpers.cloneOrCreateMo(startInput)
-  const end = MomentHelpers.cloneOrCreateMo(endInput)
-  const range = M.range([start, end])
+export const generateTimeRangeBuild =
+  (startInput: MomentHelpers.MorString, endInput: MomentHelpers.MorString): Models.CalendarObject<Models.DayOnly> => {
+    const start = MomentHelpers.cloneOrCreateMo(startInput)
+    const end = MomentHelpers.cloneOrCreateMo(endInput)
+    const range = M.range([start, end])
 
-  const timeRange: Models.TimeRange = {
-    weeks: generateWeeks(range)
+    const timeRange: Models.CalendarObject<Models.DayOnly> = {
+      weeks: generateWeeks(range)
+    }
+
+    return timeRange
   }
 
-  return timeRange
-}
-
-function generateWeeks(moRange: M.Range): Models.Weeks {
+function generateWeeks(moRange: M.Range): Models.Weeks<Models.DayOnly> {
   const weeks = {}
 
   moRange.by('week', (m) => {
@@ -96,18 +97,18 @@ function generateWeeks(moRange: M.Range): Models.Weeks {
   return weeks
 }
 
-function generateWeek(mo: M.Moment): Models.Week {
+function generateWeek(mo: M.Moment): Models.Week<Models.DayOnly> {
   return {
     year: mo.year(),
     days: generateDays(mo.clone())
   }
 }
 
-function generateDays(mo: M.Moment): Models.Days {
+function generateDays(mo: M.Moment): Models.Days<Models.DayOnly> {
   return iterateDays((dayNum: number) => generateDay(mo, dayNum))
 }
 
-function generateDay(mo: M.Moment, dayNumber: number): Models.Day {
+function generateDay(mo: M.Moment, dayNumber: number): Models.DayOnly {
   const date = mo.clone().day(dayNumber)
   return {
     date: date.format(),

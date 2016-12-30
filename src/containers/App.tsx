@@ -25,8 +25,8 @@ import './App.css'
 
 interface Props {
   dispatch: Function,
-  timeRange: Models.TimeRange,
-  monthTimeRange: Models.TimeRange
+  timeRange: Models.CalendarObject<Models.DayOnly>,
+  monthTimeRange: Models.CalendarObject<Models.DayOnly>
 }
 
 interface State {

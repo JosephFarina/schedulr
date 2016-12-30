@@ -27,7 +27,7 @@ function generateMonthTimeRangeBuild(startDate: string) {
   const year = M(startDate).year()
   const month = DateUtils.getMonthFromWeek(week, year)
 
-  const range: Models.TimeRange = DateUtils.generateTimeRangeBuild(
+  const range: Models.CalendarObject<Models.DayOnly> = DateUtils.generateTimeRangeBuild(
     DateUtils.startOfMonth(month, year),
     DateUtils.endOfMonth(month, year),
   )

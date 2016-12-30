@@ -74,19 +74,6 @@ export const previousWeek = (input?: MUtil.MorString): M.Moment => {
  * 
  */
 
-export const generateCalendarBuildWithShifts = (
-  startTimeInput: MUtil.MorString,
-  endTimeInput: MUtil.MorString,
-  shifts: I.Shifts
-): I.CalendarObject<I.DayWithShifts> => {
-
-  const range = MUtil.rangeFromMoOrString(startTimeInput, endTimeInput)
-  const timeRange: I.CalendarObject<I.DayWithShifts> = {
-    weeks: generateWeeks(range)
-  }
-
-  return
-}
 
 export const generateCalendarBuildDateOnly = (
   startTimeInput: MUtil.MorString,
@@ -94,45 +81,108 @@ export const generateCalendarBuildDateOnly = (
 ): I.CalendarObject<I.DateOnly> => {
 
   const range = MUtil.rangeFromMoOrString(startTimeInput, endTimeInput)
-
-  const timeRange: I.CalendarObject<I.DateOnly> = {
-    weeks: generateWeeks(range)
+  return {
+    weeks: generateWeeksDateOnly(range)
   }
-
-  return timeRange
 }
 
-// private methods
 
-// function generateWeeksWithShifts(moRange: M.Range): Models.Weeks<
 
-function generateWeeks(moRange: M.Range): I.Weeks<I.DateOnly> {
+/*
+ *
+ *  Generate Calendar Build Of Shift Objects
+ *
+ */
+
+interface BuildParams {
+  start: MUtil.MorString
+  end: MUtil.MorString
+  shifts?: I.Shifts
+}
+
+interface WeekParams {
+  range: M.Range
+  shifts?: I.Shifts
+}
+
+interface DayParams {
+  week: M.Moment
+  day: number
+  shifts?: I.Shifts
+}
+
+/**
+ * 
+ * 
+ * Builds A Version of a CalendarObject that has shifts in it
+ * 
+ */
+
+export const generateCalendarBuildWithShifts = (params: BuildParams): I.CalendarObject<I.DayWithShifts> => {
+  const {start, end, shifts} = params
+  const range = MUtil.rangeFromMoOrString(start, end)
+  return { weeks: generateWeeksWithShifts({ range, shifts }) }
+}
+
+function generateWeeksWithShifts(params: WeekParams): I.Weeks<I.DayWithShifts> {
+  const {range, shifts} = params
+  return mapByWeeks(range, (week: M.Moment) => {
+    return {
+      year: week.year(),
+      days: iterateDays((day: number) => generateDayWithShifts({ week, day, shifts }))
+    }
+  })
+}
+
+function generateDayWithShifts(params: DayParams): I.DayWithShifts {
+  const {week, day, shifts} = params
+  const date = week.clone().day(day)
+  return {
+    date: date.format(),
+    shifts: getShiftsByDay(date, shifts)
+  }
+}
+
+function getShiftsByDay(date: M.Moment, shifts: I.Shifts): I.Shifts {
+  // 
+  return
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function generateWeeksDateOnly(moRange: M.Range): I.Weeks<I.DateOnly> {
+  return mapByWeeks(moRange, (m: M.Moment) => {
+    return {
+      year: m.year(),
+      days: iterateDays((dayNum: number) => {
+        const date = m.clone().day(dayNum)
+        return {
+          date: date.format(),
+          isToday: M().isSame(date, 'day')
+        }
+      })
+    }
+  })
+}
+
+function mapByWeeks(moRange: M.Range, fn: any): I.Weeks<any> {
   const weeks = {}
 
   moRange.by('week', (m) => {
-    weeks[m.week()] = generateWeek(m)
+    weeks[m.week()] = fn(m)
   })
 
   return weeks
-}
-
-function generateWeek(mo: M.Moment): I.Week<I.DateOnly> {
-  return {
-    year: mo.year(),
-    days: generateDays(mo.clone())
-  }
-}
-
-function generateDays(mo: M.Moment): I.Days<I.DateOnly> {
-  return iterateDays((dayNum: number) => generateDay(mo, dayNum))
-}
-
-function generateDay(mo: M.Moment, dayNumber: number): I.DateOnly {
-  const date = mo.clone().day(dayNumber)
-  return {
-    date: date.format(),
-    isToday: M().isSame(date, 'day')
-  }
 }
 
 

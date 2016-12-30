@@ -116,31 +116,35 @@ describe('Date Utils', () => {
     describe('#generateCalendarBuildWithShifts', () => {
       let range: Models.CalendarObject<Models.DayWithShifts>
 
-      const shifts: Models.Shifts = {
-        '0asdfvadadv': {
-          duration: 15,
-          startTime: start.clone().day(0).format()
-        },
-        '2asfsadfsdfva': {
-          duration: 13534,
-          startTime: start.clone().day(2).format()
-        },
-        'asdfdffaavva3': {
-          duration: 123543,
-          startTime: start.clone().day(3).format()
-        },
-        'asdfsdaf6': {
-          duration: 545,
-          startTime: start.clone().day(6).format()
-        }
-      }
+      let shifts: Models.Shifts
 
       beforeEach(() => {
-        range = DateUtils.generateCalendarBuildWithShifts(
+        shifts = {
+          '0asdfvadadv': {
+            duration: 15,
+            startTime: start.clone().day(0).format()
+          },
+          '2asfsadfsdfva': {
+            duration: 13534,
+            startTime: start.clone().day(2).format()
+          },
+          'asdfdffaavva3': {
+            duration: 123543,
+            startTime: start.clone().day(3).format()
+          },
+          'asdfsdaf6': {
+            duration: 545,
+            startTime: start.clone().day(6).format()
+          }
+        }
+
+        range = DateUtils.generateCalendarBuildWithShifts({
           start,
           end,
           shifts
-        )
+        })
+
+        console.log(JSON.stringify(range))
       })
 
       function findAllShiftsInDay(

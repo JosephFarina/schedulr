@@ -131,12 +131,18 @@ module.exports = {
         test: /\.tsx$/,
         include: paths.appSrc,
         loader: 'ts-loader',
+        exclude: [
+          '*.spec*'
+        ]
       },
 
       {
         test: /\.ts$/,
         include: paths.appSrc,
         loader: 'ts-loader',
+        exclude: [
+          '*.spec*'
+        ]
       },
 
       // Process JS with Babel.
@@ -201,7 +207,7 @@ module.exports = {
     return [
       smartImport({
         addDependencyTo: webpack,
-        path: [ paths.appSrc ]
+        path: [paths.appSrc]
       }),
       precss(),
       customMedia(),

@@ -5,7 +5,7 @@ webpackConfig.entry = {};
 
 process.NODE_ENV = 'test'
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     frameworks: ['jasmine'],
     reporters: ['progress'],
@@ -16,7 +16,8 @@ module.exports = function(config) {
     browsers: ['Chrome'],
     singleRun: false,
     autoWatchBatchDelay: 300,
-
+    captureTimeout: 60000,
+    browserNoActivityTimeout: 60000,
     files: [
       paths.appIndexJs,
       `${paths.appSrc}/**/*.spec.*`
@@ -33,7 +34,7 @@ module.exports = function(config) {
       }
     },
     mime: {
-      'text/x-typescript': ['ts','tsx']
+      'text/x-typescript': ['ts', 'tsx']
     },
     plugins: [
       require('karma-chrome-launcher'),

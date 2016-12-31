@@ -11,7 +11,7 @@ import * as Models from './../models'
 import * as CalendarActions from './../state/calendar/action'
 import * as CalendarSelectors from './../state/calendar/selector'
 
-import Calendar from './../components/calendar/Calendar'
+import CalendarMonth from './../components/calendar/CalendarMonth'
 import Navbar from './../components/layout/Navbar'
 import PaneBody from './../components/layout/PaneBody'
 import PaneContainer from './../components/layout/PaneContainer'
@@ -59,12 +59,7 @@ class App extends React.Component<Props, State> {
             <PaneHeader>Sidebar Header</PaneHeader>
             <PaneContent>
 
-              <DatePicker
-                prevRange={this.prev.bind(this)}
-                nextRange={this.next.bind(this)}
-                timeRange={monthTimeRange}
-                selectedRange={timeRange}
-                />
+
 
             </PaneContent>
           </PaneSidebar>
@@ -72,7 +67,7 @@ class App extends React.Component<Props, State> {
           <PaneBody>
             <PaneHeader>Toolbar Header</PaneHeader>
             <PaneContent>
-              <Calendar {...timeRange} />
+              <CalendarMonth />
             </PaneContent>
           </PaneBody>
 
@@ -84,8 +79,7 @@ class App extends React.Component<Props, State> {
 
 const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => {
   return {
-    timeRange: CalendarSelectors.getTimeRangeBuild(state),
-    monthTimeRange: CalendarSelectors.getCurrentMonthBuild(state)
+
   }
 }
 

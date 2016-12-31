@@ -4,18 +4,18 @@ import * as Models from './../../../models'
 import * as Selector from './../selector'
 
 describe('Calendar Selector', () => {
-  it('getCurrentTimeRange should return the proper range object', () => {
-    const timeRange: Models.CalendarObject<Models.DateOnly> = Selector.getTimeRangeBuild({
-      calendar: {
-        startDate: M().format(),
-        timeRange: 'week'
-      }
-    })
+  // it('getCurrentTimeRange should return the proper range object', () => {
+  //   const timeRange: Models.CalendarObject<Models.DateOnly> = Selector.getTimeRangeBuild({
+  //     calendar: {
+  //       startDate: M().format(),
+  //       timeRange: 'week'
+  //     }
+  //   })
 
-    expect(Object.keys(timeRange.weeks).length).toEqual(1)
+  //   expect(Object.keys(timeRange.weeks).length).toEqual(1)
 
-    Object.keys(timeRange.weeks).forEach((weekKey) => {
-      expect(Object.keys(timeRange.weeks[weekKey].days).length).toEqual(7)
-    })
-  })
+  //   Object.keys(timeRange.weeks).forEach((weekKey) => {
+  //     expect(Object.keys(timeRange.weeks[weekKey].days).length).toEqual(7)
+  //   })
+  // })
 })

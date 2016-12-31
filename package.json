@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "@types/classnames": "0.0.32",
     "@types/enzyme": "^2.5.39",
     "@types/immutable": "^3.8.6",
     "@types/jasmine": "^2.5.38",

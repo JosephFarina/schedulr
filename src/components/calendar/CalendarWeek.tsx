@@ -12,8 +12,8 @@ const styles = require('./Shared.css')
 const ctx = require('classnames')
 
 interface Props {
-  month: M.Moment
-  week: M.Moment
+  month?: M.Moment
+  week?: M.Moment
   isDatePicker?: boolean
   shifts?: I.Shifts
 
@@ -44,8 +44,13 @@ const CalendarWeek: React.StatelessComponent<Props> = (props: Props) => {
     onShiftClick
   } = props
 
+  const className = ctx({
+    [styles.week]: !isDatePicker,
+    [styles.weekWidget]: isDatePicker
+  })
+
   return (
-    <div onClick={() => onWeekClick(week)} className={styles.week}>
+    <div onClick={() => onWeekClick(week)} className={className}>
       {getDaysFromWeek(week).map((day, i) => <CalendarDay
         day={day}
         isDatePicker={isDatePicker}
@@ -55,7 +60,7 @@ const CalendarWeek: React.StatelessComponent<Props> = (props: Props) => {
         onDayClick={onDayClick}
         onShiftClick={onShiftClick}
         />)}
-    </div>
+    </div
   )
 }
 

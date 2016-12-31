@@ -18,3 +18,7 @@ declare var Shift: {
   start: string;
   end: string;
 }
+
+declare module 'classnames/bind' {
+  function bind(styles: any): any
+}

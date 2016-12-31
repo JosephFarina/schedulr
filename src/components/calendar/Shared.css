@@ -6,12 +6,23 @@
   position: relative;
 }
 
+/* Week is for big calendar, weekWidget is for mini one */
+
 .week {
   display: flex;
   width: 100%;
   height: 100%;
   flex: 1;
 }
+
+.weekWidget {
+  height: 1.7rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* day is for big calendar, dayWidget is for mini one */
 
 .day {
   position: relative;
@@ -22,4 +33,14 @@
   flex-direction: column;
   border: $border;
   width: 100;
+}
+
+.dayWidget {
+  width: 100%;
+  font-size: inherit;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .2rem;
 }

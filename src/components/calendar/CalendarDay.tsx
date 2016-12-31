@@ -36,8 +36,13 @@ const CalendarDay: React.StatelessComponent<Props> = (props: Props) => {
     onShiftClick
   } = props
 
+  const className = ctx({
+    [styles.day]: !isDatePicker,
+    [styles.dayWidget]: isDatePicker
+  })
+
   return (
-    <div onClick={() => onDayClick(day)} className={styles.day}>
+    <div onClick={() => onDayClick(day)} className={className}>
       {day.format()}
       {shifts && shifts.map(shift => <div>{shift.duration}</div>)}
     </div>
@@ -47,4 +52,3 @@ const CalendarDay: React.StatelessComponent<Props> = (props: Props) => {
 CalendarDay.defaultProps = defaultProps
 
 export default CalendarDay
-

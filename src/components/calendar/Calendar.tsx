@@ -18,7 +18,6 @@ interface Props {
   onDayClick?(date: M.Moment): void
   onWeekClick?(week: M.Moment): void
   onShiftClick?(shift: I.Shift): void
-
   onNextRangeClick?(): void
   onPrevRangeClick?(): void
   onCurrRangeClick?(): void
@@ -32,7 +31,6 @@ const defaultProps: Props = {
   onDayClick() { },
   onWeekClick() { },
   onShiftClick() { },
-
   onNextRangeClick() { },
   onPrevRangeClick() { },
   onCurrRangeClick() { }

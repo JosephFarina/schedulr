@@ -50,7 +50,6 @@ class App extends React.Component<Props, State> {
   }
 
   public render() {
-    const { timeRange, monthTimeRange } = this.props
     return (
       <div>
         <Navbar></Navbar>

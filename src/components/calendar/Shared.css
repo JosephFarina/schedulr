@@ -37,6 +37,12 @@
   align-items: center;
 }
 
+.weekSelected {
+  background: blue;
+  color: white;
+  border-radius: 5px;
+}
+
 /* day is for big calendar, dayWidget is for mini one */
 
 .day {

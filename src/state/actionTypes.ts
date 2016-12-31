@@ -6,7 +6,7 @@ export enum ActionTypes {
    * 
    */
 
-  updateStartDate,
+  updateDate,
   updateTimeRange,
 
   /**

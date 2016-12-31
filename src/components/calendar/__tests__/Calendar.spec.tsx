@@ -12,6 +12,8 @@ import CalendarMonth from './../CalendarMonth'
 import CalendarWeek from './../CalendarWeek'
 
 const styles = require('./../Shared.css')
+const selectedWeek = M()
+
 
 describe('CalendarMonth', () => {
   let wrapper: CommonWrapper<any, any>
@@ -116,6 +118,12 @@ describe('CalendarMonth', () => {
       expect(days.length).toEqual(7)
     })
 
+  })
+
+  it('if passed in a selected week it should add the class', () => {
+    wrapper = mount(<Calendar selectedWeek={selectedWeek} />)
+    const selection = wrapper.find(styles.weekSelected)
+    expect(selection.length).toEqual(1)
   })
 
 })

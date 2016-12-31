@@ -18,12 +18,12 @@ describe('ACTIONS Calendar', () => {
 
   const weekState: Models.RCalendar = {
     timeRange: 'week',
-    startDate: M().format()
+    date: M().format()
   }
 
   const monthState: Models.RCalendar = {
     timeRange: 'month',
-    startDate: M().format()
+    date: M().format()
   }
 
   it('#switchTimeRangeToMonth', () => {

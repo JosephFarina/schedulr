@@ -15,6 +15,7 @@ interface Props {
   week?: M.Moment
   isDatePicker?: boolean
   shifts?: I.Shifts
+  selectedWeek?: M.Moment
   onDayClick?(date: M.Moment): void
   onWeekClick?(week: M.Moment): void
   onShiftClick?(shift: I.Shift): void
@@ -26,6 +27,7 @@ interface Props {
 const defaultProps: Props = {
   month: M(),
   week: null,
+  selectedWeek: null,
   isDatePicker: false,
   shifts: null,
   onDayClick() { },
@@ -44,6 +46,7 @@ const Calendar: React.StatelessComponent<Props> = (props: Props) => {
     shifts,
     onDayClick,
     onWeekClick,
+    selectedWeek,
     onShiftClick,
     onCurrRangeClick,
     onNextRangeClick,
@@ -69,6 +72,7 @@ const Calendar: React.StatelessComponent<Props> = (props: Props) => {
         month={month}
         week={week}
         isDatePicker={isDatePicker}
+
         shifts={shifts}
         onDayClick={onDayClick}
         onWeekClick={onWeekClick}
@@ -80,6 +84,7 @@ const Calendar: React.StatelessComponent<Props> = (props: Props) => {
         isDatePicker={isDatePicker}
         shifts={shifts}
         onDayClick={onDayClick}
+        selectedWeek={selectedWeek}
         onWeekClick={onWeekClick}
         onShiftClick={onShiftClick}
         />}

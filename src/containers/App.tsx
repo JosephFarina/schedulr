@@ -9,7 +9,7 @@ import {
 
 import * as Models from './../models'
 import * as CalendarActions from './../state/calendar/action'
-import * as CalendarSelectors from './../state/calendar/selector'
+import { getMomentDate } from './../state/calendar/selector'
 
 import Calendar from './../components/calendar/Calendar'
 
@@ -26,8 +26,7 @@ import './App.css'
 
 interface Props {
   dispatch: Function,
-  timeRange: Models.CalendarObject<Models.DateOnly>,
-  monthTimeRange: Models.CalendarObject<Models.DateOnly>
+  date: M.Moment
 }
 
 interface State {
@@ -50,6 +49,8 @@ class App extends React.Component<Props, State> {
   }
 
   public render() {
+    const { date } = this.props
+    console.log(date)
     return (
       <div>
         <Navbar></Navbar>
@@ -58,14 +59,20 @@ class App extends React.Component<Props, State> {
           <PaneSidebar>
             <PaneHeader>Sidebar Header</PaneHeader>
             <PaneContent>
-              <Calendar isDatePicker={true} />
+              <Calendar 
+                month={date} 
+                onNextRangeClick={this.next.bind(this)} 
+                onPrevRangeClick={this.prev.bind(this)}
+                selectedWeek={date}
+                isDatePicker={true} 
+                />
             </PaneContent>
           </PaneSidebar>
 
           <PaneBody>
             <PaneHeader>Toolbar Header</PaneHeader>
             <PaneContent>
-              <Calendar />
+              <Calendar week={date} />
             </PaneContent>
           </PaneBody>
 
@@ -77,7 +84,7 @@ class App extends React.Component<Props, State> {
 
 const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => {
   return {
-
+    date: getMomentDate(state)
   }
 }
 

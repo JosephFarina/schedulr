@@ -21,7 +21,7 @@ export interface RState {
 
 // The Calendar Slice of State
 export interface RCalendar {
-  startDate?: string
+  date?: string
   timeRange?: TimeModels.TimeRangeOption
 }
 

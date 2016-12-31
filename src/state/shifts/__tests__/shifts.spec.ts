@@ -1,5 +1,4 @@
 import * as Models from './../../../models'
-import { ActionTypes } from './../../actionTypes'
 import * as Actions from './../action'
 import shift from './../reducer'
 
@@ -28,8 +27,6 @@ describe('Shift State', () => {
     })
   })
 
-  it('should create a CalendarObject for the shifts', () => {
-    
-  })
+  it('should create a CalendarObject for the shifts', () => {})
 
 })

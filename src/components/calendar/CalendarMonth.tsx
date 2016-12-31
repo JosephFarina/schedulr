@@ -12,6 +12,7 @@ const ctx = require('classnames')
 interface Props {
   month?: M.Moment
   isDatePicker?: boolean
+  selectedWeek?: M.Moment
   shifts?: I.Shifts
   onDayClick?(date: M.Moment): void
   onWeekClick?(week: M.Moment): void
@@ -20,6 +21,7 @@ interface Props {
 
 const defaultProps: Props = {
   month: M(),
+  selectedWeek: null,
   isDatePicker: false,
   shifts: null,
   onDayClick() { },
@@ -34,8 +36,10 @@ const CalendarMonth: React.StatelessComponent<Props> = (props: Props) => {
     onWeekClick,
     onShiftClick,
     shifts,
+    selectedWeek,
     isDatePicker
   } = props
+
 
   return (
     <div className={styles.month} >
@@ -44,6 +48,7 @@ const CalendarMonth: React.StatelessComponent<Props> = (props: Props) => {
         onWeekClick={onWeekClick}
         onShiftClick={onShiftClick}
         shifts={shifts}
+        isSelected={week.isSame(selectedWeek, 'week')}
         isDatePicker={isDatePicker}
         key={i}
         month={month}

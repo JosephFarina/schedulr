@@ -46,23 +46,23 @@ export const previousTimeRange = () => {
   return generateTimeRangeAction(DateUtils.previousWeek)
 }
 
-// export const currentTimeRange = () => {
-//   return generateTimeRangeAction(DateUtils.currentRange)
-// }
+export const currentTimeRange = () => {
+  // return generateTimeRangeAction(DateUtils.currentRange)
+}
 
-function generateTimeRangeAction(selector: Function) {
+function generateTimeRangeAction(action: Function) {
   return (dispatch: Function, getState: Function): void => {
     const calendar = Selectors.getCalendarState(getState())
-    const nextStartDate = selector.call(null, calendar.startDate)
+    const nextStartDate = action.call(null, calendar.date).format()
     dispatch(changeTimeRange(nextStartDate))
   }
 }
 
-function changeTimeRange(startDate: string): Models.Action<Models.RCalendar> {
+function changeTimeRange(date: string): Models.Action<Models.RCalendar> {
   return {
-    type: ActionTypes.updateStartDate,
+    type: ActionTypes.updateDate,
     payload: {
-      startDate
+      date
     }
   }
 }

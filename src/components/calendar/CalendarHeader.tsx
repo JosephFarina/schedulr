@@ -18,7 +18,7 @@ interface Props {
 const defaultProps: Props = {
   isDatePicker: false,
   month: M(),
-  monthFormat: 'MM',
+  monthFormat: 'MMM',
   onNextRangeClick() { },
   onPrevRangeClick() { },
   onCurrRangeClick() { }

@@ -1,19 +1,19 @@
+import * as M from 'moment'
+
 import * as Models from './../../models'
-import * as DateUtils from './../../utils/dateHelpers.utils'
 import { ActionTypes } from './../actionTypes'
 
 export const initialState: Models.RCalendar = {
-  startDate: DateUtils.startOfWeek().format(),
+  date: M().format(),
   timeRange: 'week',
 }
 
 const calendar = (state = initialState, action: Models.Action<Models.RCalendar>): Models.RCalendar => {
-
   switch (action.type) {
 
-    case ActionTypes.updateStartDate:
+    case ActionTypes.updateDate:
       return Object.assign({}, state, {
-        startDate: action.payload.startDate
+        date: action.payload.date
       })
 
     case ActionTypes.updateTimeRange:

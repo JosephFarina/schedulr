@@ -1,8 +1,0 @@
-@import 'css-vars';
-
-.container {
-  width: 100%;
-	border: $border;
-	padding: 1rem;
-	padding-top: .5rem;
-}

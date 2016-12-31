@@ -60,7 +60,7 @@ const CalendarWeek: React.StatelessComponent<Props> = (props: Props) => {
         onDayClick={onDayClick}
         onShiftClick={onShiftClick}
         />)}
-    </div
+    </div>
   )
 }
 

@@ -1,6 +1,11 @@
-import { mount, CommonWrapper } from 'enzyme'
+import {
+  CommonWrapper,
+  mount,
+} from 'enzyme'
+import * as M from 'moment'
 import * as React from 'react'
 
+import Calendar from './../Calendar'
 import CalendarDay from './../CalendarDay'
 import CalendarMonth from './../CalendarMonth'
 import CalendarWeek from './../CalendarWeek'
@@ -10,11 +15,27 @@ const styles = require('./../Shared.css')
 describe('CalendarMonth', () => {
   let wrapper: CommonWrapper<any, any>
   beforeEach(() => {
-    wrapper = mount(<CalendarMonth />)
+    wrapper = mount(<Calendar />)
   })
 
   it('should mount', () => {
-    mount(<CalendarMonth />)
+    mount(<Calendar />)
+  })
+
+  describe('it should render months or weeks', () => {
+    it('should only have one week if week param is provided', () => {
+      wrapper = mount(<Calendar week={M()} />)
+      const weeks = wrapper.find(CalendarWeek)
+      const months = wrapper.find(CalendarMonth)
+      expect(weeks.length).toEqual(1)
+      expect(months.length).toEqual(0)
+    })
+
+    it('should render month if a month param is provided', () => {
+      wrapper = mount(<Calendar month={M()} />)
+      const months = wrapper.find(CalendarMonth)
+      expect(months.length).toEqual(1)
+    })
   })
 
   describe('If Not A CalendarWidget/DatePicker', () => {
@@ -39,7 +60,7 @@ describe('CalendarMonth', () => {
 
   describe('If A CalenderWidget/DatePicker', () => {
     beforeEach(() => {
-      wrapper = mount(<CalendarMonth isDatePicker={true} />)
+      wrapper = mount(<Calendar isDatePicker={true} />)
     })
 
     it('weeks should have widget classes', () => {

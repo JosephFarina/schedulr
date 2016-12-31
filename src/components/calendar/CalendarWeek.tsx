@@ -57,6 +57,7 @@ const CalendarWeek: React.StatelessComponent<Props> = (props: Props) => {
         day={day}
         isDatePicker={isDatePicker}
         key={i}
+        outOfRange={!month.isSame(day, 'month')}
         shifts={getShiftsByDay(day, shifts)}
         month={month}
         onDayClick={onDayClick}

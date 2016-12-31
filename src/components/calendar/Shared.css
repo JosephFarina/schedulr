@@ -57,6 +57,10 @@
   padding-top: 10px;
 }
 
+.outsideMonth {
+  color: lightgrey;
+}
+
 .header .week .day  {
   padding: 0;
 }

@@ -120,9 +120,16 @@ describe('CalendarMonth', () => {
 
   })
 
+  it('if a month it should have classes on days that arent months if is date picker', () => {
+    wrapper = mount(<Calendar month={M()} isDatePicker={true} />)
+    const outside = wrapper.find(`.${styles.outsideMonth}`)
+    expect(outside.length).toBeGreaterThan(1)
+    expect(outside.length).toBeLessThan(14)
+  })
+
   it('if passed in a selected week it should add the class', () => {
     wrapper = mount(<Calendar selectedWeek={selectedWeek} />)
-    const selection = wrapper.find(styles.weekSelected)
+    const selection = wrapper.find(`.${styles.weekSelected}`)
     expect(selection.length).toEqual(1)
   })
 

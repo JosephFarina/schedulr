@@ -46,6 +46,11 @@ const DatePickerHeader: React.StatelessComponent<any> = (props: Props) => {
     [styles.weekWidget]: isDatePicker
   })
 
+  const dayClass = ctx({
+    [styles.day]: !isDatePicker,
+    [styles.dayWidget]: isDatePicker
+  })
+
   return (
     <div className={headerClass} >
 
@@ -58,13 +63,13 @@ const DatePickerHeader: React.StatelessComponent<any> = (props: Props) => {
       }
 
       <div className={weekClass}>
-        <div className={styles.day}>S</div>
-        <div className={styles.day}>M</div>
-        <div className={styles.day}>T</div>
-        <div className={styles.day}>W</div>
-        <div className={styles.day}>T</div>
-        <div className={styles.day}>F</div>
-        <div className={styles.day}>S</div>
+        <div className={dayClass}>S</div>
+        <div className={dayClass}>M</div>
+        <div className={dayClass}>T</div>
+        <div className={dayClass}>W</div>
+        <div className={dayClass}>T</div>
+        <div className={dayClass}>F</div>
+        <div className={dayClass}>S</div>
       </div>
     </div>
   )

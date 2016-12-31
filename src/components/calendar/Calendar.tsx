@@ -7,6 +7,9 @@ import CalendarHeader from './CalendarHeader'
 import CalendarMonth from './CalendarMonth'
 import CalendarWeek from './CalendarWeek'
 
+const styles = require('./Shared.css')
+const ctx = require('classnames')
+
 interface Props {
   month?: M.Moment
   week?: M.Moment
@@ -49,8 +52,13 @@ const Calendar: React.StatelessComponent<Props> = (props: Props) => {
     onPrevRangeClick
   } = props
 
+  const containerClass = ctx({
+    [styles.container]: !isDatePicker,
+    [styles.containerWidget]: isDatePicker
+  })
+
   return (
-    <div>
+    <div className={containerClass}>
       <CalendarHeader
         isDatePicker={isDatePicker}
         month={month}

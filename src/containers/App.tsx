@@ -11,8 +11,7 @@ import * as Models from './../models'
 import * as CalendarActions from './../state/calendar/action'
 import * as CalendarSelectors from './../state/calendar/selector'
 
-import CalendarMonth from './../components/calendar/CalendarMonth'
-import CalendarWeek from './../components/calendar/CalendarWeek'
+import Calendar from './../components/calendar/Calendar'
 
 import Navbar from './../components/layout/Navbar'
 import PaneBody from './../components/layout/PaneBody'
@@ -60,14 +59,14 @@ class App extends React.Component<Props, State> {
           <PaneSidebar>
             <PaneHeader>Sidebar Header</PaneHeader>
             <PaneContent>
-
+              <Calendar isDatePicker={true} />
             </PaneContent>
           </PaneSidebar>
 
           <PaneBody>
             <PaneHeader>Toolbar Header</PaneHeader>
             <PaneContent>
-              <CalendarWeek />
+              <Calendar />
             </PaneContent>
           </PaneBody>
 

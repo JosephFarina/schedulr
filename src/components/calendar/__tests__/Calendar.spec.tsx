@@ -7,6 +7,7 @@ import * as React from 'react'
 
 import Calendar from './../Calendar'
 import CalendarDay from './../CalendarDay'
+import CalendarHeader from './../CalendarHeader'
 import CalendarMonth from './../CalendarMonth'
 import CalendarWeek from './../CalendarWeek'
 
@@ -48,12 +49,31 @@ describe('CalendarMonth', () => {
       })
     })
 
+    it('container should have normal class', () => {
+      const container = wrapper.find('.' + styles.container)
+      expect(container.length).toEqual(1)
+    })
+
     it('days should have normal classes', () => {
       const days = wrapper.find(CalendarDay)
       days.forEach((day) => {
         expect(day.hasClass(styles.day)).toBeTruthy()
         expect(day.hasClass(styles['day--widget'])).toBeFalsy()
       })
+    })
+
+    it('header should have normal class', () => {
+      const header = wrapper.find(CalendarHeader)
+      const classes = styles.header.split(' ')
+      classes.forEach((c: string) => {
+        expect(header.hasClass(c)).toEqual(true)
+      })
+    })
+
+    it('headers days should have widget class', () => {
+      const header = wrapper.find(CalendarHeader)
+      const days = header.find('.' + styles.day)
+      expect(days.length).toEqual(7)
     })
 
   })
@@ -70,11 +90,30 @@ describe('CalendarMonth', () => {
       })
     })
 
+    it('container should have widget class', () => {
+      const container = wrapper.find('.' + styles.containerWidget)
+      expect(container.length).toEqual(1)
+    })
+
     it('days should have widget classes', () => {
       const days = wrapper.find(CalendarDay)
       days.forEach((day) => {
         expect(day.hasClass(styles.dayWidget)).toBeTruthy()
       })
+    })
+
+    it('header should have widget class', () => {
+      const header = wrapper.find(CalendarHeader)
+      const classes = styles.headerWidget
+      expect(header.hasClass(classes)).toEqual(true)
+      // classes.forEach((c: string) => {
+      // })
+    })
+
+    it('headers days should have widget class', () => {
+      const header = wrapper.find(CalendarHeader)
+      const days = header.find('.' + styles.dayWidget)
+      expect(days.length).toEqual(7)
     })
 
   })

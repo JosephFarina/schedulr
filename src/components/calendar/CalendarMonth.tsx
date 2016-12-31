@@ -36,6 +36,7 @@ const CalendarMonth: React.StatelessComponent<Props> = (props: Props) => {
     shifts,
     isDatePicker
   } = props
+
   return (
     <div className={styles.month} >
       {getWeeksFromMonth(month).map((week, i) => <CalendarWeek

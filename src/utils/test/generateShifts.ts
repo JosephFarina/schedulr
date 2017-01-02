@@ -27,7 +27,9 @@ export function generateShifts(startTime: string): Shifts {
 
 function addShifts(shifts: Shifts, date: string, times: number): void {
   for (let i = 0; i < times; i++) {
-    shifts[`${date}__${i}`] = {
+    const id = `${date}__${i}`
+    shifts[id] = {
+      id,
       startTime: date,
       duration: 60 * 8
     }

@@ -82,7 +82,6 @@ class App extends React.Component<Props, State> {
 }
 
 const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => {
-  console.log(state)
   return {
     date: getMomentDate(state),
     shifts: getShifts(state)

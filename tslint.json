@@ -19,6 +19,10 @@
       false
     ],
     "object-literal-sort-keys": false,
+    "object-literal-key-quotes": [
+      false
+    ],
+    "no-string-literal": false,
     "eofline": true,
     "no-duplicate-variable": true,
     "no-unused-expression": true,

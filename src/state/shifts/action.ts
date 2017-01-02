@@ -11,7 +11,6 @@ export const addShifts = (shifts: Models.Shifts): Models.Action<Models.RShifts> 
   return {
     type: ActionTypes.addShifts,
     payload: {
-      ids: Object.keys(shifts),
       shifts
     }
   }

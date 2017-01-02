@@ -27,6 +27,11 @@ export interface RCalendar {
 
 // The Shifts Slice of State
 export interface RShifts {
-  ids: string[]
-  shifts: ShiftModels.Shifts
+  shiftCacheTimeRange?: string
+  shiftCacheIsValid?: boolean
+
+  shifts?: ShiftModels.Shifts
+  editedShifts?: ShiftModels.Shifts
+  addedShifts?: ShiftModels.Shifts
+  deletedShifts?: string[]
 }

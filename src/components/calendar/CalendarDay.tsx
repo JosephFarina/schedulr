@@ -49,7 +49,7 @@ const CalendarDay: React.StatelessComponent<Props> = (props: Props) => {
     <div onClick={() => onDayClick(day)} className={className}>
       {isDatePicker && day.format('D')}
       {!isDatePicker && <div className={styles.dayInfo}>{day.format('D')}</div> }
-      {shifts && shifts.map(shift => <div>{shift.duration}</div>)}
+      {shifts && shifts.map(shift => <div>{shift && shift.duration}</div>)}
     </div>
   )
 }

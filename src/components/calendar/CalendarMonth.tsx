@@ -13,7 +13,7 @@ interface Props {
   month?: M.Moment
   isDatePicker?: boolean
   selectedWeek?: M.Moment
-  shifts?: I.Shifts
+  shifts?: I.Shift[]
   onDayClick?(date: M.Moment): void
   onWeekClick?(week: M.Moment): void
   onShiftClick?(shift: I.Shift): void

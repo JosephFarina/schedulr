@@ -1,14 +1,22 @@
 import * as M from 'moment'
-import * as Models from './../../models'
-import { ActionTypes } from './../actionTypes'
-import { generateShifts } from './../../utils/test/generateShifts'
 
-export const initialState: Models.RShifts = {
-  ids: [],
-  shifts: generateShifts(M().format())
+import {
+  Action,
+  RShifts,
+} from './../../models'
+import { generateShifts } from './../../utils/test/generateShifts'
+import { ActionTypes } from './../actionTypes'
+
+export const initialState: RShifts = {
+  shifts: generateShifts(M().format()),
+  addedShifts: {},
+  editedShifts: {},
+  deletedShifts: [],
+  shiftCacheIsValid: false,
+  shiftCacheTimeRange: null
 }
 
-const shifts = (state = initialState, action: Models.Action<Models.RShifts>): Models.RShifts => {
+const shifts = (state = initialState, action: Action<RShifts>): RShifts => {
   switch (action.type) {
 
     case ActionTypes.addShifts:

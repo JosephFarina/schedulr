@@ -12,14 +12,15 @@ import * as CalendarActions from './../state/calendar/action'
 import { getMomentDate } from './../state/calendar/selector'
 import { getShifts } from './../state/shifts/selector'
 
-import Calendar from './../components/calendar/Calendar'
 
+import Calendar from './../components/calendar/Calendar'
 import Navbar from './../components/layout/Navbar'
 import PaneBody from './../components/layout/PaneBody'
 import PaneContainer from './../components/layout/PaneContainer'
 import PaneContent from './../components/layout/PaneContent'
 import PaneHeader from './../components/layout/PaneHeader'
-import PaneSidebar from './../components/layout/PaneSidebar'
+import Sidebar from './Sidebar'
+
 
 import './App.css'
 
@@ -38,16 +39,6 @@ class App extends React.Component<Props, State> {
     dispatch: PropTypes.func.isRequired
   }
 
-  public next() {
-    const { dispatch } = this.props
-    dispatch(CalendarActions.nextTimeRange())
-  }
-
-  public prev() {
-    const { dispatch } = this.props
-    dispatch(CalendarActions.previousTimeRange())
-  }
-
   public render() {
     const { date, shifts } = this.props
     return (
@@ -55,18 +46,7 @@ class App extends React.Component<Props, State> {
         <Navbar></Navbar>
         <PaneContainer>
 
-          <PaneSidebar>
-            <PaneHeader>Sidebar Header</PaneHeader>
-            <PaneContent>
-              <Calendar
-                month={date}
-                onNextRangeClick={this.next.bind(this)}
-                onPrevRangeClick={this.prev.bind(this)}
-                selectedWeek={date}
-                isDatePicker={true}
-                />
-            </PaneContent>
-          </PaneSidebar>
+          <Sidebar />
 
           <PaneBody>
             <PaneHeader>Toolbar Header</PaneHeader>

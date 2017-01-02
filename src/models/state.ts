@@ -17,6 +17,7 @@ export interface Action<T> {
 export interface RState {
   calendar?: RCalendar
   shifts?: RShifts
+  ui?: RUI
 }
 
 // The Calendar Slice of State
@@ -34,4 +35,15 @@ export interface RShifts {
   editedShifts?: ShiftModels.Shifts
   addedShifts?: ShiftModels.Shifts
   deletedShifts?: string[]
+}
+
+// The UI Slice of state
+export interface RUI {
+  sidebar?: RSidebar
+}
+
+export declare type ScheduleSidebarMode = 'filter' | 'newShift' | 'editShift' | 'inspector'
+
+export interface RSidebar {
+  mode: ScheduleSidebarMode
 }

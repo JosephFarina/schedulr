@@ -6,4 +6,24 @@
 	max-width: $pane-Sidebar--width;
 	border-right: $border;
 	padding: 0;
+	transition: 1s all ease;
+
+	overflow: scroll;
+	background-color: $color-Mono--white;
+	padding: 1rem;
+	padding-top: 5rem;
+}
+
+
+
+.halfScreen {
+	position: absolute;
+	bottom: 0;
+	max-width: 50vw;
+	top: $navbar-Height;
+	z-index: 9999;
+}
+
+.minimized {
+	max-width: $pane-Sidebar--width--minimized;
 }

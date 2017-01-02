@@ -9,3 +9,11 @@
 	background-color: $color-Mono--white;
 	padding: 1rem;
 }
+
+.sidebarContainer {
+	composes: container from './PaneSidebar.css';
+}
+
+.sidebarContainer .container {
+	background: blue;
+}

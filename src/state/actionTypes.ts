@@ -20,6 +20,16 @@ export enum ActionTypes {
   editShifts,
   removeEditedShifts,
   deleteShifts,
-  removeDeletedShifts
+  removeDeletedShifts,
+
+  /**
+   * 
+   * UI Action types
+   * 
+   */
+
+  // sidebar
+  changeScheduleSidebarMode
+
 
 }

@@ -4,10 +4,10 @@ const middlewares: any = []
 const mockStore = configureStore(middlewares)
 
 import * as Models from './../../../models'
+import { convertShiftObjectToArray } from './../../../utils/convertShifts'
 import * as Actions from './../action'
 import shifts, { initialState } from './../reducer'
 import * as Selectors from './../selector'
-
 
 describe('Shift State', () => {
   it('sanity check that it returns the correct initial state', () => {
@@ -15,9 +15,12 @@ describe('Shift State', () => {
   })
 
   describe('Shift CRUD actions', () => {
+    let shiftSetOne: Models.Shifts
+    let shiftSetTwo: Models.Shifts
+    let combinedShifts: Models.Shifts
 
-    it('#addShifts should add shifts and also keep shifts that were already added', () => {
-      const alreadyAddedShifts: Models.Shifts = {
+    beforeEach(() => {
+      shiftSetOne = {
         'fffdfdfdf': {
           id: 'fffdfdfdf',
           duration: 34343,
@@ -25,11 +28,7 @@ describe('Shift State', () => {
         }
       }
 
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
-        addedShifts: alreadyAddedShifts
-      })
-
-      const expectedShiftValue: Models.Shifts = {
+      shiftSetTwo = {
         asdfdf: {
           id: 'asdfdf',
           duration: 51334343,
@@ -42,38 +41,56 @@ describe('Shift State', () => {
         }
       }
 
-      const shiftsToAdd = Object.keys(expectedShiftValue).map(shiftId => expectedShiftValue[shiftId])
-
-      const res = shifts(initialStateWithAddedShifts, Actions.addShifts(shiftsToAdd))
-      expect(res.addedShifts).toEqual(jasmine.objectContaining(expectedShiftValue))
-      expect(res.addedShifts).toEqual(jasmine.objectContaining(alreadyAddedShifts))
+      combinedShifts = Object.assign({}, shiftSetOne, shiftSetTwo)
     })
 
-    it('#removedAddedShifts should delete the shifts', () => {
-      const alreadyAddedShifts = {
-        'fffdfdfdf': {
-          id: 'fffdfdfdf',
-          duration: 34343,
-          startTime: '4343434'
-        },
-        'asdfdfjlasdf': {
-          id: 'asdfdfjlasdf',
-          duration: 34343,
-          startTime: '4343434'
-        }
-      }
+    it('#addShifts should add added shifts to the state', () => {
+      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+        addedShifts: shiftSetOne
+      })
+      const res = shifts(initialStateWithAddedShifts, Actions.addShifts(convertShiftObjectToArray(shiftSetTwo)))
+      expect(res.addedShifts).toEqual(combinedShifts)
+    })
 
-      const shiftsToDelete = [Object.assign({}, alreadyAddedShifts.asdfdfjlasdf)]
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, { addedShifts: alreadyAddedShifts })
-      const res = shifts(initialStateWithAddedShifts, Actions.deleteAddedShifts(shiftsToDelete))
-
-      Object.keys(res.addedShifts).forEach(addedShiftId => {
-        const addedShift = res.addedShifts[addedShiftId]
-        shiftsToDelete.forEach(shiftToDelete => {
-          expect(addedShift).not.toEqual(shiftToDelete)
-        })
+    it('#removeAddedShifts should delete the shifts', () => {
+      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+        addedShifts: combinedShifts
       })
 
+      const res = shifts(initialStateWithAddedShifts, Actions.removeAddedShifts(convertShiftObjectToArray(shiftSetOne)))
+      expect(res.addedShifts).toEqual(shiftSetTwo)
+    })
+
+    it('#editShifts should add edited shifts to the state', () => {
+      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+        editedShifts: shiftSetOne
+      })
+      const res = shifts(initialStateWithAddedShifts, Actions.editShifts(convertShiftObjectToArray(shiftSetTwo)))
+      expect(res.editedShifts).toEqual(combinedShifts)
+    })
+
+    it('#removeEditedShifts should delete teh shifts', () => {
+      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+        editedShifts: combinedShifts
+      })
+      const res = shifts(initialStateWithAddedShifts, Actions.removeEditedShifts(convertShiftObjectToArray(shiftSetOne)))
+      expect(res.editedShifts).toEqual(shiftSetTwo)
+    })
+
+    it('#deleteShifts should add the ids to the state', () => {
+      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+        deletedShifts: Object.keys(shiftSetOne)
+      })
+      const res = shifts(initialStateWithAddedShifts, Actions.deleteShifts(convertShiftObjectToArray(shiftSetTwo)))
+      expect(res.deletedShifts.sort()).toEqual(Object.keys(combinedShifts).sort())
+    })
+
+    it('#removeDeletedShifts should delete the ids from the state', () => {
+      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+        deletedShifts: Object.keys(combinedShifts)
+      })
+      const res = shifts(initialStateWithAddedShifts, Actions.removeDeletedShifts(convertShiftObjectToArray(shiftSetOne)))
+      expect(res.deletedShifts.sort()).toEqual(Object.keys(shiftSetTwo).sort())
     })
 
   })

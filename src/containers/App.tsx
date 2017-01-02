@@ -10,6 +10,7 @@ import {
 import * as Models from './../models'
 import * as CalendarActions from './../state/calendar/action'
 import { getMomentDate } from './../state/calendar/selector'
+import { getShifts } from './../state/shifts/selector'
 
 import Calendar from './../components/calendar/Calendar'
 
@@ -20,13 +21,12 @@ import PaneContent from './../components/layout/PaneContent'
 import PaneHeader from './../components/layout/PaneHeader'
 import PaneSidebar from './../components/layout/PaneSidebar'
 
-// import DatePicker from './../components/datepicker/DatePicker'
-
 import './App.css'
 
 interface Props {
   dispatch: Function,
   date: M.Moment
+  shifts: Models.Shifts
 }
 
 interface State {
@@ -49,7 +49,7 @@ class App extends React.Component<Props, State> {
   }
 
   public render() {
-    const { date } = this.props
+    const { date, shifts } = this.props
     return (
       <div>
         <Navbar></Navbar>
@@ -58,12 +58,12 @@ class App extends React.Component<Props, State> {
           <PaneSidebar>
             <PaneHeader>Sidebar Header</PaneHeader>
             <PaneContent>
-              <Calendar 
-                month={date} 
-                onNextRangeClick={this.next.bind(this)} 
+              <Calendar
+                month={date}
+                onNextRangeClick={this.next.bind(this)}
                 onPrevRangeClick={this.prev.bind(this)}
                 selectedWeek={date}
-                isDatePicker={true} 
+                isDatePicker={true}
                 />
             </PaneContent>
           </PaneSidebar>
@@ -71,7 +71,7 @@ class App extends React.Component<Props, State> {
           <PaneBody>
             <PaneHeader>Toolbar Header</PaneHeader>
             <PaneContent>
-              <Calendar week={date} />
+              <Calendar shifts={shifts} week={date} />
             </PaneContent>
           </PaneBody>
 
@@ -82,8 +82,10 @@ class App extends React.Component<Props, State> {
 }
 
 const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => {
+  console.log(state)
   return {
-    date: getMomentDate(state)
+    date: getMomentDate(state),
+    shifts: getShifts(state)
   }
 }
 

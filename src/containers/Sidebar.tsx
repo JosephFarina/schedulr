@@ -13,8 +13,8 @@ import {
 } from './../state/ui/sidebar/selector'
 
 import * as Models from './../models'
-
 import * as CalendarActions from './../state/calendar/action'
+import * as SidebarActions from './../state/ui/sidebar/action'
 
 import Calendar from './../components/calendar/Calendar'
 import PaneHeader from './../components/layout/PaneHeader'
@@ -37,6 +37,20 @@ class SideBar extends React.Component<Props, State> {
     dispatch: PropTypes.func.isRequired,
   }
 
+  constructor(props: any) {
+    super(props)
+    this.nextRange = this.nextRange.bind(this)
+    this.prevRange = this.prevRange.bind(this)
+    this.inspectorMode = this.inspectorMode.bind(this)
+    this.newShiftMode = this.newShiftMode.bind(this)
+  }
+
+  /**
+   * 
+   * Change time range
+   * 
+   */
+
   public nextRange() {
     const { dispatch } = this.props
     dispatch(CalendarActions.nextTimeRange())
@@ -47,22 +61,71 @@ class SideBar extends React.Component<Props, State> {
     dispatch(CalendarActions.previousTimeRange())
   }
 
+  /**
+   * 
+   * Change sidebar mode
+   * 
+   */
+
+  public inspectorMode() {
+    const { dispatch } = this.props
+    dispatch(SidebarActions.setSidebarModeToInspector())
+  }
+
+  public newShiftMode() {
+    const { dispatch } = this.props
+    dispatch(SidebarActions.setSidebarModeToNewShift())
+  }
+
+  /**
+   * 
+   * Render Elements Conditionally
+   * 
+   */
+
+  public renderCalendarWidget(props: Props) {
+    const {
+      date,
+      sidebarMode
+    } = props
+
+    const shouldRender = sidebarMode === 'filter' || sidebarMode === 'inspector'
+
+    if (shouldRender) {
+      return (
+        <Calendar
+          month={date}
+          onNextRangeClick={this.nextRange}
+          onPrevRangeClick={this.prevRange}
+          selectedWeek={date}
+          isDatePicker={true}
+          />
+      )
+    } else {
+      return null
+    }
+  }
+
+
+  /**
+   * Render
+   */
 
   public render() {
     const {
-      date
+      sidebarMode
     } = this.props
 
-    return (<PaneSidebar >
-      <PaneHeader>Sidebar Header</PaneHeader>
-      <Calendar
-        month={date}
-        onNextRangeClick={this.nextRange.bind(this)}
-        onPrevRangeClick={this.prevRange.bind(this)}
-        selectedWeek={date}
-        isDatePicker={true}
-        />
-    </PaneSidebar>)
+    return (
+      <PaneSidebar maximized={sidebarMode === 'newShift'}>
+        <PaneHeader>
+          <button onClick={this.inspectorMode} >inspector</button>
+          <button onClick={this.newShiftMode}> New shift</button>
+        </PaneHeader>
+        <div></div>
+        {this.renderCalendarWidget(this.props)}
+      </PaneSidebar>
+    )
   }
 }
 

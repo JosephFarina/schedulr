@@ -28,7 +28,9 @@ export const getShifts = createSelector(
   getEditedShifts,
   getAddedShifts,
   getDeletedShifts,
-  (raw, edited, added, deleted) => filter
+  (raw, edited, added, deleted) => {
+    return filter(raw, edited, added, deleted)
+  }
 )
 
 function filter(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: I.Shifts, deletedShifts: string[]): I.Shifts {

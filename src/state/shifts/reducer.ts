@@ -4,6 +4,7 @@ import {
   Action,
   RShifts,
 } from './../../models'
+import { deleteKeysFromObject } from './../../utils/deleteKeysFromObject'
 import { generateShifts } from './../../utils/test/generateShifts'
 import { ActionTypes } from './../actionTypes'
 
@@ -24,10 +25,9 @@ const shifts = (state = initialState, action: Action<RShifts>): RShifts => {
       return Object.assign({}, state, { addedShifts: newAddedShifts })
 
     case ActionTypes.removeAddedShifts:
-      const clonedAddedShifts = Object.assign({}, state.addedShifts)
-      const idsToDelete: string[] = <string[]>action.payload
-      idsToDelete.forEach(id => delete clonedAddedShifts[id])
-      return Object.assign({}, state, { addedShifts: clonedAddedShifts })
+      return Object.assign({}, state, {
+        addedShifts: deleteKeysFromObject(<string[]>action.payload, state.addedShifts)
+      })
 
     default:
       return state

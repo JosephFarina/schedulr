@@ -15,6 +15,7 @@ export enum ActionTypes {
    * 
    */
 
-  addShifts
+  addShifts,
+  removeAddedShifts
 
 }

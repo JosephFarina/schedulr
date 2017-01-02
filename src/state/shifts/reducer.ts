@@ -20,7 +20,14 @@ const shifts = (state = initialState, action: Action<RShifts>): RShifts => {
   switch (action.type) {
 
     case ActionTypes.addShifts:
-      return Object.assign({}, action.payload)
+      const newAddedShifts = Object.assign({}, state.addedShifts, action.payload)
+      return Object.assign({}, state, { addedShifts: newAddedShifts })
+
+    case ActionTypes.removeAddedShifts:
+      const clonedAddedShifts = Object.assign({}, state.addedShifts)
+      const idsToDelete: string[] = <string[]>action.payload
+      idsToDelete.forEach(id => delete clonedAddedShifts[id])
+      return Object.assign({}, state, { addedShifts: clonedAddedShifts })
 
     default:
       return state

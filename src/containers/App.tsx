@@ -26,7 +26,7 @@ import './App.css'
 interface Props {
   dispatch: Function,
   date: M.Moment
-  shifts: Models.Shifts
+  shifts: Models.Shift[]
 }
 
 interface State {

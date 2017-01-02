@@ -3,15 +3,30 @@ import { ActionTypes } from './../actionTypes'
 
 /**
  * 
- * Time Range Switching
+ * CRUD OPERATIONS FOR SHIFTS
  * 
  */
 
-export const addShifts = (shifts: Models.Shifts): Models.Action<Models.RShifts> => {
+/** 
+ * Add a shift / remove a shift that was added 
+ */
+
+export function addShifts(shifts: Models.Shift[]): Models.Action<Models.RShifts> {
+  // convert shift to an object
+  const addedShifts = {}
+  shifts.forEach(shift => {
+    addedShifts[shift.id] = shift
+  })
+
   return {
     type: ActionTypes.addShifts,
-    payload: {
-      shifts
-    }
+    payload: addedShifts
+  }
+}
+
+export function deleteAddedShifts(shifts: Models.Shift[]): Models.Action<string[]> {
+  return {
+    type: ActionTypes.removeAddedShifts,
+    payload: shifts.map(shift => shift.id)
   }
 }

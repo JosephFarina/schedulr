@@ -15,6 +15,10 @@
   cursor: pointer;
 }
 
+.base:focus {
+  outline: none;
+}
+
 .base:hover {
   background: $color-Brand--accent;
   color: white;

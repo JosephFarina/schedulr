@@ -19,7 +19,7 @@ import * as SidebarActions from './../state/ui/sidebar/action'
 import Calendar from './../components/calendar/Calendar'
 import PaneHeader from './../components/layout/PaneHeader'
 import PaneSidebar from './../components/layout/PaneSidebar'
-// import ShiftEditor from './../components/sidebarViews/ShiftEditor'
+import ShiftEditor from './../components/sidebarViews/ShiftEditor'
 
 import Button from './../components/buttons/Button'
 import ButtonGroup from './../components/buttons/ButtonGroup'
@@ -171,19 +171,7 @@ class SideBar extends React.Component<Props, State> {
           </ButtonGroup>
         </PaneHeader>
         <div>
-
-          <ButtonGroup centered={true}>
-            <Button active={true} mini={true} >Button</Button>
-            <Button mini={true} >Button</Button>
-          </ButtonGroup>
-
-          <Button mini={true} >Button</Button>
-          <Button block={true} >Button</Button>
-
-          <ButtonGroup block={true}>
-            <Button  >Button</Button>
-            <Button  >Button</Button>
-          </ButtonGroup>
+          <ShiftEditor shiftSelected={true}/>
 
         </div>
         {this.renderCalendarWidget(this.props)}

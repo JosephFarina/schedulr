@@ -5,16 +5,19 @@ import {
   Shift
 } from './../../models'
 
-interface Props {
-  editMode: boolean // mode === 'editMode'
-  newMode: boolean // mode ==='newMode'
-  shift: Shift // shiftToEdit -- only use this in the constructor use internal state after
-  shiftSelected: boolean
+import Button from './../buttons/Button'
+import ButtonGroup from './../buttons/ButtonGroup'
 
-  handleSubmit(): void // create new shift or edit shift depending on the mode 
-  handleReset(): void// clear the new shift blank or restore the unedited shift being edited 
-  handleModeChange(mode: ScheduleSidebarMode): void // toggle between edit and add state
-  handleChange(shift: Shift): void // on change end update redux
+interface Props {
+  editMode?: boolean // mode === 'editMode'
+  newMode?: boolean // mode ==='newMode'
+  shift?: Shift // shiftToEdit -- only use this in the constructor use internal state after
+  shiftSelected?: boolean
+
+  handleSubmit?(): void // create new shift or edit shift depending on the mode 
+  handleReset?(): void// clear the new shift blank or restore the unedited shift being edited 
+  handleModeChange?(mode: ScheduleSidebarMode): void // toggle between edit and add state
+  handleChange?(shift: Shift): void // on change end update redux
 }
 
 const defaultProps: Props = {
@@ -31,15 +34,17 @@ const defaultProps: Props = {
 function generateModeChange(props: Props) {
   const {
     handleModeChange,
-    shiftSelected
+    shiftSelected,
+    editMode,
+    newMode,
   } = props
 
   if (shiftSelected) {
     return (
-      <div>
-        <button>Edit</button>
-        <button>New</button>
-      </div>
+      <ButtonGroup centered={true}>
+        <Button onClick={() => handleModeChange('newShift')} active={newMode} mini={true} >New</Button>
+        <Button onClick={() => handleModeChange('editShift')} active={editMode} mini={true} >Edited</Button>
+      </ButtonGroup>
     )
   } else {
     return null
@@ -48,6 +53,7 @@ function generateModeChange(props: Props) {
 
 const ShiftEditor: React.StatelessComponent<Props> = (props: Props) => {
   return <div>
+    {generateModeChange(props)}
     <label htmlFor="input">Employee</label>
     <input type="text" />
   </div>

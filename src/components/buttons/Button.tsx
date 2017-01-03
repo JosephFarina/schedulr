@@ -41,4 +41,6 @@ const Button: React.StatelessComponent<any> = (props: Props) => {
   )
 }
 
+Button.defaultProps = defaultProps
+
 export default Button

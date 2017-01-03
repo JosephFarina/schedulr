@@ -5,8 +5,8 @@ import { Shifts } from './../../models'
 export function generateShifts(startTime: string): Shifts {
   const shifts: Shifts = {}
 
-  const startDate = M(startTime).subtract(2, 'month')
-  const endDate = M(startTime).add(2, 'month')
+  const startDate = M(startTime).subtract(1, 'week')
+  const endDate = M(startTime).add(1, 'week')
   let currDate = startDate.clone()
 
   while (currDate < endDate) {

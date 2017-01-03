@@ -33,4 +33,6 @@ $calendar-Header--height: 2rem;
 
 /*Border*/
 $border: 1px solid $color-Mono--light;
+$border--Brand: 1px solid $color-Brand;
+$border--Brand--accent: 1px solid $color-Brand--accent;
 

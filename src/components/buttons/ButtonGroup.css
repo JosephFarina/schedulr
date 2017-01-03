@@ -1,0 +1,108 @@
+@import 'css-vars';
+
+.base {
+  display: block;
+}
+
+.base button {
+  border-radius: 0;
+}
+
+.base button:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.base button:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.base button:not(:last-child) {
+  margin-right: 1px;
+}
+
+/* For buttons in the toolbar */
+
+.bar {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.bar button {
+  background: white;
+  height: 100%;
+  border-right: $border;
+  flex-basis: 100%;
+  border-radius: 0;
+  color: black;
+}
+
+.bar button:focus,
+.bar button:active {
+  outline: none;
+}
+
+.bar button:hover {
+  background: $color-Mono--light;
+  cursor: pointer;
+}
+
+/* used to override due to specifity */
+.bar button:not(:last-child) {
+  border: none;
+  border-radius: 0;
+}
+
+
+.bar button:first-child {
+  border: none;
+  border-radius: 0;
+}
+
+.bar button:last-child {
+  height: 100%;
+  border: none;
+  border-radius: 0;
+}
+
+/* for justifed buttons */
+
+.justified {
+  width: 100%;
+  display: flex;
+}
+
+.justified button {
+  flex: 1 1 100%;
+}
+
+/* for centering the buttons */
+
+.centered {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* block -- like justified but no radius */
+.block button {
+  border-radius: 0;
+}
+
+.block button:last-child {
+  /*border: none;*/
+  border-radius: 0;
+}
+
+.block button:first-child {
+  /*border: none;*/
+  border-radius: 0;
+}
+
+.block button:not(:last-child) {
+  margin: 0;
+  border-right: none;
+  border-radius: 0;
+}

@@ -19,6 +19,10 @@ import * as SidebarActions from './../state/ui/sidebar/action'
 import Calendar from './../components/calendar/Calendar'
 import PaneHeader from './../components/layout/PaneHeader'
 import PaneSidebar from './../components/layout/PaneSidebar'
+// import ShiftEditor from './../components/sidebarViews/ShiftEditor'
+
+import Button from './../components/buttons/Button'
+import ButtonGroup from './../components/buttons/ButtonGroup'
 
 import './App.css'
 
@@ -106,6 +110,47 @@ class SideBar extends React.Component<Props, State> {
     }
   }
 
+  /**
+   * 
+   * store in shift state 
+   *  - selectedShiftId: string  (shift id)
+   *  - shiftBeingEdited: Shift
+   *  - shiftBeingCreated: Shift
+   * 
+   * 
+   * renderShiftEditor() {
+   *  let shiftToEdit: Shift
+   * 
+   *  if (mode === 'editShift') {
+   *    shiftToEdit = Object.assign({}, getShiftById(selectedShiftId), shiftBeingEdited)
+   *  } 
+   * 
+   *  else if (mode === 'newShift) {
+   *    shiftToEdit = Object.assign({}, shiftBeingCreated)
+   *  }
+   * 
+   *  // if its neither new or edit mode return null
+   *  else {
+   *    return null
+   *  }
+   * 
+   *  return <ShiftEditor 
+   *    handleChange={func} // on change end update redux
+   *    handleSubmit={func} // create new shift or edit shift depending on the mode 
+   *    handleReset={func} // clear the new shift blank or restore the unedited shift being edited 
+   *    handleModeChange={func} // toggle between edit and add state
+   *    editMode={boolean} // mode === 'editMode'
+   *    newMode={boolean} // mode ==='newMode'
+   *    shift={shiftToEdit} // shiftToEdit -- only use this in the constructor use internal state after
+   *  />
+   *  
+   * }
+   * 
+   * <ShiftInspector />
+   * <ShiftFilter />
+   * 
+   */
+
 
   /**
    * Render
@@ -119,10 +164,28 @@ class SideBar extends React.Component<Props, State> {
     return (
       <PaneSidebar maximized={sidebarMode === 'newShift'}>
         <PaneHeader>
-          <button onClick={this.inspectorMode} >inspector</button>
-          <button onClick={this.newShiftMode}> New shift</button>
+          <ButtonGroup buttonBar={true}>
+            <Button>Hello</Button>
+            <Button onClick={this.inspectorMode} >inspector</Button>
+            <Button onClick={this.newShiftMode}> New shift</Button>
+          </ButtonGroup>
         </PaneHeader>
-        <div></div>
+        <div>
+
+          <ButtonGroup centered={true}>
+            <Button active={true} mini={true} >Button</Button>
+            <Button mini={true} >Button</Button>
+          </ButtonGroup>
+
+          <Button mini={true} >Button</Button>
+          <Button block={true} >Button</Button>
+
+          <ButtonGroup block={true}>
+            <Button  >Button</Button>
+            <Button  >Button</Button>
+          </ButtonGroup>
+
+        </div>
         {this.renderCalendarWidget(this.props)}
       </PaneSidebar>
     )

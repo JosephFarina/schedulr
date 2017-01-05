@@ -74,7 +74,7 @@ const ShiftEditor: React.StatelessComponent<Props> = (props: Props) => {
 ShiftEditor.defaultProps = defaultProps
 
 const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: Props) => {
-  return { }
+  return {}
 }
 
 export default connect(mapStateToProps)(ShiftEditor)

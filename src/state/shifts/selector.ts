@@ -7,21 +7,16 @@ import {
 
 import * as I from './../../models'
 
-export function getRawShifts(state: I.RState): I.Shifts {
-  return state.shifts.shifts
-}
+export const getRawShifts = (state: I.RState): I.Shifts => state.shifts.shifts
+export const getEditedShifts = (state: I.RState): I.Shifts => state.shifts.editedShifts
+export const getAddedShifts = (state: I.RState): I.Shifts => state.shifts.addedShifts
+export const getDeletedShifts = (state: I.RState): string[] => state.shifts.deletedShifts
 
-export function getEditedShifts(state: I.RState): I.Shifts {
-  return state.shifts.editedShifts
-}
-
-export function getAddedShifts(state: I.RState): I.Shifts {
-  return state.shifts.addedShifts
-}
-
-export function getDeletedShifts(state: I.RState): string[] {
-  return state.shifts.deletedShifts
-}
+/**
+ * 
+ * Get all shifts -- it gives updated version
+ * 
+ */
 
 export const getShifts = createSelector(
   getRawShifts,
@@ -29,11 +24,11 @@ export const getShifts = createSelector(
   getAddedShifts,
   getDeletedShifts,
   (raw, edited, added, deleted) => {
-    return filter(raw, edited, added, deleted)
+    return updateShifts(raw, edited, added, deleted)
   }
 )
 
-function filter(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: I.Shifts, deletedShifts: string[]): I.Shifts {
+function updateShifts(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: I.Shifts, deletedShifts: string[]): I.Shifts {
   let updateShifts: any = Object.assign({}, rawShifts, addedShifts, editedShifts)
 
   // convert shifts to an array and then filter out the deleted shifts
@@ -44,7 +39,12 @@ function filter(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: I.Shif
   return updateShifts
 }
 
-// Takes in a date and shifts object 
+/**
+ * 
+ * Get all the shifts of a single day
+ * 
+ */
+
 export function getShiftsByDay(inputDate: MorString, shifts: I.Shift[]): I.Shift[] {
   const date = cloneOrCreateMo(inputDate)
 

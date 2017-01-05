@@ -151,7 +151,6 @@ class SideBar extends React.Component<Props, State> {
    * 
    */
 
-
   /**
    * Render
    */

@@ -1,5 +1,16 @@
+/**
+ * 
+ * TODO:
+ * Split up shifts reducer
+ *  shifts: {
+ *    data: <current shift reducer>,
+ *    editor: <new reducer>
+ *  }
+ * 
+ */
+
 import * as M from 'moment'
-const union = require('lodash.union');
+const union = require('lodash.union')
 
 import {
   Action,
@@ -28,7 +39,7 @@ const shifts = (state = initialState, action: Action<RShifts>): RShifts => {
 
     case ActionTypes.removeAddedShifts:
       return Object.assign({}, state, {
-        addedShifts: deleteKeysFromObject(<string[]>action.payload, state.addedShifts)
+        addedShifts: deleteKeysFromObject(<string[]> action.payload, state.addedShifts)
       })
 
     // Add and remove edited shifts
@@ -40,7 +51,7 @@ const shifts = (state = initialState, action: Action<RShifts>): RShifts => {
 
     case ActionTypes.removeEditedShifts:
       return Object.assign({}, state, {
-        editedShifts: deleteKeysFromObject(<string[]>action.payload, state.editedShifts)
+        editedShifts: deleteKeysFromObject(<string[]> action.payload, state.editedShifts)
       })
 
     // Add and remove delete shifts

@@ -10,6 +10,7 @@
     "quotemark": [
       "single"
     ],
+    "no-empty": false,
     "semicolon": [
       true,
       "never"

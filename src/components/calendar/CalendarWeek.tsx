@@ -4,7 +4,9 @@ import * as React from 'react'
 import * as I from './../../models'
 import { getDaysFromWeek } from './../../utils/getDaysFromWeek.util'
 
-import { getShiftsByDay } from './../../state/shifts/selector'
+import {
+  getShiftsByDay
+} from './../../state/shift'
 
 import CalendarDay from './CalendarDay'
 

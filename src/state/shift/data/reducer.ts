@@ -1,26 +1,15 @@
-/**
- * 
- * TODO:
- * Split up shifts reducer
- *  shifts: {
- *    data: <current shift reducer>,
- *    editor: <new reducer>
- *  }
- * 
- */
-
 import * as M from 'moment'
 const union = require('lodash.union')
 
 import {
   Action,
-  RShifts,
-} from './../../models'
-import { deleteKeysFromObject } from './../../utils/deleteKeysFromObject'
-import { generateShifts } from './../../utils/test/generateShifts'
-import { ActionTypes } from './../actionTypes'
+  RShiftData,
+} from './../../../models'
+import { deleteKeysFromObject } from './../../../utils/deleteKeysFromObject'
+import { generateShifts } from './../../../utils/test/generateShifts'
+import { ActionTypes } from './../../actionTypes'
 
-export const initialState: RShifts = {
+export const initialState: RShiftData = {
   shifts: generateShifts(M().format()),
   addedShifts: {},
   editedShifts: {},
@@ -29,7 +18,7 @@ export const initialState: RShifts = {
   shiftCacheTimeRange: null
 }
 
-const shifts = (state = initialState, action: Action<RShifts>): RShifts => {
+const shiftData = (state = initialState, action: Action<RShiftData>): RShiftData => {
   switch (action.type) {
 
     // Add and remove added shifts
@@ -75,4 +64,4 @@ const shifts = (state = initialState, action: Action<RShifts>): RShifts => {
   }
 }
 
-export default shifts
+export default shiftData

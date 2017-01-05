@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
 
 import calendar from './calendar/reducer'
-import shifts from './shifts/reducer'
+import shift from './shift'
 import ui from './ui'
 
 const rootReducer = combineReducers({
   calendar,
-  shifts,
+  shift,
   ui
 })
 

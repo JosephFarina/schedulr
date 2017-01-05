@@ -15,12 +15,18 @@ export enum ActionTypes {
    * 
    */
 
+  // data
   addShifts,
   removeAddedShifts,
   editShifts,
   removeEditedShifts,
   deleteShifts,
   removeDeletedShifts,
+
+  // editor
+  updateEditedShift,
+  updateNewShift,
+  clearShiftEditor,
 
   /**
    * 

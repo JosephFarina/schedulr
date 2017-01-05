@@ -1,6 +1,6 @@
 import * as M from 'moment'
 
-import * as I from './../../../models'
+import * as I from './../../../../models'
 import {
   getAddedShifts,
   getDeletedShifts,
@@ -57,6 +57,7 @@ const addedShifts: I.Shifts = {
 const deletedShifts: string[] = ['asdfafhhhh', 'asdfafdddaf3fv']
 
 describe('Shift Selectors', () => {
+
   describe('#getShiftsByDay', () => {
 
     it('should only return the shifts of the same day', () => {
@@ -82,11 +83,13 @@ describe('Shift Selectors', () => {
 
     it('it should replace edited shifts', () => {
       const state: I.RState = {
-        shifts: {
-          shifts,
-          editedShifts,
-          addedShifts: {},
-          deletedShifts: []
+        shift: {
+          data: {
+            shifts,
+            editedShifts,
+            addedShifts: {},
+            deletedShifts: []
+          }
         }
       }
 
@@ -100,11 +103,13 @@ describe('Shift Selectors', () => {
 
     it('should mix in newly added shifts', () => {
       const state: I.RState = {
-        shifts: {
-          shifts,
-          addedShifts,
-          editedShifts: {},
-          deletedShifts: []
+        shift: {
+          data: {
+            shifts,
+            addedShifts,
+            editedShifts: {},
+            deletedShifts: []
+          }
         }
       }
       const res = getShifts(state)
@@ -120,11 +125,13 @@ describe('Shift Selectors', () => {
 
     it('should remove the delete shifts', () => {
       const state: I.RState = {
-        shifts: {
-          shifts,
-          addedShifts: {},
-          editedShifts: {},
-          deletedShifts
+        shift: {
+          data: {
+            shifts,
+            addedShifts: {},
+            editedShifts: {},
+            deletedShifts
+          }
         }
       }
       const res = getShifts(state)

@@ -3,8 +3,8 @@ import configureStore from 'redux-mock-store'
 const middlewares: any = []
 const mockStore = configureStore(middlewares)
 
-import * as Models from './../../../models'
-import { convertShiftObjectToArray } from './../../../utils/convertShifts'
+import * as Models from './../../../../models'
+import { convertShiftObjectToArray } from './../../../../utils/convertShifts'
 import * as Actions from './../action'
 import shifts, { initialState } from './../reducer'
 import * as Selectors from './../selector'
@@ -45,7 +45,7 @@ describe('Shift State', () => {
     })
 
     it('#addShifts should add added shifts to the state', () => {
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
         addedShifts: shiftSetOne
       })
       const res = shifts(initialStateWithAddedShifts, Actions.addShifts(convertShiftObjectToArray(shiftSetTwo)))
@@ -53,7 +53,7 @@ describe('Shift State', () => {
     })
 
     it('#removeAddedShifts should delete the shifts', () => {
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
         addedShifts: combinedShifts
       })
 
@@ -62,7 +62,7 @@ describe('Shift State', () => {
     })
 
     it('#editShifts should add edited shifts to the state', () => {
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
         editedShifts: shiftSetOne
       })
       const res = shifts(initialStateWithAddedShifts, Actions.editShifts(convertShiftObjectToArray(shiftSetTwo)))
@@ -70,7 +70,7 @@ describe('Shift State', () => {
     })
 
     it('#removeEditedShifts should delete teh shifts', () => {
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
         editedShifts: combinedShifts
       })
       const res = shifts(initialStateWithAddedShifts, Actions.removeEditedShifts(convertShiftObjectToArray(shiftSetOne)))
@@ -78,7 +78,7 @@ describe('Shift State', () => {
     })
 
     it('#deleteShifts should add the ids to the state', () => {
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
         deletedShifts: Object.keys(shiftSetOne)
       })
       const res = shifts(initialStateWithAddedShifts, Actions.deleteShifts(convertShiftObjectToArray(shiftSetTwo)))
@@ -86,7 +86,7 @@ describe('Shift State', () => {
     })
 
     it('#removeDeletedShifts should delete the ids from the state', () => {
-      const initialStateWithAddedShifts: Models.RShifts = Object.assign({}, initialState, {
+      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
         deletedShifts: Object.keys(combinedShifts)
       })
       const res = shifts(initialStateWithAddedShifts, Actions.removeDeletedShifts(convertShiftObjectToArray(shiftSetOne)))

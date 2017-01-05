@@ -10,8 +10,10 @@ import {
 import * as Models from './../models'
 import * as CalendarActions from './../state/calendar/action'
 import { getMomentDate } from './../state/calendar/selector'
-import { getShifts } from './../state/shifts/selector'
 
+import {
+  getShifts
+} from './../state/shift'
 
 import Calendar from './../components/calendar/Calendar'
 import Navbar from './../components/layout/Navbar'
@@ -20,7 +22,6 @@ import PaneContainer from './../components/layout/PaneContainer'
 import PaneContent from './../components/layout/PaneContent'
 import PaneHeader from './../components/layout/PaneHeader'
 import Sidebar from './Sidebar'
-
 
 import './App.css'
 

@@ -1,10 +1,10 @@
 import {
   Action,
-  RShifts,
+  RShiftData,
   Shift
-} from './../../models'
-import { convertShiftArrayToObject } from './../../utils/convertShifts'
-import { ActionTypes } from './../actionTypes'
+} from './../../../models'
+import { convertShiftArrayToObject } from './../../../utils/convertShifts'
+import { ActionTypes } from './../../actionTypes'
 
 /**
  * 
@@ -16,7 +16,7 @@ import { ActionTypes } from './../actionTypes'
  * Add a shift / remove a shift that was added 
  */
 
-export function addShifts(shifts: Shift[]): Action<RShifts> {
+export function addShifts(shifts: Shift[]): Action<RShiftData> {
   return {
     type: ActionTypes.addShifts,
     payload: convertShiftArrayToObject(shifts)
@@ -34,7 +34,7 @@ export function removeAddedShifts(shifts: Shift[]): Action<string[]> {
  * Add an edited shift / remove an edited shift
  */
 
-export function editShifts(shifts: Shift[]): Action<RShifts> {
+export function editShifts(shifts: Shift[]): Action<RShiftData> {
   return {
     type: ActionTypes.editShifts,
     payload: convertShiftArrayToObject(shifts)

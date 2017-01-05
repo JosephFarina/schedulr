@@ -16,28 +16,53 @@ export interface Action<T> {
 // The Master State
 export interface RState {
   calendar?: RCalendar
-  shifts?: RShifts
+  shift?: RShift
   ui?: RUI
 }
 
-// The Calendar Slice of State
+/**
+ * 
+ * Calendar State
+ * 
+ */
+
 export interface RCalendar {
   date?: string
   timeRange?: TimeModels.TimeRangeOption
 }
 
-// The Shifts Slice of State
-export interface RShifts {
+/**
+ * 
+ * Shift State
+ * 
+ */
+
+export interface RShift {
+  data?: RShiftData
+  editor?: RShiftEditor
+}
+
+export interface RShiftData {
   shiftCacheTimeRange?: string
   shiftCacheIsValid?: boolean
-
   shifts?: ShiftModels.Shifts
   editedShifts?: ShiftModels.Shifts
   addedShifts?: ShiftModels.Shifts
   deletedShifts?: string[]
 }
 
-// The UI Slice of state
+export interface RShiftEditor {
+  newShift?: ShiftModels.Shift
+  editedShift?: ShiftModels.Shift
+  selectedShift?: string
+}
+
+/**
+ * 
+ * UI State
+ * 
+ */
+
 export interface RUI {
   sidebar?: RSidebar
 }

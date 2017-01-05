@@ -3,14 +3,14 @@ import { createSelector } from 'reselect'
 import {
   MorString,
   cloneOrCreateMo,
-} from './../../utils/momentHelpers.util'
+} from './../../../utils/momentHelpers.util'
 
-import * as I from './../../models'
+import * as I from './../../../models'
 
-export const getRawShifts = (state: I.RState): I.Shifts => state.shifts.shifts
-export const getEditedShifts = (state: I.RState): I.Shifts => state.shifts.editedShifts
-export const getAddedShifts = (state: I.RState): I.Shifts => state.shifts.addedShifts
-export const getDeletedShifts = (state: I.RState): string[] => state.shifts.deletedShifts
+export const getRawShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.shifts)
+export const getEditedShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.editedShifts)
+export const getAddedShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.addedShifts)
+export const getDeletedShifts = (state: I.RState): string[] => Object.assign([], state.shift.data.deletedShifts)
 
 /**
  * 

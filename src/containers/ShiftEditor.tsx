@@ -77,4 +77,5 @@ const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: Pro
   return {}
 }
 
-export default connect(mapStateToProps)(ShiftEditor)
+// export default connect(mapStateToProps)(ShiftEditor)
+export default ShiftEditor

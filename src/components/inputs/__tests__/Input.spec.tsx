@@ -25,14 +25,14 @@ describe('Input', () => {
     it('if value is "" and focused label should be active', () => {
       const value = ""
       wrapper = mount(<Input value={value} onChange={null} />)
-      wrapper.setState({focused: true})
+      wrapper.setState({ focused: true })
       expect(wrapper.html()).toContain(styles.labelActive)
     })
 
     it('if value is not empty and is blurred label should be active', () => {
       const value = "hell"
       wrapper = mount(<Input value={value} onChange={null} />)
-      wrapper.setState({focused: false})
+      wrapper.setState({ focused: false })
       expect(wrapper.html()).toContain(styles.labelActive)
     })
 

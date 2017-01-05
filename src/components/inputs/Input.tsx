@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+const debounce = require('lodash.debounce')
 
 import { InputProps } from './models'
 
@@ -18,7 +18,8 @@ class Input extends React.Component<Props, State> {
     value: '',
     onBlur: () => { },
     onFocus: () => { },
-    onChange: () => { }
+    onChange: () => { },
+    onChangeEnd: () => { }
   }
   public textInput: HTMLInputElement
 
@@ -31,10 +32,38 @@ class Input extends React.Component<Props, State> {
     this.onFocus = this.onFocus.bind(this)
     this.onBlur = this.onBlur.bind(this)
     this.onChange = this.onChange.bind(this)
+    this.onChangeEnd = debounce(this.onChangeEnd, 500)
   }
 
-  public onChange(event: any): void {
+  /**
+   * 
+   * Public API that can be used by ref
+   * 
+   */
+
+  public focus(): void {
+    this.textInput.focus()
+  }
+
+  public blur(): void {
+    this.textInput.blur()
+  }
+
+  /**
+   * 
+   * Event Handler
+   * 
+   */
+
+  private onChange(event: any): void {
     this.props.onChange(event.target.value)
+    this.onChangeEnd()
+  }
+
+  // debounced function calls props.onChangeEnd on typing break
+  private onChangeEnd(): void {
+    const { onChangeEnd } = this.props
+    onChangeEnd()
   }
 
   private onFocus(): void {
@@ -47,18 +76,22 @@ class Input extends React.Component<Props, State> {
     this.props.onBlur()
   }
 
+  /**
+   * 
+   * Helpers
+   * 
+   */
+
   private hasValue(): boolean {
     const { value } = this.props
     return value && value.length > 0 || false
   }
 
-  public focus(): void {
-    this.textInput.focus()
-  }
-
-  public blur(): void {
-    this.textInput.blur()
-  }
+  /**
+   * 
+   * Renderers
+   * 
+   */
 
   public render() {
     const {

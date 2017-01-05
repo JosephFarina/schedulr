@@ -24,6 +24,7 @@ class AutoComplete extends React.Component<Props, State> {
     onBlur: () => { },
     onChange: () => { },
     onFocus: () => { },
+    onChangeEnd: () => { },
     results: []
   }
 
@@ -158,7 +159,8 @@ class AutoComplete extends React.Component<Props, State> {
     const {
       value,
       label,
-      results
+      results,
+      onChangeEnd
     } = this.props
 
     return (
@@ -169,7 +171,8 @@ class AutoComplete extends React.Component<Props, State> {
           onBlur={this.handleInputBlur}
           value={value}
           label={label}
-          onChange={this.handleChange}>
+          onChange={this.handleChange}
+          onChangeEnd={onChangeEnd}>
 
           {this.showItems() && <div className={styles.container}>
             {results.map((_, i) => this.renderItem(i))}

@@ -44,6 +44,7 @@ describe('AutoComplete', () => {
     })
 
     it('should call onChanges with the value of the selectedindex when enter is pressed', () => {
+      wrapper = mount(<AutoComplete results={results} value={'234'} onChange={mockOnChange} />)
       const selectedIndex = 1
       wrapper.setState({ selectedIndex, focused: true })
       wrapper.simulate('keydown', { which: 13 })

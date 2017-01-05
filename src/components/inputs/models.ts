@@ -3,6 +3,7 @@ export interface InputProps {
   value: string
   onBlur?(): void
   onFocus?(): void
+  onChangeEnd?(): void
   onChange(val?: string): void
 }
 

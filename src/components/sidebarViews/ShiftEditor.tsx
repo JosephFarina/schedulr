@@ -57,7 +57,7 @@ const ShiftEditor: React.StatelessComponent<Props> = (props: Props) => {
   return <div>
     {generateModeChange(props)}
     <AutoComplete label={"La"} value={""} onChange={() => { } } />
-    <Input label={"La"} value={""} onChange={() => { } } />
+    <Input onChangeEnd={() => {console.log('change end')}} label={"La"} value={""} onChange={() => { } } />
     <Input label={"La"} value={""} onChange={() => { } } />
     <Input label={"La"} value={""} onChange={() => { } } />
     <Input label={"La"} value={""} onChange={() => { } } />

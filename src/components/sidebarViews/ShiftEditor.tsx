@@ -7,6 +7,8 @@ import {
 
 import Button from './../buttons/Button'
 import ButtonGroup from './../buttons/ButtonGroup'
+import AutoComplete from './../inputs/AutoComplete'
+import Input from './../inputs/Input'
 
 interface Props {
   editMode?: boolean // mode === 'editMode'
@@ -54,8 +56,12 @@ function generateModeChange(props: Props) {
 const ShiftEditor: React.StatelessComponent<Props> = (props: Props) => {
   return <div>
     {generateModeChange(props)}
-    <label htmlFor="input">Employee</label>
-    <input type="text" />
+    <AutoComplete label={"La"} value={""} onChange={() => { } } />
+    <Input label={"La"} value={""} onChange={() => { } } />
+    <Input label={"La"} value={""} onChange={() => { } } />
+    <Input label={"La"} value={""} onChange={() => { } } />
+    <Input label={"La"} value={""} onChange={() => { } } />
+    <Input label={"La"} value={""} onChange={() => { } } />
   </div>
 }
 

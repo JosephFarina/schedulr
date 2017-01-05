@@ -5,7 +5,7 @@ import * as React from 'react'
 
 import ShiftEditor from './../ShiftEditor'
 
-import ButtonGroup from './../../buttons/ButtonGroup'
+import ButtonGroup from './../../components/buttons/ButtonGroup'
 
 describe('ShiftEditor', () => {
   let wrapper = mount(<ShiftEditor />)

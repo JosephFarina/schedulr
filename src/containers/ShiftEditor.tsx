@@ -1,16 +1,22 @@
 import * as React from 'react'
+import {
+  MapStateToProps,
+  connect,
+} from 'react-redux'
 
 import {
+  RState,
   ScheduleSidebarMode,
   Shift
-} from './../../models'
+} from './../models'
 
-import Button from './../buttons/Button'
-import ButtonGroup from './../buttons/ButtonGroup'
-import AutoComplete from './../inputs/AutoComplete'
-import Input from './../inputs/Input'
+import Button from './../components/buttons/Button'
+import ButtonGroup from './../components/buttons/ButtonGroup'
+import AutoComplete from './../components/inputs/AutoComplete'
+import Input from './../components/inputs/Input'
 
 interface Props {
+  dispatch?: Function
   editMode?: boolean // mode === 'editMode'
   newMode?: boolean // mode ==='newMode'
   shift?: Shift // shiftToEdit -- only use this in the constructor use internal state after
@@ -57,7 +63,7 @@ const ShiftEditor: React.StatelessComponent<Props> = (props: Props) => {
   return <div>
     {generateModeChange(props)}
     <AutoComplete label={"La"} value={""} onChange={() => { } } />
-    <Input onChangeEnd={() => {console.log('change end')}} label={"La"} value={""} onChange={() => { } } />
+    <Input onChangeEnd={() => { console.log('change end') } } label={"La"} value={""} onChange={() => { } } />
     <Input label={"La"} value={""} onChange={() => { } } />
     <Input label={"La"} value={""} onChange={() => { } } />
     <Input label={"La"} value={""} onChange={() => { } } />
@@ -67,4 +73,8 @@ const ShiftEditor: React.StatelessComponent<Props> = (props: Props) => {
 
 ShiftEditor.defaultProps = defaultProps
 
-export default ShiftEditor
+const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: Props) => {
+  return { }
+}
+
+export default connect(mapStateToProps)(ShiftEditor)

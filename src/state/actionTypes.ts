@@ -27,6 +27,8 @@ export enum ActionTypes {
   updateEditedShift,
   updateNewShift,
   clearShiftEditor,
+  addEmployeeToShift,
+  removeEmployeeFromShift,
 
   /**
    * 
@@ -36,6 +38,4 @@ export enum ActionTypes {
 
   // sidebar
   changeScheduleSidebarMode
-
-
 }

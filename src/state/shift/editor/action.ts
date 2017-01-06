@@ -5,21 +5,36 @@ import {
 } from './../../../models'
 import { ActionTypes } from './../../actionTypes'
 
-// export function updateEditedShift(shift: Shift): Action<RShiftEditor> {
-//   return {
-//     type: ActionTypes.updateEditedShift,
-//     payload: {
-//       editedShift: Object.assign({}, shift)
-//     }
-//   }
-// }
+/**
+ * 
+ * Adding and removing employees from the new shift
+ * 
+ */
 
-export function updateNewShift(shift: Shift): Action<RShiftEditor> {
+export function addEmployeeToShift(employeeId: string): Action<RShiftEditor> {
+  return {
+    type: ActionTypes.addEmployeeToShift,
+    payload: employeeId
+  }
+}
+
+export function removeEmployeeFromShift(employeeId: string): Action<RShiftEditor> {
+  return {
+    type: ActionTypes.removeEmployeeFromShift,
+    payload: employeeId
+  }
+}
+
+/**
+ * 
+ * 
+ * 
+ */
+
+export function updateNewShift(shift: Shift): Action<Shift> {
   return {
     type: ActionTypes.updateNewShift,
-    payload: {
-      newShift: Object.assign({}, shift)
-    }
+    payload: Object.assign({}, shift)
   }
 }
 

@@ -53,6 +53,7 @@ export interface RShiftData {
 
 export interface RShiftEditor {
   newShift?: ShiftModels.Shift
+  employeesInShift?: string[]
   editedShift?: ShiftModels.Shift
   selectedShift?: string
 }

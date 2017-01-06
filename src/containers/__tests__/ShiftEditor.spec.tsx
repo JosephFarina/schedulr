@@ -36,6 +36,17 @@ describe('ShiftEditor', () => {
 
   })
 
+  describe('Creating new shifts', () => {
+
+    it('on change end it should dispatch #updateNewShift with the new shift in state', () => {
+    })
+
+    it('on reset it should dispatch #clearNewShift and also clear the state', () => {
+    })
+
+  })
+
+
 })
 
 

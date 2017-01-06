@@ -19,6 +19,7 @@ import Button from './../components/buttons/Button'
 import ButtonGroup from './../components/buttons/ButtonGroup'
 import AutoComplete from './../components/inputs/AutoComplete'
 import Input from './../components/inputs/Input'
+import Select from './../components/inputs/Select'
 
 interface Props {
   dispatch?: Function
@@ -110,6 +111,13 @@ class ShiftEditor extends React.Component<Props, State> {
 
     return (
       <div>
+        <Select value={'VAluee'} onChange={val => { console.log(val) } } options={[
+          { value: '0', display: 'ONE' },
+          { value: '1', display: 'TWO' },
+          { value: '3', display: 'three' },
+          { value: '4', display: 'four' },
+        ]} />
+
         <Input
           label={"Location"}
           value={location}

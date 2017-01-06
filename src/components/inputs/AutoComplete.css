@@ -13,6 +13,5 @@
 }
 
 .itemActive {
-  background: blue;
-  color: white;
+  composes: itemActive from './Shared.css';
 }

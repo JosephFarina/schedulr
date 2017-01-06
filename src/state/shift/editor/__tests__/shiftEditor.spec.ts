@@ -20,7 +20,10 @@ import {
 const shift: Shift = {
   duration: 24343,
   id: '432434',
-  startTime: '234343'
+  startTime: '234343',
+  client: 'a423f',
+  employee: ['423rewf'],
+  location: 'asdf32'
 }
 
 describe('shiftEditor', () => {

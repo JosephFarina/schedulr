@@ -1,4 +1,5 @@
-export type SelectOptions = { display: string, value: string | number }[]
+export type SelectionOption = { display: string, value: string | number }
+export type SelectOptions = SelectionOption[]
 
 export interface InputProps {
   label?: string

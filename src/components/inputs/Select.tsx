@@ -1,7 +1,8 @@
 import * as React from 'react'
 
 import {
-  SelectOptions
+  SelectOptions,
+  SelectionOption
 } from './../../models'
 
 const styles = require('./Select.css')
@@ -14,7 +15,8 @@ interface SelectProps {
 }
 
 interface SelectState {
-  isFocused: boolean
+  isFocused?: boolean
+  selectedIndex?: number
 }
 
 class Select extends React.Component<SelectProps, SelectState> {
@@ -27,11 +29,13 @@ class Select extends React.Component<SelectProps, SelectState> {
   constructor(props: SelectProps) {
     super(props)
     this.state = {
-      isFocused: false
+      isFocused: false,
+      selectedIndex: null
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleMouseLeave = this.handleMouseLeave.bind(this)
     this.handleItemClick = this.handleItemClick.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   /**
@@ -47,17 +51,88 @@ class Select extends React.Component<SelectProps, SelectState> {
   }
 
   private handleMouseLeave() {
-    this.setState({
-      isFocused: false
-    })
+    this.resetState()
   }
 
   private handleItemClick(event: any, index: number) {
     event.stopPropagation()
     const { onChange, options } = this.props
     onChange(options[index].value)
+
+    this.resetState()
+  }
+
+  private handleDownKeyPress(e: KeyboardEvent) {
+    e.preventDefault()
+
+    const { selectedIndex } = this.state
+    const { options } = this.props
+    let newSelectedIndex: number
+
+    if (selectedIndex === null || selectedIndex + 1 === options.length) {
+      newSelectedIndex = 0
+    } else {
+      newSelectedIndex = selectedIndex + 1
+    }
+
     this.setState({
-      isFocused: false
+      selectedIndex: newSelectedIndex
+    })
+  }
+
+  private handleUpKeyPress(e: KeyboardEvent) {
+    e.preventDefault()
+
+    const { selectedIndex } = this.state
+    const { options } = this.props
+    let newSelectedIndex: number
+
+    if (selectedIndex === null || selectedIndex === 0) {
+      newSelectedIndex = options.length - 1
+    } else {
+      newSelectedIndex = selectedIndex - 1
+    }
+
+    this.setState({
+      selectedIndex: newSelectedIndex
+    })
+  }
+
+  private handleEnterKey() {
+    const { onChange, options } = this.props
+    const { selectedIndex } = this.state
+    onChange(options[selectedIndex].value)
+
+    this.resetState()
+  }
+
+  private handleKeyPress(e: any): void {
+    const key = e.which
+    if (key === 38) {
+      this.handleUpKeyPress(e)
+    } else if (key === 40) {
+      this.handleDownKeyPress(e)
+    } else if (key === 13) {
+      this.handleEnterKey()
+    }
+  }
+
+  /**
+   *
+   * Helpers 
+   * 
+   */
+
+  private resetState() {
+    this.setState({
+      isFocused: false,
+      selectedIndex: null
+    })
+  }
+
+  private resetSelectedIndex() {
+    this.setState({
+      selectedIndex: null
     })
   }
 
@@ -67,27 +142,57 @@ class Select extends React.Component<SelectProps, SelectState> {
    * 
    */
 
-  public render() {
+  private renderItems() {
     const {
       options,
-      value
     } = this.props
 
-    const { isFocused } = this.state
+    const {
+      isFocused,
+      selectedIndex
+    } = this.state
 
-    const klass = ctx({
+    if (isFocused || selectedIndex !== null) {
+      return (
+        <div className={styles.itemContainer}>
+          {options && options.map((op, i) => (this.renderItem(op, i)))}
+        </div>
+      )
+    }
 
+  }
+
+  private renderItem(option: SelectionOption, index: number) {
+    const { selectedIndex } = this.state
+    const className = ctx({
+      [styles.item]: true,
+      [styles.itemActive]: index === selectedIndex
     })
 
     return (
-      <div onClick={this.handleClick} onMouseLeave={this.handleMouseLeave} className={styles.container} >
+      <div
+        onClick={e => { this.handleItemClick(e, index) } }
+        onMouseOver={_ => this.resetSelectedIndex()}
+        className={className} key={index}>
+        {option.display}
+      </div>
+    )
+  }
+
+  public render() {
+    const {
+      value
+    } = this.props
+
+    return (
+      <div onKeyDown={this.handleKeyPress} tabIndex={0}
+        onClick={this.handleClick}
+        onMouseLeave={this.handleMouseLeave}
+        className={styles.container} >
+
         <div className={styles.label} >{value}</div>
         <div className={styles.carat}>^</div>
-        {isFocused && <div className={styles.itemContainer}>
-          {options && options.map((op, i) => <div onClick={e => {
-            this.handleItemClick(e, i)
-          } } className={styles.item} key={i}>{op.display}</div>)}
-        </div>}
+        {this.renderItems()}
       </div>
     )
   }

@@ -4,6 +4,10 @@
   display: flex;
   align-items: center;
   /*overflow-x: scroll;*/
+  
+  &:focus {
+    border: 1px solid blue;
+  }
 }
 
 .label {
@@ -43,4 +47,9 @@
     background: blue;
     color: white;
   }
+}
+
+.itemActive {
+  background: blue;
+  color: white;
 }

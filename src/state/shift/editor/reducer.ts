@@ -10,7 +10,11 @@ export const initialState: RShiftEditor = {
   employeesInShift: [],
   newShift: {
     duration: null,
-    startTime: null
+    startTime: '',
+    client: '',
+    employee: [],
+    id: '',
+    location: ''
   }
 }
 

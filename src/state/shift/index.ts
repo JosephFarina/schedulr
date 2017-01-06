@@ -13,4 +13,4 @@ export default shift
 export * from './data/selector'
 export * from './data/action'
 export * from './editor/selector'
-export * from './editor/selector'
+export * from './editor/action'

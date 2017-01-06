@@ -12,6 +12,7 @@ import {
 
 import {
   getShiftBeingCreated,
+  updateNewShift,
 } from './../state/shift'
 
 import Button from './../components/buttons/Button'
@@ -23,7 +24,7 @@ interface Props {
   dispatch?: Function
   editMode?: boolean // mode === 'editMode'
   newMode?: boolean // mode ==='newMode'
-  shiftSelected?: boolean
+  shiftBeingCreated?: Shift
 
   handleSubmit?(): void // create new shift or edit shift depending on the mode 
   handleReset?(): void// clear the new shift blank or restore the unedited shift being edited 
@@ -37,7 +38,7 @@ interface State {
 
 class ShiftEditor extends React.Component<Props, State> {
   public static defaultProps: Props = {
-    shiftSelected: false,
+    shiftBeingCreated: {},
     handleInputChangeEnd: () => { },
     handleModeChange: () => { },
     handleReset: () => { },
@@ -49,8 +50,30 @@ class ShiftEditor extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      shiftBeingCreated: {} as Shift
+      shiftBeingCreated: {
+        client: '',
+        duration: 0,
+        employee: [],
+        location: '',
+        startTime: ''
+      } as Shift
     }
+    this.updateNewShiftInState = this.updateNewShiftInState.bind(this)
+    this.updateNewShiftInRedux = this.updateNewShiftInRedux.bind(this)
+  }
+
+  private updateNewShiftInState(nextShift: Shift): void {
+    const { shiftBeingCreated } = this.state
+
+    this.setState({
+      shiftBeingCreated: Object.assign({}, shiftBeingCreated, nextShift)
+    })
+  }
+
+  private updateNewShiftInRedux(): void {
+    const { dispatch } = this.props
+    const { shiftBeingCreated } = this.state
+    dispatch(updateNewShift(shiftBeingCreated))
   }
 
   /**
@@ -62,38 +85,64 @@ class ShiftEditor extends React.Component<Props, State> {
   private renderModeChange() {
     const {
       handleModeChange,
-      shiftSelected,
       editMode,
-      newMode,
+      newMode
     } = this.props
 
-    if (shiftSelected) {
-      return (
-        <ButtonGroup centered={true}>
-          <Button onClick={() => handleModeChange('newShift')} active={newMode} mini={true} >New</Button>
-          <Button onClick={() => handleModeChange('editShift')} active={editMode} mini={true} >Edited</Button>
-        </ButtonGroup>
-      )
-    } else {
-      return null
-    }
+    return (
+      <ButtonGroup centered={true}>
+        <Button onClick={() => handleModeChange('newShift')} active={newMode} mini={true} >New</Button>
+        <Button onClick={() => handleModeChange('editShift')} active={editMode} mini={true} >Edited</Button>
+      </ButtonGroup>
+    )
+  }
+
+  private renderNewShiftEditor() {
+    const { shiftBeingCreated } = this.state
+    const {
+      client,
+      duration,
+      employee,
+      id,
+      location,
+      startTime
+    } = shiftBeingCreated
+
+    return (
+      <div>
+        <Input
+          label={"Location"}
+          value={location}
+          onChange={val => { this.updateNewShiftInState({ location: val }) } }
+          onChangeEnd={() => { this.updateNewShiftInRedux() } } />
+
+        <Input
+          label={"client"}
+          value={client}
+          onChange={val => { this.updateNewShiftInState({ client: val }) } }
+          onChangeEnd={() => { this.updateNewShiftInRedux() } } />
+
+      </div>
+    )
   }
 
   public render() {
+    const {
+      shiftBeingCreated
+    } = this.props
+
     return <div>
       {this.renderModeChange()}
       <AutoComplete label={"La"} value={""} onChange={() => { } } />
-      <Input onChangeEnd={() => { console.log('change end') } } label={"La"} value={""} onChange={() => { } } />
-      <Input label={"La"} value={""} onChange={() => { } } />
-      <Input label={"La"} value={""} onChange={() => { } } />
-      <Input label={"La"} value={""} onChange={() => { } } />
-      <Input label={"La"} value={""} onChange={() => { } } />
+      {this.renderNewShiftEditor()}
     </div>
   }
 }
 
-const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: Props) => {
-  return state
+const mapStateToProps: MapStateToProps<Props, any> = (state: RState, ownProps: Props) => {
+  return {
+    shiftBeingCreated: getShiftBeingCreated(state)
+  }
 }
 
 export default connect(mapStateToProps)(ShiftEditor)

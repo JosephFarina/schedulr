@@ -1,7 +1,7 @@
 import * as React from 'react'
 const debounce = require('lodash.debounce')
 
-import { InputProps } from './models'
+import { InputProps } from './../../models'
 
 const styles = require('./Input.css')
 const ctx = require('classnames')

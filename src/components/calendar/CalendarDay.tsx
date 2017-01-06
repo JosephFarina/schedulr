@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import * as I from './../../models'
 
-import Shift from './../shift/Shift'
+import Shift from './Shift'
 
 const styles = require('./Shared.css')
 const ctx = require('classnames')

@@ -1,10 +1,14 @@
 import * as React from 'react'
 
+import {
+  SelectOptions
+} from './../../models'
+
 const styles = require('./Select.css')
 const ctx = require('classnames')
 
 interface SelectProps {
-  options: { display: string, value: string | number }[]
+  options: SelectOptions
   value: string
   onChange(val: string | number): void
 }

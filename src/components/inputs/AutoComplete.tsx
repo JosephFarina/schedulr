@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import Input from './Input'
 
-import { InputProps } from './models'
+import { InputProps } from './../../models'
 
 const ctx = require('classnames')
 const styles = require('./AutoComplete.css')

@@ -6,6 +6,6 @@ import {
   SelectOptions,
 } from 'src/models'
 
-export function clients(clients: Clients): SelectOptions {
-  return Object.keys(clients).map(client => ({ value: '', display: '' }))
+export function convertEntityToSelectOptions(entity: Clients | Employees | Locations): SelectOptions {
+  return Object.keys(entity).map(clientId => ({ value: clientId, display: entity[clientId].alias }))
 }

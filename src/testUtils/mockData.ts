@@ -15,28 +15,33 @@ import {
  */
 
 export const client: Client = {
-  id: 'gf3rga23',
+  id: 'cgf3rga23',
+  alias: '21rqwaf af',
   locations: ['rfee2', '2wff']
 }
 
 export const clientsOne: Clients = {
-  '243243334': {
-    id: '243243334',
+  'c243243334': {
+    id: 'c243243334',
+    alias: 'asfahfjk fnA',
     locations: ['12343']
   },
-  '444411kfadsf': {
-    id: '444411kfadsf',
+  'c444411kfadsf': {
+    id: 'c444411kfadsf',
+    alias: '1rq3eagfqafh',
     locations: ['4333']
   }
 }
 
 export const clientsTwo: Clients = {
-  '1234344311144': {
-    id: '243243334',
+  'c1234344311144': {
+    id: 'c243243334',
+    alias: 'casqaf kafadhfasf',
     locations: ['12343']
   },
-  '532141432434': {
-    id: '444411kfadsf',
+  'c532141432434': {
+    id: 'c444411kfadsf',
+    alias: 'cavqekhafsdf d',
     locations: ['4333']
   }
 }

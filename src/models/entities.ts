@@ -6,6 +6,7 @@
 
 export interface Client {
   id?: string
+  alias?: string
   locations?: string[]
 }
 
@@ -21,6 +22,7 @@ export interface Clients {
 
 export interface Location {
   id?: string
+  alias?: string
 }
 
 export interface Locations {
@@ -35,6 +37,7 @@ export interface Locations {
 
 export interface Employee {
   id?: string
+  alias?: string
   firstName?: string
   lastName?: string
 }

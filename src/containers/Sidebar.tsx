@@ -171,7 +171,7 @@ class SideBar extends React.Component<Props, State> {
         </PaneHeader>
         <div>
 
-          <ShiftEditor shiftSelected={true} />
+          <ShiftEditor />
 
         </div>
         {this.renderCalendarWidget(this.props)}

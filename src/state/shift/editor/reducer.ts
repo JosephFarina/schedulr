@@ -1,4 +1,4 @@
-import { ActionTypes } from 'src/state/actionTypes'
+import { ShiftActions } from 'src/state/actionTypes'
 
 import {
   Action,
@@ -13,13 +13,13 @@ export const initialState: RShiftEditor = {
     duration: null,
     startTime: '',
     client: '',
-    employee: [],
     id: '',
     location: ''
   }
 }
 
 const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShiftEditor => {
+  console.log('asdfasd', action, ShiftActions.addEmployeeToShift)
   switch (action.type) {
 
     /**
@@ -28,12 +28,12 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
      * 
      */
 
-    case ActionTypes.addEmployeeToShift:
+    case ShiftActions.addEmployeeToShift:
       return Object.assign({}, state, {
         employeesInShift: state.employeesInShift.concat(<string>action.payload)
       })
 
-    case ActionTypes.removeEmployeeFromShift:
+    case ShiftActions.removeEmployeeFromShift:
       return Object.assign({}, state, {
         employeesInShift: state.employeesInShift.filter(id => id !== action.payload)
       })
@@ -44,7 +44,7 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
      * 
      */
 
-    case ActionTypes.updateNewShift:
+    case ShiftActions.updateNewShift:
       return Object.assign({}, state, {
         newShift: Object.assign({}, state.newShift, action.payload)
       })
@@ -56,13 +56,13 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
      * 
      */
 
-    case ActionTypes.updateEditedShift:
+    case ShiftActions.updateEditedShift:
       return Object.assign({}, state, {
         editedShift: Object.assign({}, action.payload.editedShift)
       })
 
 
-    case ActionTypes.clearShiftEditor:
+    case ShiftActions.clearShiftEditor:
       return Object.assign({}, state, {
         editedShift: null,
         newShift: null

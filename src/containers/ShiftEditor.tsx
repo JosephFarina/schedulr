@@ -13,9 +13,21 @@ import {
 } from 'src/models'
 
 import {
+  addEmployeeToShift,
+  getEmployeesInShiftBeingCreated,
   getShiftBeingCreated,
   updateNewShift,
 } from 'src/state/shift'
+
+import {
+  convertEntityToSelectOptions
+} from 'src/utils'
+
+import {
+  getClients,
+  getEmployees,
+  getLocations,
+} from 'src/state/entities'
 
 import Button from 'src/components/buttons/Button'
 import ButtonGroup from 'src/components/buttons/ButtonGroup'
@@ -26,6 +38,7 @@ import Select from 'src/components/inputs/Select'
 interface Props {
   dispatch?: Function
   newShift?: Shift
+  employeesInShift?: string[]
 
   // Entities
   clients?: Clients
@@ -51,6 +64,17 @@ class ShiftEditor extends React.Component<Props, State> {
     super(props)
   }
 
+  /**
+   * 
+   * Actions
+   * 
+   */
+
+  private addEmployee(val: string | number): void {
+    const { dispatch } = this.props
+    dispatch(addEmployeeToShift(val as string))
+  }
+
 
   /**
    * 
@@ -58,18 +82,29 @@ class ShiftEditor extends React.Component<Props, State> {
    * 
    */
 
+  private renderEmployeeSelector() {
+    const { employees, newShift, employeesInShift } = this.props
+    const selectedEmployees = newShift.employees
+    const employeeOptions = convertEntityToSelectOptions(employees)
+
+    return (
+      <div>
+        <Select value={'VAluee'} onChange={val => this.addEmployee(val)} options={employeeOptions} />
+        {employeesInShift.map(employee => <div>{employee}</div>)}
+      </div>
+    )
+  }
+
   private renderNewShiftEditor() {
     const {
       newShift,
-      employees,
-      clients,
       locations
     } = this.props
 
     const {
       client,
       duration,
-      employee,
+      employees,
       id,
       location,
       startTime
@@ -77,14 +112,7 @@ class ShiftEditor extends React.Component<Props, State> {
 
     return (
       <div>
-
-        <Select value={'VAluee'} onChange={val => { console.log(val) } } options={[
-          { value: '0', display: 'ONE' },
-          { value: '1', display: 'TWO' },
-          { value: '3', display: 'three' },
-          { value: '4', display: 'four' },
-        ]} />
-
+        {this.renderEmployeeSelector()}
       </div>
     )
   }
@@ -98,9 +126,13 @@ class ShiftEditor extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps: MapStateToProps<Props, any> = (state: RState, ownProps: Props) => {
+const mapStateToProps: MapStateToProps<Props, RState> = (state: RState, ownProps: Props) => {
   return {
-    shiftBeingCreated: getShiftBeingCreated(state)
+    newShift: getShiftBeingCreated(state),
+    employeesInShift: getEmployeesInShiftBeingCreated(state),
+    clients: getClients(state),
+    employees: getEmployees(state),
+    locations: getLocations(state)
   }
 }
 

@@ -3,12 +3,12 @@ import {
   Action,
   RSidebar
 } from 'src/models'
-import { ActionTypes } from 'src/state/actionTypes'
+import { UIActions } from 'src/state/actionTypes'
 
 // Change sidebar mode
 function changeSidebarMode(mode: ScheduleSidebarMode): Action<RSidebar> {
   return {
-    type: ActionTypes.changeScheduleSidebarMode,
+    type: UIActions.changeScheduleSidebarMode,
     payload: { mode }
   }
 }

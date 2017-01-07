@@ -1,6 +1,6 @@
 import * as Selectors from './selector'
 import * as Models from 'src/models'
-import { ActionTypes } from 'src/state/actionTypes'
+import { CalendarActions } from 'src/state/actionTypes'
 import {
   nextWeek,
   previousWeek,
@@ -16,7 +16,7 @@ import {
 
 export const switchTimeRangeToMonth = (): Models.Action<Models.RCalendar> => {
   return {
-    type: ActionTypes.updateTimeRange,
+    type: CalendarActions.updateTimeRange,
     payload: {
       timeRange: 'month'
     }
@@ -26,7 +26,7 @@ export const switchTimeRangeToMonth = (): Models.Action<Models.RCalendar> => {
 
 export const switchTimeRangeToWeek = (): Models.Action<Models.RCalendar> => {
   return {
-    type: ActionTypes.updateTimeRange,
+    type: CalendarActions.updateTimeRange,
     payload: {
       timeRange: 'week'
     }
@@ -63,7 +63,7 @@ function generateTimeRangeAction(action: Function) {
 
 function changeTimeRange(date: string): Models.Action<Models.RCalendar> {
   return {
-    type: ActionTypes.updateDate,
+    type: CalendarActions.updateDate,
     payload: {
       date
     }

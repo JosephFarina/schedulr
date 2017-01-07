@@ -22,7 +22,7 @@ const shift: Shift = {
   id: '432434',
   startTime: '234343',
   client: 'a423f',
-  employee: ['423rewf'],
+  employees: ['423rewf'],
   location: 'asdf32'
 }
 

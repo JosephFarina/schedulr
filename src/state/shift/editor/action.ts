@@ -3,7 +3,7 @@ import {
   RShiftEditor,
   Shift
 } from 'src/models'
-import { ActionTypes } from 'src/state/actionTypes'
+import { ShiftActions } from 'src/state/actionTypes'
 
 /**
  * 
@@ -13,14 +13,14 @@ import { ActionTypes } from 'src/state/actionTypes'
 
 export function addEmployeeToShift(employeeId: string): Action<RShiftEditor> {
   return {
-    type: ActionTypes.addEmployeeToShift,
+    type: ShiftActions.addEmployeeToShift,
     payload: employeeId
   }
 }
 
 export function removeEmployeeFromShift(employeeId: string): Action<RShiftEditor> {
   return {
-    type: ActionTypes.removeEmployeeFromShift,
+    type: ShiftActions.removeEmployeeFromShift,
     payload: employeeId
   }
 }
@@ -33,14 +33,14 @@ export function removeEmployeeFromShift(employeeId: string): Action<RShiftEditor
 
 export function updateNewShift(shift: Shift): Action<Shift> {
   return {
-    type: ActionTypes.updateNewShift,
+    type: ShiftActions.updateNewShift,
     payload: Object.assign({}, shift)
   }
 }
 
 export function clearShiftEditor(): Action<RShiftEditor> {
   return {
-    type: ActionTypes.clearShiftEditor,
+    type: ShiftActions.clearShiftEditor,
     payload: {
       newShift: null,
       selectedShift: null

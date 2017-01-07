@@ -3,7 +3,7 @@ import {
   RShiftData,
   Shift
 } from 'src/models'
-import { ActionTypes } from 'src/state/actionTypes'
+import { ShiftActions } from 'src/state/actionTypes'
 import { convertShiftArrayToObject } from 'src/utils'
 
 /**
@@ -18,14 +18,14 @@ import { convertShiftArrayToObject } from 'src/utils'
 
 export function addShifts(shifts: Shift[]): Action<RShiftData> {
   return {
-    type: ActionTypes.addShifts,
+    type: ShiftActions.addShifts,
     payload: convertShiftArrayToObject(shifts)
   }
 }
 
 export function removeAddedShifts(shifts: Shift[]): Action<string[]> {
   return {
-    type: ActionTypes.removeAddedShifts,
+    type: ShiftActions.removeAddedShifts,
     payload: shifts.map(shift => shift.id)
   }
 }
@@ -36,14 +36,14 @@ export function removeAddedShifts(shifts: Shift[]): Action<string[]> {
 
 export function editShifts(shifts: Shift[]): Action<RShiftData> {
   return {
-    type: ActionTypes.editShifts,
+    type: ShiftActions.editShifts,
     payload: convertShiftArrayToObject(shifts)
   }
 }
 
 export function removeEditedShifts(shifts: Shift[]): Action<string[]> {
   return {
-    type: ActionTypes.removeEditedShifts,
+    type: ShiftActions.removeEditedShifts,
     payload: shifts.map(shift => shift.id)
   }
 }
@@ -54,14 +54,14 @@ export function removeEditedShifts(shifts: Shift[]): Action<string[]> {
 
 export function deleteShifts(shifts: Shift[]): Action<string[]> {
   return {
-    type: ActionTypes.deleteShifts,
+    type: ShiftActions.deleteShifts,
     payload: shifts.map(shift => shift.id)
   }
 }
 
 export function removeDeletedShifts(shifts: Shift[]): Action<string[]> {
   return {
-    type: ActionTypes.removeDeletedShifts,
+    type: ShiftActions.removeDeletedShifts,
     payload: shifts.map(shift => shift.id)
   }
 }

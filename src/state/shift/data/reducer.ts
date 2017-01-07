@@ -5,7 +5,7 @@ import {
   Action,
   RShiftData,
 } from 'src/models'
-import { ActionTypes } from 'src/state/actionTypes'
+import { ShiftActions } from 'src/state/actionTypes'
 
 import {
   generateShifts
@@ -26,34 +26,34 @@ const shiftData = (state = initialState, action: Action<RShiftData>): RShiftData
   switch (action.type) {
 
     // Add and remove added shifts
-    case ActionTypes.addShifts:
+    case ShiftActions.addShifts:
       const newAddedShifts = Object.assign({}, state.addedShifts, action.payload)
       return Object.assign({}, state, { addedShifts: newAddedShifts })
 
-    case ActionTypes.removeAddedShifts:
+    case ShiftActions.removeAddedShifts:
       return Object.assign({}, state, {
         addedShifts: deleteKeysFromObject(<string[]>action.payload, state.addedShifts)
       })
 
     // Add and remove edited shifts
-    case ActionTypes.editShifts:
+    case ShiftActions.editShifts:
       const newEditedShifts = Object.assign({}, state.editedShifts, action.payload)
       return Object.assign({}, state, {
         editedShifts: newEditedShifts
       })
 
-    case ActionTypes.removeEditedShifts:
+    case ShiftActions.removeEditedShifts:
       return Object.assign({}, state, {
         editedShifts: deleteKeysFromObject(<string[]>action.payload, state.editedShifts)
       })
 
     // Add and remove delete shifts
-    case ActionTypes.deleteShifts:
+    case ShiftActions.deleteShifts:
       return Object.assign({}, state, {
         deletedShifts: union(action.payload, state.deletedShifts)
       })
 
-    case ActionTypes.removeDeletedShifts:
+    case ShiftActions.removeDeletedShifts:
       const payload: string[] = <string[]>action.payload
       const newDeletedShifts = state.deletedShifts.filter(shiftId => {
         return payload.indexOf(shiftId) < 0

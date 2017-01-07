@@ -1,7 +1,7 @@
 import * as M from 'moment'
 
 import * as Models from 'src/models'
-import { ActionTypes } from 'src/state/actionTypes'
+import { CalendarActions } from 'src/state/actionTypes'
 
 export const initialState: Models.RCalendar = {
   date: M().format(),
@@ -11,12 +11,12 @@ export const initialState: Models.RCalendar = {
 const calendar = (state = initialState, action: Models.Action<Models.RCalendar>): Models.RCalendar => {
   switch (action.type) {
 
-    case ActionTypes.updateDate:
+    case CalendarActions.updateDate:
       return Object.assign({}, state, {
         date: action.payload.date
       })
 
-    case ActionTypes.updateTimeRange:
+    case CalendarActions.updateTimeRange:
       return Object.assign({}, state, {
         timeRange: action.payload.timeRange
       })

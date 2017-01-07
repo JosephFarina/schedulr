@@ -1,10 +1,9 @@
-import { ActionTypes } from './../state/actionTypes'
 import * as EntityModels from './entities'
 import * as ShiftModels from './shift'
 import * as TimeModels from './time'
 
 export interface Action<T> {
-  type: ActionTypes
+  type: string
   payload: T
 }
 

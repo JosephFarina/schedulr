@@ -1,4 +1,4 @@
-import { ActionTypes } from './../../actionTypes'
+import { UIActions } from './../../actionTypes'
 
 import {
   Action,
@@ -13,7 +13,7 @@ export const initialState: RSidebar = {
 const sidebar = (state = initialState, action: Action<RSidebar>): RSidebar => {
   switch (action.type) {
 
-    case ActionTypes.changeScheduleSidebarMode:
+    case UIActions.changeScheduleSidebarMode:
       return Object.assign({}, state, {
         mode: action.payload.mode
       })

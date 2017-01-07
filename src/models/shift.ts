@@ -4,7 +4,7 @@ export interface Shift {
   startTime?: string
   duration?: number
   location?: string
-  employee?: string[]
+  employees?: string[]
   client?: string
 }
 

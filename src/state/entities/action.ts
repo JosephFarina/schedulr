@@ -9,7 +9,7 @@ import {
   REntities
 } from 'src/models'
 
-import {ActionTypes} from 'src/state/actionTypes'
+import { EntitiesActions } from 'src/state/actionTypes'
 
 /**
  * 
@@ -19,14 +19,14 @@ import {ActionTypes} from 'src/state/actionTypes'
 
 export function setClients(clients: Clients): Action<Clients> {
   return {
-    type: ActionTypes.setClients,
+    type: EntitiesActions.setClients,
     payload: clients
   }
 }
 
 export function addClient(client: Client): Action<Client> {
   return {
-    type: ActionTypes.addClient,
+    type: EntitiesActions.addClient,
     payload: client
   }
 }
@@ -39,14 +39,14 @@ export function addClient(client: Client): Action<Client> {
 
 export function setEmployees(employees: Employees): Action<Employees> {
   return {
-    type: ActionTypes.setEmployees,
+    type: EntitiesActions.setEmployees,
     payload: employees
   }
 }
 
 export function addEmployee(employee: Employee): Action<Employee> {
   return {
-    type: ActionTypes.addEmployee,
+    type: EntitiesActions.addEmployee,
     payload: employee
   }
 }
@@ -59,14 +59,14 @@ export function addEmployee(employee: Employee): Action<Employee> {
 
 export function setLocations(locations: Locations): Action<Locations> {
   return {
-    type: ActionTypes.setLocations,
+    type: EntitiesActions.setLocations,
     payload: locations
   }
 }
 
 export function addLocation(location: Location): Action<Location> {
   return {
-    type: ActionTypes.addLocation,
+    type: EntitiesActions.addLocation,
     payload: location
   }
 }

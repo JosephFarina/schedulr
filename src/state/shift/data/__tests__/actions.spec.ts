@@ -7,7 +7,7 @@ import * as Actions from './../action'
 import shifts, { initialState } from './../reducer'
 import * as Selectors from './../selector'
 import * as Models from 'src/models'
-import { convertShiftObjectToArray } from 'src/utils/convertShifts'
+import { convertShiftObjectToArray } from 'src/utils'
 
 describe('Shift State', () => {
   it('sanity check that it returns the correct initial state', () => {

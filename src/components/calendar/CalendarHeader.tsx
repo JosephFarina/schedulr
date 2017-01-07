@@ -1,7 +1,7 @@
 import * as M from 'moment'
 import * as React from 'react'
 
-import * as TimeFormatter from 'src/utils/timeFormatter.utils'
+import * as TimeFormatter from 'src/utils'
 
 const styles = require('./Shared.css')
 const ctx = require('classnames')

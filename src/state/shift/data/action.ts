@@ -4,7 +4,7 @@ import {
   Shift
 } from 'src/models'
 import { ActionTypes } from 'src/state/actionTypes'
-import { convertShiftArrayToObject } from 'src/utils/convertShifts'
+import { convertShiftArrayToObject } from 'src/utils'
 
 /**
  * 

@@ -1,4 +1,5 @@
-import { ActionTypes } from './../../actionTypes'
+import { ActionTypes } from 'src/state/actionTypes'
+
 import {
   Action,
   RShiftEditor,

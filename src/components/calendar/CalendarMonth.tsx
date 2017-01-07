@@ -2,7 +2,7 @@ import * as M from 'moment'
 import * as React from 'react'
 
 import * as I from 'src/models'
-import { getWeeksFromMonth } from 'src/utils/getWeeksFromMonth.util'
+import { getWeeksFromMonth } from 'src/utils'
 
 import CalendarWeek from './CalendarWeek'
 

@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 import {
   MorString,
   cloneOrCreateMo,
-} from 'src/utils/momentHelpers.util'
+} from 'src/utils'
 
 import * as I from 'src/models'
 

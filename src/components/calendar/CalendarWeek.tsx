@@ -2,7 +2,7 @@ import * as M from 'moment'
 import * as React from 'react'
 
 import * as I from 'src/models'
-import { getDaysFromWeek } from 'src/utils/getDaysFromWeek.util'
+import { getDaysFromWeek } from 'src/utils'
 
 import {
   getShiftsByDay

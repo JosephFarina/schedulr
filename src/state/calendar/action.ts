@@ -1,7 +1,10 @@
 import * as Selectors from './selector'
 import * as Models from 'src/models'
 import { ActionTypes } from 'src/state/actionTypes'
-import * as DateUtils from 'src/utils/dateHelpers.utils'
+import {
+  nextWeek,
+  previousWeek,
+} from 'src/utils'
 
 
 /**
@@ -39,11 +42,11 @@ export const switchTimeRangeToWeek = (): Models.Action<Models.RCalendar> => {
 
 
 export const nextTimeRange = () => {
-  return generateTimeRangeAction(DateUtils.nextWeek)
+  return generateTimeRangeAction(nextWeek)
 }
 
 export const previousTimeRange = () => {
-  return generateTimeRangeAction(DateUtils.previousWeek)
+  return generateTimeRangeAction(previousWeek)
 }
 
 export const currentTimeRange = () => {

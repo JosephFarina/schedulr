@@ -28,7 +28,7 @@ import {
   location,
   locationsOne,
   locationsTwo
-} from 'src/testUtils/mockData'
+} from 'src/testUtils'
 
 describe('Entities Reducer', () => {
 

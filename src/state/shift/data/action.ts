@@ -2,9 +2,9 @@ import {
   Action,
   RShiftData,
   Shift
-} from './../../../models'
-import { convertShiftArrayToObject } from './../../../utils/convertShifts'
-import { ActionTypes } from './../../actionTypes'
+} from 'src/models'
+import { ActionTypes } from 'src/state/actionTypes'
+import { convertShiftArrayToObject } from 'src/utils/convertShifts'
 
 /**
  * 

@@ -32,6 +32,19 @@ export enum ActionTypes {
 
   /**
    * 
+   * Entities ActionTypes
+   * 
+   */
+
+  setClients,
+  addClient,
+  setEmployees,
+  addEmployee,
+  setLocations,
+  addLocation,
+
+  /**
+   * 
    * UI Action types
    * 
    */

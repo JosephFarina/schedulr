@@ -1,8 +1,8 @@
 import * as M from 'moment'
 
-import * as Models from './../../../models'
-import calendar, { initialState } from './../../calendar/reducer'
 import * as Actions from './../action'
+import calendar, { initialState } from './../reducer'
+import * as Models from 'src/models'
 
 let initialWeekState: Models.RState = {
   calendar: Object.assign({}, initialState)

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { Shift } from './../../models'
+import { Shift } from 'src/models'
 
 interface Props extends Shift { }
 

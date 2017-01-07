@@ -3,7 +3,7 @@ import {
   RSidebar,
   RState,
   ScheduleSidebarMode
-} from './../../../models'
+} from 'src/models'
 
 export function getScheduleSidebarMode(state: RState): ScheduleSidebarMode {
   return state.ui.sidebar.mode

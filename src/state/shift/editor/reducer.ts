@@ -1,9 +1,9 @@
+import { ActionTypes } from './../../actionTypes'
 import {
   Action,
   RShiftEditor,
   Shift
-} from './../../../models'
-import { ActionTypes } from './../../actionTypes'
+} from 'src/models'
 
 export const initialState: RShiftEditor = {
   editedShift: null,

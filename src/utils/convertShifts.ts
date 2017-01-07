@@ -1,7 +1,7 @@
 import {
   Shift,
   Shifts
-} from './../models'
+} from 'src/models'
 
 export function convertShiftObjectToArray(shifts: Shifts): Shift[] {
   return Object.keys(shifts).map(shiftId => Object.assign({}, shifts[shiftId]))

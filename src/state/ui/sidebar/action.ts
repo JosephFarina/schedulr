@@ -2,8 +2,8 @@ import {
   ScheduleSidebarMode,
   Action,
   RSidebar
-} from './../../../models'
-import { ActionTypes } from './../../actionTypes'
+} from 'src/models'
+import { ActionTypes } from 'src/state/actionTypes'
 
 // Change sidebar mode
 function changeSidebarMode(mode: ScheduleSidebarMode): Action<RSidebar> {

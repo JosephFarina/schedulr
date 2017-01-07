@@ -1,6 +1,6 @@
 import * as M from 'moment'
 
-import * as Models from './../../models'
+import * as Models from 'src/models'
 
 export const getCalendarState = (state: Models.RState): Models.RCalendar => state.calendar
 export const getDate = (state: Models.RState): string => state.calendar.date

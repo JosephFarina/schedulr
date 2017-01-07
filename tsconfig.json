@@ -5,6 +5,12 @@
     "noImplicitAny": true,
     "preserveConstEnums": true,
     "removeComments": true,
+    "baseUrl": "./",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ]
+    },
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "target": "es6",

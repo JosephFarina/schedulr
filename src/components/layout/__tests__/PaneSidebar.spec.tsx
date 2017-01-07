@@ -3,10 +3,10 @@ import {
   render,
   shallow,
   ShallowWrapper
-} from 'enzyme';
+} from 'enzyme'
 import * as React from 'react'
 
-import PaneSidebar from './../PaneSidebar';
+import PaneSidebar from './../PaneSidebar'
 
 const styles = require('./../PaneSidebar.css')
 

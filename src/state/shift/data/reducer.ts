@@ -4,10 +4,10 @@ const union = require('lodash.union')
 import {
   Action,
   RShiftData,
-} from './../../../models'
-import { deleteKeysFromObject } from './../../../utils/deleteKeysFromObject'
-import { generateShifts } from './../../../utils/test/generateShifts'
-import { ActionTypes } from './../../actionTypes'
+} from 'src/models'
+import { ActionTypes } from 'src/state/actionTypes'
+import { deleteKeysFromObject } from 'src/utils/deleteKeysFromObject'
+import { generateShifts } from 'src/utils/test/generateShifts'
 
 export const initialState: RShiftData = {
   shifts: generateShifts(M().format()),

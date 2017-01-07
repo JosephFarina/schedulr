@@ -1,8 +1,8 @@
 import * as M from 'moment'
 import * as React from 'react'
 
-import * as I from './../../models'
-import { getDaysFromWeek } from './../../utils/getDaysFromWeek.util'
+import * as I from 'src/models'
+import { getDaysFromWeek } from 'src/utils/getDaysFromWeek.util'
 
 import {
   getShiftsByDay

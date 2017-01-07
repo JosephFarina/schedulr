@@ -4,7 +4,7 @@ import {
   Action,
   RSidebar,
   ScheduleSidebarMode
-} from './../../../models'
+} from 'src/models'
 
 export const initialState: RSidebar = {
   mode: 'filter'

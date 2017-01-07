@@ -1,8 +1,8 @@
 import * as M from 'moment'
 import * as React from 'react'
 
-import * as I from './../../models'
-import { getWeeksFromMonth } from './../../utils/getWeeksFromMonth.util'
+import * as I from 'src/models'
+import { getWeeksFromMonth } from 'src/utils/getWeeksFromMonth.util'
 
 import CalendarWeek from './CalendarWeek'
 

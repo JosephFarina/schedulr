@@ -2,8 +2,8 @@ import {
   Action,
   RShiftEditor,
   Shift
-} from './../../../models'
-import { ActionTypes } from './../../actionTypes'
+} from 'src/models'
+import { ActionTypes } from 'src/state/actionTypes'
 
 /**
  * 

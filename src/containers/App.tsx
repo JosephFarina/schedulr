@@ -7,21 +7,21 @@ import {
 } from 'react-redux'
 
 
-import * as Models from './../models'
-import * as CalendarActions from './../state/calendar/action'
-import { getMomentDate } from './../state/calendar/selector'
+import * as Models from 'src/models'
+import * as CalendarActions from 'src/state/calendar/action'
+import { getMomentDate } from 'src/state/calendar/selector'
 
 import {
   getShifts
-} from './../state/shift'
+} from 'src/state/shift'
 
-import Calendar from './../components/calendar/Calendar'
-import Navbar from './../components/layout/Navbar'
-import PaneBody from './../components/layout/PaneBody'
-import PaneContainer from './../components/layout/PaneContainer'
-import PaneContent from './../components/layout/PaneContent'
-import PaneHeader from './../components/layout/PaneHeader'
 import Sidebar from './Sidebar'
+import Calendar from 'src/components/calendar/Calendar'
+import Navbar from 'src/components/layout/Navbar'
+import PaneBody from 'src/components/layout/PaneBody'
+import PaneContainer from 'src/components/layout/PaneContainer'
+import PaneContent from 'src/components/layout/PaneContent'
+import PaneHeader from 'src/components/layout/PaneHeader'
 
 import './App.css'
 

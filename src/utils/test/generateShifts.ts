@@ -1,6 +1,6 @@
 import * as M from 'moment'
 
-import { Shifts } from './../../models'
+import { Shifts } from 'src/models'
 
 export function generateShifts(startTime: string): Shifts {
   const shifts: Shifts = {}

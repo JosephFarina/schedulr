@@ -1,6 +1,6 @@
-import * as I from './../../../../models'
 import * as Actions from './../action'
 import sidebar, { initialState } from './../reducer'
+import * as I from 'src/models'
 
 describe('SidebarUI', () => {
 

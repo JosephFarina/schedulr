@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import {
   SelectOptions,
-  SelectionOption
-} from './../../models'
+  SelectOption
+} from 'src/models'
 
 const styles = require('./Select.css')
 const ctx = require('classnames')
@@ -162,7 +162,7 @@ class Select extends React.Component<SelectProps, SelectState> {
 
   }
 
-  private renderItem(option: SelectionOption, index: number) {
+  private renderItem(option: SelectOption, index: number) {
     const { selectedIndex } = this.state
     const className = ctx({
       [styles.item]: true,

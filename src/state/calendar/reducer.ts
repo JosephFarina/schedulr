@@ -1,7 +1,7 @@
 import * as M from 'moment'
 
-import * as Models from './../../models'
-import { ActionTypes } from './../actionTypes'
+import * as Models from 'src/models'
+import { ActionTypes } from 'src/state/actionTypes'
 
 export const initialState: Models.RCalendar = {
   date: M().format(),

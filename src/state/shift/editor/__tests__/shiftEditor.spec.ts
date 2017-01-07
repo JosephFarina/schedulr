@@ -1,7 +1,7 @@
 import {
   RShiftEditor,
   Shift,
-} from './../../../../models'
+} from 'src/models'
 
 import {
   // updateEditedShift,

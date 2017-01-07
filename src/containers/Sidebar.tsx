@@ -6,23 +6,23 @@ import {
   connect,
 } from 'react-redux'
 
-import { getMomentDate } from './../state/calendar/selector'
+import { getMomentDate } from 'src/state/calendar/selector'
 
 import {
   getScheduleSidebarMode
-} from './../state/ui/sidebar/selector'
+} from 'src/state/ui/sidebar/selector'
 
-import * as Models from './../models'
-import * as CalendarActions from './../state/calendar/action'
-import * as SidebarActions from './../state/ui/sidebar/action'
+import * as Models from 'src/models'
+import * as CalendarActions from 'src/state/calendar/action'
+import * as SidebarActions from 'src/state/ui/sidebar/action'
 
-import Calendar from './../components/calendar/Calendar'
-import PaneHeader from './../components/layout/PaneHeader'
-import PaneSidebar from './../components/layout/PaneSidebar'
 import ShiftEditor from './ShiftEditor'
+import Calendar from 'src/components/calendar/Calendar'
+import PaneHeader from 'src/components/layout/PaneHeader'
+import PaneSidebar from 'src/components/layout/PaneSidebar'
 
-import Button from './../components/buttons/Button'
-import ButtonGroup from './../components/buttons/ButtonGroup'
+import Button from 'src/components/buttons/Button'
+import ButtonGroup from 'src/components/buttons/ButtonGroup'
 
 import './App.css'
 

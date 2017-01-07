@@ -1,7 +1,7 @@
 import {
   Shift,
   Shifts,
-} from './../../models'
+} from 'src/models'
 
 import {
   convertShiftArrayToObject,

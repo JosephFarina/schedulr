@@ -1,14 +1,14 @@
 import * as M from 'moment'
 
-import * as I from './../../../../models'
 import {
   getAddedShifts,
   getDeletedShifts,
   getEditedShifts,
+  getRawShifts,
   getShifts,
   getShiftsByDay,
-  getRawShifts,
 } from './../selector'
+import * as I from 'src/models'
 
 const shifts: I.Shifts = {
   asfjkdfj: {

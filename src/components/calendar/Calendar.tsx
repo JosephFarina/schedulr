@@ -1,7 +1,7 @@
 import * as M from 'moment'
 import * as React from 'react'
 
-import * as I from './../../models'
+import * as I from 'src/models'
 
 import CalendarHeader from './CalendarHeader'
 import CalendarMonth from './CalendarMonth'

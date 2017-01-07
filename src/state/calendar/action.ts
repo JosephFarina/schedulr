@@ -1,7 +1,7 @@
-import * as Models from './../../models'
-import * as DateUtils from './../../utils/dateHelpers.utils'
-import { ActionTypes } from './../actionTypes'
 import * as Selectors from './selector'
+import * as Models from 'src/models'
+import { ActionTypes } from 'src/state/actionTypes'
+import * as DateUtils from 'src/utils/dateHelpers.utils'
 
 
 /**

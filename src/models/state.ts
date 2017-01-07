@@ -1,4 +1,5 @@
 import { ActionTypes } from './../state/actionTypes'
+import * as EntityModels from './entities'
 import * as ShiftModels from './shift'
 import * as TimeModels from './time'
 
@@ -17,8 +18,11 @@ export interface Action<T> {
 export interface RState {
   calendar?: RCalendar
   shift?: RShift
+  entities?: REntities
   ui?: RUI
 }
+
+
 
 /**
  * 
@@ -30,6 +34,8 @@ export interface RCalendar {
   date?: string
   timeRange?: TimeModels.TimeRangeOption
 }
+
+
 
 /**
  * 
@@ -57,6 +63,22 @@ export interface RShiftEditor {
   editedShift?: ShiftModels.Shift
   selectedShift?: string
 }
+
+
+
+/**
+ * 
+ * Entity State
+ * 
+ */
+
+export interface REntities {
+  clients?: EntityModels.Clients
+  locations?: EntityModels.Locations
+  employees?: EntityModels.Employees
+}
+
+
 
 /**
  * 

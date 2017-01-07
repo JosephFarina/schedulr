@@ -3,9 +3,9 @@ import { createSelector } from 'reselect'
 import {
   MorString,
   cloneOrCreateMo,
-} from './../../../utils/momentHelpers.util'
+} from 'src/utils/momentHelpers.util'
 
-import * as I from './../../../models'
+import * as I from 'src/models'
 
 export const getRawShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.shifts)
 export const getEditedShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.editedShifts)

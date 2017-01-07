@@ -3,7 +3,6 @@ require('moment-range')
 
 import * as DateUtils from './../dateHelpers.utils'
 import * as MomentHelpers from './../momentHelpers.util'
-import * as Models from 'src/models'
 
 describe('Date Utils', () => {
 

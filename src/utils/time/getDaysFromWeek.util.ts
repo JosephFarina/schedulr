@@ -1,9 +1,8 @@
+import * as M from 'moment'
 import {
   MorString,
   cloneOrCreateMo,
-} from './momentHelpers.util'
-import * as M from 'moment'
-import * as I from 'src/models'
+} from 'src/utils'
 
 export function getDaysFromWeek(date: MorString): M.Moment[] {
   const week = cloneOrCreateMo(date)

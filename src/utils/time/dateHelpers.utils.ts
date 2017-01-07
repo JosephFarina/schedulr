@@ -1,9 +1,10 @@
 import * as M from 'moment'
 require('moment-range')
 
-import * as I from './../models'
-import { mode } from './math.utils'
-import * as MUtil from './momentHelpers.util'
+import {
+  MorString,
+  cloneOrCreateMo,
+} from 'src/utils'
 
 
 /**
@@ -15,13 +16,13 @@ import * as MUtil from './momentHelpers.util'
  */
 
 
-export const startOfWeek = (input?: MUtil.MorString): M.Moment => {
-  const date = MUtil.cloneOrCreateMo(input)
+export const startOfWeek = (input?: MorString): M.Moment => {
+  const date = cloneOrCreateMo(input)
   return date.startOf('week').startOf('day')
 }
 
-export const endOfWeek = (input?: MUtil.MorString): M.Moment => {
-  const date = MUtil.cloneOrCreateMo(input)
+export const endOfWeek = (input?: MorString): M.Moment => {
+  const date = cloneOrCreateMo(input)
   return date.endOf('week').endOf('day')
 }
 
@@ -55,12 +56,12 @@ export const endOfMonth = (month: number, year: number): M.Moment => {
  */
 
 
-export const nextWeek = (input?: MUtil.MorString): M.Moment => {
+export const nextWeek = (input?: MorString): M.Moment => {
   const currDate = startOfWeek(input)
   return currDate.add(1, 'week')
 }
 
-export const previousWeek = (input?: MUtil.MorString): M.Moment => {
+export const previousWeek = (input?: MorString): M.Moment => {
   const currDate = startOfWeek(input)
   return currDate.subtract(1, 'week')
 }

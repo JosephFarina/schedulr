@@ -1,6 +1,9 @@
 import * as M from 'moment'
 
-import * as TypeChecking from './typeChecking.util'
+import {
+  isMoment,
+  isString,
+} from 'src/utils'
 
 export declare type MorString = M.Moment | string
 
@@ -9,9 +12,9 @@ export const cloneOrCreateMo = (mo?: MorString): M.Moment => {
 
   if (!mo) {
     date = M()
-  } else if (TypeChecking.isString(mo)) {
+  } else if (isString(mo)) {
     date = M(mo)
-  } else if (TypeChecking.isMoment(mo)) {
+  } else if (isMoment(mo)) {
     date = (<M.Moment>mo).clone()
   }
 

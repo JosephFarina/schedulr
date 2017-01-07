@@ -16,7 +16,7 @@ import {
   location,
   locationsOne,
   locationsTwo
-} from './../test/mockData'
+} from 'src/testUtils/mockData'
 
 import {
   clients

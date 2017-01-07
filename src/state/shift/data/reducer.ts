@@ -6,8 +6,8 @@ import {
   RShiftData,
 } from 'src/models'
 import { ActionTypes } from 'src/state/actionTypes'
+import { generateShifts } from 'src/testUtils'
 import { deleteKeysFromObject } from 'src/utils/deleteKeysFromObject'
-import { generateShifts } from 'src/utils/test/generateShifts'
 
 export const initialState: RShiftData = {
   shifts: generateShifts(M().format()),

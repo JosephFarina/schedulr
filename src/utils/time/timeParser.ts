@@ -12,11 +12,18 @@ if it cant find a deliminator throw Error
 then returns the parsed time for the start and end time
 */
 
-export function rangeParse(_day: MorString, time: string): M.Moment[] {
-  return [
-    // timeParser(),
-    // timeParser()
-  ]
+export function rangeParser(_day: MorString, time: string): M.Moment[] {
+  const deliminators = /[-_\\|\/~,]/g
+  if ((time.match(deliminators) || []).length === 1) {
+    const day = cloneOrCreateMo(_day)
+    const [start, end] = time.split(deliminators)
+    return [
+      timeParser(day, start),
+      timeParser(day, end)
+    ]
+  } else {
+    return null
+  }
 }
 
 /*
@@ -38,28 +45,55 @@ accepted values:
 - 5:40 == 5:45
 */
 
-export function timeParser(_day: MorString, _time: number | string): M.Moment {
-  const time: string = '' + _time
-  const day = cloneOrCreateMo(_day).hour(0).minutes(0).seconds(0)
+export function timeParser(day: MorString, time: string): M.Moment {
   const meridiem = isAmOrPm(time)
-  let hour: number = +time.replace(/[^0-9]/g, '')
+  const [hour, minutes] = getHoursAndMinutes(time)
+  const calculatedHour = calculateActualHour(hour, meridiem)
+  const roundedMinutes = roundMinutes(minutes)
 
+  return cloneOrCreateMo(day).hour(calculatedHour).minutes(roundedMinutes).seconds(0)
+}
+
+function calculateActualHour(hour: number, meridiem: 'am' | 'pm' | 'na'): number {
   if (meridiem === 'am' && hour === 12) {
-    hour = 0
-  } else if (meridiem === 'pm' && hour === 12)  {
-    hour = 12
+    return 0
+  } else if (meridiem === 'pm' && hour === 12) {
+    return 12
   } else if (meridiem === 'pm') {
-    hour += 12
+    return hour += 12
+  } else {
+    return hour
   }
+}
 
-  day.hour(hour)
-  return day
+function roundMinutes(mins: number): number {
+  if (mins >= 59) { return 59 }
+
+  const interval = 15
+  const remainder = mins % interval
+  const highInterval = Math.ceil(mins / interval)
+  const lowInterval = Math.floor(mins / interval)
+  const halfwayPoint = interval / 2
+  return remainder >= halfwayPoint ? highInterval * interval : lowInterval * interval
+}
+
+// index 0 is hour | index 1 is minute -- if null no minutes found
+function getHoursAndMinutes(time: string | number): number[] {
+  if (typeof time === 'number') {
+    return [time, null]
+  } else if (/:/.test(time)) {
+    const hour = +time.split(':')[0].replace(/[^0-9]/g, '')
+    const minutes = +time.split(':')[1].replace(/[^0-9]/g, '')
+    return [hour, minutes]
+  } else {
+    return [+(time.replace(/[^0-9]/g, '')), null]
+  }
 }
 
 function isAmOrPm(time: string): 'am' | 'pm' | 'na' {
-  if (time.match(/[Pp]/)) {
+  if (/[Pp]/.test(time)) {
     return 'pm'
-  } else if (time.match(/[Aa]/)) {
+  } else if (/[Aa]/.test(time)) {
     return 'am'
   } else {
     return 'na'

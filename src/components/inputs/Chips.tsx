@@ -13,35 +13,82 @@ interface ChipsProps {
   removeChip?(val: string | number): void
 }
 
-const defaultProps: ChipsProps = {
-  options: [],
-  removeChip: () => { }
+interface ChipsState {
+  indexHoveredOver: number
 }
 
-const Chips: React.StatelessComponent<ChipsProps> = (props: ChipsProps) => {
-  const {
-    options,
-    removeChip
-  } = props
+class Chips extends React.Component<ChipsProps, ChipsState> {
+  public static defaultProps: ChipsProps = {
+    options: [],
+    removeChip: () => { }
+  }
 
-  const containerClass = ctx({
-    [styles.container]: true
-  })
+  constructor(props: ChipsProps) {
+    super(props)
+    this.state = {
+      indexHoveredOver: null
+    }
 
-  return (
-    <div className={containerClass}>
-      {options.map((option, i) => {
-        return (
-          <div key={i}>
-            <div>{option.display}</div>
-            <div onClick={_ => removeChip(option.value)}>X</div>
-          </div>
-        )
-      })}
-    </div>
-  )
+    this.handleMouseEnter = this.handleMouseEnter.bind(this)
+    this.handleMouseOut = this.handleMouseOut.bind(this)
+  }
+
+  /**
+   * 
+   * Event Handlers
+   * 
+   */
+
+  private handleMouseEnter(index: number) {
+    this.setState({
+      indexHoveredOver: index
+    })
+  }
+
+  private handleMouseOut() {
+    this.setState({
+      indexHoveredOver: null
+    })
+  }
+
+  /**
+   * 
+   * Renderers
+   * 
+   */
+
+  private renderChip(option: SelectOption, index: number) {
+    const {
+      removeChip
+    } = this.props
+
+    const {
+      indexHoveredOver
+    } = this.state
+
+    return (
+      <div onMouseEnter={_ => this.handleMouseEnter(index)} onMouseLeave={this.handleMouseOut} className={styles.chip} key={index}>
+        {option.display}
+        {index === indexHoveredOver && <div className={styles.removeChip} onClick={_ => removeChip(option.value)}>X</div>}
+      </div>
+    )
+  }
+
+  public render() {
+    const {
+      options
+    } = this.props
+
+    const containerClass = ctx({
+      [styles.container]: options.length > 0
+    })
+
+    return (
+      <div className={containerClass}>
+        {options.map((option, i) => this.renderChip(option, i))}
+      </div>
+    )
+  }
 }
-
-Chips.defaultProps = defaultProps
 
 export default Chips

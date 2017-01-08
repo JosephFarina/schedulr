@@ -16,6 +16,7 @@ import {
   addEmployeeToShift,
   getEmployeesInShiftBeingCreated,
   getShiftBeingCreated,
+  removeEmployeeFromShift,
   updateNewShift,
 } from 'src/state/shift'
 
@@ -62,6 +63,12 @@ class ShiftEditor extends React.Component<Props, State> {
     newShift: {}
   }
 
+  constructor(props: Props) {
+    super(props)
+
+    this.removeEmployee = this.removeEmployee.bind(this)
+  }
+
 
   /**
    * 
@@ -70,9 +77,14 @@ class ShiftEditor extends React.Component<Props, State> {
    */
 
 
-  private addEmployee(val: string | number): void {
+  private addEmployee(id: string | number): void {
     const { dispatch } = this.props
-    dispatch(addEmployeeToShift(val as string))
+    dispatch(addEmployeeToShift(id as string))
+  }
+
+  private removeEmployee(id: string | number): void {
+    const { dispatch } = this.props
+    dispatch(removeEmployeeFromShift(id as string))
   }
 
   private updateClient(client: string): void {
@@ -100,13 +112,12 @@ class ShiftEditor extends React.Component<Props, State> {
   private renderEmployeeSelector() {
     const { employees, employeesInShift } = this.props
     const employeeOptions = convertEntityToSelectOptions(employees, employeesInShift)
-    // const selectedEmployeeOptions = convertDefinedEntityKeysToSelectOptions(employees, employeesInShift)
+    const selectedEmployeeChips = convertEntityToSelectOptions(employeesInShift.map(employeeId => employees[employeeId]))
 
     return (
       <div>
         <Select value={'Employee'} onChange={val => this.addEmployee(val)} options={employeeOptions} />
-        <Chips />
-        {employeesInShift.map((employee, i) => <div key={i}>{employee}</div>)}
+        <Chips removeChip={this.removeEmployee} options={selectedEmployeeChips} />
       </div>
     )
   }
@@ -114,7 +125,7 @@ class ShiftEditor extends React.Component<Props, State> {
   private renderClientSelector() {
     const { clients, newShift } = this.props
     const selectedClient = newShift.client
-    const clientOptions = convertEntityToSelectOptions(clients)
+    const clientOptions = convertEntityToSelectOptions(clients, [selectedClient])
     const displayValue = selectedClient ? clients[selectedClient].alias : 'Client'
 
     return (
@@ -128,10 +139,10 @@ class ShiftEditor extends React.Component<Props, State> {
     const { clients, locations, newShift } = this.props
     const selectedLocation = newShift.location
     const selectedClient = clients[newShift.client] || null
-    const locationsToFilterOut = selectedClient ? getAllOtherKeys(locations, selectedClient.locations) : []
-
-    const locationOptions = convertEntityToSelectOptions(locations, locationsToFilterOut)
     const displayValue = selectedLocation ? locations[selectedLocation].alias : 'Location'
+
+    const keysToFilterOut = selectedClient ? getAllOtherKeys(locations, selectedClient.locations).concat(selectedLocation) : []
+    const locationOptions = selectedClient ? convertEntityToSelectOptions(locations, keysToFilterOut) : []
 
     return (
       <div>
@@ -140,20 +151,17 @@ class ShiftEditor extends React.Component<Props, State> {
     )
   }
 
-  private renderNewShiftEditor() {
-    return (
-      <div>
-        {this.renderEmployeeSelector()}
-        {this.renderClientSelector()}
-        {this.renderLocationSelector()}
-      </div>
-    )
+  private renderTimeSelector() {
+    return <div></div>
   }
 
   public render() {
     return (
       <div>
-        {this.renderNewShiftEditor()}
+        {this.renderEmployeeSelector()}
+        {this.renderClientSelector()}
+        {this.renderLocationSelector()}
+        {this.renderTimeSelector()}
       </div>
     )
   }

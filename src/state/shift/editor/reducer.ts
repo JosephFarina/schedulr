@@ -19,7 +19,6 @@ export const initialState: RShiftEditor = {
 }
 
 const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShiftEditor => {
-  console.log('asdfasd', action, ShiftActions.addEmployeeToShift)
   switch (action.type) {
 
     /**
@@ -29,8 +28,10 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
      */
 
     case ShiftActions.addEmployeeToShift:
+      const employeeAlreadyInState = state.employeesInShift.indexOf(<string>action.payload) >= 0
+      const nextEmployeesInShift = employeeAlreadyInState ? state.employeesInShift : state.employeesInShift.concat(<string>action.payload)
       return Object.assign({}, state, {
-        employeesInShift: state.employeesInShift.concat(<string>action.payload)
+        employeesInShift: nextEmployeesInShift
       })
 
     case ShiftActions.removeEmployeeFromShift:

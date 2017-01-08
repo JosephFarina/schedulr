@@ -35,6 +35,8 @@ export const clientsOne: Clients = {
   }
 }
 
+export const clientsOneArray: Employee[] = Object.keys(clientsOne).map(id => Object.assign({}, clientsOne[id]))
+
 export const clientsTwo: Clients = {
   'c1234344311144': {
     id: 'c243243334',
@@ -47,6 +49,8 @@ export const clientsTwo: Clients = {
     locations: ['1rrqegwqacva']
   }
 }
+
+export const clientsTwoArray: Employee[] = Object.keys(clientsTwo).map(id => Object.assign({}, clientsTwo[id]))
 
 /**
  * 
@@ -76,6 +80,8 @@ export const employeesOne: Employees = {
   }
 }
 
+export const employeesOneArray: Employee[] = Object.keys(employeesOne).map(id => Object.assign({}, employeesOne[id]))
+
 export const employeesTwo: Employees = {
   'af3ijwekfas': {
     id: 'af3ijwekfas',
@@ -85,6 +91,8 @@ export const employeesTwo: Employees = {
   }
 }
 
+export const employeesTwoArray: Employee[] = Object.keys(employeesTwo).map(id => Object.assign({}, employeesTwo[id]))
+
 /**
  * 
  * Default Location Values
@@ -92,24 +100,33 @@ export const employeesTwo: Employees = {
  */
 
 export const location: Location = {
+  alias: 'fffavdak',
   id: 'asdf32wec'
 }
 
 export const locationsOne: Locations = {
   '12123434': {
+    alias: 'asdfvvas',
     id: '12123434'
   },
   '12grrqwf': {
+    alias: 'asdvasdv',
     id: '12grrqwf'
   }
 }
 
+export const locationsOneArray: Location[] = Object.keys(locationsOne).map(id => Object.assign({}, locationsOne[id]))
+
 export const locationsTwo: Locations = {
   '1rrqegwqacva': {
+    alias: 'casdasdfdff',
     id: '1rrqegwqacva'
   },
   '3qgefwg3rqwafs': {
+    alias: 'casdf',
     id: '3qgefwg3rqwafs'
   }
 }
+
+export const locationsTwoArray: Location[] = Object.keys(locationsTwo).map(id => Object.assign({}, locationsTwo[id]))
 

@@ -1,7 +1,13 @@
 import {
   RShiftEditor,
+  RState,
   Shift,
 } from 'src/models'
+
+import {
+  clientsOne,
+  locationsOne,
+} from 'src/testUtils'
 
 import {
   // updateEditedShift,
@@ -28,19 +34,17 @@ const shift: Shift = {
 
 describe('shiftEditor', () => {
 
-  // describe('#updateEditedShift', () => {
-
-  //   it('should update the shift when its called', () => {
-  //     const state = shiftEditor(undefined, updateEditedShift(shift))
-  //     expect(state.editedShift).toEqual(shift)
-  //   })
-
-  // })
-
   it('add employee to shift', () => {
     const employeeId = '23452233465434'
     const state = shiftEditor(undefined, addEmployeeToShift(employeeId))
     expect(state.employeesInShift).toContain(employeeId)
+  })
+
+  it('add employee to shift should not add duplicated', () => {
+    const employeeId = '134t1433reg'
+    const state = shiftEditor(undefined, addEmployeeToShift(employeeId))
+    const stateAfterAddingSecondShift = shiftEditor(state, addEmployeeToShift(employeeId))
+    expect(stateAfterAddingSecondShift.employeesInShift.length).toEqual(1)
   })
 
   it('remove employee from shift', () => {
@@ -75,6 +79,33 @@ describe('shiftEditor', () => {
       expect(state.newShift.startTime).toEqual(shift.startTime)
       expect(state.newShift.id).toEqual(shift.id)
     })
+
+    // it('when a client is updated it should update the location to the clients first loc', () => {
+    //   const initialClient = 'clientsOne doesnt really matter'
+    //   const initialLocation = 'location one doesnt really matter just needs to be diff'
+    //   const initialState: RState = {
+    //     entities: {
+    //       clients: clientsOne,
+    //       locations: locationsOne
+    //     },
+    //     shift: {
+    //       editor: {
+    //         newShift: {
+    //           client: initialClient,
+    //           location: initialLocation
+    //         }
+    //       }
+    //     }
+    //   }
+
+    //   const clientToChangeToId = Object.keys(clientsOne)[0]
+    //   const expectedLocationId = clientsOne[clientToChangeToId].locations[0]
+
+    //   const state = shiftEditor(initialState, updateNewShift({
+    //     client: clientToChangeToId
+    //   }))
+
+    // })
 
   })
 

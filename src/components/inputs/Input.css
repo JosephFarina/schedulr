@@ -12,6 +12,10 @@ $sidePadding: 10px;
   }
 }
 
+.containerWithMessage {
+  margin-bottom: 1.8rem;
+}
+
 .inputText {
   position: absolute;
   top: 0;
@@ -57,10 +61,28 @@ $sidePadding: 10px;
   /*background: lightgray;*/
 }
 
-.green {
+.message {
+  position: absolute;
+  top: 115%;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  overflow: scroll;
+  white-space: nowrap;
+}
+
+.greenBackground {
   background: green;
 }
 
-.red {
+.greenColor {
+  color: green;
+}
+
+.redBackground {
   background: red;
+}
+
+.redColor {
+  color: red;
 }

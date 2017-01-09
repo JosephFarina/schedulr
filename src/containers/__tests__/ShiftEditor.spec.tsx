@@ -1,48 +1,108 @@
+import * as M from 'moment'
+
 import {
-  mount
+  shallow
 } from 'enzyme'
 import * as React from 'react'
 
-import ShiftEditor from './../ShiftEditor'
+import { ShiftEditor } from './../ShiftEditor'
 
 import ButtonGroup from 'src/components/buttons/ButtonGroup'
 
+import {
+  removeEmployeeFromShift,
+  updateNewShift,
+} from 'src/state/shift'
+
+import {
+  clientsOne,
+  employeesOne,
+  locationsOne,
+} from 'src/testUtils'
+
+import {
+  rangeParser,
+  timeDuration
+} from 'src/utils'
+
 describe('ShiftEditor', () => {
-  // let wrapper = mount(<ShiftEditor />)
+  let mockDispatch: jasmine.Spy
+
+  let wrapper = shallow(<ShiftEditor />)
   beforeEach(() => {
-    // wrapper = mount(<ShiftEditor />)
+    mockDispatch = jasmine.createSpy('mockDispatch')
+    wrapper = shallow(<ShiftEditor
+      clients={clientsOne}
+      locations={locationsOne}
+      dispatch={mockDispatch} />)
   })
 
   it('should render', () => {
-    // mount(<ShiftEditor />)
+    shallow(<ShiftEditor />)
   })
 
-  describe('toggle modes', () => {
 
-    // it('if there is a selected shift there should be a button group with edit and new options', () => {
-    //   wrapper = mount(<ShiftEditor shiftSelected={true} />)
-    //   const text = getTextInButtonGroup(wrapper)
+  describe('Actions work as expected', () => {
 
-    //   expect(text).toContain('New')
-    //   expect(text).toContain('Edited')
-    // })
+    it('#updateClient should also update the location the clients first loc', () => {
+      const clientId = Object.keys(clientsOne)[0]
+      const expected = updateNewShift({
+        client: clientId,
+        location: clientsOne[clientId].locations[0]
+      })
+      wrapper.instance().updateClient(clientId)
+      expect(mockDispatch.calls.mostRecent().args[0]).toEqual(expected)
+    })
 
-    // it('if there is no selected shift there should be no option for edit or new', () => {
-    //   wrapper = mount(<ShiftEditor />)
-    //   const text = getTextInButtonGroup(wrapper)
+    describe('#handleTimeChangeEnd', () => {
 
-    //   expect(text).toBeFalsy()
-    // })
+      it('if any timeInputValue is entered', () => {
+        const timeInputValue = '1a - 5p'
+        wrapper.setState({
+          timeInputValue
+        })
+        wrapper.instance().handleTimeChangeEnd()
+        const parsedTimeRange = wrapper.state()['parsedTimeRange']
+        // FixME: the M() will need to be fixed once date selector is implemented
+        const expectedTimeRange = rangeParser(M(), timeInputValue)
 
-  })
+        expect(
+          expectedTimeRange[0].isSame(parsedTimeRange[0], 'minute')
+        ).toBeTruthy()
+        expect(
+          expectedTimeRange[1].isSame(parsedTimeRange[1], 'minute')
+        ).toBeTruthy()
 
-  describe('Creating new shifts', () => {
+        // expect to to dispatch the current range formated in startTime and duration
+        expect(mockDispatch.calls.mostRecent().args[0]).toEqual(updateNewShift({
+          startTime: parsedTimeRange[0].format(),
+          duration: timeDuration(parsedTimeRange[0], parsedTimeRange[1])
+        }))
+      })
 
-    // it('on change end it should dispatch #updateNewShift with the new shift in state', () => {
-    // })
+      it('if an empty string timeInputValue is entered', () => {
+        wrapper.setState({ timeInputValue: '1 - 3 ' })
+        wrapper.setState({ timeInputValue: '' })
 
-    // it('on reset it should dispatch #clearNewShift and also clear the state', () => {
-    // })
+        wrapper.instance().handleTimeChangeEnd()
+        expect(wrapper.state()['parsedTimeRange']).toEqual(undefined)
+        expect(mockDispatch.calls.mostRecent().args[0]).toEqual(updateNewShift({
+          startTime: null,
+          duration: null
+        }))
+      })
+
+      it('if an invalid string timeInputValue is entered', () => {
+        wrapper.setState({ timeInputValue: '1 - ShiftEditor.spec.tsx ' })
+        wrapper.instance().handleTimeChangeEnd()
+        expect(wrapper.state()['parsedTimeRange']).toEqual(null)
+        expect(mockDispatch.calls.mostRecent().args[0]).toEqual(updateNewShift({
+          startTime: null,
+          duration: null
+        }))
+      })
+
+    })
 
   })
 

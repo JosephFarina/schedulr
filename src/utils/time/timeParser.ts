@@ -14,16 +14,26 @@ then returns the parsed time for the start and end time
 
 export function rangeParser(_day: MorString, time: string): M.Moment[] {
   const deliminators = /[-_\\|\/~,]/g
+
   if ((time.match(deliminators) || []).length === 1) {
     const day = cloneOrCreateMo(_day)
     const [start, end] = time.split(deliminators)
-    return [
-      timeParser(day, start),
-      timeParser(day, end)
-    ]
-  } else {
-    return null
+    const parsedStart = timeParser(day, start)
+    const parsedEnd = timeParser(day, end)
+
+    if (parsedEnd <= parsedStart) {
+      return null
+    }
+
+    if (parsedStart && parsedEnd) {
+      return [parsedStart, parsedEnd]
+    } else {
+      return null
+    }
+
   }
+
+  return null
 }
 
 /*
@@ -47,7 +57,13 @@ accepted values:
 
 export function timeParser(day: MorString, time: string): M.Moment {
   const meridiem = isAmOrPm(time)
-  const [hour, minutes] = getHoursAndMinutes(time)
+  const strippedTime = time.replace(/[^0-9:]/g, '')
+
+  if (!strippedTime) {
+    return null
+  }
+
+  const [hour, minutes] = getHoursAndMinutes(strippedTime)
   const calculatedHour = calculateActualHour(hour, meridiem)
   const roundedMinutes = roundMinutes(minutes)
 
@@ -82,11 +98,9 @@ function getHoursAndMinutes(time: string | number): number[] {
   if (typeof time === 'number') {
     return [time, null]
   } else if (/:/.test(time)) {
-    const hour = +time.split(':')[0].replace(/[^0-9]/g, '')
-    const minutes = +time.split(':')[1].replace(/[^0-9]/g, '')
-    return [hour, minutes]
+    return time.split(':').map(i => +i)
   } else {
-    return [+(time.replace(/[^0-9]/g, '')), null]
+    return [+time, null]
   }
 }
 

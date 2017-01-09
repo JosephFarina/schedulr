@@ -29,7 +29,7 @@ describe('#timeParser', () => {
   it('return time when just given a number', () => {
     const times = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 23]
     times.forEach(time => {
-      const parsedTime = timeParser(today.clone(), time)
+      const parsedTime = timeParser(today.clone(), '' + time)
       expect(parsedTime.format()).toEqual(setMoment(time).format())
     })
   })
@@ -147,6 +147,27 @@ describe('#rangeParser', () => {
     const timeRange = '1:15a - 2p - 3p'
     const res = rangeParser(today.clone(), timeRange)
     expect(res).toEqual(null)
+  })
+
+  it('if it contains a delimanator but the right hand side is empty should return null', () => {
+    '1:15a- %2pm-p'.split('%').forEach(range => {
+      const res = rangeParser(today.clone(), range)
+      expect(res).toEqual(null)
+    })
+  })
+
+  it('if the end time is before the start time it should return null', () => {
+    '1:15pm - 12am % 5pm - 2'.split('%').forEach(range => {
+      const res = rangeParser(today.clone(), range)
+      expect(res).toEqual(null)
+    })
+  })
+
+  it('if the end time is equal to the start time it should return null', () => {
+    '1:15am - 1:15 % 5pm - 5p'.split('%').forEach(range => {
+      const res = rangeParser(today.clone(), range)
+      expect(res).toEqual(null)
+    })
   })
 
 })

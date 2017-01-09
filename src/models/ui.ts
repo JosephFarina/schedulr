@@ -4,6 +4,8 @@ export type SelectOptions = SelectOption[]
 export interface InputProps {
   label?: string
   value: string
+  message?: string
+  valid?: boolean
   onBlur?(): void
   onFocus?(): void
   onChangeEnd?(): void

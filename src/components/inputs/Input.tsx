@@ -13,9 +13,11 @@ interface State {
 }
 
 class Input extends React.Component<Props, State> {
-  public static defaultProps = {
+  public static defaultProps: Props = {
     label: '',
     value: '',
+    valid: null,
+    message: '',
     onBlur: () => { },
     onFocus: () => { },
     onChange: () => { },
@@ -97,32 +99,53 @@ class Input extends React.Component<Props, State> {
     const {
       label,
       value,
-      children
+      children,
+      message,
+      valid
     } = this.props
 
     const {
       focused
     } = this.state
 
+    const containerClass = ctx({
+      [styles.container]: true,
+      [styles.containerWithMessage]: message && message.length > 0
+    })
+
     const labelClass = ctx({
       [styles.label]: true,
-      [styles.labelActive]: focused || this.hasValue()
+      [styles.labelActive]: focused || this.hasValue(),
+      [styles.redColor]: valid === false,
+      [styles.greenColor]: valid === true
+    })
+
+    const messageClass = ctx({
+      [styles.message]: true,
+      [styles.redColor]: valid === false,
+      [styles.greenColor]: valid === true
+    })
+
+    const barClass = ctx({
+      [styles.bar]: true,
+      [styles.redBackground]: valid === false,
+      [styles.greenBackground]: valid === true
     })
 
     return (
-      <div className={styles.container}>
+      <div className={containerClass}>
         <input
           onBlur={this.onBlur}
           onFocus={this.onFocus}
           value={value}
           onChange={this.onChange}
-
           className={styles.inputText}
           type="text"
           ref={input => { this.textInput = input } } />
 
         <label className={labelClass}>{label}</label>
-        <div className={styles.bar}></div>
+        <div className={barClass}></div>
+        <div className={messageClass}>{message}</div>
         {children}
       </div>
     )

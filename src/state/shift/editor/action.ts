@@ -5,6 +5,11 @@ import {
 } from 'src/models'
 import { ShiftActions } from 'src/state/actionTypes'
 
+import {
+  MorString,
+  cloneOrCreateMo,
+} from 'src/utils'
+
 /**
  * 
  * Adding and removing employees from the new shift
@@ -27,7 +32,21 @@ export function removeEmployeeFromShift(employeeId: string): Action<RShiftEditor
 
 /**
  * 
+ * Update shift date
  * 
+ */
+
+export function updateShiftDate(_date: MorString): Action<string> {
+  const date = cloneOrCreateMo(_date).hour(12).minutes(0)
+  return {
+    type: ShiftActions.updateShiftDate,
+    payload: date.format()
+  }
+}
+
+/**
+ * 
+ * update shift
  * 
  */
 

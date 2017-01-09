@@ -12,6 +12,7 @@ interface Props {
   day: M.Moment
   month: M.Moment
   isDatePicker?: boolean
+  isSelectedDay?: boolean
   shifts?: I.Shift[]
   outOfRange?: boolean
   onDayClick?(date: M.Moment): void
@@ -23,6 +24,7 @@ const defaultProps: Props = {
   month: M(),
   isDatePicker: false,
   shifts: null,
+  isSelectedDay: false,
   outOfRange: false,
   onDayClick() { },
   onShiftClick() { }
@@ -36,19 +38,22 @@ const CalendarDay: React.StatelessComponent<Props> = (props: Props) => {
     shifts,
     onDayClick,
     onShiftClick,
-    outOfRange
+    outOfRange,
+    isSelectedDay
   } = props
 
+  
   const className = ctx({
     [styles.day]: !isDatePicker,
     [styles.dayWidget]: isDatePicker,
-    [styles.outsideMonth]: outOfRange && isDatePicker
+    [styles.outsideMonth]: outOfRange && isDatePicker,
+    [styles.daySelected]: isDatePicker && isSelectedDay
   })
 
   return (
     <div onClick={() => onDayClick(day)} className={className}>
       {isDatePicker && day.format('D')}
-      {!isDatePicker && <div className={styles.dayInfo}>{day.format('D')}</div> }
+      {!isDatePicker && <div className={styles.dayInfo}>{day.format('D')}</div>}
       {shifts && shifts.map((shift, i) => <div key={i}>{shift && shift.duration}</div>)}
     </div>
   )

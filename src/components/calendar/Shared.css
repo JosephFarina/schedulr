@@ -57,6 +57,10 @@
   padding-top: 10px;
 }
 
+.daySelected {
+  background: blue;
+}
+
 .outsideMonth {
   color: lightgrey;
 }

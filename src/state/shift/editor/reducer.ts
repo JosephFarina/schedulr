@@ -1,3 +1,4 @@
+import * as M from 'moment'
 import { ShiftActions } from 'src/state/actionTypes'
 
 import {
@@ -9,6 +10,7 @@ import {
 export const initialState: RShiftEditor = {
   editedShift: null,
   employeesInShift: [],
+  shiftDate: M().format(),
   newShift: {
     duration: null,
     startTime: '',
@@ -38,6 +40,23 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
       return Object.assign({}, state, {
         employeesInShift: state.employeesInShift.filter(id => id !== action.payload)
       })
+
+    /**
+     * 
+     * Change shift date
+     * 
+     */
+
+    case ShiftActions.updateShiftDate:
+      return Object.assign({}, state, {
+        shiftDate: action.payload
+      })
+
+    /**
+     * 
+     * Add 
+     * 
+     */
 
     /**
      * 

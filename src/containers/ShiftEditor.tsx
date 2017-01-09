@@ -18,11 +18,14 @@ import {
   addEmployeeToShift,
   getEmployeesInShiftBeingCreated,
   getShiftBeingCreated,
+  getShiftDate,
   removeEmployeeFromShift,
   updateNewShift,
+  updateShiftDate
 } from 'src/state/shift'
 
 import {
+  cloneOrCreateMo,
   convertEntityToSelectOptions,
   getAllOtherKeys,
   rangeParser,
@@ -37,6 +40,7 @@ import {
 
 import Button from 'src/components/buttons/Button'
 import ButtonGroup from 'src/components/buttons/ButtonGroup'
+import Calendar from 'src/components/calendar/Calendar'
 import Chips from 'src/components/inputs/Chips'
 import Input from 'src/components/inputs/Input'
 import Select from 'src/components/inputs/Select'
@@ -45,6 +49,7 @@ interface Props {
   dispatch?: Function
   newShift?: Shift
   employeesInShift?: string[]
+  shiftDate?: string
 
   // Entities
   clients?: Clients
@@ -67,6 +72,7 @@ export class ShiftEditor extends React.Component<Props, State> {
     newShift: {},
     employees: {},
     employeesInShift: [],
+    shiftDate: '',
     clients: {},
     locations: {}
   }
@@ -82,6 +88,7 @@ export class ShiftEditor extends React.Component<Props, State> {
     this.removeEmployee = this.removeEmployee.bind(this)
     this.handleTimeChange = this.handleTimeChange.bind(this)
     this.handleTimeChangeEnd = this.handleTimeChangeEnd.bind(this)
+    this.handleDateSelect = this.handleDateSelect.bind(this)
   }
 
 
@@ -130,7 +137,7 @@ export class ShiftEditor extends React.Component<Props, State> {
     })
   }
 
-  private handleTimeChangeEnd() {
+  public handleTimeChangeEnd() {
     const { dispatch } = this.props
     const { timeInputValue } = this.state
     const parsedTimeRange = rangeParser(M(), timeInputValue)
@@ -163,6 +170,10 @@ export class ShiftEditor extends React.Component<Props, State> {
     }
   }
 
+  private handleDateSelect(date: M.Moment) {
+    const { dispatch } = this.props
+    dispatch(updateShiftDate(date))
+  }
 
   /**
    * 
@@ -255,6 +266,13 @@ export class ShiftEditor extends React.Component<Props, State> {
     )
   }
 
+  private renderDateSelector() {
+    const { shiftDate } = this.props
+    const date = cloneOrCreateMo(shiftDate)
+
+    return <Calendar selectedDay={date} onDayClick={this.handleDateSelect} isDatePicker={true} />
+  }
+
   public render() {
     return (
       <div>
@@ -262,6 +280,7 @@ export class ShiftEditor extends React.Component<Props, State> {
         {this.renderClientSelector()}
         {this.renderLocationSelector()}
         {this.renderTimeSelector()}
+        {this.renderDateSelector()}
       </div>
     )
   }
@@ -271,6 +290,7 @@ const mapStateToProps: MapStateToProps<Props, RState> = (state: RState, ownProps
   return {
     newShift: getShiftBeingCreated(state),
     employeesInShift: getEmployeesInShiftBeingCreated(state),
+    shiftDate: getShiftDate(state),
     clients: getClients(state),
     employees: getEmployees(state),
     locations: getLocations(state)

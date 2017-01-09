@@ -172,7 +172,6 @@ class SideBar extends React.Component<Props, State> {
         </PaneHeader>
         <PaneContent>
           <ShiftEditor />
-          {this.renderCalendarWidget(this.props)}
         </PaneContent>
       </PaneSidebar>
     )

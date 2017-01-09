@@ -1,7 +1,9 @@
 import * as M from 'moment'
 
 import {
-  shallow
+  ShallowWrapper,
+  shallow,
+  mount
 } from 'enzyme'
 import * as React from 'react'
 
@@ -28,17 +30,17 @@ import {
 describe('ShiftEditor', () => {
   let mockDispatch: jasmine.Spy
 
-  let wrapper = shallow(<ShiftEditor />)
+  let wrapper = mount(<ShiftEditor />)
   beforeEach(() => {
     mockDispatch = jasmine.createSpy('mockDispatch')
-    wrapper = shallow(<ShiftEditor
+    wrapper = mount(<ShiftEditor
       clients={clientsOne}
       locations={locationsOne}
       dispatch={mockDispatch} />)
   })
 
   it('should render', () => {
-    shallow(<ShiftEditor />)
+    mount(<ShiftEditor />)
   })
 
 
@@ -50,7 +52,7 @@ describe('ShiftEditor', () => {
         client: clientId,
         location: clientsOne[clientId].locations[0]
       })
-      wrapper.instance().updateClient(clientId)
+      wrapper.instance()['updateClient'](clientId)
       expect(mockDispatch.calls.mostRecent().args[0]).toEqual(expected)
     })
 
@@ -61,7 +63,7 @@ describe('ShiftEditor', () => {
         wrapper.setState({
           timeInputValue
         })
-        wrapper.instance().handleTimeChangeEnd()
+        wrapper.instance()['handleTimeChangeEnd']()
         const parsedTimeRange = wrapper.state()['parsedTimeRange']
         // FixME: the M() will need to be fixed once date selector is implemented
         const expectedTimeRange = rangeParser(M(), timeInputValue)
@@ -84,7 +86,7 @@ describe('ShiftEditor', () => {
         wrapper.setState({ timeInputValue: '1 - 3 ' })
         wrapper.setState({ timeInputValue: '' })
 
-        wrapper.instance().handleTimeChangeEnd()
+        wrapper.instance()['handleTimeChangeEnd']() 
         expect(wrapper.state()['parsedTimeRange']).toEqual(undefined)
         expect(mockDispatch.calls.mostRecent().args[0]).toEqual(updateNewShift({
           startTime: null,
@@ -94,7 +96,7 @@ describe('ShiftEditor', () => {
 
       it('if an invalid string timeInputValue is entered', () => {
         wrapper.setState({ timeInputValue: '1 - ShiftEditor.spec.tsx ' })
-        wrapper.instance().handleTimeChangeEnd()
+        wrapper.instance()['handleTimeChangeEnd']()
         expect(wrapper.state()['parsedTimeRange']).toEqual(null)
         expect(mockDispatch.calls.mostRecent().args[0]).toEqual(updateNewShift({
           startTime: null,

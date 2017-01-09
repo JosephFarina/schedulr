@@ -1,3 +1,4 @@
+import * as M from 'moment'
 import {
   RShiftEditor,
   RState,
@@ -10,8 +11,8 @@ import {
 } from 'src/testUtils'
 
 import {
-  // updateEditedShift,
   addEmployeeToShift,
+  updateShiftDate,
   clearShiftEditor,
   removeEmployeeFromShift,
   updateNewShift,
@@ -80,33 +81,19 @@ describe('shiftEditor', () => {
       expect(state.newShift.id).toEqual(shift.id)
     })
 
-    // it('when a client is updated it should update the location to the clients first loc', () => {
-    //   const initialClient = 'clientsOne doesnt really matter'
-    //   const initialLocation = 'location one doesnt really matter just needs to be diff'
-    //   const initialState: RState = {
-    //     entities: {
-    //       clients: clientsOne,
-    //       locations: locationsOne
-    //     },
-    //     shift: {
-    //       editor: {
-    //         newShift: {
-    //           client: initialClient,
-    //           location: initialLocation
-    //         }
-    //       }
-    //     }
-    //   }
+  })
 
-    //   const clientToChangeToId = Object.keys(clientsOne)[0]
-    //   const expectedLocationId = clientsOne[clientToChangeToId].locations[0]
 
-    //   const state = shiftEditor(initialState, updateNewShift({
-    //     client: clientToChangeToId
-    //   }))
+  it('should chnage the date when a moment is provided', () => {
+    const date = M().add(3, 'month')
+    const state = shiftEditor(undefined, updateShiftDate(date))
+    expect(state.shiftDate).toEqual(date.clone().hour(12).minutes(0).format())
+  })
 
-    // })
-
+  it('should change the date when a string is provided', () => {
+    const date = M().add(7, 'month')
+    const state = shiftEditor(undefined, updateShiftDate(date))
+    expect(state.shiftDate).toEqual(M(date).hour(12).minute(0).format())
   })
 
 
@@ -118,7 +105,6 @@ describe('shiftEditor', () => {
     const state = shiftEditor({ editedShift: <Shift>{}, newShift: <Shift>{}, selectedShift: '1234324' }, clearShiftEditor())
     expect(state).toEqual(jasmine.objectContaining(expectedVal))
   })
-
 
 
 })

@@ -18,6 +18,7 @@ import * as SidebarActions from 'src/state/ui/sidebar/action'
 
 import ShiftEditor from './ShiftEditor'
 import Calendar from 'src/components/calendar/Calendar'
+import PaneContent from 'src/components/layout/PaneContent'
 import PaneHeader from 'src/components/layout/PaneHeader'
 import PaneSidebar from 'src/components/layout/PaneSidebar'
 
@@ -169,12 +170,10 @@ class SideBar extends React.Component<Props, State> {
             <Button onClick={this.newShiftMode}> New shift</Button>
           </ButtonGroup>
         </PaneHeader>
-        <div>
-
+        <PaneContent>
           <ShiftEditor />
-
-        </div>
-        {this.renderCalendarWidget(this.props)}
+          {this.renderCalendarWidget(this.props)}
+        </PaneContent>
       </PaneSidebar>
     )
   }

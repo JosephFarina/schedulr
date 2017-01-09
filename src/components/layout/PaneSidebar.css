@@ -9,8 +9,8 @@
 
 	overflow: scroll;
 	background-color: $color-Mono--white;
-	padding: 1rem;
-	padding-top: 5rem;
+	/*padding: 1rem;*/
+	/*padding-top: 5rem;*/
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;

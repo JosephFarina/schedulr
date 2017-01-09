@@ -5,7 +5,7 @@ $sidePadding: 10px;
   position: relative;
   height: 50px;
   box-shadow: 0px 0px 2px -0.4px rgba(0,0,0,.2);
-  margin: 1rem 0;
+  margin: 0 0 1rem 0;
 
   &:hover {
     box-shadow: 0px 0px 6px -0.4px rgba(0,0,0,.2);
@@ -43,6 +43,7 @@ $sidePadding: 10px;
   top: 50%;
   transform: translateY(-50%);
   left: $sidePadding;
+  pointer-events: none;
 }
 
 .labelActive {

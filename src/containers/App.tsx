@@ -22,6 +22,7 @@ import PaneBody from 'src/components/layout/PaneBody'
 import PaneContainer from 'src/components/layout/PaneContainer'
 import PaneContent from 'src/components/layout/PaneContent'
 import PaneHeader from 'src/components/layout/PaneHeader'
+import Alert from 'src/containers/Alert'
 
 import './App.css'
 
@@ -57,6 +58,7 @@ class App extends React.Component<Props, State> {
           </PaneBody>
 
         </PaneContainer>
+        <Alert />
       </div>
     )
   }

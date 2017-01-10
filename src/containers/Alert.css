@@ -1,0 +1,27 @@
+.snackbar {
+  position: fixed;
+  bottom: 0;
+  max-width: 500px;
+  background: #333;
+  height: 50px;
+  z-index: 9999999;
+  width: 100%;
+  left: 50%;
+  right: 50%;
+  transform: translateX(-50%);
+  transition: .6s all ease;
+  overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.snackbarInactive {
+  height: 0px;
+}
+
+.text {
+  color: white;
+}

@@ -32,7 +32,8 @@ export const EntitiesActions = {
 }
 
 export const UIActions = {
-  changeScheduleSidebarMode: 'changeScheduleSidebarMode'
+  changeScheduleSidebarMode: 'changeScheduleSidebarMode',
+  updateAlertState: 'updateAlertState'
 }
 
 // export const ActionTypes = {

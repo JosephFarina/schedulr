@@ -57,8 +57,21 @@
   padding-top: 10px;
 }
 
+.dayIsDisabled {
+  background: lightgray;
+  height: 100%;
+  cursor: not-allowed;
+}
+
+.dayCanBeSelected {
+  cursor: pointer;
+}
+
 .daySelected {
   background: blue;
+  color: white;
+  height: 100%;
+  border-radius: 50px;
 }
 
 .outsideMonth {

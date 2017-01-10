@@ -65,3 +65,19 @@ export const previousWeek = (input?: MorString): M.Moment => {
   const currDate = startOfWeek(input)
   return currDate.subtract(1, 'week')
 }
+
+/**
+ * 
+ * Will return a moment within the next month
+ * 
+ */
+
+export const nextMonth = (input: MorString): M.Moment => {
+  const currDate = cloneOrCreateMo(input)
+  return currDate.add(1, 'month').hour(12)
+}
+
+export const previousMonth = (input: MorString): M.Moment => {
+  const currDate = cloneOrCreateMo(input)
+  return currDate.subtract(1, 'month').hour(12)
+}

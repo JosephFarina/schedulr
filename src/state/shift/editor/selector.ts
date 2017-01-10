@@ -8,3 +8,4 @@ export const getShiftBeingEdited = (state: RState): Shift => Object.assign({}, s
 export const getShiftBeingCreated = (state: RState): Shift => Object.assign({}, state.shift.editor.newShift)
 export const getEmployeesInShiftBeingCreated = (state: RState): string[] => state.shift.editor.employeesInShift
 export const getShiftDate = (state: RState): string => state.shift.editor.shiftDate
+export const getDatePickerMonth = (state: RState): string => state.shift.editor.datePickerMonth

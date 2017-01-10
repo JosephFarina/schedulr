@@ -16,12 +16,16 @@ import {
 
 import {
   addEmployeeToShift,
+  currentDatePickerMonth,
+  getDatePickerMonth,
   getEmployeesInShiftBeingCreated,
   getShiftBeingCreated,
   getShiftDate,
+  nextDatePickerMonth,
+  previousDatePickerMonth,
   removeEmployeeFromShift,
   updateNewShift,
-  updateShiftDate
+  updateShiftDate,
 } from 'src/state/shift'
 
 import {
@@ -50,6 +54,7 @@ interface Props {
   newShift?: Shift
   employeesInShift?: string[]
   shiftDate?: string
+  datePickerMonth?: string
 
   // Entities
   clients?: Clients
@@ -72,6 +77,7 @@ export class ShiftEditor extends React.Component<Props, State> {
     newShift: {},
     employees: {},
     employeesInShift: [],
+    datePickerMonth: '',
     shiftDate: '',
     clients: {},
     locations: {}
@@ -89,6 +95,9 @@ export class ShiftEditor extends React.Component<Props, State> {
     this.handleTimeChange = this.handleTimeChange.bind(this)
     this.handleTimeChangeEnd = this.handleTimeChangeEnd.bind(this)
     this.handleDateSelect = this.handleDateSelect.bind(this)
+    this.handleDatePickerNextRange = this.handleDatePickerNextRange.bind(this)
+    this.handleDatePickerPreviousRange = this.handleDatePickerPreviousRange.bind(this)
+    this.handleDatePickerCurrentRange = this.handleDatePickerCurrentRange.bind(this)
   }
 
 
@@ -173,6 +182,21 @@ export class ShiftEditor extends React.Component<Props, State> {
   private handleDateSelect(date: M.Moment) {
     const { dispatch } = this.props
     dispatch(updateShiftDate(date))
+  }
+
+  private handleDatePickerNextRange() {
+    const { dispatch, datePickerMonth } = this.props
+    dispatch(nextDatePickerMonth(datePickerMonth))
+  }
+
+  private handleDatePickerPreviousRange() {
+    const { dispatch, datePickerMonth } = this.props
+    dispatch(previousDatePickerMonth(datePickerMonth))
+  }
+
+  private handleDatePickerCurrentRange() {
+    const { dispatch } = this.props
+    dispatch(currentDatePickerMonth())
   }
 
   /**
@@ -267,10 +291,19 @@ export class ShiftEditor extends React.Component<Props, State> {
   }
 
   private renderDateSelector() {
-    const { shiftDate } = this.props
+    const { shiftDate, datePickerMonth } = this.props
     const date = cloneOrCreateMo(shiftDate)
+    const month = cloneOrCreateMo(datePickerMonth)
 
-    return <Calendar selectedDay={date} onDayClick={this.handleDateSelect} isDatePicker={true} />
+    return <Calendar
+      onCurrRangeClick={this.handleDatePickerCurrentRange}
+      onNextRangeClick={this.handleDatePickerNextRange}
+      onPrevRangeClick={this.handleDatePickerPreviousRange}
+      firstDaySelectable={M()}
+      month={month}
+      selectedDay={date}
+      onDayClick={this.handleDateSelect}
+      isDatePicker={true} />
   }
 
   public render() {
@@ -291,6 +324,7 @@ const mapStateToProps: MapStateToProps<Props, RState> = (state: RState, ownProps
     newShift: getShiftBeingCreated(state),
     employeesInShift: getEmployeesInShiftBeingCreated(state),
     shiftDate: getShiftDate(state),
+    datePickerMonth: getDatePickerMonth(state),
     clients: getClients(state),
     employees: getEmployees(state),
     locations: getLocations(state)

@@ -11,6 +11,7 @@ export const initialState: RShiftEditor = {
   editedShift: null,
   employeesInShift: [],
   shiftDate: M().format(),
+  datePickerMonth: M().format(),
   newShift: {
     duration: null,
     startTime: '',
@@ -50,6 +51,17 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
     case ShiftActions.updateShiftDate:
       return Object.assign({}, state, {
         shiftDate: action.payload
+      })
+
+    /**
+     * 
+     * Change date picker date
+     * 
+     */
+
+    case ShiftActions.updateDatePickerDate:
+      return Object.assign({}, state, {
+        datePickerMonth: action.payload
       })
 
     /**

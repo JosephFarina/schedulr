@@ -1,3 +1,4 @@
+import * as M from 'moment'
 import {
   Action,
   RShiftEditor,
@@ -8,6 +9,8 @@ import { ShiftActions } from 'src/state/actionTypes'
 import {
   MorString,
   cloneOrCreateMo,
+  nextMonth,
+  previousMonth
 } from 'src/utils'
 
 /**
@@ -41,6 +44,33 @@ export function updateShiftDate(_date: MorString): Action<string> {
   return {
     type: ShiftActions.updateShiftDate,
     payload: date.format()
+  }
+}
+
+/**
+ * 
+ * Update date picker Date
+ * 
+ */
+
+export function nextDatePickerMonth(date: MorString): Action<string> {
+  return {
+    type: ShiftActions.updateDatePickerDate,
+    payload: nextMonth(date).format()
+  }
+}
+
+export function previousDatePickerMonth(date: MorString): Action<string> {
+  return {
+    type: ShiftActions.updateDatePickerDate,
+    payload: previousMonth(date).format()
+  }
+}
+
+export function currentDatePickerMonth(): Action<string> {
+  return {
+    type: ShiftActions.updateDatePickerDate,
+    payload: M().format()
   }
 }
 

@@ -57,7 +57,7 @@ const DatePickerHeader: React.StatelessComponent<any> = (props: Props) => {
       {isDatePicker &&
         <div className={styles.label}>
           <span onClick={onPrevRangeClick}>prev</span>
-          <span>{month.format(monthFormat)}</span>
+          <span onClick={onCurrRangeClick}>{month.format(monthFormat)}</span>
           <span onClick={onNextRangeClick}>next</span>
         </div>
       }

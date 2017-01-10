@@ -60,6 +60,7 @@ export interface RShiftEditor {
   newShift?: ShiftModels.Shift
   employeesInShift?: string[]
   shiftDate?: string
+  datePickerMonth?: string
   editedShift?: ShiftModels.Shift
   selectedShift?: string
 }

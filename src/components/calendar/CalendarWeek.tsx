@@ -17,6 +17,7 @@ interface Props {
   month?: M.Moment
   week?: M.Moment
   isDatePicker?: boolean
+  firstDaySelectable?: M.Moment
   shifts?: I.Shift[]
   isSelected?: boolean
   selectedDay?: M.Moment
@@ -28,6 +29,7 @@ interface Props {
 const defaultProps: Props = {
   week: M(),
   month: M(),
+  firstDaySelectable: null,
   selectedDay: null,
   isDatePicker: false,
   shifts: null,
@@ -47,6 +49,7 @@ const CalendarWeek: React.StatelessComponent<Props> = (props: Props) => {
     selectedDay,
     onWeekClick,
     onShiftClick,
+    firstDaySelectable,
     isSelected
   } = props
 
@@ -56,13 +59,13 @@ const CalendarWeek: React.StatelessComponent<Props> = (props: Props) => {
     [styles.weekWidget]: isDatePicker,
     [styles.weekSelected]: isSelected
   })
-  console.log(selectedDay)
 
 
   return (
     <div onClick={() => onWeekClick(week)} className={className}>
       {getDaysFromWeek(week).map((day, i) => <CalendarDay
         day={day}
+        firstDaySelectable={firstDaySelectable}
         isSelectedDay={day.isSame(selectedDay, 'day')}
         isDatePicker={isDatePicker}
         key={i}

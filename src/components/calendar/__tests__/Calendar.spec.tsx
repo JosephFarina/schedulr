@@ -133,4 +133,27 @@ describe('CalendarMonth', () => {
     expect(selection.length).toEqual(1)
   })
 
+  it('if firstDaySelectable is true than you cant click any days before ', () => {
+    const mockDayClick = jasmine.createSpy('mockDayClicm')
+    const firstClickableDay = M()
+    wrapper = mount(<Calendar
+      onDayClick={mockDayClick.bind(this)}
+      month={M()}
+      isDatePicker={true}
+      firstDaySelectable={firstClickableDay} />)
+
+    const days = wrapper.find(`.${styles.dayWidget}`)
+    days.forEach(day => {
+      day.simulate('click')
+      console.log(
+        mockDayClick.calls.all().length
+      )
+      // console.log(day.)
+      // if (firstClickableDay)
+      // expect(
+      //   mockDayClick.calls.mostRecent().args
+      // )
+    })
+  })
+
 })

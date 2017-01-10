@@ -308,12 +308,20 @@ export class ShiftEditor extends React.Component<Props, State> {
 
   public render() {
     return (
-      <div>
-        {this.renderEmployeeSelector()}
-        {this.renderClientSelector()}
-        {this.renderLocationSelector()}
-        {this.renderTimeSelector()}
-        {this.renderDateSelector()}
+      <div style={{ height: '100%' }}>
+        <div style={{
+          height: 'calc(100% - 3rem)',
+          overflow: 'scroll'
+        }}>
+          {this.renderEmployeeSelector()}
+          {this.renderClientSelector()}
+          {this.renderLocationSelector()}
+          {this.renderTimeSelector()}
+          {this.renderDateSelector()}
+        </div>
+        <div style={{ marginTop: '.8rem' }}>
+          <Button block={true} >Create</Button>
+        </div>
       </div>
     )
   }

@@ -2,8 +2,11 @@ import * as M from 'moment'
 import {
   Action,
   RShiftEditor,
-  Shift
+  RUI,
+  Shift,
+  ValidatorResponseObject
 } from 'src/models'
+
 import { ShiftActions } from 'src/state/actionTypes'
 
 import {
@@ -12,6 +15,11 @@ import {
   nextMonth,
   previousMonth
 } from 'src/utils'
+
+import {
+  getShiftBeingCreated,
+  shiftEditorValidator
+} from './../'
 
 /**
  * 
@@ -94,5 +102,41 @@ export function clearShiftEditor(): Action<RShiftEditor> {
       newShift: null,
       selectedShift: null
     }
+  }
+}
+
+
+/**
+ * 
+ * Generate Shifts
+ * 
+ */
+
+export function generateShifts() {
+  return (dispatch: Function, getState: Function): void => {
+    const shift = getShiftBeingCreated(getState())
+    const validationErrors = shiftEditorValidator(shift)
+
+    if (validationErrors === null) {
+      dispatch(initiateShiftGeneration())
+    } else {
+      dispatch(alertUserOfErrorsInNewShift(validationErrors))
+    }
+  }
+}
+
+export function initiateShiftGeneration(): Action<RShiftEditor> {
+  return {
+    type: ShiftActions.initiateShiftGeneration,
+    payload: {
+
+    }
+  }
+}
+
+// TODO: Make this show alerts with the curr errors
+export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<Shift>): Action<RUI> {
+  return {
+
   }
 }

@@ -63,6 +63,7 @@ export interface RShiftEditor {
   datePickerMonth?: string
   editedShift?: ShiftModels.Shift
   selectedShift?: string
+  generateShift?: boolean
 }
 
 

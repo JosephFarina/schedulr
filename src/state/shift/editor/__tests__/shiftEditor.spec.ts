@@ -11,11 +11,18 @@ import {
 } from 'src/testUtils'
 
 import {
+  validatorFactory
+} from 'src/utils'
+
+import {
   addEmployeeToShift,
   updateShiftDate,
   clearShiftEditor,
   removeEmployeeFromShift,
   updateNewShift,
+  generateShifts,
+  initiateShiftGeneration,
+  alertUserOfErrorsInNewShift
 } from './../action'
 
 import shiftEditor from './../reducer'
@@ -106,5 +113,53 @@ describe('shiftEditor', () => {
     expect(state).toEqual(jasmine.objectContaining(expectedVal))
   })
 
+  it('#generateShifts should dispatch initiateShiftGeneration if shift is valid', () => {
+    const initialState: RState = {
+      shift: {
+        editor: {
+          newShift: {
+            client: '3qefds',
+            duration: 30,
+            employees: [],
+            id: null,
+            location: '2rqwfdsf',
+            startTime: M().format()
+          }
+        }
+      }
+    }
+
+    const dispatch = jasmine.createSpy('dispatch')
+    const getState = jasmine.createSpy('getState').and.returnValue(initialState)
+    generateShifts()(dispatch, getState)
+
+    expect(dispatch.calls.all().length).toEqual(1)
+    expect(dispatch.calls.mostRecent().args[0]).toEqual(initiateShiftGeneration())
+  })
+
+  it('#generateShifts should dispatch alertUserOfErrorsInNewShift if shift is valid', () => {
+    const initialState: RState = {
+      shift: {
+        editor: {
+          newShift: {
+            client: null,
+            duration: 5,
+            employees: [],
+            id: null,
+            location: '2rqwfdsf',
+            startTime: M().format()
+          }
+        }
+      }
+    }
+
+    const errorMessages = validatorFactory(getShiftBeingEdited(initialState))
+    const dispatch = jasmine.createSpy('dispatch')
+    const getState = jasmine.createSpy('getState').and.returnValue(initialState)
+    generateShifts()(dispatch, getState)
+
+    expect(dispatch.calls.all().length).toEqual(1)
+    expect(dispatch.calls.mostRecent().args[0]).toEqual(alertUserOfErrorsInNewShift(errorMessages))
+  })
 
 })

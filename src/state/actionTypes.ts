@@ -19,7 +19,8 @@ export const ShiftActions = {
   addEmployeeToShift: 'addEmployeeToShift',
   removeEmployeeFromShift: 'removeEmployeeFromShift',
   updateShiftDate: 'updateShiftDate',
-  updateDatePickerDate: 'updateDatePickerDate'
+  updateDatePickerDate: 'updateDatePickerDate',
+  initiateShiftGeneration: 'initiateShiftGeneration'
 }
 
 export const EntitiesActions = {
@@ -35,58 +36,3 @@ export const UIActions = {
   changeScheduleSidebarMode: 'changeScheduleSidebarMode',
   updateAlertState: 'updateAlertState'
 }
-
-// export const ActionTypes = {
-
-//   /**
-//    * 
-//    * Calendar ActionTypes
-//    * 
-//    */
-
-//   updateDate: 'updateDate',
-//   updateTimeRange: 'updateTimeRange',
-
-//   /**
-//    * 
-//    * Shift ActionTypes
-//    * 
-//    */
-
-//   // data
-//   addShifts: 'addShifts',
-//   removeAddedShifts: 'removeAddedShifts',
-//   editShifts: 'editShifts',
-//   removeEditedShifts: 'removeEditedShifts',
-//   deleteShifts: 'deleteShifts',
-//   removeDeletedShifts: 'removeDeletedShifts',
-
-//   // editor
-//   updateEditedShift: 'updateEditedShift',
-//   updateNewShift: 'updateNewShift',
-//   clearShiftEditor: 'clearShiftEditor',
-//   addEmployeeToShift: 'addEmployeeToShift',
-//   removeEmployeeFromShift: 'removeEmployeeFromShift',
-
-//   /**
-//    * 
-//    * Entities ActionTypes
-//    * 
-//    */
-
-//   setClients: 'setClients',
-//   addClient: 'addClient',
-//   setEmployees: 'setEmployees',
-//   addEmployee: 'addEmployee',
-//   setLocations: 'setLocations',
-//   addLocation: 'addLocation',
-
-//   /**
-//    * 
-//    * UI Action types
-//    * 
-//    */
-
-//   // sidebar
-//   changeScheduleSidebarMode: 'changeScheduleSidebarMode'
-// }

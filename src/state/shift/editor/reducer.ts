@@ -12,6 +12,7 @@ export const initialState: RShiftEditor = {
   employeesInShift: [],
   shiftDate: M().format(),
   datePickerMonth: M().format(),
+  generateShift: false,
   newShift: {
     duration: null,
     startTime: '',
@@ -31,8 +32,8 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
      */
 
     case ShiftActions.addEmployeeToShift:
-      const employeeAlreadyInState = state.employeesInShift.indexOf(<string>action.payload) >= 0
-      const nextEmployeesInShift = employeeAlreadyInState ? state.employeesInShift : state.employeesInShift.concat(<string>action.payload)
+      const employeeAlreadyInState = state.employeesInShift.indexOf(<string> action.payload) >= 0
+      const nextEmployeesInShift = employeeAlreadyInState ? state.employeesInShift : state.employeesInShift.concat(<string> action.payload)
       return Object.assign({}, state, {
         employeesInShift: nextEmployeesInShift
       })

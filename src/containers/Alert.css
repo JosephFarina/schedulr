@@ -1,27 +1,31 @@
-.snackbar {
+
+.banner {
   position: fixed;
-  bottom: 0;
-  max-width: 500px;
-  background: #333;
-  height: 50px;
-  z-index: 9999999;
-  width: 100%;
-  left: 50%;
-  right: 50%;
-  transform: translateX(-50%);
-  transition: .6s all ease;
-  overflow: hidden;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  display: flex;
-  justify-content: center;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4rem;
+  background: red;
   align-items: center;
+  display: flex;
+  padding: 1rem;
+  justify-content: center;
 }
 
-.snackbarInactive {
-  height: 0px;
-}
-
-.text {
+.ErrorMessage {
   color: white;
+  font-weight: 700;
+  font-size: 18px;  
 }
+
+.ErrorCount {
+  background: white;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

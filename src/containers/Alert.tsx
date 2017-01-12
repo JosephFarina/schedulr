@@ -5,45 +5,54 @@ import {
 } from 'react-redux'
 
 import {
-  RAlert,
+  RNotification,
   RState,
 } from 'src/models'
 
 import {
-  getAlertInfo
-} from 'src/state/ui/alert'
+  getNotificationMessages
+} from 'src/state/ui/notification'
 
 const styles = require('./Alert.css')
 const ctx = require('classnames')
 
 interface AlertProps {
-  alert: RAlert
+  messages: string[]
 }
 
 const defaultProps: AlertProps = {
-  alert: null
+  messages: [
+    'This is an alert right here'
+  ]
 }
 
-const Alert: React.StatelessComponent<AlertProps> = (props: AlertProps) => {
-  const { alert } = props
-  const {
-    message,
-    type
-  } = alert
+function getMessageDisplay(messages: string[]): string {
+  if (messages.length === 1) {
+    return `${messages[0]}`
+  }
 
-  console.log(
-    !!alert,
-    !alert
-  )
+  if (messages.length === 2) {
+    return `${messages[0]} and ${messages.length - 1} more error`
+  }
+
+  return `${messages[0]} and ${messages.length - 1} more errors`
+}
+
+export const Alert: React.StatelessComponent<AlertProps> = (props: AlertProps) => {
+  const {
+    messages
+  } = props
 
   const alertClass = ctx({
-    [styles.snackbar]: true,
-    [styles.snackbarInactive]: !type
+    [styles.banner]: true,
   })
 
   return (
-    <div className={alertClass}>
-      {type && <div className={styles.text}>{message}</div>}
+    <div>
+      {messages && <div className={alertClass}>
+        <div className={styles.ErrorMessage}>{getMessageDisplay(messages)}</div>
+      </div>
+      }
     </div>
   )
 }
@@ -52,7 +61,7 @@ Alert.defaultProps = defaultProps
 
 const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: AlertProps) => {
   return {
-    alert: getAlertInfo(state)
+    messages: getNotificationMessages(state)
   }
 }
 

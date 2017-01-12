@@ -28,12 +28,6 @@ const shiftValidator: Validator<Shift> = {
     },
     message: 'This will always pass'
   },
-  startTime: {
-    isValid: (val) => {
-      return M().isSameOrAfter(val, 'day')
-    },
-    message: 'It cannot be a past date'
-  },
   duration: {
     isValid: (val) => {
       return val >= 15

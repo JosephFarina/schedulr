@@ -21,6 +21,10 @@ import {
   shiftEditorValidator
 } from './../'
 
+import {
+  trggerNotification
+} from 'src/state/ui/notification'
+
 /**
  * 
  * Adding and removing employees from the new shift
@@ -134,9 +138,7 @@ export function initiateShiftGeneration(): Action<RShiftEditor> {
   }
 }
 
-// TODO: Make this show alerts with the curr errors
-export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<Shift>): Action<RUI> {
-  return {
-
-  }
+export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<Shift>): (dispatch: any, getState: any) => any {
+  const messages: string[] = Object.keys(errors).map(i => errors[i])
+  return trggerNotification(messages)
 }

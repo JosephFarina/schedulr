@@ -26,8 +26,8 @@ import Button from 'src/components/buttons/Button'
 import ButtonGroup from 'src/components/buttons/ButtonGroup'
 
 import {
-  emitSnackbarAlert
-} from 'src/state/ui/alert'
+  
+} from 'src/state/ui/notification'
 
 
 import './App.css'
@@ -53,14 +53,8 @@ class SideBar extends React.Component<Props, State> {
     this.prevRange = this.prevRange.bind(this)
     this.inspectorMode = this.inspectorMode.bind(this)
     this.newShiftMode = this.newShiftMode.bind(this)
-
-    this.alert = this.alert.bind(this)
   }
 
-  public alert() {
-    const {dispatch } = this.props
-    dispatch(emitSnackbarAlert('asf asf '))
-  }
 
   /**
    * 
@@ -177,7 +171,7 @@ class SideBar extends React.Component<Props, State> {
       <PaneSidebar maximized={sidebarMode === 'newShift'}>
         <PaneHeader>
           <ButtonGroup buttonBar={true}>
-            <Button onClick={this.alert}>Hello</Button>
+            <Button onClick={() => {}}>Hello</Button>
             <Button onClick={this.inspectorMode} >inspector</Button>
             <Button onClick={this.newShiftMode}> New shift</Button>
           </ButtonGroup>

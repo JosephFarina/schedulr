@@ -133,7 +133,7 @@ module.exports = {
       {
         test: /\.tsx$/,
         include: paths.appSrc,
-        loader: 'ts-loader',
+        loader: 'ts-loader?sourceMap',
         exclude: [
           '*.spec*'
         ]
@@ -142,7 +142,7 @@ module.exports = {
       {
         test: /\.ts$/,
         include: paths.appSrc,
-        loader: 'ts-loader',
+        loader: 'ts-loader?sourceMap',
         exclude: [
           '*.spec*'
         ]
@@ -152,7 +152,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         include: paths.appSrc,
-        loader: 'babel',
+        loader: 'babel?sourceMap',
         query: {
           cacheDirectory: true
         }

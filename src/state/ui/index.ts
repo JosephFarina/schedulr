@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
 
+import notification from './notification/reducer'
 import sidebar from './sidebar/reducer'
-import alert from './alert/reducer'
 
 const ui = combineReducers({
   sidebar,
-  alert
+  notification
 })
 
 export default ui

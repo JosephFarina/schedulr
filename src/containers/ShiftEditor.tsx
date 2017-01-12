@@ -17,6 +17,7 @@ import {
 import {
   addEmployeeToShift,
   currentDatePickerMonth,
+  generateShifts,
   getDatePickerMonth,
   getEmployeesInShiftBeingCreated,
   getShiftBeingCreated,
@@ -98,6 +99,7 @@ export class ShiftEditor extends React.Component<Props, State> {
     this.handleDatePickerNextRange = this.handleDatePickerNextRange.bind(this)
     this.handleDatePickerPreviousRange = this.handleDatePickerPreviousRange.bind(this)
     this.handleDatePickerCurrentRange = this.handleDatePickerCurrentRange.bind(this)
+    this.generateShifts = this.generateShifts.bind(this)
   }
 
 
@@ -107,6 +109,10 @@ export class ShiftEditor extends React.Component<Props, State> {
    * 
    */
 
+  private generateShifts(): void {
+    const { dispatch } = this.props
+    dispatch(generateShifts())
+  }
 
   public addEmployee(id: string | number): void {
     const { dispatch } = this.props
@@ -320,7 +326,7 @@ export class ShiftEditor extends React.Component<Props, State> {
           {this.renderDateSelector()}
         </div>
         <div style={{ marginTop: '.8rem' }}>
-          <Button block={true} >Create</Button>
+          <Button onClick={this.generateShifts} block={true} >Create</Button>
         </div>
       </div>
     )

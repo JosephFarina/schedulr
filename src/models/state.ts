@@ -90,7 +90,7 @@ export interface REntities {
 
 export interface RUI {
   sidebar?: RSidebar
-  alert?: RAlert
+  notification?: RNotification
 }
 
 export declare type ScheduleSidebarMode = 'filter' | 'newShift' | 'editShift' | 'inspector'
@@ -99,9 +99,6 @@ export interface RSidebar {
   mode: ScheduleSidebarMode
 }
 
-export declare type AlertOptions = 'snackbar'
-
-export interface RAlert {
-  type: AlertOptions
-  message: string
+export interface RNotification {
+  messages: string[]
 }

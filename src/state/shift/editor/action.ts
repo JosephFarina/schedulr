@@ -25,6 +25,10 @@ import {
   trggerNotification
 } from 'src/state/ui/notification'
 
+import {
+  openNewShiftApprovalModal
+} from 'src/state/ui/modal'
+
 /**
  * 
  * Adding and removing employees from the new shift
@@ -122,18 +126,9 @@ export function generateShifts() {
     const validationErrors = shiftEditorValidator(shift)
 
     if (validationErrors === null) {
-      dispatch(initiateShiftGeneration())
+      dispatch(openNewShiftApprovalModal())
     } else {
       dispatch(alertUserOfErrorsInNewShift(validationErrors))
-    }
-  }
-}
-
-export function initiateShiftGeneration(): Action<RShiftEditor> {
-  return {
-    type: ShiftActions.initiateShiftGeneration,
-    payload: {
-
     }
   }
 }

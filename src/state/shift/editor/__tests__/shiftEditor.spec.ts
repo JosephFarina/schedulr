@@ -16,13 +16,12 @@ import {
 
 import {
   addEmployeeToShift,
-  updateShiftDate,
+  alertUserOfErrorsInNewShift,
   clearShiftEditor,
+  generateShifts,
   removeEmployeeFromShift,
   updateNewShift,
-  generateShifts,
-  initiateShiftGeneration,
-  alertUserOfErrorsInNewShift
+  updateShiftDate,
 } from './../action'
 
 import shiftEditor from './../reducer'

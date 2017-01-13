@@ -91,14 +91,20 @@ export interface REntities {
 export interface RUI {
   sidebar?: RSidebar
   notification?: RNotification
+  modal?: RModal
 }
 
 export declare type ScheduleSidebarMode = 'filter' | 'newShift' | 'editShift' | 'inspector'
-
 export interface RSidebar {
   mode: ScheduleSidebarMode
 }
 
 export interface RNotification {
   messages: string[]
+}
+
+export declare type ModalMode = 'shiftApproval'
+export interface RModal {
+  modalType: ModalMode,
+  modalProps: {}
 }

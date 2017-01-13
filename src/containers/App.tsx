@@ -23,6 +23,7 @@ import PaneContainer from 'src/components/layout/PaneContainer'
 import PaneContent from 'src/components/layout/PaneContent'
 import PaneHeader from 'src/components/layout/PaneHeader'
 import Alert from 'src/containers/Alert'
+import ModalRoot from 'src/containers/ModalRoot'
 
 import './App.css'
 
@@ -45,6 +46,7 @@ class App extends React.Component<Props, State> {
     const { date, shifts } = this.props
     return (
       <div>
+        <ModalRoot/>
         <Navbar></Navbar>
         <PaneContainer>
 

@@ -34,5 +34,7 @@ export const EntitiesActions = {
 
 export const UIActions = {
   updateNotifcationState: 'updateNotifcationState',
-  changeScheduleSidebarMode: 'changeScheduleSidebarMode'
+  changeScheduleSidebarMode: 'changeScheduleSidebarMode',
+  showModal: 'showModal',
+  hideModal: 'hideModal'
 }

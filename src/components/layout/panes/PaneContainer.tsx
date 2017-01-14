@@ -1,18 +1,15 @@
 import * as React from 'react'
 
-const styles = require('./PaneBody.css')
+const styles = require('./PaneContainer.css')
 
 interface Props {
   children?: React.ReactChild
 }
 
-const PaneBody: React.StatelessComponent<any> = (props: Props) => {
-  const { children } = props
+export const PaneContainer: React.StatelessComponent<any> = ({children = null}: Props) => {
   return (
     <div className={styles.container}>
       {children}
     </div>
   )
 }
-
-export default PaneBody

@@ -32,4 +32,4 @@ const Modal: React.StatelessComponent<ModalProps> = (props: ModalProps) => {
 
 Modal.defaultProps = defaultProps
 
-export default Modal
+export { Modal }

@@ -35,9 +35,9 @@ const shift: ShiftTemplate = {
   id: '432434',
   startTime: '234343',
   client: 'a423f',
-  employees: ['423rewf'],
   location: 'asdf32'
 }
+
 
 describe('shiftEditor', () => {
 
@@ -119,7 +119,6 @@ describe('shiftEditor', () => {
           newShift: {
             client: '3qefds',
             duration: 30,
-            employees: [],
             id: null,
             location: '2rqwfdsf',
             startTime: M().format()
@@ -143,7 +142,6 @@ describe('shiftEditor', () => {
           newShift: {
             client: null,
             duration: 5,
-            employees: [],
             id: null,
             location: '2rqwfdsf',
             startTime: M().format()

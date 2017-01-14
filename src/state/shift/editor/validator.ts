@@ -33,12 +33,6 @@ const shiftValidator: Validator<ShiftTemplate> = {
       return val >= 15
     },
     message: 'It must be at least 15 minutes long'
-  },
-  employees: {
-    isValid: (val) => {
-      return true
-    },
-    message: 'This will always pass'
   }
 }
 

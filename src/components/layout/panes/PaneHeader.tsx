@@ -6,7 +6,7 @@ interface Props {
   children?: React.ReactChild
 }
 
-const PaneHeader: React.StatelessComponent<any> = (props: Props) => {
+export const PaneHeader: React.StatelessComponent<any> = (props: Props) => {
   const { children } = props
 
   return (
@@ -15,5 +15,3 @@ const PaneHeader: React.StatelessComponent<any> = (props: Props) => {
     </div>
   )
 }
-
-export default PaneHeader

@@ -19,7 +19,7 @@ const PaneSidebar: React.StatelessComponent<any> = (props: Props) => {
     children,
     maximized,
     minimized
-    } = props
+  } = props
 
   const className = ctx({
     [styles.container]: true,
@@ -36,4 +36,6 @@ const PaneSidebar: React.StatelessComponent<any> = (props: Props) => {
 
 PaneSidebar.defaultProps = defaultProps
 
-export default PaneSidebar
+export {
+  PaneSidebar
+}

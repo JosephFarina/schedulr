@@ -18,9 +18,12 @@ import * as SidebarActions from 'src/state/ui/sidebar/action'
 
 import ShiftEditor from './ShiftEditor'
 import Calendar from 'src/components/calendar/Calendar'
-import PaneContent from 'src/components/layout/PaneContent'
-import PaneHeader from 'src/components/layout/PaneHeader'
-import PaneSidebar from 'src/components/layout/PaneSidebar'
+
+import {
+  PaneContent,
+  PaneHeader,
+  PaneSidebar
+} from 'src/components/layout'
 
 import Button from 'src/components/buttons/Button'
 import ButtonGroup from 'src/components/buttons/ButtonGroup'

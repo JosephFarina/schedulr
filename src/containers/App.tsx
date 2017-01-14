@@ -17,13 +17,16 @@ import {
 
 import Sidebar from './Sidebar'
 import Calendar from 'src/components/calendar/Calendar'
-import Navbar from 'src/components/layout/Navbar'
-import PaneBody from 'src/components/layout/PaneBody'
-import PaneContainer from 'src/components/layout/PaneContainer'
-import PaneContent from 'src/components/layout/PaneContent'
-import PaneHeader from 'src/components/layout/PaneHeader'
 import Alert from 'src/containers/Alert'
 import ModalRoot from 'src/containers/ModalRoot'
+
+import {
+  Navbar,
+  PaneBody,
+  PaneContainer,
+  PaneContent,
+  PaneHeader
+} from 'src/components/layout'
 
 import './App.css'
 

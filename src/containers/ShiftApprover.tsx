@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import Modal from 'src/components/layout/Modal'
+import {
+  Modal
+} from 'src/components/layout'
 
 import {
   closeModal

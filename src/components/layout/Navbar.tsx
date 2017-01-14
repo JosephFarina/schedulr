@@ -16,4 +16,4 @@ const Navbar: React.StatelessComponent<any> = (props: Props) => {
   )
 }
 
-export default Navbar
+export { Navbar }

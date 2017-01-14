@@ -32,7 +32,7 @@ function updateShifts(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: 
   let updateShifts: any = Object.assign({}, rawShifts, addedShifts, editedShifts)
 
   // convert shifts to an array and then filter out the deleted shifts
-  updateShifts = Object.keys(updateShifts).map(shiftId => updateShifts[shiftId]).filter((shift: I.Shift) => {
+  updateShifts = Object.keys(updateShifts).map(shiftId => updateShifts[shiftId]).filter((shift: I.ShiftTemplate) => {
     return deletedShifts.indexOf(shift.id) < 0
   })
 
@@ -45,7 +45,7 @@ function updateShifts(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: 
  * 
  */
 
-export function getShiftsByDay(inputDate: MorString, shifts: I.Shift[]): I.Shift[] {
+export function getShiftsByDay(inputDate: MorString, shifts: I.ShiftTemplate[]): I.ShiftTemplate[] {
   const date = cloneOrCreateMo(inputDate)
 
   if (shifts) {

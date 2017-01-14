@@ -11,7 +11,7 @@ import {
   Employees,
   Locations,
   RState,
-  Shift
+  ShiftTemplate
 } from 'src/models'
 
 import {
@@ -52,7 +52,7 @@ import Select from 'src/components/inputs/Select'
 
 interface Props {
   dispatch?: Function
-  newShift?: Shift
+  newShift?: ShiftTemplate
   employeesInShift?: string[]
   shiftDate?: string
   datePickerMonth?: string

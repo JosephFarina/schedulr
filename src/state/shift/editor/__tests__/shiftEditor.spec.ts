@@ -2,7 +2,7 @@ import * as M from 'moment'
 import {
   RShiftEditor,
   RState,
-  Shift,
+  ShiftTemplate,
 } from 'src/models'
 
 import {
@@ -30,7 +30,7 @@ import {
   getShiftBeingEdited,
 } from './../selector'
 
-const shift: Shift = {
+const shift: ShiftTemplate = {
   duration: 24343,
   id: '432434',
   startTime: '234343',
@@ -108,7 +108,7 @@ describe('shiftEditor', () => {
       newShift: null,
       editedShift: null
     }
-    const state = shiftEditor({ editedShift: <Shift> {}, newShift: <Shift> {}, selectedShift: '1234324' }, clearShiftEditor())
+    const state = shiftEditor({ editedShift: <ShiftTemplate> {}, newShift: <ShiftTemplate> {}, selectedShift: '1234324' }, clearShiftEditor())
     expect(state).toEqual(jasmine.objectContaining(expectedVal))
   })
 

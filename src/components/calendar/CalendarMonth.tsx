@@ -15,10 +15,10 @@ interface Props {
   selectedWeek?: M.Moment
   selectedDay?: M.Moment
   firstDaySelectable?: M.Moment
-  shifts?: I.Shift[]
+  shifts?: I.ShiftTemplate[]
   onDayClick?(date: M.Moment): void
   onWeekClick?(week: M.Moment): void
-  onShiftClick?(shift: I.Shift): void
+  onShiftClick?(shift: I.ShiftTemplate): void
 }
 
 const defaultProps: Props = {

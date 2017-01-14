@@ -16,11 +16,11 @@ interface Props {
   selectedDay?: M.Moment
   isDatePicker?: boolean
   firstDaySelectable?: M.Moment
-  shifts?: I.Shift[]
+  shifts?: I.ShiftTemplate[]
   selectedWeek?: M.Moment
   onDayClick?(date: M.Moment): void
   onWeekClick?(week: M.Moment): void
-  onShiftClick?(shift: I.Shift): void
+  onShiftClick?(shift: I.ShiftTemplate): void
   onNextRangeClick?(): void
   onPrevRangeClick?(): void
   onCurrRangeClick?(): void

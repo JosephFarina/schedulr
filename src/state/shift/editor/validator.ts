@@ -5,11 +5,11 @@ import {
 } from 'src/utils'
 
 import {
-  Shift,
+  ShiftTemplate,
   Validator
 } from 'src/models'
 
-const shiftValidator: Validator<Shift> = {
+const shiftValidator: Validator<ShiftTemplate> = {
   client: {
     isValid: (val) => {
       return !!val

@@ -3,7 +3,7 @@ import * as React from 'react'
 
 import * as I from 'src/models'
 
-import Shift from './Shift'
+import ShiftTemplate from './Shift'
 
 const styles = require('./Shared.css')
 const ctx = require('classnames')
@@ -14,10 +14,10 @@ interface Props {
   isDatePicker?: boolean
   isSelectedDay?: boolean
   firstDaySelectable?: M.Moment
-  shifts?: I.Shift[]
+  shifts?: I.ShiftTemplate[]
   outOfRange?: boolean
   onDayClick?(date: M.Moment): void
-  onShiftClick?(shift: I.Shift): void
+  onShiftClick?(shift: I.ShiftTemplate): void
 }
 
 const defaultProps: Props = {

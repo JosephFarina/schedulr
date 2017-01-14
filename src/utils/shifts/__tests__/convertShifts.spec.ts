@@ -1,5 +1,5 @@
 import {
-  Shift,
+  ShiftTemplate,
   Shifts,
 } from 'src/models'
 
@@ -21,7 +21,7 @@ const shiftObject: Shifts = {
   }
 }
 
-const shiftArray: Shift[] = Object.keys(shiftObject).map(shiftId => shiftObject[shiftId])
+const shiftArray: ShiftTemplate[] = Object.keys(shiftObject).map(shiftId => shiftObject[shiftId])
 
 describe('#convertShiftObjectToArray', () => {
   it('should convert', () => {

@@ -3,7 +3,7 @@ import {
   Action,
   RShiftEditor,
   RUI,
-  Shift,
+  ShiftTemplate,
   ValidatorResponseObject
 } from 'src/models'
 
@@ -96,7 +96,7 @@ export function currentDatePickerMonth(): Action<string> {
  * 
  */
 
-export function updateNewShift(shift: Shift): Action<Shift> {
+export function updateNewShift(shift: ShiftTemplate): Action<ShiftTemplate> {
   return {
     type: ShiftActions.updateNewShift,
     payload: Object.assign({}, shift)
@@ -133,7 +133,7 @@ export function generateShifts() {
   }
 }
 
-export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<Shift>): (dispatch: any, getState: any) => any {
+export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<ShiftTemplate>): (dispatch: any, getState: any) => any {
   const messages: string[] = Object.keys(errors).map(i => errors[i])
   return trggerNotification(messages)
 }

@@ -4,7 +4,7 @@ import { ShiftActions } from 'src/state/actionTypes'
 import {
   Action,
   RShiftEditor,
-  Shift
+  ShiftTemplate
 } from 'src/models'
 
 export const initialState: RShiftEditor = {

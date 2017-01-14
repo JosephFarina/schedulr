@@ -7,11 +7,21 @@ import {
   closeModal
 } from 'src/state/ui/modal'
 
+import {
+  getGeneratedShifts
+} from 'src/state/shift'
+
+import {
+  RState,
+  Shift
+} from 'src/models'
+
 // const styles = require('./ShiftApproIver.css')
 const ctx = require('classnames')
 
 interface ShiftApproverProps {
   dispatch?: Function
+  shifts: Shift[]
 }
 
 interface ShiftApproverState {
@@ -20,7 +30,7 @@ interface ShiftApproverState {
 
 class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverState> {
   public static defaultProps: ShiftApproverProps = {
-
+    shifts: []
   }
 
   constructor(props: ShiftApproverProps) {
@@ -36,7 +46,7 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
 
   public render() {
     const {
-
+      shifts
     } = this.props
 
     const className = ctx({
@@ -46,9 +56,24 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
     return (
       <Modal onRequestClose={this.closeModal}>
         m a shft approver
+        {shifts.map(shift => {
+          return <div>
+            <div>startTime:{shift.startTime}</div>
+            <div>duration: {shift.duration}</div>
+            <div>location: {shift.location}</div>
+            <div>client: {shift.client}</div>
+            <div>employee: {shift.employee}</div>
+          </div>
+        })}
       </Modal>
     )
   }
 }
 
-export default connect()(ShiftApprover)
+const mapStateToProps = (state: RState) => {
+  return {
+    shifts: getGeneratedShifts(state)
+  }
+}
+
+export default connect(mapStateToProps)(ShiftApprover)

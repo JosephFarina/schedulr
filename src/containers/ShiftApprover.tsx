@@ -2,8 +2,9 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import {
-  Modal
-} from 'src/components/layout'
+  Modal,
+  ShiftPreview
+} from 'src/components'
 
 import {
   closeModal
@@ -57,16 +58,7 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
 
     return (
       <Modal onRequestClose={this.closeModal}>
-        m a shft approver
-        {shifts.map(shift => {
-          return <div>
-            <div>startTime:{shift.startTime}</div>
-            <div>duration: {shift.duration}</div>
-            <div>location: {shift.location}</div>
-            <div>client: {shift.client}</div>
-            <div>employee: {shift.employee}</div>
-          </div>
-        })}
+        {shifts.map((shift, i) => <ShiftPreview key={i} shift={shift} />)}
       </Modal>
     )
   }

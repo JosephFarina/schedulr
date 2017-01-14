@@ -7,24 +7,36 @@ const ctx = require('classnames')
 interface ModalProps {
   children?: React.ReactChildren
   onRequestClose?: Function
+  fullScreen?: boolean
 }
 
 const defaultProps: ModalProps = {
-
+  fullScreen: false
 }
 
 const Modal: React.StatelessComponent<ModalProps> = (props: ModalProps) => {
   const {
     children,
-    onRequestClose
+    onRequestClose,
+    fullScreen
   } = props
 
   const containerClass = ctx({
     [styles.container]: true
   })
 
+  const modalClass = ctx({
+    [styles.modal]: true,
+    [styles.fullScreen]: fullScreen
+  })
+
   return (
-    <ReactModal isOpen={true} onRequestClose={onRequestClose} shouldCloseOnOverlayClick={true}>
+    <ReactModal
+      overlayClassName={styles.overlay}
+      className={modalClass}
+      isOpen={true}
+      onRequestClose={onRequestClose}
+      shouldCloseOnOverlayClick={true}>
       {children}
     </ReactModal>
   )

@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  position: relative;
+
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.itemsContainer {
+  flex: 1;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid lightgrey;
+}
+
+.itemContainer {
+  flex: 1;
+  position: relative;
+  padding: 2rem 2rem .5rem 1rem;
+}
+
+.label {
+  position: absolute;
+  top: .5rem;
+  font-size: 12px;
+}
+
+.value {
+  
+}
+
+.delete {
+  width: 100px;
+  background: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    background: darkred;
+  }
+}
+
+.showDelete {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: lightgrey;
+  padding: 0.4rem 0.6rem;
+  border-radius: 50%;
+  font-weight: 900;
+  color: white;
+  font-size: 15px;
+  transition: .2s transform ease;
+  cursor: pointer;
+
+  &:hover {
+    background: darkgray;
+  }
+}

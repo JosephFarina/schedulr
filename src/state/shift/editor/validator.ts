@@ -11,28 +11,29 @@ import {
 
 const shiftValidator: Validator<ShiftTemplate> = {
   client: {
-    isValid: (val) => {
-      return !!val
-    },
-    message: 'Client must be present'
+    invalid: (val) => {
+      return !!val ? null : 'Client must be present'
+    }
   },
   location: {
-    isValid: (val) => {
-      return !!val
-    },
-    message: 'Location must be present'
+    invalid: (val) => {
+      return !!val ? null : 'Location must be present'
+    }
   },
   id: {
-    isValid: (val) => {
-      return true
-    },
-    message: 'This will always pass'
+    invalid: (val) => {
+      return null
+    }
+  },
+  startTime: {
+    invalid: (val) => {
+      return null
+    }
   },
   duration: {
-    isValid: (val) => {
-      return val >= 15
-    },
-    message: 'It must be at least 15 minutes long'
+    invalid: (val) => {
+      return val >= 15 ? null : 'It must be at least 15 minutes long'
+    }
   }
 }
 

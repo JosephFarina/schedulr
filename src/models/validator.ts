@@ -4,7 +4,6 @@ export type ValidatorResponseObject<T> = {
 
 export type Validator<T> = {
 [P in keyof T]:  {
-    message: string,
-    isValid(val: T[P]): boolean
+    invalid(val: T[P]): string | null
   }
 }

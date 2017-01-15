@@ -13,23 +13,26 @@ interface Object {
   values: string[]
 }
 
+const messages = {
+  name: 'Name must be greater than 5 charectars',
+  duration: 'Duration must be between 5 and 10',
+  values: 'There must be three values'
+}
+
 const validateObj: Validator<Object> = {
   name: {
-    message: 'Name must be greater than 5 charectars',
-    isValid: (val) => {
-      return val.length > 5
+    invalid: (val) => {
+      return val.length > 5 ? null : messages.name
     }
   },
   duration: {
-    message: 'Duration must be between 5 and 10',
-    isValid: (val) => {
-      return val >= 5 && val <= 10
+    invalid: (val) => {
+      return val >= 5 && val <= 10 ? null : messages.duration
     }
   },
   values: {
-    message: 'There must be three values',
-    isValid: (val) => {
-      return val.length === 3
+    invalid: (val) => {
+      return val.length === 3 ? null : messages.values
     }
   }
 }
@@ -54,7 +57,7 @@ describe('validatorFactory', () => {
   it('should return an an object with the key and the key should be an array of messages', () => {
     obj.name = '3ch'
     const expectedValue: ValidatorResponseObject<Object> = {
-      name: [validateObj.name.message]
+      name: [messages.name]
     }
 
     expect(objValidator(obj)).toEqual(expectedValue)
@@ -64,8 +67,8 @@ describe('validatorFactory', () => {
     obj.duration = 0
     obj.values = ['oe', 'two']
     const expectedValue: ValidatorResponseObject<Object> = {
-      duration: [validateObj.duration.message],
-      values: [validateObj.values.message],
+      duration: [messages.duration],
+      values: [messages.values],
     }
     expect(objValidator(obj)).toEqual(expectedValue)
   })

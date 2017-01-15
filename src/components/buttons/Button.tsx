@@ -12,7 +12,7 @@ interface Props {
 }
 
 const defaultProps: Props = {
-  onClick: () => {},
+  onClick: () => { },
   block: false,
   mini: false,
   active: false
@@ -43,4 +43,4 @@ const Button: React.StatelessComponent<any> = (props: Props) => {
 
 Button.defaultProps = defaultProps
 
-export default Button
+export { Button }

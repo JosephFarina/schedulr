@@ -45,4 +45,4 @@ const ButtonGroup: React.StatelessComponent<any> = (props: Props) => {
 
 ButtonGroup.defaultProps = defaultProps
 
-export default ButtonGroup
+export { ButtonGroup }

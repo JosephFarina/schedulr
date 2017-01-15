@@ -43,8 +43,11 @@ import {
   getLocations,
 } from 'src/state/entities'
 
-import Button from 'src/components/buttons/Button'
-import ButtonGroup from 'src/components/buttons/ButtonGroup'
+import {
+  Button,
+  ButtonGroup
+} from 'src/components'
+
 import Calendar from 'src/components/calendar/Calendar'
 import Chips from 'src/components/inputs/Chips'
 import Input from 'src/components/inputs/Input'

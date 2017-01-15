@@ -2,8 +2,11 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import {
+  Button,
+  ButtonGroup,
   Modal,
-  ShiftPreview
+  ModalFooter,
+  ShiftPreview,
 } from 'src/components'
 
 import {
@@ -11,7 +14,8 @@ import {
 } from 'src/state/ui/modal'
 
 import {
-  getGeneratedShifts
+  getGeneratedShifts,
+  removeEmployeeFromShift
 } from 'src/state/shift'
 
 import {
@@ -40,6 +44,7 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
     super(props)
 
     this.closeModal = this.closeModal.bind(this)
+    this.removeShiftFromEditor = this.removeShiftFromEditor.bind(this)
   }
 
   public closeModal() {
@@ -47,18 +52,25 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
     dispatch(closeModal())
   }
 
+  private removeShiftFromEditor(shift: Shift) {
+    const { dispatch } = this.props
+    dispatch(removeEmployeeFromShift(shift.employee))
+  }
+
   public render() {
     const {
       shifts
     } = this.props
 
-    const className = ctx({
-
-    })
-
     return (
-      <Modal onRequestClose={this.closeModal}>
-        {shifts.map((shift, i) => <ShiftPreview key={i} shift={shift} />)}
+      <Modal title={`${shifts.length} Shift${shifts.length === 1 ? '' : 's'} To Approve`} onRequestClose={this.closeModal}>
+        <div>{shifts.map((shift, i) => <ShiftPreview key={i} shift={shift} onRequestDelete={this.removeShiftFromEditor} />)}</div>
+        <ModalFooter>
+          <ButtonGroup justified={true}>
+            <Button block={true}>Cancel</Button>
+            <Button block={true}>Generate</Button>
+          </ButtonGroup>
+        </ModalFooter>
       </Modal>
     )
   }

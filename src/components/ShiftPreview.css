@@ -10,6 +10,7 @@
 .itemsContainer {
   flex: 1;
   padding: 1rem;
+  padding-right: 2rem;
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -19,7 +20,8 @@
 .itemContainer {
   flex: 1;
   position: relative;
-  padding: 2rem 2rem .5rem 1rem;
+  padding: 2rem 1rem .5rem 1rem;
+  max-width: calc(100vw / 8);
 }
 
 .label {

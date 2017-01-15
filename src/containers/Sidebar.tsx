@@ -20,18 +20,12 @@ import ShiftEditor from './ShiftEditor'
 import Calendar from 'src/components/calendar/Calendar'
 
 import {
+  Button,
+  ButtonGroup,
   PaneContent,
   PaneHeader,
-  PaneSidebar
-} from 'src/components/layout'
-
-import Button from 'src/components/buttons/Button'
-import ButtonGroup from 'src/components/buttons/ButtonGroup'
-
-import {
-  
-} from 'src/state/ui/notification'
-
+  PaneSidebar,
+} from 'src/components'
 
 import './App.css'
 

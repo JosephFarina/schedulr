@@ -1,7 +1,12 @@
-* { box-sizing: border-box; }
-
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
+  color: #4d4d4d;
+  font-weight: 300;
 }

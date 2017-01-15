@@ -8,17 +8,20 @@ interface ModalProps {
   children?: React.ReactChildren
   onRequestClose?: Function
   fullScreen?: boolean
+  title?: string
 }
 
 const defaultProps: ModalProps = {
-  fullScreen: false
+  fullScreen: false,
+  title: null
 }
 
 const Modal: React.StatelessComponent<ModalProps> = (props: ModalProps) => {
   const {
     children,
     onRequestClose,
-    fullScreen
+    fullScreen,
+    title
   } = props
 
   const containerClass = ctx({
@@ -37,6 +40,9 @@ const Modal: React.StatelessComponent<ModalProps> = (props: ModalProps) => {
       isOpen={true}
       onRequestClose={onRequestClose}
       shouldCloseOnOverlayClick={true}>
+      {title && <div className={styles.header}>
+        <h2>{title}</h2>
+      </div>}
       {children}
     </ReactModal>
   )

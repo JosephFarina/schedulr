@@ -1,4 +1,5 @@
 import * as M from 'moment'
+require('moment-range')
 
 import {
   isMoment,
@@ -40,4 +41,18 @@ export const getWeek = (input: MorString): number => {
 export const getYear = (input: MorString): number => {
   const date = cloneOrCreateMo(input)
   return date.year()
+}
+
+/**
+ * 
+ * Creat a time range
+ * 
+ */
+
+export function getMoRange(_startTime: MorString, duration: number): M.Range {
+  const startTime = cloneOrCreateMo(_startTime)
+  return M.range([
+    startTime,
+    startTime.clone().add(duration, 'minutes')
+  ])
 }

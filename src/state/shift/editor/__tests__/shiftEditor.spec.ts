@@ -122,7 +122,8 @@ describe('shiftEditor', () => {
             id: null,
             location: '2rqwfdsf',
             startTime: M().format()
-          }
+          },
+          employeesInShift: []
         }
       }
     }
@@ -145,7 +146,8 @@ describe('shiftEditor', () => {
             id: null,
             location: '2rqwfdsf',
             startTime: M().format()
-          }
+          },
+          employeesInShift: []
         }
       }
     }

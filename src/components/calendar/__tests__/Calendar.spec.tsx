@@ -145,9 +145,6 @@ describe('CalendarMonth', () => {
     const days = wrapper.find(`.${styles.dayWidget}`)
     days.forEach(day => {
       day.simulate('click')
-      console.log(
-        mockDayClick.calls.all().length
-      )
       // console.log(day.)
       // if (firstClickableDay)
       // expect(

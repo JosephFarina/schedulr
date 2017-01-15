@@ -17,6 +17,7 @@ import {
   addShifts,
   getGeneratedShifts,
   removeEmployeeFromShift,
+  resetShiftEditor
 } from 'src/state/shift'
 
 import {
@@ -52,6 +53,7 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
   private addShifts() {
     const { dispatch, shifts } = this.props
     dispatch(addShifts(shifts))
+    dispatch(resetShiftEditor())
     this.closeModal()
   }
 

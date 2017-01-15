@@ -20,7 +20,8 @@ export const ShiftActions = {
   removeEmployeeFromShift: 'removeEmployeeFromShift',
   updateShiftDate: 'updateShiftDate',
   updateDatePickerDate: 'updateDatePickerDate',
-  initiateShiftGeneration: 'initiateShiftGeneration'
+  initiateShiftGeneration: 'initiateShiftGeneration',
+  resetEditor: 'resetEditor'
 }
 
 export const EntitiesActions = {

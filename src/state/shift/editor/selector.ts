@@ -8,6 +8,24 @@ import {
   ShiftTemplate,
 } from 'src/models'
 
+import {
+  initialState
+} from './reducer'
+
+
+// Allows for checking if some shift is equal to the intial state
+export const shiftIsEqualToInitialState = (shift: Shift) => {
+  const { client, duration, id, location, startTime } = initialState.newShift
+
+  return (
+    client === shift.client &&
+    duration === shift.duration &&
+    id === shift.id &&
+    location === shift.location &&
+    startTime === shift.startTime
+  )
+}
+
 export const getSelectedShiftId = (state: RState): string => state.shift.editor.selectedShift
 export const getShiftBeingEdited = (state: RState): ShiftTemplate => Object.assign({}, state.shift.editor.editedShift)
 export const getShiftBeingCreated = (state: RState): ShiftTemplate => Object.assign({}, state.shift.editor.newShift)

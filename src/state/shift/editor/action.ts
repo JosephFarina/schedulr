@@ -137,3 +137,16 @@ export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<Shif
   const messages: string[] = Object.keys(errors).map(i => errors[i])
   return trggerNotification(messages)
 }
+
+/**
+ * 
+ * Reset editor back to defaults
+ * 
+ */
+
+export function resetShiftEditor(): Action<RShiftEditor> {
+  return {
+    type: ShiftActions.resetEditor,
+    payload: null
+  }
+}

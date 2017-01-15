@@ -101,6 +101,9 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
         newShift: null
       })
 
+    case ShiftActions.resetEditor:
+      return initialState
+
     default:
       return state
   }

@@ -25,6 +25,7 @@ import {
   nextDatePickerMonth,
   previousDatePickerMonth,
   removeEmployeeFromShift,
+  shiftIsEqualToInitialState,
   updateNewShift,
   updateShiftDate,
 } from 'src/state/shift'
@@ -105,6 +106,16 @@ export class ShiftEditor extends React.Component<Props, State> {
     this.generateShifts = this.generateShifts.bind(this)
   }
 
+  public componentWillReceiveProps(nextProps: Props) {
+    // this is use to clear the current input time after a shift is updated since it isnt connected to redux
+    const { newShift } = nextProps
+    if (shiftIsEqualToInitialState(newShift)) {
+      this.setState({
+        timeInputValue: '',
+        parsedTimeRange: undefined
+      })
+    }
+  }
 
   /**
    * 

@@ -65,7 +65,7 @@ const CalendarDay: React.StatelessComponent<Props> = (props: Props) => {
 
         return <div key={i}>
           {shift &&
-            <div style={{ borderBottom: '1px solid' }}>{`${JSON.stringify(shift)}`}</div>
+            <div style={{ borderBottom: '1px solid' }}>{`${shift.employee}`}</div>
           }
         </div>
       })}

@@ -14,8 +14,9 @@ import {
 } from 'src/state/ui/modal'
 
 import {
+  addShifts,
   getGeneratedShifts,
-  removeEmployeeFromShift
+  removeEmployeeFromShift,
 } from 'src/state/shift'
 
 import {
@@ -45,6 +46,13 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
 
     this.closeModal = this.closeModal.bind(this)
     this.removeShiftFromEditor = this.removeShiftFromEditor.bind(this)
+    this.addShifts = this.addShifts.bind(this)
+  }
+
+  private addShifts() {
+    const { dispatch, shifts } = this.props
+    dispatch(addShifts(shifts))
+    this.closeModal()
   }
 
   public closeModal() {
@@ -67,8 +75,8 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
         <div>{shifts.map((shift, i) => <ShiftPreview key={i} shift={shift} onRequestDelete={this.removeShiftFromEditor} />)}</div>
         <ModalFooter>
           <ButtonGroup justified={true}>
-            <Button block={true}>Cancel</Button>
-            <Button block={true}>Generate</Button>
+            <Button onClick={this.closeModal} block={true}>Cancel</Button>
+            <Button onClick={this.addShifts} block={true}>Generate</Button>
           </ButtonGroup>
         </ModalFooter>
       </Modal>

@@ -47,6 +47,7 @@ class App extends React.Component<Props, State> {
 
   public render() {
     const { date, shifts } = this.props
+   
     return (
       <div>
         <ModalRoot/>

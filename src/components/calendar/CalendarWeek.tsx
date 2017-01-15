@@ -63,18 +63,20 @@ const CalendarWeek: React.StatelessComponent<Props> = (props: Props) => {
 
   return (
     <div onClick={() => onWeekClick(week)} className={className}>
-      {getDaysFromWeek(week).map((day, i) => <CalendarDay
-        day={day}
-        firstDaySelectable={firstDaySelectable}
-        isSelectedDay={day.isSame(selectedDay, 'day')}
-        isDatePicker={isDatePicker}
-        key={i}
-        outOfRange={!month.isSame(day, 'month')}
-        shifts={getShiftsByDay(day, shifts)}
-        month={month}
-        onDayClick={onDayClick}
-        onShiftClick={onShiftClick}
-        />)}
+      {getDaysFromWeek(week).map((day, i) => {
+        return <CalendarDay
+          day={day}
+          firstDaySelectable={firstDaySelectable}
+          isSelectedDay={day.isSame(selectedDay, 'day')}
+          isDatePicker={isDatePicker}
+          key={i}
+          outOfRange={!month.isSame(day, 'month')}
+          shifts={!isDatePicker && getShiftsByDay(day, shifts)}
+          month={month}
+          onDayClick={onDayClick}
+          onShiftClick={onShiftClick}
+          />
+      })}
     </div>
   )
 }

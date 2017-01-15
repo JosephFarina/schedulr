@@ -15,7 +15,7 @@ export const cloneOrCreateMo = (mo?: MorString): M.Moment => {
   } else if (isString(mo)) {
     date = M(mo)
   } else if (isMoment(mo)) {
-    date = (<M.Moment>mo).clone()
+    date = (<M.Moment> mo).clone()
   }
 
   return date

@@ -1,5 +1,5 @@
+import * as M from 'moment'
 import { createSelector } from 'reselect'
-
 import {
   MorString,
   cloneOrCreateMo,
@@ -45,15 +45,12 @@ function updateShifts(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: 
  * 
  */
 
-export function getShiftsByDay(inputDate: MorString, shifts: I.ShiftTemplate[]): I.ShiftTemplate[] {
+export function getShiftsByDay(inputDate: MorString, shifts: I.Shift[]): I.Shift[] {
   const date = cloneOrCreateMo(inputDate)
 
   if (shifts) {
-    const filtedShiftIds: string[] = Object.keys(shifts).filter((shiftId) => {
-      const shift = shifts[shiftId]
-      return date.isSame(shift.startTime, 'day')
-    })
-    return Object.keys(filtedShiftIds).map(id => shifts[id])
+    return shifts.filter(shift => date.clone().isSame(cloneOrCreateMo(shift.startTime), 'day'))
   }
 }
+
 

@@ -14,7 +14,7 @@ interface Props {
   isDatePicker?: boolean
   isSelectedDay?: boolean
   firstDaySelectable?: M.Moment
-  shifts?: I.ShiftTemplate[]
+  shifts?: I.Shift[]
   outOfRange?: boolean
   onDayClick?(date: M.Moment): void
   onShiftClick?(shift: I.ShiftTemplate): void
@@ -55,11 +55,21 @@ const CalendarDay: React.StatelessComponent<Props> = (props: Props) => {
     [styles.dayIsDisabled]: day.isBefore(firstDaySelectable, 'day')
   })
 
+  // console.log(shifts && shifts.map(shift => shift.startTime))
+
   return (
     <div onClick={() => handleClick(props)} className={className}>
       {isDatePicker && day.format('D')}
-      {!isDatePicker && <div className={styles.dayInfo}>{day.format('D')}</div>}
-      {shifts && shifts.map((shift, i) => <div key={i}>{shift && shift.duration}</div>)}
+      {!isDatePicker && <div className={styles.dayInfo}>{day.format('dd/D')}</div>}
+      {shifts && shifts.map((shift, i) => {
+
+        return <div key={i}>
+          {shift &&
+            <div style={{ borderBottom: '1px solid' }}>{`${JSON.stringify(shift)}`}</div>
+          }
+        </div>
+      })}
+
     </div>
   )
 }

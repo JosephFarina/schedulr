@@ -7,10 +7,16 @@ import {
   UIActions
 } from 'src/state/actionTypes'
 
+import {
+  notificationIsSelected
+} from './'
+
 export function trggerNotification(messages: string[], duration = 2000) {
   return (dispatch: any, getState: any) => {
-    dispatch(setMessagesToAlert(messages))
-    setTimeout(() => { dispatch(resetNotifications()) }, duration)
+    if (!notificationIsSelected(getState())) {
+      dispatch(setMessagesToAlert(messages))
+      setTimeout(() => { dispatch(resetNotifications()) }, duration)
+    }
   }
 }
 

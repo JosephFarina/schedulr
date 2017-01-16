@@ -10,7 +10,7 @@ import {
 } from 'src/models'
 
 import {
-  validateShifts
+  validateNewShifts
 } from './../validator'
 
 import {
@@ -28,7 +28,7 @@ const expectedMessages = {
     location: ['Location must be present']
   },
   startTime: (employees: Employee[]) => ({
-    employee: employees.map(employee => `${employee.alias} is already scheduled at this time`)
+    startTime: employees.map(employee => `${employee.alias} is already scheduled at this time`)
   })
 }
 
@@ -42,7 +42,7 @@ const employees = ['employeeOne', 'employeeTwo']
 describe('#shiftEditorValidator', () => {
 
   it('if all shifts are valid it should return an empty object', () => {
-    const res = validateShifts(getState(['remployee', 'remployee1'], {
+    const res = validateNewShifts(getState(['remployee', 'remployee1'], {
       client: 'qwasv',
       duration: 15,
       location: '3qweafsdz',
@@ -59,7 +59,8 @@ describe('#shiftEditorValidator', () => {
         duration: 15,
         location: '3qweafsdz',
         startTime: M().format()
-      }, expectedMessages.client
+      },
+      expectedMessages.client
     )
   })
 
@@ -70,7 +71,8 @@ describe('#shiftEditorValidator', () => {
         duration: 15,
         location: null,
         startTime: M().format()
-      }, expectedMessages.location
+      },
+      expectedMessages.location
     )
   })
 
@@ -81,7 +83,8 @@ describe('#shiftEditorValidator', () => {
         duration: 5,
         location: 'null12qewfda',
         startTime: M().format()
-      }, expectedMessages.duration
+      },
+      expectedMessages.duration
     )
   })
 
@@ -92,7 +95,8 @@ describe('#shiftEditorValidator', () => {
         duration: 5,
         location: null,
         startTime: M().format()
-      }, Object.assign({}, expectedMessages.client, expectedMessages.duration, expectedMessages.location)
+      },
+      Object.assign({}, expectedMessages.client, expectedMessages.duration, expectedMessages.location)
     )
   })
 
@@ -105,7 +109,8 @@ describe('#shiftEditorValidator', () => {
         location: 'null3qewfasdfd',
         startTime: employeeOneStart.format(),
         duration: employeeOneDuration,
-      }, expectedMessages.startTime([employee]),
+      },
+      expectedMessages.startTime([employee]),
       [employees[0]]
     )
   })
@@ -117,7 +122,8 @@ describe('#shiftEditorValidator', () => {
         location: 'null3qewfasdfd',
         startTime: employeeOneStart.format(),
         duration: employeeOneDuration,
-      }, expectedMessages.startTime(employees.map(employee => getEmployeeById(getState(employees), employee))),
+      },
+      expectedMessages.startTime(employees.map(employee => getEmployeeById(getState(employees), employee))),
       employees
     )
   })
@@ -130,7 +136,7 @@ function testNoOneAndMultipleEmployees(
   employeesInShift: string[] = []
 ) {
   [[], [employees[0]], [employees[1]], employees].forEach(employeeArray => {
-    const res = validateShifts(getState(employeesInShift, newShift))
+    const res = validateNewShifts(getState(employeesInShift, newShift))
     expect(res).toEqual(expectedResponse)
   })
 }

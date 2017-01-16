@@ -18,7 +18,7 @@ import {
 
 import {
   getShiftBeingCreated,
-  validateShifts
+  validateNewShifts
 } from './../'
 
 import {
@@ -122,9 +122,9 @@ export function clearShiftEditor(): Action<RShiftEditor> {
 
 export function generateShifts() {
   return (dispatch: Function, getState: Function): void => {
-    const validationErrors = validateShifts(getState())
+    const validationErrors = validateNewShifts(getState())
 
-    console.log(validationErrors)
+    // FIXME: make a function that checks if there are no validation errors
     if (Object.keys(validationErrors).length === 0) {
       dispatch(openNewShiftApprovalModal())
     } else {

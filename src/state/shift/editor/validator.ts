@@ -6,7 +6,6 @@ import {
 } from 'src/utils'
 
 import {
-  getEmployeesInShiftBeingCreated,
   getGeneratedShifts,
   getShifts
 } from './..'
@@ -14,7 +13,6 @@ import {
 import {
   RState,
   Shift,
-  ShiftTemplate,
   Validator,
   ValidatorResponseObject
 } from 'src/models'
@@ -23,16 +21,16 @@ import {
   getEmployeeById
 } from 'src/state/entities'
 
-function createValidator(state: RState, shift: Shift): Validator<Shift> {
+function createValidator(state: RState, shiftBeingValidated: Shift): Validator<Shift> {
   return {
     client: {
       invalid: (val) => {
-        return !!val ? null : 'Client must be present'
+        return !val ? 'Client must be present' : null
       }
     },
     location: {
       invalid: (val) => {
-        return !!val ? null : 'Location must be present'
+        return !val ? 'Location must be present' : null
       }
     },
     id: {
@@ -42,59 +40,55 @@ function createValidator(state: RState, shift: Shift): Validator<Shift> {
     },
     employee: {
       invalid: (val) => {
-        if (!shift.employee) {
-          return null
-        }
-
-        const allShifts = getShifts(state)
-        const shiftBeingValidatedTimeRange = getMoRange(shift.startTime, shift.duration)
-        const shiftBeingValidatedEmployee = getEmployeeById(state, shift.employee)
-
-        const reduced = Object.keys(allShifts).reduce((shifts, s) => {
-          const currShift = allShifts[s]
-
-          if (currShift.employee === shift.employee) {
-            const currShiftTimeRange = getMoRange(currShift.startTime, currShift.duration)
-            const overlap = currShiftTimeRange.overlaps(shiftBeingValidatedTimeRange)
-
-            if (overlap) {
-              return [...shifts, true]
-            }
-          }
-
-          return shifts
-        }, [])
-
-        return reduced.length === 0 ? null : `${shiftBeingValidatedEmployee.alias} is already scheduled at this time`
+        return null
       }
     },
     startTime: {
       invalid: (val) => {
-        return null
+        // its always ok if there isnt an employee
+        if (!shiftBeingValidated.employee) { return null }
+
+        const shifts = getShifts(state)
+        const shiftBeingValidatedTimeRange = getMoRange(shiftBeingValidated.startTime, shiftBeingValidated.duration)
+        const shiftBeingValidatedEmployee = getEmployeeById(state, shiftBeingValidated.employee)
+        const shiftOverlapsSavedShift: boolean = Object.keys(shifts).reduce((res, shiftId) => {
+          const shift = shifts[shiftId]
+
+          // Only focus at employees that are the same as the shift being validated
+          if (shift.employee === shiftBeingValidated.employee) {
+            const currShiftTimeRange = getMoRange(shift.startTime, shift.duration)
+            const thereIsOverlap = currShiftTimeRange.overlaps(shiftBeingValidatedTimeRange)
+            if (thereIsOverlap) { return true }
+          }
+
+          return res
+        }, false)
+
+        return shiftOverlapsSavedShift ? `${shiftBeingValidatedEmployee.alias} is already scheduled at this time` : null
       }
     },
     duration: {
       invalid: (val) => {
-        return val >= 15 ? null : 'It must be at least 15 minutes long'
+        return val < 15 ? 'It must be at least 15 minutes long' : null
       }
     }
   }
 }
 
-export function validateShifts(state: RState): ValidatorResponseObject<Shift> {
-  const shifts = getGeneratedShifts(state)
+export function validateNewShifts(state: RState): ValidatorResponseObject<Shift> {
+  return getGeneratedShifts(state).reduce((mergedShiftResObject: ValidatorResponseObject<Shift>, shift) => {
+    // creates a unique validator for each shift object while passing in state and shift and than validates shift
+    const shiftResObject = validatorFactory(createValidator(state, shift))(shift)
 
-  return shifts.reduce((res: ValidatorResponseObject<Shift>, shift) => {
-    const shiftValidator = validatorFactory(createValidator(state, shift))
-    const invalid = shiftValidator(shift)
+    if (shiftResObject && shiftResObject.startTime) {
+      const currStartTime = shiftResObject.startTime
+      const mergedStarTime = mergedShiftResObject.startTime
 
-    if (invalid && invalid.employee) {
-      const nextEmployee = Array.isArray(res.employee) ? res.employee.concat(invalid.employee) : [].concat(invalid.employee)
-      return Object.assign({}, res, invalid, { employee: nextEmployee })
-
-    } else {
-      return Object.assign({}, res, invalid)
+      return Object.assign({}, mergedShiftResObject, shiftResObject, {
+        startTime: Array.isArray(mergedShiftResObject.startTime) ? mergedStarTime.concat(currStartTime) : [].concat(currStartTime)
+      })
     }
 
+    return Object.assign({}, mergedShiftResObject, shiftResObject)
   }, {})
 }

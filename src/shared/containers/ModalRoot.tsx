@@ -1,12 +1,13 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import ShiftApprover from './ShiftApprover'
+import ShiftApprover from 'src/routes/scheduling/containers/ShiftApprover'
 
 import {
   ModalMode,
   RModal,
 } from 'src/models'
+
 import { getModalState } from 'src/state/ui/modal'
 
 const MODAL_COMPONENTS: { [modalType: string]: any } = {
@@ -20,9 +21,7 @@ export const ModalRoot = (props: RModal) => {
     return null
   }
 
-
   const SpecificModal = MODAL_COMPONENTS[modalType]
-  // const SpecificModal = ShiftApprover
   return <SpecificModal {...modalProps} />
 }
 

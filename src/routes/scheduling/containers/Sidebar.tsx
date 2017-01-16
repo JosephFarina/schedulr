@@ -17,7 +17,7 @@ import * as CalendarActions from 'src/state/calendar/action'
 import * as SidebarActions from 'src/state/ui/sidebar/action'
 
 import ShiftEditor from './ShiftEditor'
-import Calendar from 'src/components/calendar/Calendar'
+import Calendar from 'src/shared/components/calendar/Calendar'
 
 import {
   Button,
@@ -25,9 +25,7 @@ import {
   PaneContent,
   PaneHeader,
   PaneSidebar,
-} from 'src/components'
-
-import './App.css'
+} from 'src/shared/components'
 
 interface Props {
   dispatch: Function,

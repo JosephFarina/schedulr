@@ -6,7 +6,7 @@ import { getDaysFromWeek } from 'src/utils'
 
 import {
   getShiftsByDay
-} from './../../state/shift'
+} from 'src/state/shift'
 
 import CalendarDay from './CalendarDay'
 

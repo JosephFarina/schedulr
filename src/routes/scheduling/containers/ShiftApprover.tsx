@@ -6,8 +6,9 @@ import {
   ButtonGroup,
   Modal,
   ModalFooter,
-  ShiftPreview,
-} from 'src/components'
+} from 'src/shared/components'
+
+import { ShiftPreview } from './../components'
 
 import {
   closeModal

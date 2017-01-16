@@ -47,12 +47,12 @@ import {
 import {
   Button,
   ButtonGroup
-} from 'src/components'
+} from 'src/shared/components'
 
-import Calendar from 'src/components/calendar/Calendar'
-import Chips from 'src/components/inputs/Chips'
-import Input from 'src/components/inputs/Input'
-import Select from 'src/components/inputs/Select'
+import Calendar from 'src/shared/components/calendar/Calendar'
+import Chips from 'src/shared/components/inputs/Chips'
+import Input from 'src/shared/components/inputs/Input'
+import Select from 'src/shared/components/inputs/Select'
 
 interface Props {
   dispatch?: Function

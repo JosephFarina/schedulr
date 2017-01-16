@@ -6,7 +6,7 @@ import {
 import * as createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 
-import DevTools from '../containers/DevTools'
+import DevTools from '../shared/containers/DevTools'
 import rootReducer from './'
 
 const configureStore = (preloadedState: any = undefined) => {

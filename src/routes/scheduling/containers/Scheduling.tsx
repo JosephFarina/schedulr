@@ -16,19 +16,16 @@ import {
 } from 'src/state/shift'
 
 import Sidebar from './Sidebar'
-import Calendar from 'src/components/calendar/Calendar'
-import Alert from 'src/containers/Alert'
-import ModalRoot from 'src/containers/ModalRoot'
+import Calendar from 'src/shared/components/calendar/Calendar'
 
 import {
-  Navbar,
   PaneBody,
   PaneContainer,
   PaneContent,
   PaneHeader
-} from 'src/components/layout'
+} from 'src/shared/components/layout'
 
-import './App.css'
+import './Scheduling.css'
 
 interface Props {
   dispatch: Function,
@@ -40,32 +37,27 @@ interface State {
 
 }
 
-class App extends React.Component<Props, State> {
+class Scheduling extends React.Component<Props, State> {
   public static proptypes = {
     dispatch: PropTypes.func.isRequired
   }
 
   public render() {
     const { date, shifts } = this.props
-   
+
     return (
-      <div>
-        <ModalRoot/>
-        <Navbar></Navbar>
-        <PaneContainer>
+      <PaneContainer>
 
-          <Sidebar />
+        <Sidebar />
 
-          <PaneBody>
-            <PaneHeader>Toolbar Header</PaneHeader>
-            <PaneContent>
-              <Calendar shifts={shifts} week={date} />
-            </PaneContent>
-          </PaneBody>
+        <PaneBody>
+          <PaneHeader>Toolbar Header</PaneHeader>
+          <PaneContent>
+            <Calendar shifts={shifts} week={date} />
+          </PaneContent>
+        </PaneBody>
 
-        </PaneContainer>
-        <Alert />
-      </div>
+      </PaneContainer>
     )
   }
 }
@@ -77,4 +69,4 @@ const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownPro
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps)(Scheduling)

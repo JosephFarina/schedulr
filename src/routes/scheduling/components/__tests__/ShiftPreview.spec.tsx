@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import {
   ShiftPreview
-} from 'src/components'
+} from './../'
 
 import {
   Shift

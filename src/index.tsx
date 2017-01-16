@@ -3,17 +3,14 @@ require('./index.css')
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
 
-import Root from './containers/Root'
-
-import configureStore from './state/configureStore'
-
-const store = configureStore()
+import Routes from './routes'
 
 const root = document.createElement('div')
 document.body.appendChild(root)
 
 ReactDOM.render(
-  <Root store={store} />,
+  <Routes />,
   root
 )

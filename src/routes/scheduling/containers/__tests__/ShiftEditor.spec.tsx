@@ -1,15 +1,11 @@
 import * as M from 'moment'
 
-import {
-  ShallowWrapper,
-  shallow,
-  mount
-} from 'enzyme'
+import { mount, } from 'enzyme'
 import * as React from 'react'
 
 import { ShiftEditor } from './../ShiftEditor'
 
-import ButtonGroup from 'src/components/buttons/ButtonGroup'
+import { ButtonGroup } from 'src/shared/components/'
 
 import {
   removeEmployeeFromShift,
@@ -86,7 +82,7 @@ describe('ShiftEditor', () => {
         wrapper.setState({ timeInputValue: '1 - 3 ' })
         wrapper.setState({ timeInputValue: '' })
 
-        wrapper.instance()['handleTimeChangeEnd']() 
+        wrapper.instance()['handleTimeChangeEnd']()
         expect(wrapper.state()['parsedTimeRange']).toEqual(undefined)
         expect(mockDispatch.calls.mostRecent().args[0]).toEqual(updateNewShift({
           startTime: null,

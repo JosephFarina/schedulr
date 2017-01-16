@@ -1,0 +1,68 @@
+import * as React from 'react'
+
+import { Moment } from 'moment'
+
+import {
+  RState,
+  ShiftTemplate
+} from 'src/models'
+
+import {
+  MapStateToProps,
+  connect,
+} from 'react-redux'
+
+import Calendar from 'src/shared/components/calendar/Calendar'
+
+import {
+  Button,
+  ButtonGroup,
+  PaneBody,
+  PaneContent,
+  PaneHeader,
+} from 'src/shared/components'
+
+import { getMomentDate } from 'src/state/calendar'
+import { getShifts } from 'src/state/shift'
+
+interface SchedulingCalendarProps {
+  dispatch?: Function,
+  date: Moment
+  shifts: ShiftTemplate[]
+}
+
+interface SchedulingCalendarState { }
+
+class SchedulingCalendar extends React.Component<SchedulingCalendarProps, SchedulingCalendarState> {
+  public render() {
+    const {
+      date,
+      shifts
+    } = this.props
+
+    return (
+      <PaneBody>
+        <PaneHeader>
+          Toolbar Header
+          <ButtonGroup buttonBar={true}>
+            <Button onClick={() => { } }>Hello</Button>
+            <Button  >inspector</Button>
+            <Button > New shift</Button>
+          </ButtonGroup>
+        </PaneHeader>
+        <PaneContent>
+          <Calendar shifts={shifts} week={date} />
+        </PaneContent>
+      </PaneBody>
+    )
+  }
+}
+
+const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: SchedulingCalendarProps) => {
+  return {
+    date: getMomentDate(state),
+    shifts: getShifts(state)
+  }
+}
+
+export default connect(mapStateToProps)(SchedulingCalendar)

@@ -1,21 +1,25 @@
 import * as React from 'react'
 
+import { Provider } from 'react-redux'
 import {
+  IndexRoute,
   Route,
   Router,
-  browserHistory
+  browserHistory,
 } from 'react-router'
-
-import {
-  syncHistoryWithStore,
-} from 'react-router-redux'
-
-import Scheduling from 'src/routes/scheduling/containers/Scheduling'
-import Root from 'src/shared/components/Root'
-
-import { Provider } from 'react-redux'
+import { syncHistoryWithStore, } from 'react-router-redux'
 
 import configureStore from './state/configureStore'
+import Root from 'src/shared/components/Root'
+
+/**
+ * 
+ * ROUTES
+ * 
+ */
+
+import NewShiftSideBar from 'src/routes/scheduling/containers/NewShiftSideBar'
+import Scheduling from 'src/routes/scheduling/Scheduling'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
@@ -24,9 +28,13 @@ const Routes = () => (
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={Root} >
-        <Route path="schedule" component={Scheduling} ></Route>
+
+        <Route path="scheduling" component={Scheduling}>
+          <Route path="new-shift" components={{ sidebar: NewShiftSideBar }} />
+        </Route>
+
       </Route>
-    </Router >
+    </Router>
   </Provider>
 )
 

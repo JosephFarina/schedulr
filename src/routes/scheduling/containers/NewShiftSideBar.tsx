@@ -37,7 +37,7 @@ interface State {
 
 }
 
-class SideBar extends React.Component<Props, State> {
+class NewShiftSideBar extends React.Component<Props, State> {
   public static proptypes = {
     dispatch: PropTypes.func.isRequired,
   }
@@ -113,47 +113,6 @@ class SideBar extends React.Component<Props, State> {
   }
 
   /**
-   * 
-   * store in shift state 
-   *  - selectedShiftId: string  (shift id)
-   *  - shiftBeingEdited: Shift
-   *  - shiftBeingCreated: Shift
-   * 
-   * 
-   * renderShiftEditor() {
-   *  let shiftToEdit: Shift
-   * 
-   *  if (mode === 'editShift') {
-   *    shiftToEdit = Object.assign({}, getShiftById(selectedShiftId), shiftBeingEdited)
-   *  } 
-   * 
-   *  else if (mode === 'newShift) {
-   *    shiftToEdit = Object.assign({}, shiftBeingCreated)
-   *  }
-   * 
-   *  // if its neither new or edit mode return null
-   *  else {
-   *    return null
-   *  }
-   * 
-   *  return <ShiftEditor 
-   *    handleChange={func} // on change end update redux
-   *    handleSubmit={func} // create new shift or edit shift depending on the mode 
-   *    handleReset={func} // clear the new shift blank or restore the unedited shift being edited 
-   *    handleModeChange={func} // toggle between edit and add state
-   *    editMode={boolean} // mode === 'editMode'
-   *    newMode={boolean} // mode ==='newMode'
-   *    shift={shiftToEdit} // shiftToEdit -- only use this in the constructor use internal state after
-   *  />
-   *  
-   * }
-   * 
-   * <ShiftInspector />
-   * <ShiftFilter />
-   * 
-   */
-
-  /**
    * Render
    */
 
@@ -166,7 +125,7 @@ class SideBar extends React.Component<Props, State> {
       <PaneSidebar maximized={sidebarMode === 'newShift'}>
         <PaneHeader>
           <ButtonGroup buttonBar={true}>
-            <Button onClick={() => {}}>Hello</Button>
+            <Button onClick={() => { } }>Hello</Button>
             <Button onClick={this.inspectorMode} >inspector</Button>
             <Button onClick={this.newShiftMode}> New shift</Button>
           </ButtonGroup>
@@ -186,4 +145,4 @@ const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownPro
   }
 }
 
-export default connect(mapStateToProps)(SideBar)
+export default connect(mapStateToProps)(NewShiftSideBar)

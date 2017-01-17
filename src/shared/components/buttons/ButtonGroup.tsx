@@ -10,13 +10,15 @@ interface Props {
   justified?: boolean
   centered?: boolean
   block?: boolean
+  maxWidth?: number
 }
 
 const defaultProps: Props = {
   buttonBar: false,
   justified: false,
   block: false,
-  centered: false
+  centered: false,
+  maxWidth: null
 }
 
 const ButtonGroup: React.StatelessComponent<any> = (props: Props) => {
@@ -25,7 +27,8 @@ const ButtonGroup: React.StatelessComponent<any> = (props: Props) => {
     buttonBar,
     justified,
     centered,
-    block
+    block,
+    maxWidth
   } = props
 
   const className = ctx({
@@ -37,7 +40,7 @@ const ButtonGroup: React.StatelessComponent<any> = (props: Props) => {
   })
 
   return (
-    <div className={className}>
+    <div style={maxWidth ? {maxWidth} : null} className={className}>
       {children}
     </div>
   )

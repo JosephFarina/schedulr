@@ -29,7 +29,6 @@ import {
 
 interface Props {
   dispatch: Function,
-  sidebarMode: Models.ScheduleSidebarMode
   date: Moment
 }
 
@@ -46,8 +45,6 @@ class NewShiftSideBar extends React.Component<Props, State> {
     super(props)
     this.nextRange = this.nextRange.bind(this)
     this.prevRange = this.prevRange.bind(this)
-    this.inspectorMode = this.inspectorMode.bind(this)
-    this.newShiftMode = this.newShiftMode.bind(this)
   }
 
 
@@ -69,68 +66,17 @@ class NewShiftSideBar extends React.Component<Props, State> {
 
   /**
    * 
-   * Change sidebar mode
-   * 
-   */
-
-  public inspectorMode() {
-    const { dispatch } = this.props
-    dispatch(SidebarActions.setSidebarModeToInspector())
-  }
-
-  public newShiftMode() {
-    const { dispatch } = this.props
-    dispatch(SidebarActions.setSidebarModeToNewShift())
-  }
-
-  /**
-   * 
-   * Render Elements Conditionally
-   * 
-   */
-
-  public renderCalendarWidget(props: Props) {
-    const {
-      date,
-      sidebarMode
-    } = props
-
-    const shouldRender = sidebarMode === 'filter' || sidebarMode === 'inspector'
-
-    if (shouldRender) {
-      return (
-        <Calendar
-          month={date}
-          onNextRangeClick={this.nextRange}
-          onPrevRangeClick={this.prevRange}
-          selectedWeek={date}
-          isDatePicker={true}
-          />
-      )
-    } else {
-      return null
-    }
-  }
-
-  /**
    * Render
+   * 
    */
 
   public render() {
-    const {
-      sidebarMode
-    } = this.props
-
     return (
-      <PaneSidebar maximized={sidebarMode === 'newShift'}>
-        <PaneHeader>
-          <ButtonGroup buttonBar={true}>
-            <Button onClick={() => { } }>Hello</Button>
-            <Button onClick={this.inspectorMode} >inspector</Button>
-            <Button onClick={this.newShiftMode}> New shift</Button>
-          </ButtonGroup>
-        </PaneHeader>
-        <PaneContent>
+      <PaneSidebar maximized split>
+        <PaneContent noHeader>
+          <ShiftEditor />
+        </PaneContent>
+        <PaneContent noHeader>
           <ShiftEditor />
         </PaneContent>
       </PaneSidebar>
@@ -140,8 +86,7 @@ class NewShiftSideBar extends React.Component<Props, State> {
 
 const mapStateToProps: MapStateToProps<any, any> = (state: Models.RState, ownProps: Props) => {
   return {
-    sidebarMode: getScheduleSidebarMode(state),
-    date: getMomentDate(state),
+    date: getMomentDate(state)
   }
 }
 

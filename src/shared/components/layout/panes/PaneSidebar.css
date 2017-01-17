@@ -14,8 +14,9 @@
 	display: flex;
 	justify-content: space-between;
 	flex-direction: column;
-}
 
+	height: calc(100% - 4rem);
+}
 
 
 .halfScreen {
@@ -28,4 +29,9 @@
 
 .minimized {
 	max-width: $pane-Sidebar--width--minimized;
+}
+
+.split {
+	display: flex;
+	flex-direction: row;
 }

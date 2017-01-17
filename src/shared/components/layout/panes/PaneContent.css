@@ -8,6 +8,12 @@
 	overflow: scroll;
 	background-color: $color-Mono--white;
 	padding: 1rem;
+	flex: 1;
+
+	&:not(:last-child) {
+		/* for when the sidebar is split */
+		border-right: 1px solid;
+	}
 }
 
 .sidebarContainer {
@@ -16,4 +22,9 @@
 
 .sidebarContainer .container {
 	background: blue;
+}
+
+.noHeader {
+	top: 0;
+	height: 100%;
 }

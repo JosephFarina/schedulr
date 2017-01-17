@@ -2,6 +2,15 @@ import * as React from 'react'
 
 import { Moment } from 'moment'
 
+const newIcon = require('public/icons/new.svg')
+const inspectIcon = require('public/icons/eye.svg')
+
+const iconStyles = require('src/index.css')
+
+import {
+  Link
+} from 'react-router'
+
 import {
   RState,
   ShiftTemplate
@@ -44,10 +53,9 @@ class SchedulingCalendar extends React.Component<SchedulingCalendarProps, Schedu
       <PaneBody>
         <PaneHeader>
           Toolbar Header
-          <ButtonGroup buttonBar={true}>
-            <Button onClick={() => { } }>Hello</Button>
-            <Button  >inspector</Button>
-            <Button > New shift</Button>
+          <ButtonGroup maxWidth={400} buttonBar={true}>
+            <Button to="/scheduling/new-shift"><img className={iconStyles.toolbarIcon} src={newIcon} /></Button>
+            <Button to="/scheduling"><img className={iconStyles.toolbarIcon} src={inspectIcon} /></Button>
           </ButtonGroup>
         </PaneHeader>
         <PaneContent>

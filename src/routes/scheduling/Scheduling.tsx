@@ -8,13 +8,10 @@ interface SchedulingProps {
 }
 
 const Scheduling: React.StatelessComponent<SchedulingProps> = (props: SchedulingProps) => {
-  const {
-    sidebar
-  } = props
+  const { sidebar } = props
 
   return (
     <PaneContainer>
-      {/*<Sidebar />*/}
       {sidebar}
       <SchedulingCalendar />
     </PaneContainer>

@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { Link } from 'react-router'
+
 const styles = require('./Button.css')
 const ctx = require('classnames')
 
@@ -9,6 +11,7 @@ interface Props {
   block?: boolean
   mini?: boolean
   active?: boolean
+  to?: string
 }
 
 const defaultProps: Props = {
@@ -24,7 +27,8 @@ const Button: React.StatelessComponent<any> = (props: Props) => {
     onClick,
     block,
     mini,
-    active
+    active,
+    to
   } = props
 
   const className = ctx({
@@ -34,11 +38,17 @@ const Button: React.StatelessComponent<any> = (props: Props) => {
     [styles['base--active']]: active
   })
 
-  return (
-    <button onClick={onClick} className={className}>
-      {children}
-    </button>
-  )
+  return to ?
+    (
+      <button onClick={onClick} className={className}>
+        <Link to={to}>{children}</Link>
+      </button>
+    )
+    : (
+      <button onClick={onClick} className={className}>
+        {children}
+      </button>
+    )
 }
 
 Button.defaultProps = defaultProps

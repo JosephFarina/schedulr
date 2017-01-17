@@ -23,6 +23,8 @@ export interface Clients {
 export interface Location {
   id?: string
   alias?: string
+  latitude?: number
+  longitude?: number
 }
 
 export interface Locations {

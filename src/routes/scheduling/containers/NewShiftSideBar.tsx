@@ -77,7 +77,7 @@ class NewShiftSideBar extends React.Component<Props, State> {
           <ShiftEditor />
         </PaneContent>
         <PaneContent noHeader>
-          <ShiftEditor />
+
         </PaneContent>
       </PaneSidebar>
     )

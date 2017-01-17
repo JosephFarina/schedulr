@@ -22,3 +22,7 @@ export function mode(ary: number[]) {
 
   return mode[0]
 }
+
+export function roundToTwoPlaces(num: number): number {
+  return +(Math.round(`${num}e+2` as any) + 'e-2')
+}

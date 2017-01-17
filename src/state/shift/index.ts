@@ -11,7 +11,7 @@ const shift = combineReducers({
 export default shift
 
 export * from './data/selector'
-export * from './data/action'
+export * from './data/actions'
 export * from './editor/selector'
 export * from './editor/action'
 export * from './editor/validator'

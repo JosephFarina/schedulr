@@ -3,7 +3,7 @@ import configureStore from 'redux-mock-store'
 const middlewares: any = []
 const mockStore = configureStore(middlewares)
 
-import * as Actions from './../action'
+import * as Actions from './../actions'
 import shifts, { initialState } from './../reducer'
 import * as Selectors from './../selector'
 import * as Models from 'src/models'

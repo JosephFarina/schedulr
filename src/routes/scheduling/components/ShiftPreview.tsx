@@ -5,6 +5,10 @@ import {
   Shift
 } from 'src/models'
 
+import {
+  roundToTwoPlaces
+} from 'src/utils'
+
 const styles = require('./ShiftPreview.css')
 const ctx = require('classnames')
 
@@ -92,7 +96,7 @@ export class ShiftPreview extends React.Component<ShiftPreviewProps, ShiftPrevie
     const { shift } = this.props
     const { duration } = shift
 
-    const durationInHours = roundToTwo(duration / 60)
+    const durationInHours = roundToTwoPlaces(duration / 60)
     const hour = durationInHours === 1 ? 'Hour' : 'Hours'
 
     return `${durationInHours} ${hour}`
@@ -167,9 +171,3 @@ export class ShiftPreview extends React.Component<ShiftPreviewProps, ShiftPrevie
     )
   }
 }
-
-
-function roundToTwo(num: number): number {
-  return +(Math.round(`${num}e+2` as any) + 'e-2')
-}
-

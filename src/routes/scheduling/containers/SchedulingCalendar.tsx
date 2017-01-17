@@ -53,7 +53,7 @@ class SchedulingCalendar extends React.Component<SchedulingCalendarProps, Schedu
       <PaneBody>
         <PaneHeader>
           Toolbar Header
-          <ButtonGroup maxWidth={400} buttonBar={true}>
+          <ButtonGroup maxWidth={100} buttonBar>
             <Button to="/scheduling/new-shift"><img className={iconStyles.toolbarIcon} src={newIcon} /></Button>
             <Button to="/scheduling"><img className={iconStyles.toolbarIcon} src={inspectIcon} /></Button>
           </ButtonGroup>

@@ -1,0 +1,24 @@
+.label {
+  width: 100%;
+  cursor: pointer;
+  padding: .5rem 0;
+
+  &:hover {
+    * {
+      text-decoration: underline;
+    }
+  }
+  
+  * { 
+    margin: 0;
+  }
+}
+
+.body {
+  margin-bottom: 1rem;
+}
+
+.bodyOpen {
+  padding-bottom: .5rem;
+  border-bottom: 1px solid lightgrey;
+}

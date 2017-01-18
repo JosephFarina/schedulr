@@ -9,7 +9,7 @@
 	background-color: $color-Mono--white;
 	padding: 1rem;
 	flex: 1;
-	padding-top: 4rem;
+	padding-top: 5rem;
 
 	&:not(:last-child) {
 		/* for when the sidebar is split */

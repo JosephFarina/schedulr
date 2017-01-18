@@ -18,6 +18,7 @@ import Root from 'src/shared/components/Root'
  * 
  */
 
+import Inspector from 'src/routes/scheduling/containers/Inspector'
 import NewShiftSideBar from 'src/routes/scheduling/containers/NewShiftSideBar'
 import Scheduling from 'src/routes/scheduling/Scheduling'
 
@@ -31,6 +32,7 @@ const Routes = () => (
 
         <Route path="scheduling" component={Scheduling}>
           <Route path="new-shift" components={{ sidebar: NewShiftSideBar }} />
+          <Route path="inspect" components={{ sidebar: Inspector }} />
         </Route>
 
       </Route>

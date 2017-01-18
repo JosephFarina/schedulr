@@ -72,12 +72,9 @@ class NewShiftSideBar extends React.Component<Props, State> {
 
   public render() {
     return (
-      <PaneSidebar maximized split>
+      <PaneSidebar noHeader>
         <PaneContent noHeader>
           <ShiftEditor />
-        </PaneContent>
-        <PaneContent noHeader>
-
         </PaneContent>
       </PaneSidebar>
     )

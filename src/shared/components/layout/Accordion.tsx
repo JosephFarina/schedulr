@@ -4,6 +4,9 @@ import { PropTypes } from 'react'
 const styles = require('./Accordion.css')
 const ctx = require('classnames')
 
+const openIcon = require('public/icons/filetree--open.svg')
+const closedIcon = require('public/icons/filetree--closed.svg')
+
 interface AccordionProps {
   children?: React.ReactChildren
 }
@@ -36,9 +39,7 @@ class Accordion extends React.Component<AccordionProps, AccordionState> {
 
     if (!Array.isArray(children)) {
       throw new Error('Accordion children must be an array')
-    }
-
-    if (children.length !== 2) {
+    } else if (children.length !== 2) {
       throw new Error('Accordion must have exactly two children')
     }
 
@@ -57,19 +58,17 @@ class Accordion extends React.Component<AccordionProps, AccordionState> {
   }
 
   public render() {
-    const { children } = this.props
-
     const { open } = this.state
-
     const bodyClass = ctx({
       [styles.body]: true,
       [styles.bodyOpen]: open
     })
 
     return (
-      <div>
+      <div className={styles.container}>
         <div onClick={this.toggleVisibility} className={styles.label}>
-          {this.getTitle()}
+          <img className={styles.labelIcon} src={open ? openIcon : closedIcon} alt=""/>
+          <span className={styles.labelText}>{this.getTitle()}</span>
         </div>
         {open &&
           <div className={bodyClass}>

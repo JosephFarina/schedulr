@@ -24,3 +24,11 @@ a {
     width: auto;
     height: 20px;
 }
+
+ul {
+  padding-left: 10px;
+}
+
+li {
+  list-style-type: none;
+}

@@ -1,7 +1,22 @@
+.container {
+  
+  ul {
+    margin: .5rem 0;
+  }
+}
+
+li {
+  margin: .5rem 0;
+}
+
 .label {
   width: 100%;
   cursor: pointer;
-  padding: .5rem 0;
+  margin: 0.2rem 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
 
   &:hover {
     * {
@@ -14,11 +29,19 @@
   }
 }
 
+.labelIcon {
+  width: 7px;
+}
+
+.labelText {
+  padding-left: 10px;
+}
+
 .body {
-  margin-bottom: 1rem;
+  // margin-bottom: 1rem;
 }
 
 .bodyOpen {
-  padding-bottom: .5rem;
-  border-bottom: 1px solid lightgrey;
+  // padding-bottom: .5rem;
+  // border-bottom: 1px solid lightgrey;
 }

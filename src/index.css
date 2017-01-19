@@ -9,6 +9,8 @@ body {
   font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
   color: #4d4d4d;
   font-weight: 300;
+  margin: 0;
+  padding: 0;
 }
 
 
@@ -32,3 +34,29 @@ ul {
 li {
   list-style-type: none;
 }
+
+h1 {
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 0 0 .5rem 0;
+}
+
+
+
+.table .mini {
+  
+}
+
+.row {
+    display: flex;
+
+    .item {
+      flex: 1;
+    }
+  }

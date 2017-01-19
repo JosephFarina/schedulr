@@ -49,133 +49,89 @@ class Inspector extends React.Component<InspectorProps, InspectorState> {
       <PaneSidebar>
         <PaneHeader>Jan 15, 2017</PaneHeader>
         <PaneContent>
-          Overview
-            <div>
-            90 Total Hours Between 35 Shifts
-                <ul>
-              <li>
-                <Accordion>
-                  <div>{employees.length} employees</div>
-                  <ul>
-                    {employees.map((employee, i) => (
-                      <Accordion>
-                        <li key={i}>{employee.alias}</li>
-                        <ul>
-                          <li>
-                            <Accordion>
-                              <div>Clients</div>
-                              <ul>
-                                <li>4 Hours client one</li>
-                                <li>3 hours client two</li>
-                              </ul>
-                            </Accordion>
-                          </li>
-                          <li>
-                            <Accordion>
-                              <div>Locations</div>
-                              <ul>
-                                <li>2 Hours location one</li>
-                                <li>4 hours location four</li>
-                                <li>3 hours location sevon</li>
-                              </ul>
-                            </Accordion>
-                          </li>
-                        </ul>
-                      </Accordion>
-                    ))}
-                  </ul>
-                </Accordion>
-              </li>
-              <li>
-                <Accordion>
-                  <div>{employees.length} employees</div>
-                  <ul>
-                    {employees.map((employee, i) => (
-                      <Accordion>
-                        <li key={i}>{employee.alias}</li>
-                        <ul>
-                          <li>
-                            <Accordion>
-                              <div>Clients</div>
-                              <ul>
-                                <li>4 Hours client one</li>
-                                <li>3 hours client two</li>
-                              </ul>
-                            </Accordion>
-                          </li>
-                          <li>
-                            <Accordion>
-                              <div>Locations</div>
-                              <ul>
-                                <li>2 Hours location one</li>
-                                <li>4 hours location four</li>
-                                <li>3 hours location sevon</li>
-                              </ul>
-                            </Accordion>
-                          </li>
-                        </ul>
-                      </Accordion>
-                    ))}
-                  </ul>
-                </Accordion>
-              </li>
-              <li>
-                <Accordion>
-                  <div>{employees.length} employees</div>
-                  <ul>
-                    {employees.map((employee, i) => (
-                      <Accordion>
-                        <li key={i}>{employee.alias}</li>
-                        <ul>
-                          <li>
-                            <Accordion>
-                              <div>Clients</div>
-                              <ul>
-                                <li>4 Hours client one</li>
-                                <li>3 hours client two</li>
-                              </ul>
-                            </Accordion>
-                          </li>
-                          <li>
-                            <Accordion>
-                              <div>Locations</div>
-                              <ul>
-                                <li>2 Hours location one</li>
-                                <li>4 hours location four</li>
-                                <li>3 hours location sevon</li>
-                              </ul>
-                            </Accordion>
-                          </li>
-                        </ul>
-                      </Accordion>
-                    ))}
-                  </ul>
-                </Accordion>
-              </li>
-            </ul>
-          </div>
+          <div>
+            <h1>Shift Overview</h1>
 
-          <Accordion>
-            <h3> 45 Shifts </h3>
-            <ul>
-              <li>one`o</li>
-              <li>tow</li>
-            </ul>
-          </Accordion>
-          <Accordion>
-            <h3> 5 Clients </h3>
-            <ul>
-              <li>one`o</li>
-              <li>tow</li>
-            </ul>
-          </Accordion>
-          <Accordion>
-            <h3> 9 Locations </h3>
-            <ul>
-              <li>one`o</li>
-              <li>tow</li>
-            </ul>
-          </Accordion>
+            <Accordion>
+              <h2><strong>90</strong> Hours</h2>
+              <ul>
+                <li>
+                  <Accordion>
+                    <h4>Employees</h4>
+                    <ul>
+                      <li><strong>15:</strong> Employee One</li>
+                      <li><strong>20:</strong> Employee Two</li>
+                      <li><strong>30.5:</strong> Employee Three</li>
+                    </ul>
+                  </Accordion>
+                </li>
+                <li>
+                  <Accordion>
+                    <h4>Clients</h4>
+                    <ul>
+                      <li><strong>15:</strong> Client One</li>
+                      <li><strong>20:</strong> Client Two</li>
+                      <li><strong>30.5:</strong> Client Three</li>
+                    </ul>
+                  </Accordion>
+                </li>
+                <li>
+                  <Accordion>
+                    <h4>Locations</h4>
+                    <ul>
+                      <li><strong>15:</strong> Location One</li>
+                      <li><strong>20:</strong> Location Two</li>
+                      <li><strong>30.5:</strong> Location Three</li>
+                    </ul>
+                  </Accordion>
+                </li>
+              </ul>
+            </Accordion>
+
+            <Accordion>
+              <h2><strong>35</strong> Shifts</h2>
+              <ul>
+                <li>
+                  <Accordion>
+                    <h4>Employees</h4>
+                    <ul>
+                      <li><strong>4:</strong> Employee One</li>
+                      <li><strong>8:</strong> Employee Two</li>
+                      <li><strong>2:</strong> Employee Three</li>
+                    </ul>
+                  </Accordion>
+                </li>
+                <li>
+                  <Accordion>
+                    <h4>Clients</h4>
+                    <ul>
+                      <li><strong>4:</strong> Client One</li>
+                      <li><strong>1:</strong> Client Two</li>
+                      <li><strong>30:</strong> Client Three</li>
+                    </ul>
+                  </Accordion>
+                </li>
+                <li>
+                  <Accordion>
+                    <h4>Locations</h4>
+                    <ul>
+                      <li><strong>15:</strong> Location One</li>
+                      <li><strong>20:</strong> Location Two</li>
+                      <li><strong>10:</strong> Location Three</li>
+                    </ul>
+                  </Accordion>
+                </li>
+              </ul>
+            </Accordion>
+
+            <h2><strong>5</strong> Clients</h2>
+
+            <h2><strong>4</strong> Employees</h2>
+
+            <h2><strong>3</strong> Locations</h2>
+
+
+          </div>
 
         </PaneContent>
       </PaneSidebar >

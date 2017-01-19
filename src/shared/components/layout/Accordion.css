@@ -16,7 +16,7 @@ li {
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  position: relative;
 
   &:hover {
     * {
@@ -31,6 +31,8 @@ li {
 
 .labelIcon {
   width: 7px;
+  position: absolute;
+  left: -2px;
 }
 
 .labelText {

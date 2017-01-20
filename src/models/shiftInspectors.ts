@@ -1,4 +1,3 @@
-import { Moment } from 'moment'
 import {
   Client,
   Employee,
@@ -6,50 +5,82 @@ import {
   Shift
 } from 'src/models'
 
-export interface GeneralInspector {
-  startTime?: Moment
-  endTime?: Moment
-
-  cumulativeHours?: {
-    [employeeId: string]: number
-  }
-
-  shifts?: Shift[]
-  employees?: Employee[]
-  clients?: Client[]
-  locations?: Location[]
+interface InspectorBreakdown<T> {
+  hours: number
+  shifts: number
+  entity: T
 }
 
-// export interface APIShiftInspector {
-//   id?: string
-//   date?: string
-//   startTime?: string
-//   endTime?: string
-//   duration?: string
+interface Inspector<T> {
+  cumulativeHours:number
+  shifts:Shift[]
+  breakdown:{
+    employees: InspectorBreakdown<Employee>[]
+    locations: InspectorBreakdown<Location>[]
+    clients: InspectorBreakdown<Client>[]
+  }
+}
 
-//   employee: {
-//     id?: string
-//     firstName?: string
-//     lastName?: string
-//     hoursScheduled?: number
-//     shiftCount?: number
-//     // if open shift
-//     availableEmployees?: Employee[]
-//   }
 
-//   client: {
-//     id?: string
-//     alias?: string
-//     hoursScheduled?: number
-//     employeesScheduled?: Employee[]
-//   }
 
-//   location: {
-//     id?: string
-//     alias?: string
-//     hoursScheduled?: number
-//     employeesScheduled?: Employee[]
-//     latitude?: number
-//     longitude?: number
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+ 9/15/2015
+
+ 90 Total Hours Scheduled
+ 52 Shifts Scheduled
+
+ // EMPLOYEES -- collapsable
+  -employee name[]:
+    -15 total shifts
+    -30 total hours
+ // CLIENTS -- collapsable
+  -client name[]:
+    -14 total shifst
+    -35 total hours
+ // LOCATIONS -- collapsable
+
+ */
+//
+// export interface GeneralInspector {
+//
+//   startTime?:Moment
+//   endTime?:Moment
+//
+//   cumulativeHours?:{
+//     [employeeId:string]:number
 //   }
+//
+//   hours?:{
+//     employees:{
+//       cumulativeHours:number
+//       employee:Employee
+//     }[]
+//     clients:{
+//       cumulativeHours:number
+//       client:Client
+//     }[]
+//     locations:{
+//       cumulativeHours:number
+//       location:Location
+//     }[]
+//   }
+//
+//   totalShift?:number
+//
+//   // shifts?: Shift[]
+//   // employees?: Employee[]
+//   // clients?: Client[]
+//   // locations?: Location[]
 // }

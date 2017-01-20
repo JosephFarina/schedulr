@@ -16,3 +16,5 @@ export const getEmployeeById = (state: RState, id: string): Employee => state.en
 
 export const getLocations = (state: RState): Locations => state.entities.locations
 export const getLocationById = (state: RState, id: string): Location => state.entities.locations[id]
+
+// export const getInspectorGeneralData = (state: RState)

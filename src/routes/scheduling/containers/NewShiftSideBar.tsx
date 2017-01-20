@@ -8,16 +8,10 @@ import {
 
 import { getMomentDate } from 'src/state/calendar/selector'
 
-import {
-  getScheduleSidebarMode
-} from 'src/state/ui/sidebar/selector'
-
 import * as Models from 'src/models'
 import * as CalendarActions from 'src/state/calendar/action'
-import * as SidebarActions from 'src/state/ui/sidebar/action'
 
 import ShiftEditor from './ShiftEditor'
-import Calendar from 'src/shared/components/calendar/Calendar'
 
 import {
   Button,

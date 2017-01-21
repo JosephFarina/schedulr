@@ -35,7 +35,6 @@ export interface RCalendar {
 }
 
 
-
 /**
  * 
  * Shift State

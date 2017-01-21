@@ -5,23 +5,21 @@ import {
   Shift
 } from 'src/models'
 
-interface InspectorBreakdown<T> {
-  hours: number
-  shifts: number
-  entity: T
+export interface InspectorBreakdown<T> {
+  totalDuration?: number
+  shifts?: Shift[]
+  entity?: T
 }
 
-interface Inspector<T> {
-  cumulativeHours:number
-  shifts:Shift[]
-  breakdown:{
-    employees: InspectorBreakdown<Employee>[]
-    locations: InspectorBreakdown<Location>[]
-    clients: InspectorBreakdown<Client>[]
+export interface GeneralInspector {
+  totalDuration?: number
+  shifts?: Shift[]
+  breakdown?: {
+    employees?: InspectorBreakdown<Employee>[]
+    locations?: InspectorBreakdown<Location>[]
+    clients?: InspectorBreakdown<Client>[]
   }
 }
-
-
 
 
 

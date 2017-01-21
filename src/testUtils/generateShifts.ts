@@ -1,12 +1,27 @@
 import * as M from 'moment'
 
 import { Shifts } from 'src/models'
+import {
+  MorString,
+  cloneOrCreateMo,
+} from 'src/utils'
 
-export function generateShifts(startTime: string): Shifts {
+import {
+  clientsOneArray,
+  employeesOneArray,
+  locationsOneArray,
+} from 'src/testUtils'
+
+/** 
+ * Generates a weeks worth of shift 
+ * 
+ */
+
+export function generateShifts(_startTime: MorString): Shifts {
+  const startTime = cloneOrCreateMo(_startTime)
   const shifts: Shifts = {}
-
-  const startDate = M(startTime).subtract(1, 'week')
-  const endDate = M(startTime).add(1, 'week')
+  const startDate = startTime.clone().startOf('week').hour(12)
+  const endDate = startTime.clone().endOf('week').hour(12)
   let currDate = startDate.clone()
 
   while (currDate < endDate) {
@@ -30,6 +45,7 @@ function addShifts(shifts: Shifts, date: string, times: number): void {
     const id = `${date}__${i}`
     shifts[id] = {
       id,
+      employee: employeesOneArray[Math.floor(Math.random() * employeesOneArray.length)].id,
       startTime: date,
       duration: 60 * 8
     }

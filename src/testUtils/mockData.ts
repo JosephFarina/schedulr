@@ -9,9 +9,9 @@ import {
 } from 'src/models'
 
 /**
- * 
+ *
  * Default Client Values
- * 
+ *
  */
 
 export const client: Client = {
@@ -53,9 +53,9 @@ export const clientsTwo: Clients = {
 export const clientsTwoArray: Employee[] = Object.keys(clientsTwo).map(id => Object.assign({}, clientsTwo[id]))
 
 /**
- * 
+ *
  * Default Employee Values
- * 
+ *
  */
 
 export const employee: Employee = {
@@ -94,14 +94,16 @@ export const employeesTwo: Employees = {
 export const employeesTwoArray: Employee[] = Object.keys(employeesTwo).map(id => Object.assign({}, employeesTwo[id]))
 
 /**
- * 
+ *
  * Default Location Values
- * 
+ *
  */
 
-export const location: Location = {
+export const location: Location = <Location> {
   alias: 'fffavdak',
-  id: 'asdf32wec'
+  id: 'asdf32wec',
+  latitude: 0,
+  longitude: 3
 }
 
 export const locationsOne: Locations = {

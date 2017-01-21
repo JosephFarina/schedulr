@@ -29,16 +29,12 @@ interface InspectorState {
 
 class Inspector extends React.Component<InspectorProps, InspectorState> {
   public static defaultProps: InspectorProps = {
-    clients: clientsOneArray,
-    employees: employeesOneArray,
-    locations: locationsOneArray
+
   }
 
   public render() {
     const {
-      clients,
-      employees,
-      locations
+
     } = this.props
 
     const className = ctx({

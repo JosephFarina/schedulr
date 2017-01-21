@@ -28,7 +28,7 @@ export const getShifts = createSelector(
   }
 )
 
-function updateShifts(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: I.Shifts, deletedShifts: string[]): I.Shifts {
+function updateShifts(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: I.Shifts, deletedShifts: string[]): I.Shift[] {
   let updateShifts: any = Object.assign({}, rawShifts, addedShifts, editedShifts)
 
   // convert shifts to an array and then filter out the deleted shifts

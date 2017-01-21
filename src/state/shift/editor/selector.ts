@@ -12,7 +12,6 @@ import {
   initialState
 } from './reducer'
 
-
 // Allows for checking if some shift is equal to the intial state
 export const shiftIsEqualToInitialState = (shift: Shift) => {
   const { client, duration, id, location, startTime } = initialState.newShift

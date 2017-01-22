@@ -46,6 +46,8 @@ function addShifts(shifts: Shifts, date: string, times: number): void {
     shifts[id] = {
       id,
       employee: employeesOneArray[Math.floor(Math.random() * employeesOneArray.length)].id,
+      location: locationsOneArray[Math.floor(Math.random() * locationsOneArray.length)].id,
+      client: clientsOneArray[Math.floor(Math.random() * clientsOneArray.length)].id,
       startTime: date,
       duration: 60 * 8
     }

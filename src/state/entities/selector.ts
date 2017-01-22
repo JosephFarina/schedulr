@@ -41,8 +41,8 @@ export const getLocationById = (state: RState, id: string): Location => state.en
 
 export const getGeneralInspectorEmployeeBreakdown =
   (inspector: GeneralInspector): InspectorBreakdown<Employee> => inspector.breakdown.employees
-export const getGeneralInspectLocationBreakdown = (inspect: GeneralInspector): InspectorBreakdown<Location> => inspect.breakdown.locations
-export const getGeneralInspectClientBreakdown = (inspect: GeneralInspector): InspectorBreakdown<Location> => inspect.breakdown.clients
+export const getGeneralInspectorLocationBreakdown = (inspect: GeneralInspector): InspectorBreakdown<Location> => inspect.breakdown.locations
+export const getGeneralInspectorClientBreakdown = (inspect: GeneralInspector): InspectorBreakdown<Location> => inspect.breakdown.clients
 
 
 export const getInspectorGeneralData = (state: RState): GeneralInspector => {
@@ -66,7 +66,9 @@ export const getInspectorGeneralData = (state: RState): GeneralInspector => {
         shifts: res.shifts.concat(shift),
         totalDuration: res.totalDuration + shift.duration,
         breakdown: {
-          employees: nextEmployee(state, res, shift)
+          employees: nextEmployee(state, res, shift),
+          locations: nextLocation(state, res, shift),
+          clients: nextClient(state, res, shift)
         }
       }
     }
@@ -78,6 +80,7 @@ export const getInspectorGeneralData = (state: RState): GeneralInspector => {
 function nextEmployee(state: RState, inspector: GeneralInspector, currShift: Shift): InspectorBreakdown<Employee> {
   const employeeBreakdown = getGeneralInspectorEmployeeBreakdown(inspector)
   const currEmployee = employeeBreakdown[currShift.employee]
+
   const entity = currEmployee && currEmployee.entity ? currEmployee.entity : getEmployeeById(state, currShift.employee)
   const shifts = currEmployee && currEmployee.shifts ? currEmployee.shifts.concat(currShift) : [currShift]
   const totalDuration = currEmployee && currEmployee.totalDuration >= 0 ?
@@ -93,3 +96,41 @@ function nextEmployee(state: RState, inspector: GeneralInspector, currShift: Shi
   }
 }
 
+function nextLocation(state: RState, inspector: GeneralInspector, currShift: Shift): InspectorBreakdown<Location> {
+  const locationBreakdown = getGeneralInspectorLocationBreakdown(inspector)
+  const currLocation = locationBreakdown[currShift.location]
+
+  const entity = currLocation && currLocation.entity ? currLocation.entity : getLocationById(state, currShift.location)
+  const shifts = currLocation && currLocation.shifts ? currLocation.shifts.concat(currShift) : [currShift]
+  const totalDuration = currLocation && currLocation.totalDuration >= 0 ?
+    (currLocation.totalDuration + currShift.duration) : currShift.duration
+
+  return {
+    ...locationBreakdown,
+    [currShift.location]: {
+      entity,
+      shifts,
+      totalDuration
+    }
+  }
+}
+
+function nextClient(state: RState, inspector: GeneralInspector, currShift: Shift): InspectorBreakdown<Location> {
+  const clientBreakdown = getGeneralInspectorClientBreakdown(inspector)
+  const currClient = clientBreakdown[currShift.client]
+
+  const entity = currClient && currClient.entity ? currClient.entity : getClientById(state, currShift.client)
+
+  const shifts = currClient && currClient.shifts ? currClient.shifts.concat(currShift) : [currShift]
+  const totalDuration = currClient && currClient.totalDuration >= 0 ?
+    (currClient.totalDuration + currShift.duration) : currShift.duration
+
+  return {
+    ...clientBreakdown,
+    [currShift.client]: {
+      entity,
+      shifts,
+      totalDuration
+    }
+  }
+}

@@ -4,8 +4,8 @@ require('moment-range')
 
 import {
   getGeneralInspectorEmployeeBreakdown,
-  getGeneralInspectClientBreakdown,
-  getGeneralInspectLocationBreakdown,
+  getGeneralInspectorClientBreakdown,
+  getGeneralInspectorLocationBreakdown,
   getInspectorGeneralData,
 } from './../'
 
@@ -91,8 +91,8 @@ describe('Entities Selector', () => {
 
     describe('Breakdown:', () => {
       const employeeBreakdown = getGeneralInspectorEmployeeBreakdown(inspectorGeneralRes)
-      const locationBreakdown = getGeneralInspectLocationBreakdown(inspectorGeneralRes)
-      // const clientBreakdown = getGeneralInspectClientBreakdown(inspectorGeneralRes)
+      const locationBreakdown = getGeneralInspectorLocationBreakdown(inspectorGeneralRes)
+      const clientBreakdown = getGeneralInspectorClientBreakdown(inspectorGeneralRes)
 
       /**
        * 
@@ -162,6 +162,16 @@ describe('Entities Selector', () => {
 
       describe('Locations:', () => {
         shouldHaveCorrectNumOfKeys('location', locationBreakdown, shiftsInCurrWeek)
+        shouldContainItsOwnEntity('location', locationBreakdown, locationsOne)
+        shouldContainItsOwnShifts('location', locationBreakdown, getCurrWeekShiftsByLocationId)
+        shouldHaveCorrectShiftDurationTotal('location', locationBreakdown, getCurrWeekShiftsByLocationId)
+      })
+
+      describe('Clients:', () => {
+        shouldHaveCorrectNumOfKeys('client', clientBreakdown, shiftsInCurrWeek)
+        shouldContainItsOwnEntity('client', clientBreakdown, clientsOne)
+        shouldContainItsOwnShifts('client', clientBreakdown, getCurrWeekShiftsByClientId)
+        shouldHaveCorrectShiftDurationTotal('client', clientBreakdown, getCurrWeekShiftsByClientId)
       })
 
     })
@@ -170,11 +180,29 @@ describe('Entities Selector', () => {
 
 })
 
-function getCurrWeekShiftsByEmployeeId(employeeId: string): Shift[] {
-  return Object.keys(currWeekShifts)
-    .map(id => currWeekShifts[id])
-    .filter(shift => shift.employee === employeeId)
+function getCurrWeekShiftsByEmployeeId(id: string): Shift[] {
+  return getCurrWeekShiftsByEntityId('employee')(id)
 }
+
+function getCurrWeekShiftsByLocationId(id: string): Shift[] {
+  return getCurrWeekShiftsByEntityId('location')(id)
+}
+
+function getCurrWeekShiftsByClientId(id: string): Shift[] {
+  return getCurrWeekShiftsByEntityId('client')(id)
+}
+
+function getCurrWeekShiftsByEntityId(entity: 'client' | 'location' | 'employee') {
+  return (id: string): Shift[] => {
+    return Object.keys(currWeekShifts)
+      .map(id => currWeekShifts[id])
+      .filter(shift => shift[entity] === id)
+  }
+}
+
+
+
+
 
 function getUniqueEntityFromCurrWeekShifts(entity: 'client' | 'location' | 'employee'): string[] {
   return uniq(shiftsInCurrWeek.map(shift => shift[entity])).sort()

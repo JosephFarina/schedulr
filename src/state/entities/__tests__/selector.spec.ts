@@ -5,7 +5,7 @@ require('moment-range')
 import {
   getGeneralInspectorEmployeeBreakdown,
   getGeneralInspectClientBreakdown,
-  getGeneralInspectLocationBreakdown
+  getGeneralInspectLocationBreakdown,
   getInspectorGeneralData,
 } from './../'
 
@@ -16,7 +16,10 @@ import {
   InspectorBreakdown,
   Location,
   Shift,
-  RState
+  RState,
+  Locations,
+  Clients,
+  Employees
 } from 'src/models'
 
 import {
@@ -87,43 +90,78 @@ describe('Entities Selector', () => {
     })
 
     describe('Breakdown:', () => {
-      const uniqueEmployeesInCurrWeekShifts = getUniqueEntityFromCurrWeekShifts('employee')
-      const uniqueLocationsInCurrWeekShifts = getUniqueEntityFromCurrWeekShifts('location')
-      const uniqueClientInCurrWeekShifts = getUniqueEntityFromCurrWeekShifts('client')
-
       const employeeBreakdown = getGeneralInspectorEmployeeBreakdown(inspectorGeneralRes)
-      const employeeBreakdownKeys = Object.keys(employeeBreakdown).sort()
+      const locationBreakdown = getGeneralInspectLocationBreakdown(inspectorGeneralRes)
+      // const clientBreakdown = getGeneralInspectClientBreakdown(inspectorGeneralRes)
 
-      describe('employee', () => {
+      /**
+       * 
+       * Breakdown functions
+       * 
+       */
 
-        it('should have an array for each employee in the shift', () => {
-          expect(employeeBreakdownKeys).toEqual(uniqueEmployeesInCurrWeekShifts)
+      function shouldHaveCorrectNumOfKeys(
+        entity: 'client' | 'location' | 'employee',
+        breakdown: InspectorBreakdown<Location | Employee | Client>,
+        shiftsBeingTested: Shift[]
+      ) {
+        it(`should have keys for each ${entity} in the shift`, () => {
+          const unique = uniq(shiftsBeingTested.map(shift => shift[entity])).sort()
+          expect(Object.keys(breakdown).sort()).toEqual(unique)
         })
+      }
 
-        it('each employee should contain its own entity', () => {
-          employeeBreakdownKeys.forEach(employeeId => {
-            expect(employeeBreakdown[employeeId].entity).toEqual(employeesOne[employeeId])
+      function shouldContainItsOwnEntity(
+        entity: 'client' | 'location' | 'employee',
+        breakdown: InspectorBreakdown<Location | Employee | Client>,
+        entityDataSource: Locations | Clients | Employees,
+      ) {
+        it(`each ${entity} should contain its own entity`, () => {
+          Object.keys(breakdown).forEach(id => {
+            const expectedEntityFromDataSource = entityDataSource[id]
+            const entityFromBreakdown = breakdown[id].entity
+            expect(entityFromBreakdown).toEqual(expectedEntityFromDataSource)
           })
         })
+      }
 
-        it('each employee should contain there shifts', () => {
-          employeeBreakdownKeys.forEach(employeeId => {
-            const currEmployeeShifts = employeeBreakdown[employeeId].shifts.sort(shiftSortFunc)
-            const expectedShifts = getCurrWeekShiftsByEmployeeId(employeeId).sort(shiftSortFunc)
-            expect(currEmployeeShifts).toEqual(expectedShifts)
+      function shouldContainItsOwnShifts(
+        entity: 'client' | 'location' | 'employee',
+        breakdown: InspectorBreakdown<Location | Employee | Client>,
+        funcToGetEntityShifts: (id: string) => Shift[]
+      ) {
+        it(`each ${entity} should contain their shifts`, () => {
+          Object.keys(breakdown).forEach(id => {
+            const shiftsFromBreakdown = breakdown[id].shifts.sort(shiftSortFunc)
+            const expectedShifts = funcToGetEntityShifts(id).sort(shiftSortFunc)
+            expect(shiftsFromBreakdown).toEqual(expectedShifts)
           })
         })
+      }
 
-        it('each employee should have there total shift summed', () => {
-          employeeBreakdownKeys.forEach(employeeId => {
-            const employee = employeeBreakdown[employeeId]
-            const expectedTotalDuration = getCurrWeekShiftsByEmployeeId(employeeId)
-              .reduce((total: number, shift) => total + shift.duration, 0)
-
-            expect(employee.totalDuration).toEqual(expectedTotalDuration)
+      function shouldHaveCorrectShiftDurationTotal(
+        entity: 'client' | 'location' | 'employee',
+        breakdown: InspectorBreakdown<Location | Employee | Client>,
+        funcToGetEntityShifts: (id: string) => Shift[]
+      ) {
+        it(`each ${entity} should have there total shift summed`, () => {
+          Object.keys(breakdown).forEach(id => {
+            const currBreakdown = breakdown[id]
+            const expectedTotalDuration = funcToGetEntityShifts(id).reduce((total: number, shift) => total + shift.duration, 0)
+            expect(currBreakdown.totalDuration).toEqual(expectedTotalDuration)
           })
         })
+      }
 
+      describe('Employees:', () => {
+        shouldHaveCorrectNumOfKeys('employee', employeeBreakdown, shiftsInCurrWeek)
+        shouldContainItsOwnEntity('employee', employeeBreakdown, employeesOne)
+        shouldContainItsOwnShifts('employee', employeeBreakdown, getCurrWeekShiftsByEmployeeId)
+        shouldHaveCorrectShiftDurationTotal('employee', employeeBreakdown, getCurrWeekShiftsByEmployeeId)
+      })
+
+      describe('Locations:', () => {
+        shouldHaveCorrectNumOfKeys('location', locationBreakdown, shiftsInCurrWeek)
       })
 
     })

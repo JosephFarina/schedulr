@@ -52,7 +52,9 @@ export const getInspectorGeneralData = (state: RState): GeneralInspector => {
     shifts: [],
     totalDuration: 0,
     breakdown: {
-      employees: {}
+      employees: {},
+      locations: {},
+      clients: {}
     }
   }
 

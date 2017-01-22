@@ -4,6 +4,8 @@ require('moment-range')
 
 import {
   getGeneralInspectorEmployeeBreakdown,
+  getGeneralInspectClientBreakdown,
+  getGeneralInspectLocationBreakdown
   getInspectorGeneralData,
 } from './../'
 
@@ -13,6 +15,7 @@ import {
   GeneralInspector,
   InspectorBreakdown,
   Location,
+  Shift,
   RState
 } from 'src/models'
 
@@ -83,22 +86,42 @@ describe('Entities Selector', () => {
       expect(inspectorGeneralRes.totalDuration).toEqual(expectedCumulativeDuration)
     })
 
-    describe('breakdown', () => {
-      const uniqueEmployees = uniq(shiftsInCurrWeek.map(shift => shift.employee))
+    describe('Breakdown:', () => {
+      const uniqueEmployeesInCurrWeekShifts = getUniqueEntityFromCurrWeekShifts('employee')
+      const uniqueLocationsInCurrWeekShifts = getUniqueEntityFromCurrWeekShifts('location')
+      const uniqueClientInCurrWeekShifts = getUniqueEntityFromCurrWeekShifts('client')
+
       const employeeBreakdown = getGeneralInspectorEmployeeBreakdown(inspectorGeneralRes)
+      const employeeBreakdownKeys = Object.keys(employeeBreakdown).sort()
 
       describe('employee', () => {
-        // TODO: make this pass
+
         it('should have an array for each employee in the shift', () => {
-          expect(Array.isArray(employeeBreakdown)).toBeTruthy()
-          expect(employeeBreakdown.length).toEqual(uniqueEmployees.length)
+          expect(employeeBreakdownKeys).toEqual(uniqueEmployeesInCurrWeekShifts)
         })
 
         it('each employee should contain its own entity', () => {
-          // inspectorGeneralRes.breakdown.employees.forEach(employee => {
+          employeeBreakdownKeys.forEach(employeeId => {
+            expect(employeeBreakdown[employeeId].entity).toEqual(employeesOne[employeeId])
+          })
+        })
 
-          //   employee.entity
-          // })
+        it('each employee should contain there shifts', () => {
+          employeeBreakdownKeys.forEach(employeeId => {
+            const currEmployeeShifts = employeeBreakdown[employeeId].shifts.sort(shiftSortFunc)
+            const expectedShifts = getCurrWeekShiftsByEmployeeId(employeeId).sort(shiftSortFunc)
+            expect(currEmployeeShifts).toEqual(expectedShifts)
+          })
+        })
+
+        it('each employee should have there total shift summed', () => {
+          employeeBreakdownKeys.forEach(employeeId => {
+            const employee = employeeBreakdown[employeeId]
+            const expectedTotalDuration = getCurrWeekShiftsByEmployeeId(employeeId)
+              .reduce((total: number, shift) => total + shift.duration, 0)
+
+            expect(employee.totalDuration).toEqual(expectedTotalDuration)
+          })
         })
 
       })
@@ -108,3 +131,23 @@ describe('Entities Selector', () => {
   })
 
 })
+
+function getCurrWeekShiftsByEmployeeId(employeeId: string): Shift[] {
+  return Object.keys(currWeekShifts)
+    .map(id => currWeekShifts[id])
+    .filter(shift => shift.employee === employeeId)
+}
+
+function getUniqueEntityFromCurrWeekShifts(entity: 'client' | 'location' | 'employee'): string[] {
+  return uniq(shiftsInCurrWeek.map(shift => shift[entity])).sort()
+}
+
+function shiftSortFunc(a: any, b: any) {
+  if (a.id === b.id) {
+    return 0
+  } else if (a.id < b.id) {
+    return 1
+  } else {
+    return -1
+  }
+}

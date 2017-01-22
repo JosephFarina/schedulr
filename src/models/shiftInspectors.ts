@@ -6,18 +6,20 @@ import {
 } from 'src/models'
 
 export interface InspectorBreakdown<T> {
-  totalDuration?: number
-  shifts?: Shift[]
-  entity?: T
+  [id: string]: {
+    totalDuration?: number
+    shifts?: Shift[]
+    entity?: T
+  }
 }
 
 export interface GeneralInspector {
   totalDuration?: number
   shifts?: Shift[]
   breakdown?: {
-    employees?: InspectorBreakdown<Employee>[]
-    locations?: InspectorBreakdown<Location>[]
-    clients?: InspectorBreakdown<Client>[]
+    employees?: InspectorBreakdown<Employee>
+    locations?: InspectorBreakdown<Location>
+    clients?: InspectorBreakdown<Client>
   }
 }
 

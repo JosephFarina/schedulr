@@ -1,6 +1,11 @@
 import * as React from 'react'
 
 import {
+  MapStateToProps,
+  connect,
+} from 'react-redux'
+
+import {
   Accordion,
   PaneContent,
   PaneHeader,
@@ -8,19 +13,16 @@ import {
 } from 'src/shared/components'
 
 import {
-  GeneralInspector
+  GeneralInspector,
+  RState
 } from 'src/models'
 
-import {
-  clientsOneArray,
-  employeesOneArray,
-  locationsOneArray
-} from 'src/testUtils'
+import { getInspectorGeneralData } from 'src/state/entities'
 
 const ctx = require('classnames')
 
-interface InspectorProps extends GeneralInspector {
-
+interface InspectorProps {
+  generalInspector: GeneralInspector
 }
 
 interface InspectorState {
@@ -29,13 +31,22 @@ interface InspectorState {
 
 class Inspector extends React.Component<InspectorProps, InspectorState> {
   public static defaultProps: InspectorProps = {
-
+    generalInspector: {}
   }
 
   public render() {
+    const { generalInspector } = this.props
     const {
+      breakdown,
+      shifts,
+      totalDuration
+    } = generalInspector
 
-    } = this.props
+    const {
+      clients,
+      employees,
+      locations
+    } = breakdown
 
     const className = ctx({
 
@@ -48,84 +59,44 @@ class Inspector extends React.Component<InspectorProps, InspectorState> {
           <div>
             <h1>Shift Overview</h1>
 
-            <Accordion>
-              <h2><strong>90</strong> Hours</h2>
-              <ul>
-                <li>
-                  <Accordion>
-                    <h4>Employees</h4>
-                    <ul>
-                      <li><strong>15:</strong> Employee One</li>
-                      <li><strong>20:</strong> Employee Two</li>
-                      <li><strong>30.5:</strong> Employee Three</li>
-                    </ul>
-                  </Accordion>
-                </li>
-                <li>
-                  <Accordion>
-                    <h4>Clients</h4>
-                    <ul>
-                      <li><strong>15:</strong> Client One</li>
-                      <li><strong>20:</strong> Client Two</li>
-                      <li><strong>30.5:</strong> Client Three</li>
-                    </ul>
-                  </Accordion>
-                </li>
-                <li>
-                  <Accordion>
-                    <h4>Locations</h4>
-                    <ul>
-                      <li><strong>15:</strong> Location One</li>
-                      <li><strong>20:</strong> Location Two</li>
-                      <li><strong>30.5:</strong> Location Three</li>
-                    </ul>
-                  </Accordion>
-                </li>
-              </ul>
-            </Accordion>
+            <h4><strong>{shifts.length}</strong> Shifts</h4>
+            <h4><strong>{totalDuration / 60}</strong> Hours</h4>
 
-            <Accordion>
-              <h2><strong>35</strong> Shifts</h2>
-              <ul>
-                <li>
-                  <Accordion>
-                    <h4>Employees</h4>
-                    <ul>
-                      <li><strong>4:</strong> Employee One</li>
-                      <li><strong>8:</strong> Employee Two</li>
-                      <li><strong>2:</strong> Employee Three</li>
-                    </ul>
-                  </Accordion>
-                </li>
-                <li>
-                  <Accordion>
-                    <h4>Clients</h4>
-                    <ul>
-                      <li><strong>4:</strong> Client One</li>
-                      <li><strong>1:</strong> Client Two</li>
-                      <li><strong>30:</strong> Client Three</li>
-                    </ul>
-                  </Accordion>
-                </li>
-                <li>
-                  <Accordion>
-                    <h4>Locations</h4>
-                    <ul>
-                      <li><strong>15:</strong> Location One</li>
-                      <li><strong>20:</strong> Location Two</li>
-                      <li><strong>10:</strong> Location Three</li>
-                    </ul>
-                  </Accordion>
-                </li>
-              </ul>
-            </Accordion>
-
-            <h2><strong>5</strong> Clients</h2>
-
-            <h2><strong>4</strong> Employees</h2>
-
-            <h2><strong>3</strong> Locations</h2>
-
+            <ul>
+              <li>
+                <Accordion>
+                  <h4>{Object.keys(employees).length}: Employees</h4>
+                  <ul>
+                    {Object.keys(employees).map((id, i) => {
+                      const employee = employees[id]
+                      return <li key={i}><strong>{employee.totalDuration / 60}: </strong>{employee.entity.alias}</li>
+                    })}
+                  </ul>
+                </Accordion>
+              </li>
+              <li>
+                <Accordion>
+                  <h4>{Object.keys(clients).length}: Clients</h4>
+                  <ul>
+                    {Object.keys(clients).map((id, i) => {
+                      const client = clients[id]
+                      return <li key={i}><strong>{client.totalDuration / 60}: </strong>{client.entity.alias}</li>
+                    })}
+                  </ul>
+                </Accordion>
+              </li>
+              <li>
+                <Accordion>
+                  <h4>{Object.keys(locations).length}: Locations</h4>
+                  <ul>
+                    {Object.keys(locations).map((id, i) => {
+                      const location = locations[id]
+                      return <li key={i}><strong>{location.totalDuration / 60}: </strong>{location.entity.alias}</li>
+                    })}
+                  </ul>
+                </Accordion>
+              </li>
+            </ul>
 
           </div>
 
@@ -135,4 +106,11 @@ class Inspector extends React.Component<InspectorProps, InspectorState> {
   }
 }
 
-export default Inspector
+
+const mapStateToProps: MapStateToProps<InspectorProps, RState> = (state: RState, ownProps: InspectorProps) => {
+  return {
+    generalInspector: getInspectorGeneralData(state)
+  }
+}
+
+export default connect(mapStateToProps)(Inspector)

@@ -17,6 +17,7 @@ li {
   flex-direction: row;
   align-items: center;
   position: relative;
+  
 
   &:hover {
     * {
@@ -37,6 +38,7 @@ li {
 
 .labelText {
   padding-left: 10px;
+  width: 100%;
 }
 
 .body {

@@ -1,5 +1,9 @@
 import * as React from 'react'
 
+import { compose } from 'redux'
+
+import { Range } from 'moment'
+
 import {
   MapStateToProps,
   connect,
@@ -14,102 +18,84 @@ import {
 
 import {
   GeneralInspector,
-  RState
+  InspectorBreakdown,
+  RState,
+  Shift
 } from 'src/models'
 
+import { getCurrentTimeRange, } from 'src/state/calendar'
 import { getInspectorGeneralData } from 'src/state/entities'
 
-const ctx = require('classnames')
-
-interface InspectorProps {
+interface Props {
   generalInspector: GeneralInspector
-}
-
-interface InspectorState {
-
-}
-
-class Inspector extends React.Component<InspectorProps, InspectorState> {
-  public static defaultProps: InspectorProps = {
-    generalInspector: {}
-  }
-
-  public render() {
-    const { generalInspector } = this.props
-    const {
-      breakdown,
-      shifts,
-      totalDuration
-    } = generalInspector
-
-    const {
-      clients,
-      employees,
-      locations
-    } = breakdown
-
-    const className = ctx({
-
-    })
-
-    return (
-      <PaneSidebar>
-        <PaneHeader>Jan 15, 2017</PaneHeader>
-        <PaneContent>
-          <div>
-            <h1>Shift Overview</h1>
-
-            <h4><strong>{shifts.length}</strong> Shifts</h4>
-            <h4><strong>{totalDuration / 60}</strong> Hours</h4>
-
-            <ul>
-              <li>
-                <Accordion>
-                  <h4>{Object.keys(employees).length}: Employees</h4>
-                  <ul>
-                    {Object.keys(employees).map((id, i) => {
-                      const employee = employees[id]
-                      return <li key={i}><strong>{employee.totalDuration / 60}: </strong>{employee.entity.alias}</li>
-                    })}
-                  </ul>
-                </Accordion>
-              </li>
-              <li>
-                <Accordion>
-                  <h4>{Object.keys(clients).length}: Clients</h4>
-                  <ul>
-                    {Object.keys(clients).map((id, i) => {
-                      const client = clients[id]
-                      return <li key={i}><strong>{client.totalDuration / 60}: </strong>{client.entity.alias}</li>
-                    })}
-                  </ul>
-                </Accordion>
-              </li>
-              <li>
-                <Accordion>
-                  <h4>{Object.keys(locations).length}: Locations</h4>
-                  <ul>
-                    {Object.keys(locations).map((id, i) => {
-                      const location = locations[id]
-                      return <li key={i}><strong>{location.totalDuration / 60}: </strong>{location.entity.alias}</li>
-                    })}
-                  </ul>
-                </Accordion>
-              </li>
-            </ul>
-
-          </div>
-
-        </PaneContent>
-      </PaneSidebar >
-    )
-  }
+  currTimeRange: Range
 }
 
 
-const mapStateToProps: MapStateToProps<InspectorProps, RState> = (state: RState, ownProps: InspectorProps) => {
+const Header = (props: Props) => <PaneHeader>Jan 15, 2017 {props.currTimeRange.toString()} </PaneHeader>
+
+const EntityDetailsHeader = () => (
+  <li>
+    <div className="tablerow">
+      <span className="tableitem">Hours</span>
+      <span className="tableitem">Type</span>
+    </div>
+  </li>
+)
+
+const EntityDetails = (props: Props) => {
+  return Object.keys(props.generalInspector.breakdown).map((entityType, i) => {
+    const entity = props.generalInspector.breakdown[entityType]
+
+    return <li key={i}>
+      <Accordion>
+        <div className="tablerow">
+          <span className="tableitem">{Object.keys(entity).length} </span>
+          <span className="tableitem">{entityType}</span>
+        </div>
+
+        <ul>
+          {Object.keys(entity).map((id, j) => (
+            <li key={j}>
+              <span className="tableitem">{entity[id].totalDuration / 60}</span>
+              <span className="tableitem">{entity[id].entity.alias}</span>
+            </li>
+          ))}
+        </ul>
+
+      </Accordion>
+    </li>
+  })
+}
+
+const shiftCount = (shifts: Shift[]) => <h4><strong>{shifts.length}</strong> Shifts</h4>
+const totalDuration = (_totalDuration: number) => <h4><strong>{_totalDuration / 60}</strong> Hours</h4>
+const Overview = (props: Props) => (
+  <div>
+    {shiftCount(props.generalInspector.shifts)}
+    {totalDuration(props.generalInspector.totalDuration)}
+  </div>
+)
+
+const Inspector = (props: Props) => (
+  <PaneSidebar >
+    <Header {...props} />
+    <PaneContent>
+      <div>
+        <Overview {...props} />
+        <ul>
+          <EntityDetailsHeader />
+          {EntityDetails(props) }
+        </ul>
+      </div>
+    </PaneContent>
+  </PaneSidebar >
+)
+
+const mapStateToProps: MapStateToProps<Props, RState> = (state: RState, ownProps: Props) => {
   return {
-    generalInspector: getInspectorGeneralData(state)
+    generalInspector: getInspectorGeneralData(state),
+    currTimeRange: getCurrentTimeRange(state)
   }
 }
 

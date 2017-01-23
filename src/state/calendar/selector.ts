@@ -20,3 +20,5 @@ export const getCurrentTimeRange = (state: RState): M.Range => {
     currDate.clone().endOf(<any> timeRange).endOf('day')
   ])
 }
+
+// export const getCurrentMomentTimeRange = 

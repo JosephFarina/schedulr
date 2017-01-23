@@ -68,7 +68,7 @@ class Accordion extends React.Component<AccordionProps, AccordionState> {
       <div className={styles.container}>
         <div onClick={this.toggleVisibility} className={styles.label}>
           <img className={styles.labelIcon} src={open ? openIcon : closedIcon} alt=""/>
-          <span className={styles.labelText}>{this.getTitle()}</span>
+          <div className={styles.labelText}>{this.getTitle()}</div>
         </div>
         {open &&
           <div className={bodyClass}>

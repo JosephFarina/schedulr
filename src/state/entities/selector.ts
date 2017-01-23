@@ -82,7 +82,7 @@ function reduceInspectorGeneralData(entities: REntities, shifts: Shift[], curren
         breakdown: {
           employees: breakdownFactory<Employee>('employee', getGeneralInspectorEmployeeBreakdown, getEmployeeFromEntitiesById),
           locations: breakdownFactory<Location>('location', getGeneralInspectorLocationBreakdown, getLocationFromEntitiesById),
-          clients: breakdownFactory<Client>('client',       getGeneralInspectorClientBreakdown,   getClientFromEntitiesById),
+          clients: breakdownFactory<Client>('client', getGeneralInspectorClientBreakdown, getClientFromEntitiesById),
         }
       }
     }
@@ -102,17 +102,14 @@ function entityGeneralInspectorBreakdownFactory(entities: REntities, inspector: 
     const currEntityId = currShift[entityType]
     const currEntity = currBreakdown[currEntityId]
 
-    const entity = currEntity && currEntity.entity ? currEntity.entity : funcToGetEntityById(entities, currEntityId)
-    const shifts = currEntity && currEntity.shifts ? currEntity.shifts.concat(currShift) : [currShift]
-    const totalDuration = currEntity && currEntity.totalDuration >= 0 ?
-      (currEntity.totalDuration + currShift.duration) : currShift.duration
 
     return {
       ...currBreakdown,
       [currEntityId]: {
-        entity,
-        shifts,
-        totalDuration
+        entity: currEntity && currEntity.entity ? currEntity.entity : funcToGetEntityById(entities, currEntityId),
+        shifts: currEntity && currEntity.shifts ? currEntity.shifts.concat(currShift) : [currShift],
+        totalDuration: currEntity && currEntity.totalDuration >= 0 ?
+          (currEntity.totalDuration + currShift.duration) : currShift.duration
       }
     }
   }

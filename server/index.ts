@@ -10,6 +10,7 @@ const app = express()
 app.set('view engine', 'pug')
 app.set('views', path.join(__dirname, 'server/views'))
 
+
 // app.use(favicon(path.join(__dirname, 'public', 'assets', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())

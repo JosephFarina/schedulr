@@ -92,6 +92,7 @@
     "@types/react-modal": "^1.6.0",
     "@types/react-router-redux": "^4.0.38",
     "classnames": "^2.2.5",
+    "cookie-parser": "^1.4.3",
     "frozen-moment": "^0.4.0",
     "immutable": "^3.8.1",
     "lodash.debounce": "^4.0.8",
@@ -100,6 +101,7 @@
     "lodash.uniqueid": "^4.0.1",
     "moment": "^2.17.1",
     "moment-range": "^2.2.0",
+    "morgan": "^1.7.0",
     "normalize.css": "^5.0.0",
     "react": "^15.4.1",
     "react-css-modules": "^4.1.0",
@@ -110,10 +112,12 @@
     "react-router-redux": "^4.0.7",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "reselect": "^2.5.4"
+    "reselect": "^2.5.4",
+    "serve-favicon": "^2.3.2"
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "dev": "webpack --config config/webpack.config.dev.js --watch --inline --colors --progress --display-error-details --display-cached",
     "build": "node scripts/build.js",
     "test": "./node_modules/karma/bin/karma start ./config/karma.conf.js NODE_ENV=test"
   },

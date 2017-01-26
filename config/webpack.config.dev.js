@@ -21,14 +21,6 @@ const common = {
   devtool: 'cheap-module-source-map',
   debug: true,
   // watch: true,
-
-  output: {
-    path: paths.appBuild,
-    pathinfo: true,
-    filename: '/js/[name].js',
-    publicPath: publicPath
-  },
-
   resolve: {
     fallback: paths.nodePaths,
     extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', ''],
@@ -128,15 +120,15 @@ const common = {
   },
 
   plugins: [
-    new InterpolateHtmlPlugin({
-      PUBLIC_URL: publicUrl
-    }),
-    new HtmlWebpackPlugin({
-      inject: true,
-      template: paths.appHtml,
-    }),
-    new webpack.DefinePlugin(env),
+    // new InterpolateHtmlPlugin({
+    //   PUBLIC_URL: publicUrl
+    // }),
+    // new HtmlWebpackPlugin({
+    //   inject: true,
+    //   template: paths.appHtml,
+    // }),
     // new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin(env),
     new CaseSensitivePathsPlugin(),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules)
   ],
@@ -186,7 +178,13 @@ const frontend = {
     client: [
       paths.appIndexJs
     ]
-  }
+  },
+  output: {
+    path: paths.appPublic,
+    pathinfo: true,
+    filename: '/js/[name].js',
+    // publicPath: publicPath
+  },
 }
 
 const backend = {
@@ -195,6 +193,13 @@ const backend = {
       paths.serverIndex
     ]
   },
+  output: {
+    path: paths.appBuild,
+    pathinfo: true,
+    filename: '/js/[name].js',
+    publicPath: publicPath
+  },
+
   target: 'node',
 }
 

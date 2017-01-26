@@ -1,21 +1,21 @@
 const express = require('express')
 const path = require('path')
-const favicon = require('serve-favicon')
+// const favicon = require('serve-favicon')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const compression = require('compression')
 
-const app = express()
-app.set('view engine', 'pug')
-app.set('views', path.join(__dirname, 'server/views'))
+// const webpackDevMiddleware = require('webpack-dev-middleware')
+// const webpack = require('webpack')
 
+const app = express()
 
 // app.use(favicon(path.join(__dirname, 'public', 'assets', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, 'public'), {
+app.use(express.static(path.join(__dirname, '../public'), {
   index: false,
 }))
 
@@ -27,6 +27,23 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE')
   next()
 })
+
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('./', 'build', 'index.html'))
+})
+
+
+
+// const compiler = webpack({
+//     // configuration
+//     output: { path: '/' }
+// })
+
+// app.use(webpackDevMiddleware(compiler, {
+//     // options
+// }))
+
 
 // DB
 // models.sequelize

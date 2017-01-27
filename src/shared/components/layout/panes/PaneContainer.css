@@ -9,3 +9,7 @@
 	margin-top: $navbar-Height;
 	background: $color-Mono--white;
 }
+
+.noNavbar {
+	margin-top: 0;
+}

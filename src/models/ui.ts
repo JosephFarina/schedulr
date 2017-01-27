@@ -3,13 +3,14 @@ export type SelectOptions = SelectOption[]
 
 export interface InputProps {
   label?: string
-  value: string
+  value?: string
   message?: string
   valid?: boolean
+  type?: string
   onBlur?(): void
   onFocus?(): void
   onChangeEnd?(): void
-  onChange(val?: string): void
+  onChange?(val?: string): void
 }
 
 export interface InputI {

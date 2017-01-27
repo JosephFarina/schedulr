@@ -18,8 +18,13 @@ import Root from 'src/shared/components/Root'
  * 
  */
 
+
+// Scheduling
 import NewShiftSideBar from 'src/routes/scheduling/containers/NewShiftSideBar'
 import Scheduling from 'src/routes/scheduling/Scheduling'
+
+// Auth
+import Auth from 'src/routes/auth/Auth'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
@@ -31,6 +36,10 @@ const Routes = () => (
 
         <Route path="scheduling" component={Scheduling}>
           <Route path="new-shift" components={{ sidebar: NewShiftSideBar }} />
+        </Route>
+
+        <Route path="auth" component={Auth}>
+
         </Route>
 
       </Route>

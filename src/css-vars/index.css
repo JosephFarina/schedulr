@@ -7,6 +7,8 @@ $backgroundColor: orange;
 /* Color Variables */
 $color-Brand: rgba(113, 211, 192, 1);
 $color-Brand--accent: rgba(37, 73, 153, 1);
+$color-Brand--accent--dark: rgba(33, 65, 124, 1);
+
 
 $color-Mono--white: #fff;
 $color-Mono--lightest: #f7f7f9;

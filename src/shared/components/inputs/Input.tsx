@@ -1,3 +1,5 @@
+// FIXME: Chrome autofill does not tigger event to raise label on type="password"
+
 import * as React from 'react'
 const debounce = require('lodash.debounce')
 
@@ -12,11 +14,12 @@ interface State {
   focused: boolean
 }
 
-class Input extends React.Component<Props, State> {
+export class Input extends React.Component<Props, State> {
   public static defaultProps: Props = {
     label: '',
     value: '',
     valid: null,
+    type: 'text',
     message: '',
     onBlur: () => { },
     onFocus: () => { },
@@ -101,7 +104,8 @@ class Input extends React.Component<Props, State> {
       value,
       children,
       message,
-      valid
+      valid,
+      type
     } = this.props
 
     const {
@@ -140,7 +144,7 @@ class Input extends React.Component<Props, State> {
           value={value}
           onChange={this.onChange}
           className={styles.inputText}
-          type="text"
+          type={type}
           ref={input => { this.textInput = input } } />
 
         <label className={labelClass}>{label}</label>

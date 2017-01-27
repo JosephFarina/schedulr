@@ -16,7 +16,7 @@ interface State {
   focused?: boolean
 }
 
-class AutoComplete extends React.Component<Props, State> {
+export class AutoComplete extends React.Component<Props, State> {
   public inputComp: Input
   public static defaultProps: Props = {
     label: '',

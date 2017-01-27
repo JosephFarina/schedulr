@@ -17,7 +17,7 @@ interface ChipsState {
   indexHoveredOver: number
 }
 
-class Chips extends React.Component<ChipsProps, ChipsState> {
+export class Chips extends React.Component<ChipsProps, ChipsState> {
   public static defaultProps: ChipsProps = {
     options: [],
     removeChip: () => { }

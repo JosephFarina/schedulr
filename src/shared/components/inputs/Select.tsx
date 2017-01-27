@@ -19,7 +19,7 @@ interface SelectState {
   selectedIndex?: number
 }
 
-class Select extends React.Component<SelectProps, SelectState> {
+export class Select extends React.Component<SelectProps, SelectState> {
   public static defaultProps: SelectProps = {
     value: '',
     options: [],

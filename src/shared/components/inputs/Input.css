@@ -44,6 +44,7 @@ $sidePadding: 10px;
   transform: translateY(-50%);
   left: $sidePadding;
   pointer-events: none;
+  transition: .2s all ease;
 }
 
 .labelActive {

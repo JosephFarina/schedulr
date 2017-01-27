@@ -19,8 +19,8 @@ export interface RState {
   shift?: RShift
   entities?: REntities
   ui?: RUI
+  auth?: RAuth
 }
-
 
 
 /**
@@ -80,6 +80,16 @@ export interface REntities {
   employees?: EntityModels.Employees
 }
 
+
+/**
+ * 
+ * Auth State
+ * 
+ */
+
+export interface RAuth {
+
+}
 
 
 /**

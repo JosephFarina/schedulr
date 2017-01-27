@@ -7,6 +7,9 @@
       "private-before-public",
      "variables-before-functions"
     ],
+    "member-access": [
+      false
+    ],
     "quotemark": [
       "single"
     ],

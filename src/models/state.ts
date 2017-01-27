@@ -87,8 +87,13 @@ export interface REntities {
  * 
  */
 
-export interface RAuth {
 
+export interface RAuth {
+  email?: string
+  password?: string
+  fetchingLogin?: boolean
+  loginSuccesfull?: boolean
+  errorMessage?: string | null
 }
 
 
@@ -97,6 +102,7 @@ export interface RAuth {
  * UI State
  * 
  */
+
 
 export interface RUI {
   sidebar?: RSidebar

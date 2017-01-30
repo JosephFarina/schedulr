@@ -5,7 +5,8 @@ const ctx = require('classnames')
 
 import {
   Button,
-  Input
+  Input,
+  Loading
 } from 'src/shared/components'
 
 interface Props {
@@ -54,7 +55,7 @@ class AuthContainer extends React.Component<Props, State>  {
         <div>
           <Input label="Email" onChange={this.handleEmailChange} value={email}></Input>
           <Input type="password" label="Password" onChange={this.handlePasswordChange} value={password}></Input>
-          <Button block>Submit</Button >
+          <Button block loading></Button >
         </div>
       </div>
     )

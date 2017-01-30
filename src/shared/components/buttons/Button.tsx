@@ -2,12 +2,16 @@ import * as React from 'react'
 
 import { Link } from 'react-router'
 
+import { Loading } from 'src/shared/components'
+
 const styles = require('./Button.css')
 const ctx = require('classnames')
 
 interface Props {
   children?: React.ReactChild
   onClick?: any
+  disabled?: boolean
+  loading?: boolean
   block?: boolean
   mini?: boolean
   active?: boolean
@@ -18,7 +22,8 @@ const defaultProps: Props = {
   onClick: () => { },
   block: false,
   mini: false,
-  active: false
+  active: false,
+  loading: false
 }
 
 const Button: React.StatelessComponent<any> = (props: Props) => {
@@ -28,27 +33,28 @@ const Button: React.StatelessComponent<any> = (props: Props) => {
     block,
     mini,
     active,
-    to
+    to,
+    loading,
+    disabled
   } = props
 
   const className = ctx({
     [styles.base]: true,
     [styles.block]: block,
     [styles.mini]: mini,
-    [styles['base--active']]: active
+    [styles['base--active']]: active,
+    [styles.loading]: loading
   })
 
-  return to ?
-    (
-      <button onClick={onClick} className={className}>
-        <Link to={to}>{children}</Link>
-      </button>
-    )
-    : (
-      <button onClick={onClick} className={className}>
-        {children}
-      </button>
-    )
+  const child = loading ? <Loading /> : children
+  const link = to ? <Link to={to}>{child}</Link> : child
+  const isDisabled = disabled || loading
+
+  return (
+    <button disabled={isDisabled} onClick={onClick} className={className}>
+      {link}
+    </button>
+  )
 }
 
 Button.defaultProps = defaultProps

@@ -1,5 +1,7 @@
 @import 'css-vars';
 
+$disabledColor: $color-Mono--light;
+
 .base {
   background: white;
   min-height: 2.5rem;
@@ -21,20 +23,30 @@
     justify-content: center;
     height: 100%;
   }
-}
 
-.base:focus {
-  // outline: none;
-}
+  :hover {
+    background: linear-gradient(to top, $color-Brand--accent, $color-Brand--accent--dark);
+    color: white;
+  }
 
-.base:hover {
-  background: linear-gradient(to top, $color-Brand--accent, $color-Brand--accent--dark);
-  color: white;
-}
+  :active {
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
+    background: $color-Brand--accent;
+    color: white;
+  }
 
-.base:active {
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.3);
-  background: $color-Brand--accent;
+  &[disabled] {
+    cursor: not-allowed;
+    background: $disabledColor;
+
+    :hover {
+      background: $disabledColor;
+    }
+
+    * {
+      pointer-events: none;
+    }
+  }
 }
 
 .base--active {
@@ -51,4 +63,10 @@
 .block {
   width: 100%;
   // border-radius: 0;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

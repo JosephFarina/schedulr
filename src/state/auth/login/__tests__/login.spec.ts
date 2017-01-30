@@ -1,3 +1,5 @@
+import { browserHistory } from 'react-router'
+
 import { RAuthLogin, RState } from 'src/models'
 import * as API from 'src/api'
 import auth, {
@@ -6,14 +8,23 @@ import auth, {
   successfulLogin,
   handleAuthCredentialChange,
   initialState,
-  requestLogin
+  requestLogin,
 } from './..'
+import {
+  LOCALSTORAGE_JWT_TOKEN,
+  PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN
+} from 'src/config'
 
-const state: RAuthLogin = initialState
 const email = 'jrf61194@gmail.com'
 const password = 'Pas$w0Rd13'
+const jwt = 'thisi s a long token'
+
+const createApiSpy = (val: Promise<any>) => {
+  return spyOn(API, 'login').and.returnValue(val)
+}
 
 describe('Auth — Login', () => {
+  beforeEach(() => { jasmine.DEFAULT_TIMEOUT_INTERVAL = 150000 })
 
   it('#handleAuthCredentialChange should update the state', () => {
     const nextState: RAuthLogin = auth(undefined, handleAuthCredentialChange(email, password))
@@ -38,23 +49,68 @@ describe('Auth — Login', () => {
     expect(nextState).toEqual(initialState)
   })
 
-
   describe('#requestLogin login flow', () => {
-    const getState = (): RState => ({ auth: { login: initialState } })
-    const dispatch = jasmine.createSpy('dispatch')
+    let dispatch
+    const getState = (): RState => ({ auth: { login: { email, password } } })
 
-    it('when unsuccesful attempt: loginInitiated -> rejectedLogin', () => {
-      const apiCall = spyOn(API, 'login').and.returnValue(Promise.resolve({
-        successful: false
-      }))
-
-      requestLogin()(dispatch, getState)
-
-      // test apiCall is called with email and password in the state
-      expect(dispatch.calls.first().args[0]).toEqual(loginInitiated())
-      // expect next call to equal success
-      // expect router to redirect to /dashboard
+    beforeEach(() => {
+      dispatch = jasmine.createSpy('dispatch')
     })
+
+    function testApiCalledWithEmailAndPassword(apiCall) {
+      expect(apiCall.calls.mostRecent().args).toEqual([email, password])
+    }
+
+    function firstDispatchShouldBeLoginInitiated() {
+      expect(dispatch.calls.first().args[0]).toEqual(loginInitiated())
+    }
+
+    function secondDispatchCallShouldEqual(expectedValue) {
+      expect(dispatch.calls.mostRecent().args[0]).toEqual(expectedValue)
+    }
+
+    it('when unsuccesful attempt: loginInitiated -> rejectedLogin', done => {
+      const errors = ['blah blak', 'another error']
+      const apiCall = createApiSpy(Promise.resolve({ successful: false, errors }))
+
+      requestLogin()(dispatch, getState).then(() => {
+        testApiCalledWithEmailAndPassword(apiCall)
+        firstDispatchShouldBeLoginInitiated()
+        secondDispatchCallShouldEqual(loginRejected(errors))
+        done()
+      })
+
+    })
+
+    it('when an error occurs: loginInitiated -> rejectedLogin', done => {
+      const errors = ['An error occured trying to log you in']
+      const apiCall = createApiSpy(Promise.reject({ errors }))
+
+      requestLogin()(dispatch, getState).then(() => {
+        testApiCalledWithEmailAndPassword(apiCall)
+        firstDispatchShouldBeLoginInitiated()
+        secondDispatchCallShouldEqual(loginRejected(errors))
+        done()
+      })
+
+    })
+
+    it('when successful attempt: loginInitiated -> localStorage set token -> successfulLogin -> redirect to dashboard', done => {
+      const localStorageSpy = spyOn(localStorage, 'setItem')
+      const browserHistoryPushSpy = spyOn(browserHistory, 'push')
+      const apiCall = createApiSpy(Promise.resolve({ successful: true, jwt }))
+
+      requestLogin()(dispatch, getState).then(() => {
+        testApiCalledWithEmailAndPassword(apiCall)
+        firstDispatchShouldBeLoginInitiated()
+        secondDispatchCallShouldEqual(successfulLogin())
+        expect(localStorageSpy.calls.mostRecent().args).toEqual([LOCALSTORAGE_JWT_TOKEN, jwt])
+        expect(browserHistoryPushSpy.calls.mostRecent().args[0]).toEqual(PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN)
+        done()
+      })
+
+    })
+
   })
 
 })

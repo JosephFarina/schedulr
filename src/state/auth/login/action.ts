@@ -1,6 +1,13 @@
+import { browserHistory } from 'react-router'
+
 import { LoginActions } from 'src/state/actionTypes'
 import { Action, RAuthLogin } from 'src/models'
-
+import { getAuthLogin } from './'
+import {
+  LOCALSTORAGE_JWT_TOKEN,
+  PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN
+} from 'src/config'
+import * as API from 'src/api'
 
 /**
  * 
@@ -62,30 +69,23 @@ export const successfulLogin = (): Action<RAuthLogin> => ({ type: LoginActions.l
 
 
 
-/**
- * 
- * Request Login
- * 
- * Thunk function 
- * 
- * Checks there is password/email and dispatches a message if missing
- * calls api to login
- * if error 
- *  displays message
- * 
- * else 
- *  sets token into local storage
- *  redirects
- * 
- * 
- * 
- */
+export const requestLogin = () => (dispatch, getState): Promise<any> => {
+  const { email, password } = getAuthLogin(getState())
 
+  dispatch(loginInitiated())
 
-export const requestLogin = () => (dispatch, getState) => {
-  return new Promise((res, rej) => {
-    dispatch(loginInitiated())
+  return API.login(email, password)
+    .then(({ errors, successful, jwt }) => {
+      if (!successful) {
+        dispatch(loginRejected(errors))
+      } else {
+        localStorage.setItem(LOCALSTORAGE_JWT_TOKEN, jwt)
+        dispatch(successfulLogin())
+        browserHistory.push(PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN)
+      }
+    })
+    .catch(({errors}) => {
+      dispatch(loginRejected(errors))
+    })
 
-
-  })
 }

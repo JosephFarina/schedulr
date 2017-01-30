@@ -11,6 +11,7 @@ interface LoginRes {
   errors?: string[]
 }
 
+// TODO: Change this to an actual API call
 export const login = (email: string, password: string): Promise<LoginRes> => {
   return new Promise((res, rej) => {
     setTimeout(() => {

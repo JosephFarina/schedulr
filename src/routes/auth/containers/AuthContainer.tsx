@@ -1,4 +1,7 @@
 import * as React from 'react'
+import { connect } from 'react-redux'
+
+import { RState } from 'src/models'
 
 const styles = require('./AuthContainer.css')
 const ctx = require('classnames')
@@ -6,7 +9,6 @@ const ctx = require('classnames')
 import {
   Button,
   Input,
-  Loading
 } from 'src/shared/components'
 
 interface Props {
@@ -63,4 +65,8 @@ class AuthContainer extends React.Component<Props, State>  {
 
 }
 
-export default AuthContainer
+const mapStateToProps = (state: RState, ownProps: Props) => {
+  return {}
+}
+
+export default connect(mapStateToProps)(AuthContainer)

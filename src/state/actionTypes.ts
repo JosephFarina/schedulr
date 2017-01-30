@@ -40,8 +40,12 @@ export const UIActions = {
   hideModal: 'hideModal'
 }
 
-export const AuthActions = {
-  requestLogin: 'requestLogin',
+export const LoginActions = {
+  updateCredentials: 'updateCredentials',
+  requestInitiated: 'requestInitiated',
+  loginRejected: 'loginRejected',
   loginSucceeded: 'loginSucceeded',
+
+  requestLogin: 'requestLogin',
   loginFailed: 'loginFailed'
 }

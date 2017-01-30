@@ -1,5 +1,3 @@
-import * as M from 'moment'
-
 import {
   getMoRange,
   validatorFactory,

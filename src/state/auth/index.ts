@@ -1,5 +1,9 @@
-import auth from './reducer'
-export default auth
+import { combineReducers } from 'redux'
 
-export * from './reducer'
-export * from './action'
+import login from './login'
+
+const auth = combineReducers({
+  login
+})
+
+export default auth

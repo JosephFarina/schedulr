@@ -89,11 +89,19 @@ export interface REntities {
 
 
 export interface RAuth {
+  login?: RAuthLogin
+  register?: RAuthRegister
+}
+
+export interface RAuthLogin {
   email?: string
   password?: string
-  fetchingLogin?: boolean
-  loginSuccesfull?: boolean
-  errorMessage?: string | null
+  fetching?: boolean
+  errors?: string[] | null
+}
+
+export interface RAuthRegister {
+
 }
 
 

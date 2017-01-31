@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { } from 'src/models'
+import { RegistrationFields } from 'src/models'
 import {
   Input,
   Button
@@ -20,8 +20,6 @@ interface State {
   password?: string
   confirmPassowrd?: string
 }
-
-declare type RegistrationFields = 'orgName' | 'email' | 'password' | 'confirmPassowrd'
 
 class Register extends React.Component<Props, State> {
   static defaultProps: Props = {}

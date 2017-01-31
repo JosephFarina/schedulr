@@ -93,15 +93,23 @@ export interface RAuth {
   register?: RAuthRegister
 }
 
-export interface RAuthLogin {
-  email?: string
-  password?: string
+interface ApiInteraction {
   fetching?: boolean
   errors?: string[] | null
 }
 
-export interface RAuthRegister {
+export interface RAuthLogin extends ApiInteraction {
+  email?: string
+  password?: string
+}
 
+export declare type RegistrationFields = 'orgName' | 'email' | 'password' | 'confirmPassowrd'
+
+export interface RAuthRegister extends ApiInteraction {
+  orgName?: string
+  email?: string
+  password?: string
+  confirmPassword?: string
 }
 
 

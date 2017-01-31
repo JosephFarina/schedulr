@@ -1,0 +1,29 @@
+@import "css-vars/index.scss";
+$breakpointToCollapse: sm;
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+.formContainer {
+  height: 100vh;
+  background: white;
+  flex: 1 1 50%;
+  min-width: 400px;
+  padding: 2rem;
+
+  @include media-breakpoint-down($breakpointToCollapse) {
+    flex-basis: 100%;
+  }
+}
+
+.imageContainer {
+  height: 100vh;
+  flex: 1 1 100%;
+
+  @include media-breakpoint-down($breakpointToCollapse) {
+    flex-basis: 0;
+  }
+}

@@ -20,6 +20,7 @@ export class Input extends React.Component<Props, State> {
     value: '',
     valid: null,
     type: 'text',
+    name: '',
     message: '',
     onBlur: () => { },
     onFocus: () => { },
@@ -105,7 +106,8 @@ export class Input extends React.Component<Props, State> {
       children,
       message,
       valid,
-      type
+      type,
+      name
     } = this.props
 
     const {
@@ -142,6 +144,7 @@ export class Input extends React.Component<Props, State> {
           onBlur={this.onBlur}
           onFocus={this.onFocus}
           value={value}
+          name={name}
           onChange={this.onChange}
           className={styles.inputText}
           type={type}

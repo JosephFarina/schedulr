@@ -16,7 +16,7 @@ export const login = (email: string, password: string): Promise<LoginRes> => {
   return new Promise((res, rej) => {
     setTimeout(() => {
       res({
-        jwt: 'asdfwfdsaf',
+        jwt: 'valid.token.jwt',
         successful: true
       })
     }, 500)

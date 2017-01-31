@@ -3,18 +3,20 @@ import * as React from 'react'
 const styles = require('./Auth.css')
 const ctx = require('classnames')
 
-import AuthContainer from 'src/routes/auth/containers/AuthContainer'
+import Login from 'src/routes/auth/containers/Login'
 
-interface Props { }
+interface Props {
+  children?: any
+}
 
-const Auth: React.StatelessComponent<Props> = (props: Props) => {
+const Auth: React.StatelessComponent<Props> = ({children}: Props) => {
   const klass = ctx({
     [styles.container]: true
   })
 
   return (
     <div className={klass}>
-      <AuthContainer>Log me in</AuthContainer>
+      {children}
     </div>
   )
 }

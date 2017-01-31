@@ -7,6 +7,7 @@ export interface InputProps {
   message?: string
   valid?: boolean
   type?: string
+  name?: string
   onBlur?(): void
   onFocus?(): void
   onChangeEnd?(): void

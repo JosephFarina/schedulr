@@ -79,7 +79,8 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', ''],
     root: [
-      path.resolve('./')
+      path.resolve('./'),
+      
     ],
     alias: {
       // Support React Native Web
@@ -177,8 +178,7 @@ module.exports = {
         loaders: [
           'style?sourceMap',
           'css-loader?modules&importLoaders=2&localIdentName=[path]_[name]_[local]_[hash:base64:5]',
-          'postcss-loader',
-          'sass'
+          'sass?includePaths=' + paths.appSrc
         ]
       },
 
@@ -197,6 +197,10 @@ module.exports = {
         }
       }
     ]
+  },
+
+  sassLoader: {
+    includePaths: [paths.appSrc]
   },
 
   externals: {

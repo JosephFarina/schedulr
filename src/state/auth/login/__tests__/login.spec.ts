@@ -100,6 +100,7 @@ describe('Auth — Login', () => {
       const browserHistoryPushSpy = spyOn(browserHistory, 'push')
       const apiCall = createApiSpy(Promise.resolve({ successful: true, jwt }))
 
+
       requestLogin()(dispatch, getState).then(() => {
         testApiCalledWithEmailAndPassword(apiCall)
         firstDispatchShouldBeLoginInitiated()

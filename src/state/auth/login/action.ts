@@ -1,3 +1,7 @@
+/**
+ * TODO: Show error message if error occurs
+ */
+
 import { browserHistory } from 'react-router'
 
 import { LoginActions } from 'src/state/actionTypes'

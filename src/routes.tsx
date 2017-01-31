@@ -25,6 +25,8 @@ import Scheduling from 'src/routes/scheduling/Scheduling'
 
 // Auth
 import Auth from 'src/routes/auth/Auth'
+import Login from 'src/routes/auth/containers/Login'
+import Register from 'src/routes/auth/containers/Register'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
@@ -38,8 +40,9 @@ const Routes = () => (
           <Route path="new-shift" components={{ sidebar: NewShiftSideBar }} />
         </Route>
 
-        <Route path="auth" component={Auth}>
-
+        <Route path="auth" component={Auth} >
+          <Route path="login" component={Login} />
+          <Route path="register" component={Register} />
         </Route>
 
       </Route>

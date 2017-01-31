@@ -5,7 +5,7 @@ const debounce = require('lodash.debounce')
 
 import { InputProps } from 'src/models'
 
-const styles = require('./Input.css')
+const styles = require('./Input.scss')
 const ctx = require('classnames')
 
 interface Props extends InputProps { }

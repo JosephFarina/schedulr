@@ -5,7 +5,7 @@ import {
   SelectOption
 } from 'src/models'
 
-const styles = require('./Select.css')
+const styles = require('./Select.scss')
 const ctx = require('classnames')
 
 interface SelectProps {

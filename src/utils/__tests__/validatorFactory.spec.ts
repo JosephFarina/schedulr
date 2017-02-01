@@ -22,17 +22,17 @@ const messages = {
 const validateObj: Validator<Object> = {
   name: {
     invalid: (val) => {
-      return val.length > 5 ? null : messages.name
+      return val.length > 5 ? null : [messages.name]
     }
   },
   duration: {
     invalid: (val) => {
-      return val >= 5 && val <= 10 ? null : messages.duration
+      return val >= 5 && val <= 10 ? null : [messages.duration]
     }
   },
   values: {
     invalid: (val) => {
-      return val.length === 3 ? null : messages.values
+      return val.length === 3 ? null : [messages.values]
     }
   }
 }

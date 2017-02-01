@@ -9,11 +9,11 @@ export function validatorFactory<T>(validator: Validator<T>): (obj: T) => Valida
       const { invalid } = validator[<any> key]
       const value = obj[key]
 
-      const message = invalid(value)
+      const messages = invalid(value)
 
-      if (message !== null) {
+      if (messages !== null) {
         return Object.assign({}, err, {
-          [key]: [message]
+          [key]: messages
         })
       }
 

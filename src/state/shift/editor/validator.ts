@@ -23,12 +23,12 @@ function createValidator(state: RState, shiftBeingValidated: Shift): Validator<S
   return {
     client: {
       invalid: (val) => {
-        return !val ? 'Client must be present' : null
+        return !val ? ['Client must be present'] : null
       }
     },
     location: {
       invalid: (val) => {
-        return !val ? 'Location must be present' : null
+        return !val ? ['Location must be present'] : null
       }
     },
     id: {
@@ -62,12 +62,12 @@ function createValidator(state: RState, shiftBeingValidated: Shift): Validator<S
           return res
         }, false)
 
-        return shiftOverlapsSavedShift ? `${shiftBeingValidatedEmployee.alias} is already scheduled at this time` : null
+        return shiftOverlapsSavedShift ? [`${shiftBeingValidatedEmployee.alias} is already scheduled at this time`] : null
       }
     },
     duration: {
       invalid: (val) => {
-        return val < 15 ? 'It must be at least 15 minutes long' : null
+        return val < 15 ? ['It must be at least 15 minutes long'] : null
       }
     }
   }

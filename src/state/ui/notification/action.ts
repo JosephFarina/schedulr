@@ -11,7 +11,7 @@ import {
   notificationIsSelected
 } from './'
 
-export function trggerNotification(messages: string[], duration = 2000) {
+export function triggerNotification(messages: string[], duration = 2000) {
   return (dispatch: any, getState: any) => {
     if (!notificationIsSelected(getState())) {
       dispatch(setMessagesToAlert(messages))

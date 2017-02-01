@@ -6,8 +6,7 @@ import * as React from 'react'
 
 import Select from './../Select'
 
-const selectStyles = require('./../Select.css')
-const inputStyles = require('./../Input.css')
+const selectStyles = require('./../Select.scss')
 
 const items: { display: string, value: string }[] = [
   {

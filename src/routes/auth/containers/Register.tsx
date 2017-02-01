@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { RegistrationFields } from 'src/models'
+import { handleAuthCredentialChange } from 'src/state/auth/register'
 import {
   Input,
   Button
@@ -18,10 +19,10 @@ interface State {
   orgName?: string
   email?: string
   password?: string
-  confirmPassowrd?: string
+  confirmPassword?: string
 }
 
-class Register extends React.Component<Props, State> {
+export class Register extends React.Component<Props, State> {
   static defaultProps: Props = {}
   constructor(props) {
     super(props)
@@ -29,8 +30,9 @@ class Register extends React.Component<Props, State> {
       orgName: '',
       email: '',
       password: '',
-      confirmPassowrd: ''
+      confirmPassword: ''
     }
+    this.syncWithStore = this.syncWithStore.bind(this)
   }
 
   /**
@@ -45,13 +47,18 @@ class Register extends React.Component<Props, State> {
     })
   }
 
+  syncWithStore() {
+    const {dispatch} = this.props
+    dispatch(handleAuthCredentialChange(this.state))
+  }
+
   /**
    * 
    */
 
   render() {
     const {
-      confirmPassowrd,
+      confirmPassword,
       email,
       orgName,
       password
@@ -62,22 +69,30 @@ class Register extends React.Component<Props, State> {
         <div className={styles.formContainer}>
           <h1>Sign Up</h1>
           <Input
+            name="orgName"
             value={orgName}
             onChange={val => this.handleInputChange('orgName', val)}
+            onChangeEnd={this.syncWithStore}
             label="Organizations Name" />
           <Input
+            name="email"
             value={email}
             onChange={val => this.handleInputChange('email', val)}
+            onChangeEnd={this.syncWithStore}
             label="Email" />
           <Input
+            name="password"
             type="password"
             value={password}
             onChange={val => this.handleInputChange('password', val)}
+            onChangeEnd={this.syncWithStore}
             label="Password" />
           <Input
+            name="confirmPassword"
             type="password"
-            value={confirmPassowrd}
-            onChange={val => this.handleInputChange('confirmPassowrd', val)}
+            value={confirmPassword}
+            onChange={val => this.handleInputChange('confirmPassword', val)}
+            onChangeEnd={this.syncWithStore}
             label="Confirm Password" />
           <Button block>Submit</Button>
         </div>

@@ -103,7 +103,7 @@ export interface RAuthLogin extends ApiInteraction {
   password?: string
 }
 
-export declare type RegistrationFields = 'orgName' | 'email' | 'password' | 'confirmPassowrd'
+export declare type RegistrationFields = 'orgName' | 'email' | 'password' | 'confirmPassword'
 
 export interface RAuthRegister extends ApiInteraction {
   orgName?: string

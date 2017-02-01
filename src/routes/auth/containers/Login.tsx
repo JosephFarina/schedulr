@@ -74,7 +74,7 @@ export class Login extends React.Component<Props, State>  {
   syncWithStore() {
     const {email, password} = this.state
     const {dispatch} = this.props
-    dispatch(handleAuthCredentialChange(email, password))
+    dispatch(handleAuthCredentialChange({ email, password }))
   }
 
   render() {

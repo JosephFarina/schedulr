@@ -10,6 +10,7 @@ import auth, {
   initialState,
   requestLogin,
 } from './..'
+import { triggerNotification } from 'src/state/ui/notification'
 import {
   LOCALSTORAGE_JWT_TOKEN,
   PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN
@@ -27,7 +28,7 @@ describe('Auth — Login', () => {
   beforeEach(() => { jasmine.DEFAULT_TIMEOUT_INTERVAL = 150000 })
 
   it('#handleAuthCredentialChange should update the state', () => {
-    const nextState: RAuthLogin = auth(undefined, handleAuthCredentialChange(email, password))
+    const nextState: RAuthLogin = auth(undefined, handleAuthCredentialChange({ email, password }))
     expect(nextState.email).toEqual(email)
     expect(nextState.password).toEqual(password)
   })
@@ -66,34 +67,35 @@ describe('Auth — Login', () => {
     }
 
     function secondDispatchCallShouldEqual(expectedValue) {
+      expect(dispatch.calls.all()[1].args[0]).toEqual(expectedValue)
+    }
+
+    function lastDispatchCallShouldEqual(expectedValue) {
       expect(dispatch.calls.mostRecent().args[0]).toEqual(expectedValue)
     }
 
-    it('when unsuccesful attempt: loginInitiated -> rejectedLogin', done => {
+    it('when unsuccesful attempt: loginInitiated -> rejectedLogin -> triggerNotification', done => {
       const errors = ['blah blak', 'another error']
       const apiCall = createApiSpy(Promise.resolve({ successful: false, errors }))
-
-      requestLogin()(dispatch, getState).then(() => {
-        testApiCalledWithEmailAndPassword(apiCall)
-        firstDispatchShouldBeLoginInitiated()
-        secondDispatchCallShouldEqual(loginRejected(errors))
-        done()
-      })
-
+      testFailureFlow(done, apiCall, errors)
     })
 
-    it('when an error occurs: loginInitiated -> rejectedLogin', done => {
+    it('when an error occurs: loginInitiated -> rejectedLogin -> triggerNotification', done => {
       const errors = ['An error occured trying to log you in']
       const apiCall = createApiSpy(Promise.reject({ errors }))
+      testFailureFlow(done, apiCall, errors)
+    })
 
+    function testFailureFlow(done, apiCall, errors) {
       requestLogin()(dispatch, getState).then(() => {
         testApiCalledWithEmailAndPassword(apiCall)
         firstDispatchShouldBeLoginInitiated()
         secondDispatchCallShouldEqual(loginRejected(errors))
+        // todo: figure out how to test if notifcation is being dispatched
+        // lastDispatchCallShouldEqual(triggerNotification(errors))
         done()
       })
-
-    })
+    }
 
     it('when successful attempt: loginInitiated -> localStorage set token -> successfulLogin -> redirect to dashboard', done => {
       const localStorageSpy = spyOn(localStorage, 'setItem')
@@ -104,7 +106,7 @@ describe('Auth — Login', () => {
       requestLogin()(dispatch, getState).then(() => {
         testApiCalledWithEmailAndPassword(apiCall)
         firstDispatchShouldBeLoginInitiated()
-        secondDispatchCallShouldEqual(successfulLogin())
+        lastDispatchCallShouldEqual(successfulLogin())
         expect(localStorageSpy.calls.mostRecent().args).toEqual([LOCALSTORAGE_JWT_TOKEN, jwt])
         expect(browserHistoryPushSpy.calls.mostRecent().args[0]).toEqual(PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN)
         done()

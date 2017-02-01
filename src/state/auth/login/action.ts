@@ -12,6 +12,7 @@ import {
   PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN
 } from 'src/config'
 import * as API from 'src/api'
+import { triggerNotification } from 'src/state/ui/notification'
 
 /**
  * 
@@ -20,7 +21,7 @@ import * as API from 'src/api'
  */
 
 
-export const handleAuthCredentialChange = (email: string, password: string): Action<RAuthLogin> => {
+export const handleAuthCredentialChange = ({email, password}): Action<RAuthLogin> => {
   return {
     type: LoginActions.updateCredentials,
     payload: {
@@ -82,6 +83,7 @@ export const requestLogin = () => (dispatch, getState): Promise<any> => {
     .then(({ errors, successful, jwt }) => {
       if (!successful) {
         dispatch(loginRejected(errors))
+        dispatch(triggerNotification(errors))
       } else {
         localStorage.setItem(LOCALSTORAGE_JWT_TOKEN, jwt)
         dispatch(successfulLogin())
@@ -90,6 +92,7 @@ export const requestLogin = () => (dispatch, getState): Promise<any> => {
     })
     .catch(({errors}) => {
       dispatch(loginRejected(errors))
+      dispatch(triggerNotification(errors))
     })
 
 }

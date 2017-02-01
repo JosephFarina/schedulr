@@ -49,3 +49,10 @@ export const LoginActions = {
   requestLogin: 'requestLogin',
   loginFailed: 'loginFailed'
 }
+
+export const RegisterActions = {
+  updateRegistrationField: 'updateRegistrationField',
+  requestInitiated: 'requestInitiated',
+  loginRejected: 'loginRejected',
+  loginSucceeded: 'loginSucceeded',
+}

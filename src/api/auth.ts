@@ -15,9 +15,10 @@ interface LoginRes {
 export const login = (email: string, password: string): Promise<LoginRes> => {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      res({
+      rej({
         jwt: 'valid.token.jwt',
-        successful: true
+        successful: true,
+        errors: ['Something went wrong']
       })
     }, 500)
   })

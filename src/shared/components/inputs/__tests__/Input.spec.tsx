@@ -5,7 +5,7 @@ import * as React from 'react'
 
 import Input from './../Input'
 
-const styles = require('./../Input.css')
+const styles = require('./../Input.scss')
 
 describe('Input', () => {
   let wrapper = mount(<Input value={null} onChange={null} />)

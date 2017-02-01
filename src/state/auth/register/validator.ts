@@ -15,18 +15,13 @@ const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 
 function createValidator(state: RState): Validator<RAuthRegister> {
   const authRegister = getAuthRegister(state)
-  const passwordsMatch = authRegister.confirmPassword !== authRegister.password ? ['Passwords do not match.'] : null
 
   return {
     email: {
-      invalid: val => {
-        return !emailRegEx.test(val) ? ['Your email must be valid.'] : null
-      }
+      invalid: val => !emailRegEx.test(val) ? ['Your email must be valid.'] : null
     },
     orgName: {
-      invalid: val => {
-        return (!val || val.length > 0) ? ['There must be an organization name.'] : null
-      }
+      invalid: val => (!val || val.length > 0) ? ['There must be an organization name.'] : null
     },
     password: {
       invalid: val => {
@@ -48,7 +43,7 @@ function createValidator(state: RState): Validator<RAuthRegister> {
       }
     },
     confirmPassword: {
-      invalid: () => passwordsMatch
+      invalid: () => authRegister.confirmPassword !== authRegister.password ? ['Passwords do not match.'] : null
     },
   }
 }

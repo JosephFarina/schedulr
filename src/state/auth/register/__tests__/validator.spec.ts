@@ -11,6 +11,14 @@ describe('Auth Register Validator', () => {
     expect(errors.orgName).toContain('There must be an organization name.')
   })
 
+  it('email should be valid', () => {
+    const register: RAuthRegister = {
+      email: 'jrf@co'
+    }
+    const errors = authRegisterValidator(getState(register))(register)
+    expect(errors.email).toContain('Your email must be valid.')
+  })
+
   describe('password should throw error if:', () => {
 
     it('isnt 8 charactars long', () => {

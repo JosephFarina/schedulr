@@ -7,7 +7,7 @@ describe('Auth Register Validator', () => {
     const register: RAuthRegister = {
       orgName: ''
     }
-    const errors = authRegisterValidator(getState(register))(register)
+    const errors = authRegisterValidator(getState(register))
     expect(errors.orgName).toContain('There must be an organization name.')
   })
 
@@ -15,7 +15,7 @@ describe('Auth Register Validator', () => {
     const register: RAuthRegister = {
       email: 'jrf@co'
     }
-    const errors = authRegisterValidator(getState(register))(register)
+    const errors = authRegisterValidator(getState(register))
     expect(errors.email).toContain('Your email must be valid.')
   })
 
@@ -25,7 +25,7 @@ describe('Auth Register Validator', () => {
       const register: RAuthRegister = {
         password: 'three'
       }
-      const errors = authRegisterValidator(getState(register))(register)
+      const errors = authRegisterValidator(getState(register))
       expect(errors.password).toContain('Password must be at least 8 characters long.')
     })
 
@@ -33,7 +33,7 @@ describe('Auth Register Validator', () => {
       const register: RAuthRegister = {
         password: 'threee'
       }
-      const errors = authRegisterValidator(getState(register))(register)
+      const errors = authRegisterValidator(getState(register))
       expect(errors.password).toContain('Password must contain at least one uppercase letter.')
     })
 
@@ -41,7 +41,7 @@ describe('Auth Register Validator', () => {
       const register: RAuthRegister = {
         password: 'threee'
       }
-      const errors = authRegisterValidator(getState(register))(register)
+      const errors = authRegisterValidator(getState(register))
       expect(errors.password).toContain('Password must contain at least one number letter.')
     })
 
@@ -53,7 +53,7 @@ describe('Auth Register Validator', () => {
       password: 'Passw0rd'
     }
 
-    const errors = authRegisterValidator(getState(register))(register)
+    const errors = authRegisterValidator(getState(register))
     expect(errors.confirmPassword).toContain('Passwords do not match.')
   })
 

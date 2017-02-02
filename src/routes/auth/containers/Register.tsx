@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { RegistrationFields } from 'src/models'
-import { handleAuthCredentialChange } from 'src/state/auth/register'
+import { RegistrationFields, ValidatorResponseObject, RAuthRegister } from 'src/models'
+import { handleAuthCredentialChange, authRegisterValidator } from 'src/state/auth/register'
 import {
   Input,
   Button
@@ -13,6 +13,7 @@ const ctx = require('classnames')
 
 interface Props {
   dispatch?: Function
+  validatorObj?: ValidatorResponseObject<RAuthRegister>
 }
 
 interface State {
@@ -57,6 +58,7 @@ export class Register extends React.Component<Props, State> {
    */
 
   render() {
+    const {validatorObj} = this.props
     const {
       confirmPassword,
       email,
@@ -64,24 +66,29 @@ export class Register extends React.Component<Props, State> {
       password
     } = this.state
 
+    console.log(validatorObj)
+
     return (
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <h1>Sign Up</h1>
           <Input
             name="orgName"
+            validateObj={validatorObj}
             value={orgName}
             onChange={val => this.handleInputChange('orgName', val)}
             onChangeEnd={this.syncWithStore}
             label="Organizations Name" />
           <Input
             name="email"
+            validateObj={validatorObj}
             value={email}
             onChange={val => this.handleInputChange('email', val)}
             onChangeEnd={this.syncWithStore}
             label="Email" />
           <Input
             name="password"
+            validateObj={validatorObj}
             type="password"
             value={password}
             onChange={val => this.handleInputChange('password', val)}
@@ -89,6 +96,7 @@ export class Register extends React.Component<Props, State> {
             label="Password" />
           <Input
             name="confirmPassword"
+            validateObj={validatorObj}
             type="password"
             value={confirmPassword}
             onChange={val => this.handleInputChange('confirmPassword', val)}
@@ -102,10 +110,11 @@ export class Register extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps): Props => {
   return {
-
+    validatorObj: authRegisterValidator(state)
   }
 }
 
+// export default connect(mapStateToProps)(Register)
 export default connect(mapStateToProps)(Register)

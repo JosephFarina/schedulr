@@ -21,7 +21,7 @@ function createValidator(state: RState): Validator<RAuthRegister> {
       invalid: val => !emailRegEx.test(val) ? ['Your email must be valid.'] : null
     },
     orgName: {
-      invalid: val => (!val || val.length > 0) ? ['There must be an organization name.'] : null
+      invalid: val => (!val || val.length <= 0) ? ['There must be an organization name.'] : null
     },
     password: {
       invalid: val => {
@@ -48,5 +48,5 @@ function createValidator(state: RState): Validator<RAuthRegister> {
   }
 }
 
-export const authRegisterValidator = (state: RState) => validatorFactory<RAuthRegister>(createValidator(state))
+export const authRegisterValidator = (state: RState) => validatorFactory<RAuthRegister>(createValidator(state))(getAuthRegister(state))
 

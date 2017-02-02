@@ -8,10 +8,11 @@ import { InputProps } from 'src/models'
 const styles = require('./Input.scss')
 const ctx = require('classnames')
 
-interface Props extends InputProps { }
+export interface Props extends InputProps { }
 
-interface State {
-  focused: boolean
+export interface State {
+  focused?: boolean
+  touched?: boolean
 }
 
 export class Input extends React.Component<Props, State> {
@@ -22,6 +23,7 @@ export class Input extends React.Component<Props, State> {
     type: 'text',
     name: '',
     message: '',
+    validateObj: null,
     onBlur: () => { },
     onFocus: () => { },
     onChange: () => { },
@@ -32,7 +34,8 @@ export class Input extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      focused: false
+      focused: false,
+      touched: false
     }
 
     this.onFocus = this.onFocus.bind(this)
@@ -73,7 +76,7 @@ export class Input extends React.Component<Props, State> {
   }
 
   private onFocus(): void {
-    this.setState({ focused: true })
+    this.setState({ focused: true, touched: true })
     this.props.onFocus()
   }
 
@@ -91,6 +94,27 @@ export class Input extends React.Component<Props, State> {
   private hasValue(): boolean {
     const { value } = this.props
     return value && value.length > 0 || false
+  }
+
+  private isValid(): boolean {
+    const { valid } = this.props
+    const { touched } = this.state
+
+    return touched && (valid === true)
+  }
+
+  private isInvalid(): boolean {
+    const { valid, validateObj, name } = this.props
+    const { touched } = this.state
+
+    return touched && (valid === false || !!this.getErrorMessage())
+  }
+
+  // TODO: have it display error when told to display errors and show green when is valid and touched
+  private getErrorMessage(): string | null {
+    const { valid, validateObj, name } = this.props
+
+    return !!validateObj && !!~Object.keys(validateObj).indexOf(name) ? validateObj[name][0] : null
   }
 
   /**
@@ -111,7 +135,8 @@ export class Input extends React.Component<Props, State> {
     } = this.props
 
     const {
-      focused
+      focused,
+      touched
     } = this.state
 
     const containerClass = ctx({
@@ -122,32 +147,32 @@ export class Input extends React.Component<Props, State> {
     const labelClass = ctx({
       [styles.label]: true,
       [styles.labelActive]: focused || this.hasValue(),
-      [styles.redColor]: valid === false,
-      [styles.greenColor]: valid === true
+      [styles.redColor]: this.isInvalid(),
+      [styles.greenColor]: this.isValid()
     })
 
     const messageClass = ctx({
       [styles.message]: true,
-      [styles.redColor]: valid === false,
-      [styles.greenColor]: valid === true
+      [styles.redColor]: this.isInvalid(),
+      [styles.greenColor]: this.isValid()
     })
 
     const barClass = ctx({
       [styles.bar]: true,
-      [styles.redBackground]: valid === false,
-      [styles.greenBackground]: valid === true
+      [styles.redBackground]: this.isInvalid(),
+      [styles.greenBackground]: this.isValid()
     })
 
     return (
       <div className={containerClass}>
         <input
+          className={styles.inputText}
+          name={name}
+          value={value}
+          type={type}
           onBlur={this.onBlur}
           onFocus={this.onFocus}
-          value={value}
-          name={name}
           onChange={this.onChange}
-          className={styles.inputText}
-          type={type}
           ref={input => { this.textInput = input } } />
 
         <label className={labelClass}>{label}</label>

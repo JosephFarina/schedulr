@@ -95,14 +95,14 @@ export class Login extends React.Component<Props, State>  {
             label="Email"
             onChangeEnd={this.syncWithStore}
             onChange={this.handleEmailChange}
-            value={email}></Input>
+            value={email} />
           <Input
             name="password"
             type="password"
             onChangeEnd={this.syncWithStore}
             label="Password"
             onChange={this.handlePasswordChange}
-            value={password}></Input>
+            value={password} />
           <Button
             block
             loading={isFetching}

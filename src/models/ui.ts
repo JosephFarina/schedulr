@@ -1,3 +1,4 @@
+import { ValidatorResponseObject } from 'src/models'
 export type SelectOption = { display: string, value: string | number }
 export type SelectOptions = SelectOption[]
 
@@ -8,6 +9,7 @@ export interface InputProps {
   valid?: boolean
   type?: string
   name?: string
+  validateObj?: ValidatorResponseObject<any>
   onBlur?(): void
   onFocus?(): void
   onChangeEnd?(): void

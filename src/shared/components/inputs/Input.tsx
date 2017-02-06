@@ -1,6 +1,7 @@
 // FIXME: Chrome autofill does not tigger event to raise label on type="password"
 
 import * as React from 'react'
+import * as ReactTooltip from 'react-tooltip'
 const debounce = require('lodash.debounce')
 
 import { InputProps } from 'src/models'
@@ -120,8 +121,13 @@ export class Input extends React.Component<Props, State> {
   }
 
   private getErrorMessage(): string | null {
+    const { displayErrors} = this.props
+    return displayErrors && this.foundInValidateObj() ? errorArrayToString(this.getErrorMessages()) : null
+  }
+
+  private getErrorMessages(): string[] | null {
     const { displayErrors, validateObj, name } = this.props
-    return displayErrors && this.foundInValidateObj() ? errorArrayToString(validateObj[name]) : null
+    return displayErrors && this.foundInValidateObj() ? validateObj[name] : []
   }
 
   /**
@@ -167,7 +173,12 @@ export class Input extends React.Component<Props, State> {
 
         <label className={labelClass}>{label}</label>
         <div className={styles.bar}></div>
-        <div className={styles.message}>{this.getErrorMessage()}</div>
+
+        <div data-tip data-for={`inputMessageFor${name}`} className={styles.message}>{this.getErrorMessage()}</div>
+        <ReactTooltip id={`inputMessageFor${name}`} place="bottom" type="error" >
+          <ul>{this.getErrorMessages().map((err, i) => <li>{err}</li>)}</ul>
+        </ReactTooltip>
+
         {children}
       </div>
     )

@@ -22,7 +22,6 @@ describe('Login Container', () => {
 
     // Run through each of the fields to test
     Object.keys(fields).forEach(testFactory)
-
   })
 
 

@@ -1,5 +1,5 @@
 html {
-  height: 100%
+  height: 100%;
 }
 
 body {
@@ -24,7 +24,21 @@ a {
 }
 
 .toolbarIcon {
-    border-style: none;
-    width: auto;
-    height: 30px;
+  border-style: none;
+  width: auto;
+  height: 30px;
+}
+
+// This is styling for the 3rd party react component tooltip
+// TODO: make a react component that wraps the react tooltip so can use css modules to modify the style
+:global .__react_component_tooltip ul {
+  margin: 0;
+  padding: 0;
+}
+
+:global .__react_component_tooltip ul li {
+  color: white;
+  list-style: none;
+  line-height: 1.3rem;
+  text-align: center;
 }

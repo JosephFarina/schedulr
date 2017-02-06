@@ -13,6 +13,7 @@ $breakpointToCollapse: sm;
   flex: 1 1 50%;
   min-width: 400px;
   padding: 2rem;
+  overflow: scroll;
 
   @include media-breakpoint-down($breakpointToCollapse) {
     flex-basis: 100%;

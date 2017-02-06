@@ -93,6 +93,7 @@ export class Register extends React.Component<Props, State> {
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <h1>Sign Up</h1>
+          <form onSubmit={e => {e.preventDefault()}}>
           {inputFields.map((field, i) => <Input
             key={i}
             type={field.type}
@@ -103,7 +104,8 @@ export class Register extends React.Component<Props, State> {
             onChange={val => this.handleInputChange(field.value, val)}
             onChangeEnd={this.syncWithStore}
             label={field.label} />)}
-          <Button onClick={this.handleSubmit} block>Submit</Button>
+          <Button role="submit" onClick={this.handleSubmit} block>Submit</Button>
+          </form>
         </div>
         <div className={styles.imageContainer}></div>
       </div>

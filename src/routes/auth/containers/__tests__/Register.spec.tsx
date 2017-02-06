@@ -1,13 +1,9 @@
 import * as React from 'react'
 import { mount } from 'enzyme'
 
-import { RegistrationFields, RAuthRegister } from 'src/models'
 import { Register } from './../Register'
-import { Input } from 'src/shared/components'
 import { handleAuthCredentialChange } from 'src/state/auth/register'
 import { containerCrudTestFactory } from 'src/testUtils'
-
-const curry = require('ramda/src/curry')
 
 describe('Register Container', () => {
 
@@ -23,9 +19,14 @@ describe('Register Container', () => {
       password: 'Passw0rd1',
       confirmPassword: 'Passw0rd1',
     }
-    const dispatch = jasmine.createSpy('dispatch')
-    const wrapper = mount(<Register dispatch={dispatch} />)
+    let dispatch = jasmine.createSpy('dispatch')
+    let wrapper = mount(<Register dispatch={dispatch} />)
     const testFactory = containerCrudTestFactory(wrapper, dispatch, fields, handleAuthCredentialChange)
+
+    beforeEach(() => {
+      wrapper = mount(<Register dispatch={dispatch} />)
+      dispatch = jasmine.createSpy('dispatch')
+    })
 
     // Run through each of the fields to test
     Object.keys(fields).forEach(testFactory)

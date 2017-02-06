@@ -23,8 +23,10 @@ interface Props {
 }
 
 interface State {
-  email?: string
-  password?: string
+  fields?: {
+    password?: string
+    email?: string
+  }
 }
 
 export class Login extends React.Component<Props, State>  {
@@ -35,21 +37,30 @@ export class Login extends React.Component<Props, State>  {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
-      password: ''
+      fields: {
+        email: '',
+        password: ''
+      }
     }
-    this.handleEmailChange = this.handleEmailChange.bind(this)
-    this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.handleFieldChange = this.handleFieldChange.bind(this)
     this.syncWithStore = this.syncWithStore.bind(this)
     this.requestLogin = this.requestLogin.bind(this)
   }
 
-  handleEmailChange(email) {
-    this.setState({ email })
-  }
+  // handleEmailChange(email) {
+  //   this.setState({ email })
+  // }
 
-  handlePasswordChange(password) {
-    this.setState({ password })
+  // handlePasswordChange(password) {
+  //   this.setState({ password })
+  // }
+
+  handleFieldChange(type, val) {
+    this.setState(prevState => ({
+      fields: Object.assign({}, prevState.fields, {
+        [type]: val
+      })
+    }))
   }
 
   /**
@@ -72,14 +83,14 @@ export class Login extends React.Component<Props, State>  {
    */
 
   syncWithStore() {
-    const {email, password} = this.state
+    const {email, password} = this.state.fields
     const {dispatch} = this.props
     dispatch(handleAuthCredentialChange({ email, password }))
   }
 
   render() {
     const { isFetching } = this.props
-    const { email, password } = this.state
+    const { email, password } = this.state.fields
     const klass = ctx({
       [styles.container]: true
     })
@@ -94,20 +105,20 @@ export class Login extends React.Component<Props, State>  {
             name="email"
             label="Email"
             onChangeEnd={this.syncWithStore}
-            onChange={this.handleEmailChange}
+            onChange={val => this.handleFieldChange('email', val)}
             value={email} />
           <Input
             name="password"
             type="password"
             onChangeEnd={this.syncWithStore}
             label="Password"
-            onChange={this.handlePasswordChange}
+            onChange={val => this.handleFieldChange('password', val)}
             value={password} />
           <Button
             block
             loading={isFetching}
             onClick={this.requestLogin}
-            >Login</Button >
+          >Login</Button >
         </div>
       </div>
     )

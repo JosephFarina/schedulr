@@ -67,15 +67,25 @@ describe('Input', () => {
         }
       }
     }
-    const inputValue = { someName: 'hello im a value' }
-    const validateObj = validatorFactory(validatorConfig)(inputValue)
+
+    function setWrapperValue(val: string) {
+      const validateObj = validatorFactory(validatorConfig)({ someName: val })
+      return mount(<Input name={name} validateObj={validateObj} value={''} onChange={() => { }} />)
+    }
 
     beforeEach(() => {
-      wrapper = mount(<Input name={name} validateObj={validateObj} value={'length longer than zero'} onChange={() => { }} />)
+      wrapper = setWrapperValue('im some value')
     })
 
-    it('if there is an error but it has not not been touched yet it should not have the invalid class', () => {
+    it('if there is an error but it has not not been touched yet it should not have the invalid class or valid class', () => {
       expect(wrapper.find(`.${styles.invalid}`).length).toEqual(0)
+      expect(wrapper.find(`.${styles.valid}`).length).toEqual(0)
+    })
+
+    it('if there is no error and it has been touched it should have the valid class', () => {
+      wrapper = setWrapperValue('')
+      findInputFromInputComp(wrapper, name).simulate('focus', {})
+      expect(wrapper.find(`.${styles.valid}`).length).toEqual(1)
     })
 
     it('if there is an error and it has been touched it should have the invalid class but no message', () => {
@@ -90,7 +100,12 @@ describe('Input', () => {
       expect(wrapper.find(`.${styles.invalid}`).length).toEqual(1)
       expect(wrapper.find(`.${styles.message}`).text()).toEqual(expectedMessageText)
       expect(wrapper.find(`.${styles.containerWithMessage}`).length).toEqual(1)
-      console.log(wrapper.debug())
+      
+    })
+
+    it('if displayErrors then have invalid class regardless if has been focused or not', () => {
+      wrapper.setProps({ displayErrors: true })
+      expect(wrapper.find(`.${styles.invalid}`).length).toEqual(1)
     })
 
   })

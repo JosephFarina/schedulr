@@ -23,14 +23,15 @@ export const containerCrudTestFactory = curry((
   }, {})
 
   it(`${fieldBeingTested} change`, done => {
-    inputComponent.setState(emptyStringOrCurrVal)
-    const orgNameInput = findInputFromInputComp(inputComponent, fieldBeingTested)
-    orgNameInput.simulate('change', { target: { value: fieldsInState[fieldBeingTested] } })
+    inputComponent.setState({ fields: emptyStringOrCurrVal })
+    const input = findInputFromInputComp(inputComponent, fieldBeingTested)
+    input.simulate('change', { target: { value: fieldsInState[fieldBeingTested] } })
 
     // Need to wait for the inputs debounce after simulating change event
     setTimeout(() => {
       const expectedAction = action(emptyStringOrCurrVal)
       expect(dispatch.calls.mostRecent().args).toEqual([expectedAction])
+
       done()
     }, 500)
   })

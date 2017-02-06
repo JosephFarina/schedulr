@@ -55,7 +55,7 @@ const CalendarDay: React.StatelessComponent<Props> = (props: Props) => {
     [styles.dayIsDisabled]: day.isBefore(firstDaySelectable, 'day')
   })
 
-  // console.log(shifts && shifts.map(shift => shift.startTime))
+  // 
 
   return (
     <div onClick={() => handleClick(props)} className={className}>

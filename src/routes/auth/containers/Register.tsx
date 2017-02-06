@@ -9,7 +9,6 @@ import {
 } from 'src/shared/components'
 
 const styles = require('./Register.scss')
-const ctx = require('classnames')
 
 interface Props {
   dispatch?: Function
@@ -17,10 +16,13 @@ interface Props {
 }
 
 interface State {
-  orgName?: string
-  email?: string
-  password?: string
-  confirmPassword?: string
+  attemptedSubmition?: boolean
+  fields?: {
+    email?: string
+    password?: string
+    confirmPassword?: string
+    orgName?: string
+  }
 }
 
 export class Register extends React.Component<Props, State> {
@@ -28,12 +30,16 @@ export class Register extends React.Component<Props, State> {
   constructor(props) {
     super(props)
     this.state = {
-      orgName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      attemptedSubmition: false,
+      fields: {
+        orgName: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      }
     }
     this.syncWithStore = this.syncWithStore.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   /**
@@ -42,67 +48,62 @@ export class Register extends React.Component<Props, State> {
    * 
    */
 
-  handleInputChange(property: RegistrationFields, val: string) {
-    this.setState({
-      [property]: val
-    })
+  private handleSubmit() {
+    this.setState({ attemptedSubmition: true })
   }
 
-  syncWithStore() {
+  private handleInputChange(property: RegistrationFields, val: string) {
+    this.setState(prevState => ({
+      fields: Object.assign({}, prevState.fields, { [property]: val })
+    }))
+  }
+
+  private syncWithStore() {
     const {dispatch} = this.props
-    dispatch(handleAuthCredentialChange(this.state))
+    dispatch(handleAuthCredentialChange(this.state.fields))
   }
 
-  /**
-   * 
-   */
-
-  render() {
+  public render() {
     const {validatorObj} = this.props
-    const {
-      confirmPassword,
-      email,
-      orgName,
-      password
-    } = this.state
-
-    // console.log(validatorObj)
+    const {attemptedSubmition} = this.state
+    const inputFields: { label: string, type: 'text' | 'password', value: RegistrationFields }[] = [
+      {
+        label: 'Organizations Name',
+        value: 'orgName',
+        type: 'text'
+      },
+      {
+        label: 'Email',
+        value: 'email',
+        type: 'text'
+      },
+      {
+        label: 'Password',
+        value: 'password',
+        type: 'password'
+      },
+      {
+        label: 'Confirm Password',
+        value: 'confirmPassword',
+        type: 'password'
+      }
+    ]
 
     return (
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <h1>Sign Up</h1>
-          <Input
-            name="orgName"
+          {inputFields.map((field, i) => <Input
+            key={i}
+            type={field.type}
+            name={field.value}
             validateObj={validatorObj}
-            value={orgName}
-            onChange={val => this.handleInputChange('orgName', val)}
+            value={this.state.fields[field.value]}
+            displayErrors={attemptedSubmition}
+            onChange={val => this.handleInputChange(field.value, val)}
             onChangeEnd={this.syncWithStore}
-            label="Organizations Name" />
-          <Input
-            name="email"
-            validateObj={validatorObj}
-            value={email}
-            onChange={val => this.handleInputChange('email', val)}
-            onChangeEnd={this.syncWithStore}
-            label="Email" />
-          <Input
-            name="password"
-            validateObj={validatorObj}
-            type="password"
-            value={password}
-            onChange={val => this.handleInputChange('password', val)}
-            onChangeEnd={this.syncWithStore}
-            label="Password" />
-          <Input
-            name="confirmPassword"
-            validateObj={validatorObj}
-            type="password"
-            value={confirmPassword}
-            onChange={val => this.handleInputChange('confirmPassword', val)}
-            onChangeEnd={this.syncWithStore}
-            label="Confirm Password" />
-          <Button block>Submit</Button>
+            label={field.label} />)}
+          <Button onClick={this.handleSubmit} block>Submit</Button>
         </div>
         <div className={styles.imageContainer}></div>
       </div>
@@ -116,5 +117,4 @@ const mapStateToProps = (state, ownProps): Props => {
   }
 }
 
-// export default connect(mapStateToProps)(Register)
 export default connect(mapStateToProps)(Register)

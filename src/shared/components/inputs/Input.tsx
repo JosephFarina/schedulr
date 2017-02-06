@@ -98,6 +98,7 @@ export class Input extends React.Component<Props, State> {
     return value && value.length > 0 || false
   }
 
+  // FIXME: handle auto fill -- it can be valid but not touched
   private isValid(): boolean {
     const { valid } = this.props
     const { touched } = this.state
@@ -106,10 +107,10 @@ export class Input extends React.Component<Props, State> {
   }
 
   private isInvalid(): boolean {
-    const { valid } = this.props
+    const { valid, displayErrors } = this.props
     const { touched } = this.state
 
-    return touched && (valid === false || this.foundInValidateObj())
+    return (touched || displayErrors) && (valid === false || this.foundInValidateObj())
   }
 
   // If true that means that the curr name of the input is present in the in the supplied validateObj meaning its invalid
@@ -130,39 +131,26 @@ export class Input extends React.Component<Props, State> {
    */
 
   public render() {
+    const { focused } = this.state
     const {
       label,
       value,
       children,
-      message,
       type,
       name
     } = this.props
 
-    const {
-      focused,
-    } = this.state
 
     const containerClass = ctx({
       [styles.container]: true,
       [styles.containerWithMessage]: !!this.getErrorMessage(),
-      [styles.invalid]: this.isInvalid()
+      [styles.invalid]: this.isInvalid(),
+      [styles.valid]: this.isValid()
     })
 
     const labelClass = ctx({
       [styles.label]: true,
       [styles.labelActive]: focused || this.hasValue(),
-      [styles.greenColor]: this.isValid()
-    })
-
-    const messageClass = ctx({
-      [styles.message]: true,
-      [styles.greenColor]: this.isValid()
-    })
-
-    const barClass = ctx({
-      [styles.bar]: true,
-      [styles.greenBackground]: this.isValid()
     })
 
     return (
@@ -178,8 +166,8 @@ export class Input extends React.Component<Props, State> {
           ref={input => { this.textInput = input }} />
 
         <label className={labelClass}>{label}</label>
-        <div className={barClass}></div>
-        <div className={messageClass}>{this.getErrorMessage()}</div>
+        <div className={styles.bar}></div>
+        <div className={styles.message}>{this.getErrorMessage()}</div>
         {children}
       </div>
     )

@@ -66,7 +66,7 @@ export class Register extends React.Component<Props, State> {
       password
     } = this.state
 
-    console.log(validatorObj)
+    // console.log(validatorObj)
 
     return (
       <div className={styles.container}>

@@ -4,6 +4,7 @@ import * as React from 'react'
 const debounce = require('lodash.debounce')
 
 import { InputProps } from 'src/models'
+import { errorArrayToString } from 'src/utils'
 
 const styles = require('./Input.scss')
 const ctx = require('classnames')
@@ -24,6 +25,7 @@ export class Input extends React.Component<Props, State> {
     name: '',
     message: '',
     validateObj: null,
+    displayErrors: false,
     onBlur: () => { },
     onFocus: () => { },
     onChange: () => { },
@@ -100,21 +102,25 @@ export class Input extends React.Component<Props, State> {
     const { valid } = this.props
     const { touched } = this.state
 
-    return touched && (valid === true)
+    return touched && (valid === true || !this.foundInValidateObj())
   }
 
   private isInvalid(): boolean {
-    const { valid, validateObj, name } = this.props
+    const { valid } = this.props
     const { touched } = this.state
 
-    return touched && (valid === false || !!this.getErrorMessage())
+    return touched && (valid === false || this.foundInValidateObj())
   }
 
-  // TODO: have it display error when told to display errors and show green when is valid and touched
-  private getErrorMessage(): string | null {
-    const { valid, validateObj, name } = this.props
+  // If true that means that the curr name of the input is present in the in the supplied validateObj meaning its invalid
+  private foundInValidateObj(): boolean {
+    const { validateObj, name } = this.props
+    return (!!validateObj && !!~Object.keys(validateObj).indexOf(name))
+  }
 
-    return !!validateObj && !!~Object.keys(validateObj).indexOf(name) ? validateObj[name][0] : null
+  private getErrorMessage(): string | null {
+    const { displayErrors, validateObj, name } = this.props
+    return displayErrors && this.foundInValidateObj() ? errorArrayToString(validateObj[name]) : null
   }
 
   /**
@@ -129,37 +135,33 @@ export class Input extends React.Component<Props, State> {
       value,
       children,
       message,
-      valid,
       type,
       name
     } = this.props
 
     const {
       focused,
-      touched
     } = this.state
 
     const containerClass = ctx({
       [styles.container]: true,
-      [styles.containerWithMessage]: message && message.length > 0
+      [styles.containerWithMessage]: !!this.getErrorMessage(),
+      [styles.invalid]: this.isInvalid()
     })
 
     const labelClass = ctx({
       [styles.label]: true,
       [styles.labelActive]: focused || this.hasValue(),
-      [styles.redColor]: this.isInvalid(),
       [styles.greenColor]: this.isValid()
     })
 
     const messageClass = ctx({
       [styles.message]: true,
-      [styles.redColor]: this.isInvalid(),
       [styles.greenColor]: this.isValid()
     })
 
     const barClass = ctx({
       [styles.bar]: true,
-      [styles.redBackground]: this.isInvalid(),
       [styles.greenBackground]: this.isValid()
     })
 
@@ -173,11 +175,11 @@ export class Input extends React.Component<Props, State> {
           onBlur={this.onBlur}
           onFocus={this.onFocus}
           onChange={this.onChange}
-          ref={input => { this.textInput = input } } />
+          ref={input => { this.textInput = input }} />
 
         <label className={labelClass}>{label}</label>
         <div className={barClass}></div>
-        <div className={messageClass}>{message}</div>
+        <div className={messageClass}>{this.getErrorMessage()}</div>
         {children}
       </div>
     )

@@ -19,6 +19,21 @@
       ]
     },
     {
+      "name": "Test Debug",
+      "type": "chrome",
+      "request": "attach",
+      "webRoot": "${workspaceRoot}",
+      "url": "http://localhost:9876",
+      "port": 9876,
+      // "userDataDir": "${workspaceRoot}/.vscode/chrome",
+      "sourceMaps": true,
+      "smartStep": true,
+      "internalConsoleOptions": "openOnSessionStart",
+      "skipFiles": [
+        "node_modules/**"
+      ]
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",

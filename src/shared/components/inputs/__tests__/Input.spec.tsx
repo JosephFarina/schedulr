@@ -5,11 +5,10 @@ import {
 import * as React from 'react'
 
 import { Validator, ValidatorResponseObject } from 'src/models'
-import { validatorFactory } from 'src/utils'
+import { validatorFactory, errorArrayToString } from 'src/utils'
 import { findInputFromInputComp } from 'src/testUtils'
 
 import Input, { Props, State } from './../Input'
-
 
 const styles = require('./../Input.scss')
 
@@ -22,7 +21,7 @@ describe('Input', () => {
 
   it('should display value prop', () => {
     const val = "helllo"
-    wrapper = mount(<Input value={val} onChange={() => { } } />)
+    wrapper = mount(<Input value={val} onChange={() => { }} />)
     expect(wrapper.html()).toContain(val)
   })
 
@@ -59,22 +58,39 @@ describe('Input', () => {
 
   describe('validation:', () => {
     const name = 'someName'
+    const message = ['it is', 'another error', 'onemore err']
+    const expectedMessageText = errorArrayToString(message)
     const validatorConfig: Validator<{ someName: string }> = {
       someName: {
         invalid(val) {
-          return val.length > 0 ? ['it is'] : null
+          return val.length > 0 ? message : null
         }
       }
     }
     const inputValue = { someName: 'hello im a value' }
     const validateObj = validatorFactory(validatorConfig)(inputValue)
 
-    it('validationObj && name is undefined in the supplied validation object && !displayErrors', () => {
-      wrapper = mount(<Input name={name} validateObj={validateObj} value={null} onChange={null} />)
-      const expectedInvalidComponent = mount(<Input name={name} validateObj={validateObj} valid={false} value={null} onChange={null} />)
-      // expect(wrapper.html()).toEqual(expectedInvalidComponent.html())
-      // expect wrapper to display invalid class  
-      // expect wrapper to NOT display error message
+    beforeEach(() => {
+      wrapper = mount(<Input name={name} validateObj={validateObj} value={'length longer than zero'} onChange={() => { }} />)
+    })
+
+    it('if there is an error but it has not not been touched yet it should not have the invalid class', () => {
+      expect(wrapper.find(`.${styles.invalid}`).length).toEqual(0)
+    })
+
+    it('if there is an error and it has been touched it should have the invalid class but no message', () => {
+      findInputFromInputComp(wrapper, name).simulate('focus', {})
+      expect(wrapper.find(`.${styles.invalid}`).length).toEqual(1)
+      expect(wrapper.find(`.${styles.message}`).text()).toEqual('')
+    })
+
+    it('if there is an error and it has been touched and displayErrors is true than there error message should be shown', () => {
+      wrapper.setProps({ displayErrors: true })
+      findInputFromInputComp(wrapper, name).simulate('focus', {})
+      expect(wrapper.find(`.${styles.invalid}`).length).toEqual(1)
+      expect(wrapper.find(`.${styles.message}`).text()).toEqual(expectedMessageText)
+      expect(wrapper.find(`.${styles.containerWithMessage}`).length).toEqual(1)
+      console.log(wrapper.debug())
     })
 
   })

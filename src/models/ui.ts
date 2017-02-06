@@ -10,6 +10,7 @@ export interface InputProps {
   type?: string
   name?: string
   validateObj?: ValidatorResponseObject<any>
+  displayErrors?: boolean
   onBlur?(): void
   onFocus?(): void
   onChangeEnd?(): void

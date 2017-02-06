@@ -9,6 +9,8 @@ import {
   RState,
 } from 'src/models'
 
+import { errorArrayToString } from 'src/utils'
+
 import {
   getNotificationMessages
 } from 'src/state/ui/notification'
@@ -26,18 +28,6 @@ const defaultProps: AlertProps = {
   ]
 }
 
-function getMessageDisplay(messages: string[]): string {
-  if (messages.length === 1) {
-    return `${messages[0]}`
-  }
-
-  if (messages.length === 2) {
-    return `${messages[0]} and ${messages.length - 1} more error`
-  }
-
-  return `${messages[0]} and ${messages.length - 1} more errors`
-}
-
 export const Alert: React.StatelessComponent<AlertProps> = (props: AlertProps) => {
   const {
     messages
@@ -50,7 +40,7 @@ export const Alert: React.StatelessComponent<AlertProps> = (props: AlertProps) =
   return (
     <div>
       {messages && <div className={alertClass}>
-        <div className={styles.ErrorMessage}>{getMessageDisplay(messages)}</div>
+        <div className={styles.ErrorMessage}>{errorArrayToString(messages)}</div>
       </div>
       }
     </div>

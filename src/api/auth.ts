@@ -33,7 +33,7 @@ export const login = (email: string, password: string): Promise<LoginRes> => {
 export const register = ({email, password, confirmPassword, orgName}): Promise<RegisterRes> => {
   return new Promise((res, rej) => {
     setTimeout(() => {
-      rej({
+      res({
         jwt: 'valid.token.jwt',
         successful: true,
         errors: ['Something went wrong']

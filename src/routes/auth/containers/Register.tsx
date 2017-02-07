@@ -1,12 +1,19 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import { RegistrationFields, ValidatorResponseObject, RAuthRegister } from 'src/models'
+import {
+  RegistrationFields,
+  ValidatorResponseObject,
+  RAuthRegister,
+} from 'src/models'
+
 import {
   handleRegistrationCredentialChange,
   authRegisterValidator,
-  requestRegistration
+  requestRegistration,
+  getAuthRegister
 } from 'src/state/auth/register'
+
 import {
   Input,
   Button
@@ -17,6 +24,7 @@ const styles = require('./Register.scss')
 interface Props {
   dispatch?: Function
   validatorObj?: ValidatorResponseObject<RAuthRegister>
+  registration?: RAuthRegister
 }
 
 interface State {
@@ -72,7 +80,8 @@ export class Register extends React.Component<Props, State> {
   }
 
   public render() {
-    const {validatorObj} = this.props
+    const {validatorObj, registration} = this.props
+    const {fetching } = registration
     const {attemptedSubmition} = this.state
     const inputFields: { label: string, type: 'text' | 'password', value: RegistrationFields }[] = [
       {
@@ -112,7 +121,7 @@ export class Register extends React.Component<Props, State> {
               onChange={val => this.handleInputChange(field.value, val)}
               onChangeEnd={this.syncWithStore}
               label={field.label} />)}
-            <Button role="submit" onClick={this.handleSubmit} block>Submit</Button>
+            <Button loading={fetching} role="submit" onClick={this.handleSubmit} block>Submit</Button>
           </form>
         </div>
         <div className={styles.imageContainer}></div>
@@ -123,7 +132,8 @@ export class Register extends React.Component<Props, State> {
 
 const mapStateToProps = (state, ownProps): Props => {
   return {
-    validatorObj: authRegisterValidator(state)
+    validatorObj: authRegisterValidator(state),
+    registration: getAuthRegister(state)
   }
 }
 

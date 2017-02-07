@@ -8,7 +8,6 @@ import {
   requestLogin
 } from 'src/state/auth/login'
 
-
 const styles = require('./Login.css')
 const ctx = require('classnames')
 

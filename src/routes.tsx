@@ -28,6 +28,12 @@ import Auth from 'src/routes/auth/Auth'
 import Login from 'src/routes/auth/containers/Login'
 import Register from 'src/routes/auth/containers/Register'
 
+// Account
+import {
+  Account,
+  Employee
+} from './routes/account'
+
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
 
@@ -43,6 +49,10 @@ const Routes = () => (
         <Route path="auth" component={Auth} >
           <Route path="login" component={Login} />
           <Route path="register" component={Register} />
+        </Route>
+
+        <Route path="account" component={Account}>
+          <Route path="employee" component={Employee}></Route>
         </Route>
 
       </Route>

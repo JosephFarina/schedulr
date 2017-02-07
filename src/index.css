@@ -42,3 +42,18 @@ a {
   line-height: 1.3rem;
   text-align: center;
 }
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+:global #mainContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}

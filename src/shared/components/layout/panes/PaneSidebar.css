@@ -1,37 +1,36 @@
-@import 'css-vars';
+@import "css-vars";
 
 .container {
-  composes: pane from './Shared.css';
-	width: 100%;
-	max-width: $pane-Sidebar--width;
-	border-right: $border;
-	padding: 0;
+  composes: pane from "./Shared.css";
+  width: 100%;
+  max-width: $pane-Sidebar--width;
+  border-right: $border;
+  padding: 0;
+  overflow: scroll;
+  background-color: $color-Mono--white;
+  /*padding: 1rem;*/
+  /*padding-top: 5rem;*/
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 
-	overflow: scroll;
-	background-color: $color-Mono--white;
-	/*padding: 1rem;*/
-	/*padding-top: 5rem;*/
-	display: flex;
-	justify-content: space-between;
-	flex-direction: column;
-
-	height: calc(100% - 4rem);
+  // height: calc(100% - 4rem);
 }
 
 
 .halfScreen {
-	position: absolute;
-	bottom: 0;
-	max-width: 50vw;
-	top: $navbar-Height;
-	z-index: 9999;
+  position: absolute;
+  bottom: 0;
+  max-width: 50vw;
+  top: $navbar-Height;
+  z-index: 9999;
 }
 
 .minimized {
-	max-width: $pane-Sidebar--width--minimized;
+  max-width: $pane-Sidebar--width--minimized;
 }
 
 .split {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }

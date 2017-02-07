@@ -2,7 +2,11 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { RegistrationFields, ValidatorResponseObject, RAuthRegister } from 'src/models'
-import { handleAuthCredentialChange, authRegisterValidator } from 'src/state/auth/register'
+import {
+  handleRegistrationCredentialChange,
+  authRegisterValidator,
+  requestRegistration
+} from 'src/state/auth/register'
 import {
   Input,
   Button
@@ -49,7 +53,11 @@ export class Register extends React.Component<Props, State> {
    */
 
   private handleSubmit() {
+    const {validatorObj, dispatch} = this.props
     this.setState({ attemptedSubmition: true })
+    if (validatorObj === null) {
+      dispatch(requestRegistration())
+    }
   }
 
   private handleInputChange(property: RegistrationFields, val: string) {
@@ -60,7 +68,7 @@ export class Register extends React.Component<Props, State> {
 
   private syncWithStore() {
     const {dispatch} = this.props
-    dispatch(handleAuthCredentialChange(this.state.fields))
+    dispatch(handleRegistrationCredentialChange(this.state.fields))
   }
 
   public render() {
@@ -93,18 +101,18 @@ export class Register extends React.Component<Props, State> {
       <div className={styles.container}>
         <div className={styles.formContainer}>
           <h1>Sign Up</h1>
-          <form onSubmit={e => {e.preventDefault()}}>
-          {inputFields.map((field, i) => <Input
-            key={i}
-            type={field.type}
-            name={field.value}
-            validateObj={validatorObj}
-            value={this.state.fields[field.value]}
-            displayErrors={attemptedSubmition}
-            onChange={val => this.handleInputChange(field.value, val)}
-            onChangeEnd={this.syncWithStore}
-            label={field.label} />)}
-          <Button role="submit" onClick={this.handleSubmit} block>Submit</Button>
+          <form onSubmit={e => { e.preventDefault() }}>
+            {inputFields.map((field, i) => <Input
+              key={i}
+              type={field.type}
+              name={field.value}
+              validateObj={validatorObj}
+              value={this.state.fields[field.value]}
+              displayErrors={attemptedSubmition}
+              onChange={val => this.handleInputChange(field.value, val)}
+              onChangeEnd={this.syncWithStore}
+              label={field.label} />)}
+            <Button role="submit" onClick={this.handleSubmit} block>Submit</Button>
           </form>
         </div>
         <div className={styles.imageContainer}></div>

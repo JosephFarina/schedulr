@@ -2,6 +2,7 @@ import { browserHistory } from 'react-router'
 
 import { RAuthLogin, RState } from 'src/models'
 import * as API from 'src/api'
+
 import auth, {
   loginInitiated,
   loginRejected,
@@ -10,19 +11,23 @@ import auth, {
   initialState,
   requestLogin,
 } from './..'
-import { triggerNotification } from 'src/state/ui/notification'
+
 import {
   LOCALSTORAGE_JWT_TOKEN,
   PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN
 } from 'src/config'
 
+import {
+  lastSpyCall,
+  createApiSpy,
+  testSpyFlow
+} from 'src/testUtils'
+
 const email = 'jrf61194@gmail.com'
 const password = 'Pas$w0Rd13'
 const jwt = 'thisi s a long token'
 
-const createApiSpy = (val: Promise<any>) => {
-  return spyOn(API, 'login').and.returnValue(val)
-}
+const apiLoginSpy = createApiSpy(API, 'login')
 
 describe('Auth — Login', () => {
   beforeEach(() => { jasmine.DEFAULT_TIMEOUT_INTERVAL = 150000 })
@@ -52,63 +57,58 @@ describe('Auth — Login', () => {
 
   describe('#requestLogin login flow', () => {
     let dispatch
+    beforeEach(() => { dispatch = jasmine.createSpy('dispatch') })
     const getState = (): RState => ({ auth: { login: { email, password } } })
+    const errors = ['blah blak', 'another error']
 
-    beforeEach(() => {
-      dispatch = jasmine.createSpy('dispatch')
+    /**
+     * 
+     * Test Failure Flows
+     * 
+     */
+
+    it('when unsuccesful attempt: loginInitiated() -> rejectedLogin() -> triggerNotification()', done => {
+      apiLoginSpy(Promise.resolve({ successful: false, errors }))
+      testFailureFlow(done)
     })
 
-    function testApiCalledWithEmailAndPassword(apiCall) {
-      expect(apiCall.calls.mostRecent().args).toEqual([email, password])
-    }
-
-    function firstDispatchShouldBeLoginInitiated() {
-      expect(dispatch.calls.first().args[0]).toEqual(loginInitiated())
-    }
-
-    function secondDispatchCallShouldEqual(expectedValue) {
-      expect(dispatch.calls.all()[1].args[0]).toEqual(expectedValue)
-    }
-
-    function lastDispatchCallShouldEqual(expectedValue) {
-      expect(dispatch.calls.mostRecent().args[0]).toEqual(expectedValue)
-    }
-
-    it('when unsuccesful attempt: loginInitiated -> rejectedLogin -> triggerNotification', done => {
-      const errors = ['blah blak', 'another error']
-      const apiCall = createApiSpy(Promise.resolve({ successful: false, errors }))
-      testFailureFlow(done, apiCall, errors)
+    it('when an error occurs: loginInitiated() -> rejectedLogin() -> triggerNotification()', done => {
+      apiLoginSpy(Promise.reject({ errors }))
+      testFailureFlow(done)
     })
 
-    it('when an error occurs: loginInitiated -> rejectedLogin -> triggerNotification', done => {
-      const errors = ['An error occured trying to log you in']
-      const apiCall = createApiSpy(Promise.reject({ errors }))
-      testFailureFlow(done, apiCall, errors)
-    })
-
-    function testFailureFlow(done, apiCall, errors) {
+    function testFailureFlow(done) {
       requestLogin()(dispatch, getState).then(() => {
-        testApiCalledWithEmailAndPassword(apiCall)
-        firstDispatchShouldBeLoginInitiated()
-        secondDispatchCallShouldEqual(loginRejected(errors))
-        // todo: figure out how to test if notifcation is being dispatched
-        // lastDispatchCallShouldEqual(triggerNotification(errors))
+
+        testSpyFlow(dispatch, [
+          loginInitiated(),
+          loginRejected(errors),
+        ])
+
         done()
       })
     }
 
-    it('when successful attempt: loginInitiated -> localStorage set token -> successfulLogin -> redirect to dashboard', done => {
+    /**
+     * 
+     * Successful Test
+     * 
+     */
+
+    it('when successful: loginInitiated() -> localStorage.setToken(jwt) -> successfulLogin() -> redirect to dashboard', done => {
       const localStorageSpy = spyOn(localStorage, 'setItem')
       const browserHistoryPushSpy = spyOn(browserHistory, 'push')
-      const apiCall = createApiSpy(Promise.resolve({ successful: true, jwt }))
-
+      apiLoginSpy(Promise.resolve({ successful: true, jwt }))
 
       requestLogin()(dispatch, getState).then(() => {
-        testApiCalledWithEmailAndPassword(apiCall)
-        firstDispatchShouldBeLoginInitiated()
-        lastDispatchCallShouldEqual(successfulLogin())
-        expect(localStorageSpy.calls.mostRecent().args).toEqual([LOCALSTORAGE_JWT_TOKEN, jwt])
-        expect(browserHistoryPushSpy.calls.mostRecent().args[0]).toEqual(PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN)
+
+        testSpyFlow(dispatch, [
+          loginInitiated(),
+          successfulLogin()
+        ])
+
+        expect(lastSpyCall(localStorageSpy)).toEqual([LOCALSTORAGE_JWT_TOKEN, jwt])
+        expect(lastSpyCall(browserHistoryPushSpy)).toEqual([PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN])
         done()
       })
 

@@ -9,7 +9,7 @@ export const initialState: RAuthRegister = {
   fetching: false
 }
 
-const register = (state = initialState, action) => {
+const register = (state = initialState, action): RAuthRegister => {
   const { payload } = action
 
   switch (action.type) {
@@ -23,7 +23,7 @@ const register = (state = initialState, action) => {
     case RegisterActions.loginRejected:
       return Object.assign({}, state, payload)
 
-    case RegisterActions.loginSucceeded:
+    case RegisterActions.succesfull:
       return initialState
 
     default:

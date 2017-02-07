@@ -2,7 +2,7 @@ import * as React from 'react'
 import { mount } from 'enzyme'
 
 import { Register } from './../Register'
-import { handleAuthCredentialChange } from 'src/state/auth/register'
+import { handleRegistrationCredentialChange } from 'src/state/auth/register'
 import { containerCrudTestFactory } from 'src/testUtils'
 
 describe('Register Container', () => {
@@ -21,7 +21,7 @@ describe('Register Container', () => {
     }
     let dispatch = jasmine.createSpy('dispatch')
     let wrapper = mount(<Register dispatch={dispatch} />)
-    const testFactory = containerCrudTestFactory(wrapper, dispatch, fields, handleAuthCredentialChange)
+    const testFactory = containerCrudTestFactory(wrapper, dispatch, fields, handleRegistrationCredentialChange)
 
     beforeEach(() => {
       wrapper = mount(<Register dispatch={dispatch} />)

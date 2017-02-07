@@ -1,17 +1,12 @@
-/**
- * TODO: Show error message if error occurs
- */
-
-// import { browserHistory } from 'react-router'
+import { browserHistory } from 'react-router'
 
 import { RegisterActions } from 'src/state/actionTypes'
 import { Action, RAuthRegister } from 'src/models'
-import {  } from './'
-import {
-  // LOCALSTORAGE_JWT_TOKEN,
-  // PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN
-} from 'src/config'
-// import * as API from 'src/api'
+import { getAuthRegister } from './'
+import { triggerNotification } from './../../ui/notification'
+import * as API from 'src/api'
+import { LOCALSTORAGE_JWT_TOKEN, PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_REGISTRATION } from 'src/config'
+
 
 /**
  * 
@@ -20,7 +15,7 @@ import {
  */
 
 
-export const handleAuthCredentialChange = (data: RAuthRegister): Action<RAuthRegister> => {
+export const handleRegistrationCredentialChange = (data: RAuthRegister): Action<RAuthRegister> => {
   return {
     type: RegisterActions.updateRegistrationField,
     payload: Object.assign({}, data)
@@ -30,63 +25,45 @@ export const handleAuthCredentialChange = (data: RAuthRegister): Action<RAuthReg
 
 /**
  * 
- * Initiate Registraton
+ * 
  * 
  */
 
-// export const loginInitiated = (): Action<RAuthLogin> => {
-//   return {
-//     type: LoginActions.requestInitiated,
-//     payload: {
-//       fetching: true
-//     }
-//   }
-// }
+export const successfulRegistration = (): Action<RAuthRegister> => ({ type: RegisterActions.succesfull, payload: null })
 
-/**
- * 
- * Reject Registration
- * 
- */
+export const rejectedRegistration = (errors: string[]): Action<RAuthRegister> => ({
+  type: RegisterActions.loginRejected,
+  payload: {
+    fetching: false,
+    errors
+  }
+})
 
-// export const loginRejected = (errors: string[] = []): Action<RAuthLogin> => {
-//   return {
-//     type: LoginActions.loginRejected,
-//     payload: {
-//       errors,
-//       fetching: false
-//     }
-//   }
-// }
+export const registerInitiated = (): Action<RAuthRegister> => {
+  return {
+    type: RegisterActions.requestInitiated,
+    payload: {
+      fetching: true
+    }
+  }
+}
 
-/**
- * 
- * Successful Login
- * 
- */
-
-// export const successfulLogin = (): Action<RAuthLogin> => ({ type: LoginActions.loginSucceeded, payload: null })
-
-
-
-export const requestLogin = () => (dispatch, getState): Promise<any> => {
-  return
-  // const { email, password } = getAuthLogin(getState())
-
-  // dispatch(loginInitiated())
-
-  // return API.login(email, password)
-  //   .then(({ errors, successful, jwt }) => {
-  //     if (!successful) {
-  //       dispatch(loginRejected(errors))
-  //     } else {
-  //       localStorage.setItem(LOCALSTORAGE_JWT_TOKEN, jwt)
-  //       dispatch(successfulLogin())
-  //       browserHistory.push(PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_LOGIN)
-  //     }
-  //   })
-  //   .catch(({errors}) => {
-  //     dispatch(loginRejected(errors))
-  //   })
-
+export const requestRegistration = () => (dispatch, getState) => {
+  const {email, password, confirmPassword, orgName} = getAuthRegister(getState())
+  dispatch(registerInitiated())
+  return API.register({ email, password, confirmPassword, orgName })
+    .then(({errors, jwt, successful}) => {
+      if (!successful) {
+        dispatch(rejectedRegistration(errors))
+        dispatch(triggerNotification(errors))
+      } else {
+        localStorage.setItem(LOCALSTORAGE_JWT_TOKEN, jwt)
+        dispatch(successfulRegistration())
+        browserHistory.push(PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_REGISTRATION)
+      }
+    })
+    .catch(({errors}) => {
+      dispatch(rejectedRegistration(errors))
+      dispatch(triggerNotification(errors))
+    })
 }

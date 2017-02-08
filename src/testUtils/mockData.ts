@@ -66,17 +66,40 @@ export const employee: Employee = {
 }
 
 export const employeesOne: Employees = {
-  'a43qegrwger': {
-    id: 'a43qegrwger',
-    alias: '2 asdf23fevaf',
-    firstName: '21qfdsf2  fa',
-    lastName: 'asdf23fevaf'
+  '0': {
+    id: '0',
+    alias: 'Employee 0',
+    firstName: '0First',
+    lastName: '0Last',
+    manager: null
   },
-  '23rqwefdfw': {
-    id: '23rqwefdfw',
-    alias: 'av avdsfn23if09ef',
-    firstName: 'avdsfkfaff',
-    lastName: 'avdsfn23if09ef'
+  '1': {
+    id: '1',
+    alias: 'Employee 1',
+    firstName: '1First',
+    lastName: '1Last',
+    manager: '0'
+  },
+  '2': {
+    id: '2',
+    alias: 'Employee 2',
+    firstName: '2First',
+    lastName: '2Last',
+    manager: '1'
+  },
+  '3': {
+    id: '3',
+    alias: 'Employee 3',
+    firstName: '3First',
+    lastName: '3Last',
+    manager: '1'
+  },
+  '4': {
+    id: '4',
+    alias: 'Employee 4',
+    firstName: '4First',
+    lastName: '4Last',
+    manager: null
   }
 }
 

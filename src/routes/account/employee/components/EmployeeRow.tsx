@@ -35,6 +35,12 @@ const EmployeeRow: React.StatelessComponent<Props> = (props: Props) => {
         <img className={styles.avatar} src={imageUrl} alt="" />
       </div>
 
+      {/*TODO:*/}
+      {/*add tooltips to each item*/}
+      {/*figure out how the data is gonna be put together 
+      employees will be stored normalized in the redux store but how will 
+      it go through and organize employees by managers efficiently*/}
+
       <div className={styles.fields}>
         <div data-tip data-for={`messageForFirstName`} className={styles.field}>
           <div className={styles.fieldTitle}>First Name</div>

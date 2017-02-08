@@ -40,6 +40,16 @@ export interface Employee {
   alias?: string
   firstName?: string
   lastName?: string
+  manager?: string
+}
+
+/**
+ * Difference between this and employee is that 
+ * is it has an array of employee objects
+ */
+
+export interface NestedEmployee extends Employee {
+  employees?: Employee[]
 }
 
 export interface Employees {

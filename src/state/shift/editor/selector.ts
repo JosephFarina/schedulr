@@ -32,6 +32,7 @@ export const getShiftBeingCreated = (state: RState): ShiftTemplate => Object.ass
 export const getEmployeesInShiftBeingCreated = (state: RState): string[] => state.shift.editor.employeesInShift
 export const getShiftDate = (state: RState): string => state.shift.editor.shiftDate
 export const getDatePickerMonth = (state: RState): string => state.shift.editor.datePickerMonth
+
 export const getGeneratedShifts = (state: RState): Shift[] => {
   const employeesInShift = getEmployeesInShiftBeingCreated(state)
   const shiftBeingCreated = getShiftBeingCreated(state)

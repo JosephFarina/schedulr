@@ -9,6 +9,14 @@ import * as Selectors from './../selector'
 import * as Models from 'src/models'
 import { convertShiftObjectToArray } from 'src/utils'
 
+function makeShiftState(data): () => Models.RState {
+  return () => ({
+    shift: {
+      data
+    }
+  })
+}
+
 describe('Shift State', () => {
   it('sanity check that it returns the correct initial state', () => {
     expect(shifts(undefined, { type: null, payload: null })).toEqual(initialState)
@@ -18,8 +26,10 @@ describe('Shift State', () => {
     let shiftSetOne: Models.Shifts
     let shiftSetTwo: Models.Shifts
     let combinedShifts: Models.Shifts
+    let dispatch
 
     beforeEach(() => {
+      dispatch = jasmine.createSpy('dispatch')
       shiftSetOne = {
         'fffdfdfdf': {
           id: 'fffdfdfdf',
@@ -53,12 +63,12 @@ describe('Shift State', () => {
     })
 
     it('#removeAddedShifts should delete the shifts', () => {
-      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
+      Actions.removeAddedShifts(convertShiftObjectToArray(shiftSetOne))(dispatch, makeShiftState({
         addedShifts: combinedShifts
-      })
+      }))
 
-      const res = shifts(initialStateWithAddedShifts, Actions.removeAddedShifts(convertShiftObjectToArray(shiftSetOne)))
-      expect(res.addedShifts).toEqual(shiftSetTwo)
+      // its a thunk so just checking that the payload is accurate
+      expect(dispatch.calls.mostRecent().args[0].payload).toEqual(shiftSetTwo)
     })
 
     it('#editShifts should add edited shifts to the state', () => {
@@ -70,27 +80,28 @@ describe('Shift State', () => {
     })
 
     it('#removeEditedShifts should delete teh shifts', () => {
-      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
+      Actions.removeEditedShifts(convertShiftObjectToArray(shiftSetOne))(dispatch, makeShiftState({
         editedShifts: combinedShifts
-      })
-      const res = shifts(initialStateWithAddedShifts, Actions.removeEditedShifts(convertShiftObjectToArray(shiftSetOne)))
-      expect(res.editedShifts).toEqual(shiftSetTwo)
+      }))
+
+      // its a thunk so just checking that the payload is accurate
+      expect(dispatch.calls.mostRecent().args[0].payload).toEqual(shiftSetTwo)
     })
 
     it('#deleteShifts should add the ids to the state', () => {
-      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
+      Actions.deleteShifts(convertShiftObjectToArray(shiftSetTwo))(dispatch, makeShiftState({
         deletedShifts: Object.keys(shiftSetOne)
-      })
-      const res = shifts(initialStateWithAddedShifts, Actions.deleteShifts(convertShiftObjectToArray(shiftSetTwo)))
-      expect(res.deletedShifts.sort()).toEqual(Object.keys(combinedShifts).sort())
+      }))
+
+      expect(dispatch.calls.mostRecent().args[0].payload.sort()).toEqual(Object.keys(combinedShifts).sort())
     })
 
     it('#removeDeletedShifts should delete the ids from the state', () => {
-      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
+      Actions.removeDeletedShifts(convertShiftObjectToArray(shiftSetOne))(dispatch, makeShiftState({
         deletedShifts: Object.keys(combinedShifts)
-      })
-      const res = shifts(initialStateWithAddedShifts, Actions.removeDeletedShifts(convertShiftObjectToArray(shiftSetOne)))
-      expect(res.deletedShifts.sort()).toEqual(Object.keys(shiftSetTwo).sort())
+      }))
+
+      expect(dispatch.calls.mostRecent().args[0].payload.sort()).toEqual(Object.keys(shiftSetTwo).sort())
     })
 
   })

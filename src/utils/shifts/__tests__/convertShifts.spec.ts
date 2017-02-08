@@ -4,7 +4,7 @@ import {
 } from 'src/models'
 
 import {
-  convertShiftArrayToObject,
+  convertEntityArrToObj,
   convertShiftObjectToArray
 } from './../convertShifts'
 
@@ -32,7 +32,7 @@ describe('#convertShiftObjectToArray', () => {
 
 describe('#convertShiftArrayToOBject', () => {
   it('should convert', () => {
-    const res = convertShiftArrayToObject(shiftArray)
+    const res = convertEntityArrToObj(shiftArray)
     expect(res).toEqual(shiftObject)
   })
 })

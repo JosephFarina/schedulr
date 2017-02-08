@@ -1,18 +1,48 @@
+export interface Entity {
+  id?: string
+}
+
+export interface Entities<T> {
+  [id: string]: T
+}
+
+/**
+ * 
+ * Shift Entity
+ * 
+ */
+
+// Duration is time in minutes
+
+export interface SharedShiftData extends Entity {
+  startTime?: string
+  duration?: number
+  location?: string
+  client?: string
+}
+
+// Used for creating multiple shifts at onces
+export interface ShiftTemplate extends SharedShiftData { }
+
+export interface Shift extends SharedShiftData {
+  employee?: string
+}
+
+export interface Shifts extends Entities<Shift> { }
+
+
 /**
  * 
  * Client Entity
  * 
  */
 
-export interface Client {
-  id?: string
+export interface Client extends Entity {
   alias?: string
   locations?: string[]
 }
 
-export interface Clients {
-  [id: string]: Client
-}
+export interface Clients extends Entities<Client> { }
 
 /**
  * 
@@ -20,14 +50,11 @@ export interface Clients {
  * 
  */
 
-export interface Location {
-  id?: string
+export interface Location extends Entity {
   alias?: string
 }
 
-export interface Locations {
-  [id: string]: Location
-}
+export interface Locations extends Entities<Locations> { }
 
 /**
  * 
@@ -35,8 +62,7 @@ export interface Locations {
  * 
  */
 
-export interface Employee {
-  id?: string
+export interface Employee extends Entity {
   alias?: string
   firstName?: string
   lastName?: string
@@ -52,6 +78,4 @@ export interface NestedEmployee extends Employee {
   employees?: Employee[]
 }
 
-export interface Employees {
-  [id: string]: Employee
-}
+export interface Employees extends Entities<Employee> { }

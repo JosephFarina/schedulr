@@ -1,20 +1,26 @@
-import configureStore from 'redux-mock-store'
+import configureStore, { IStore } from 'redux-mock-store'
+import thunk from 'redux-thunk'
 
-const middlewares: any = []
+const middlewares: any = [thunk]
 const mockStore = configureStore(middlewares)
 
-import * as Actions from './../action'
+import * as A from './../action'
 import shifts, { initialState } from './../reducer'
-import * as Selectors from './../selector'
+import { getAddedShifts } from './../selector'
 import * as Models from 'src/models'
 import { convertShiftObjectToArray } from 'src/utils'
+const curry = require('ramda/src/curry')
 
-function makeShiftState(data): () => Models.RState {
+function makeState(data): () => Models.RState {
   return () => ({
     shift: {
       data
     }
   })
+}
+
+function getFirstDispatchPayload(store: IStore<any>) {
+  return store.getActions()[0].payload
 }
 
 describe('Shift State', () => {
@@ -26,84 +32,74 @@ describe('Shift State', () => {
     let shiftSetOne: Models.Shifts
     let shiftSetTwo: Models.Shifts
     let combinedShifts: Models.Shifts
-    let dispatch
 
-    beforeEach(() => {
-      dispatch = jasmine.createSpy('dispatch')
-      shiftSetOne = {
-        'fffdfdfdf': {
-          id: 'fffdfdfdf',
-          duration: 34343,
-          startTime: '4343434'
-        }
+    shiftSetOne = {
+      'fffdfdfdf': {
+        id: 'fffdfdfdf',
+        duration: 34343,
+        startTime: '4343434'
       }
+    }
 
-      shiftSetTwo = {
-        asdfdf: {
-          id: 'asdfdf',
-          duration: 51334343,
-          startTime: '12412433344343232'
-        },
-        555421443: {
-          id: '555421443',
-          duration: 5433111155,
-          startTime: '512355545542'
-        }
+    shiftSetTwo = {
+      asdfdf: {
+        id: 'asdfdf',
+        duration: 51334343,
+        startTime: '12412433344343232'
+      },
+      555421443: {
+        id: '555421443',
+        duration: 5433111155,
+        startTime: '512355545542'
       }
+    }
 
-      combinedShifts = Object.assign({}, shiftSetOne, shiftSetTwo)
-    })
+    combinedShifts = Object.assign({}, shiftSetOne, shiftSetTwo)
 
-    it('#addShifts should add added shifts to the state', () => {
-      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
-        addedShifts: shiftSetOne
+    const testAdd = curry((
+      makeState: (val: any) => Models.RState,
+      setOne: Models.Entities<any>,
+      setTwo: Models.Entities<any>,
+      action,
+      stateKey: string,
+      removeOrAdd: 'remove' | 'add' | 'delete',
+      del = false
+    ) => {
+      it(`#addNew should add added shifts to the state ${stateKey}`, () => {
+        let combined = Object.assign({}, setOne, setTwo)
+
+        let storeVal
+        let expectedVal
+
+        if (del) {
+          setOne = Object.keys(setOne).sort()
+          combined = Object.keys(combined).sort()
+        }
+
+        if (removeOrAdd === 'add') {
+          storeVal = setOne
+          expectedVal = combined
+        } else if (removeOrAdd === 'remove') {
+          storeVal = combined
+          expectedVal = setOne
+        }
+
+        const store = mockStore(makeState({ [stateKey]: storeVal }))
+        store.dispatch(action(convertShiftObjectToArray(setTwo)))
+        expect(getFirstDispatchPayload(store)).toEqual(expectedVal)
       })
-      const res = shifts(initialStateWithAddedShifts, Actions.addShifts(convertShiftObjectToArray(shiftSetTwo)))
-      expect(res.addedShifts).toEqual(combinedShifts)
     })
 
-    it('#removeAddedShifts should delete the shifts', () => {
-      Actions.removeAddedShifts(convertShiftObjectToArray(shiftSetOne))(dispatch, makeShiftState({
-        addedShifts: combinedShifts
-      }))
+    const testAddFactory = testAdd(makeState, shiftSetOne, shiftSetTwo)
 
-      // its a thunk so just checking that the payload is accurate
-      expect(dispatch.calls.mostRecent().args[0].payload).toEqual(shiftSetTwo)
-    })
+    testAddFactory(A.addShifts, 'addedShifts', 'add')
+    testAddFactory(A.removeAddedShifts, 'addedShifts', 'remove')
 
-    it('#editShifts should add edited shifts to the state', () => {
-      const initialStateWithAddedShifts: Models.RShiftData = Object.assign({}, initialState, {
-        editedShifts: shiftSetOne
-      })
-      const res = shifts(initialStateWithAddedShifts, Actions.editShifts(convertShiftObjectToArray(shiftSetTwo)))
-      expect(res.editedShifts).toEqual(combinedShifts)
-    })
+    testAddFactory(A.editShifts, 'editedShifts', 'add')
+    testAddFactory(A.removeEditedShifts, 'editedShifts', 'remove')
 
-    it('#removeEditedShifts should delete teh shifts', () => {
-      Actions.removeEditedShifts(convertShiftObjectToArray(shiftSetOne))(dispatch, makeShiftState({
-        editedShifts: combinedShifts
-      }))
-
-      // its a thunk so just checking that the payload is accurate
-      expect(dispatch.calls.mostRecent().args[0].payload).toEqual(shiftSetTwo)
-    })
-
-    it('#deleteShifts should add the ids to the state', () => {
-      Actions.deleteShifts(convertShiftObjectToArray(shiftSetTwo))(dispatch, makeShiftState({
-        deletedShifts: Object.keys(shiftSetOne)
-      }))
-
-      expect(dispatch.calls.mostRecent().args[0].payload.sort()).toEqual(Object.keys(combinedShifts).sort())
-    })
-
-    it('#removeDeletedShifts should delete the ids from the state', () => {
-      Actions.removeDeletedShifts(convertShiftObjectToArray(shiftSetOne))(dispatch, makeShiftState({
-        deletedShifts: Object.keys(combinedShifts)
-      }))
-
-      expect(dispatch.calls.mostRecent().args[0].payload.sort()).toEqual(Object.keys(shiftSetTwo).sort())
-    })
-
+    testAddFactory(A.deleteShifts, 'deletedShifts', 'add', true)
+    testAddFactory(A.removeDeletedShifts, 'deletedShifts', 'remove', true)
   })
 
 })

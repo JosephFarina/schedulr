@@ -27,18 +27,19 @@ import { convertEntityArrToObj, deleteKeysFromObject } from 'src/utils'
  */
 
 
-export const addEntitiesActionFactory = curry((type, entities: Entity[]) => {
-  return {
-    type,
-    payload: convertEntityArrToObj(entities)
+export const addEntitiesActionFactory = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
+  (dispatch, getState) => {
+    dispatch({
+      type,
+      payload: Object.assign({}, selector(getState()), convertEntityArrToObj(entities))
+    })
   }
-})
+)
 
 export const removeAddedEntitiesActionFactory = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
   (dispatch, getState) => {
     const added = selector(getState())
     const idsToDelete = entities.map(entity => entity.id)
-
     dispatch({ type, payload: deleteKeysFromObject(idsToDelete, added) })
   }
 )

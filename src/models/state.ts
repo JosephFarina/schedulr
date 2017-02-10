@@ -1,5 +1,5 @@
 import * as EntityModels from './entities'
-import * as ShiftModels from './shift'
+// import * as ShiftModels from './shift'
 import * as TimeModels from './time'
 
 export interface Action<T> {
@@ -50,18 +50,18 @@ export interface RShift {
 export interface RShiftData {
   shiftCacheTimeRange?: string
   shiftCacheIsValid?: boolean
-  shifts?: ShiftModels.Shifts
-  editedShifts?: ShiftModels.Shifts
-  addedShifts?: ShiftModels.Shifts
+  shifts?: EntityModels.Shifts
+  editedShifts?: EntityModels.Shifts
+  addedShifts?: EntityModels.Shifts
   deletedShifts?: string[]
 }
 
 export interface RShiftEditor {
-  newShift?: ShiftModels.ShiftTemplate
+  newShift?: EntityModels.ShiftTemplate
   employeesInShift?: string[]
   shiftDate?: string
   datePickerMonth?: string
-  editedShift?: ShiftModels.ShiftTemplate
+  editedShift?: EntityModels.ShiftTemplate
   selectedShift?: string
   generateShift?: boolean
 }

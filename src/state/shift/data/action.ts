@@ -21,19 +21,19 @@ import {
  */
 
 
-export const addShifts = addEntitiesActionFactory(ShiftActions.addShifts, getAddedShifts)
-export const removeAddedShifts = removeAddedEntitiesActionFactory(ShiftActions.removeAddedShifts, getAddedShifts)
+export const addShifts = addEntitiesActionFactory(ShiftActions.add, getAddedShifts)
+export const removeAddedShifts = removeAddedEntitiesActionFactory(ShiftActions.removeAdd, getAddedShifts)
 
 /**
  * Add an edited shift / remove an edited shift
  */
 
-export const editShifts = addEntitiesActionFactory(ShiftActions.editShifts, getEditedShifts)
-export const removeEditedShifts = removeAddedEntitiesActionFactory(ShiftActions.removeEditedShifts, getEditedShifts)
+export const editShifts = addEntitiesActionFactory(ShiftActions.edit, getEditedShifts)
+export const removeEditedShifts = removeAddedEntitiesActionFactory(ShiftActions.removeEdit, getEditedShifts)
 
 /**
  * Add a deleted shift / remove a deleted shift
  */
 
-export const deleteShifts = deleteEntitiesActionFactory(ShiftActions.deleteShifts, getDeletedShifts)
-export const removeDeletedShifts = removeDeletedEntitiesActionFactory(ShiftActions.removeDeletedShifts, getDeletedShifts)
+export const deleteShifts = deleteEntitiesActionFactory(ShiftActions.delete, getDeletedShifts)
+export const removeDeletedShifts = removeDeletedEntitiesActionFactory(ShiftActions.removeDelete, getDeletedShifts)

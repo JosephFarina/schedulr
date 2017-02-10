@@ -6,6 +6,8 @@ import {
 } from 'src/utils'
 
 import * as I from 'src/models'
+import { RState } from 'src/models'
+import { getUpdatedEntitiesFactory } from 'src/utils'
 
 export const getRawShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.shifts)
 export const getEditedShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.editedShifts)
@@ -18,26 +20,9 @@ export const getDeletedShifts = (state: I.RState): string[] => Object.assign([],
  * 
  */
 
-export const getShifts = createSelector(
-  getRawShifts,
-  getEditedShifts,
-  getAddedShifts,
-  getDeletedShifts,
-  (raw, edited, added, deleted) => {
-    return updateShifts(raw, edited, added, deleted)
-  }
-)
 
-function updateShifts(rawShifts: I.Shifts, editedShifts: I.Shifts, addedShifts: I.Shifts, deletedShifts: string[]): I.Shifts {
-  let updateShifts: any = Object.assign({}, rawShifts, addedShifts, editedShifts)
+export const getShifts = getUpdatedEntitiesFactory(getRawShifts, getEditedShifts, getAddedShifts, getDeletedShifts)
 
-  // convert shifts to an array and then filter out the deleted shifts
-  updateShifts = Object.keys(updateShifts).map(shiftId => updateShifts[shiftId]).filter((shift: I.ShiftTemplate) => {
-    return deletedShifts.indexOf(shift.id) < 0
-  })
-
-  return updateShifts
-}
 
 /**
  * 

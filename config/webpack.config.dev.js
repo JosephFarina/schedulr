@@ -49,7 +49,9 @@ module.exports = {
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
     // Finally, this is your app's code:
-    paths.appIndexJs
+    paths.appIndexJs,
+
+    // devtoolModuleFilenameTemplate
     // We include the app code last so that if there is a runtime error during
     // initialization, it doesn't blow up the WebpackDevServer client, and
     // changing JS code would still trigger a refresh.
@@ -64,7 +66,10 @@ module.exports = {
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'static/js/bundle.js',
     // This is the URL that app is served from. We use "/" in development.
-    publicPath: publicPath
+    publicPath: publicPath,
+    devtoolModuleFilenameTemplate: function (info) {
+      return "file:///" + info.absoluteResourcePath;
+    }
   },
   resolve: {
     // This allows you to set a fallback for where Webpack should look for modules.
@@ -80,7 +85,7 @@ module.exports = {
     extensions: ['.js', '.json', '.jsx', '.ts', '.tsx', ''],
     root: [
       path.resolve('./'),
-      
+
     ],
     alias: {
       // Support React Native Web

@@ -26,34 +26,34 @@ const shiftData = (state = initialState, action: Action<RShiftData>): RShiftData
   switch (action.type) {
 
     // Add and remove added shifts
-    case ShiftActions.addShifts:
+    case ShiftActions.add:
       return Object.assign({}, state, {
         addedShifts: Object.assign({}, state.addedShifts, action.payload)
       })
 
-    case ShiftActions.removeAddedShifts:
+    case ShiftActions.removeAdd:
       return Object.assign({}, state, {
         addedShifts: action.payload
       })
 
     // Add and remove edited shifts
-    case ShiftActions.editShifts:
+    case ShiftActions.edit:
       return Object.assign({}, state, {
-        editedShifts: Object.assign({}, state.editedShifts, action.payload)
+        editedShifts: action.payload
       })
 
-    case ShiftActions.removeEditedShifts:
+    case ShiftActions.removeEdit:
       return Object.assign({}, state, {
         editedShifts: action.payload
       })
 
     // Add and remove delete shifts
-    case ShiftActions.deleteShifts:
+    case ShiftActions.delete:
       return Object.assign({}, state, {
         deletedShifts: action.payload
       })
 
-    case ShiftActions.removeDeletedShifts:
+    case ShiftActions.removeDelete:
       return Object.assign({}, state, {
         deletedShifts: action.payload
       })

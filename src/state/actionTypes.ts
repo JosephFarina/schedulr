@@ -5,12 +5,12 @@ export const CalendarActions = {
 
 export const ShiftActions = {
   // data
-  addShifts: 'ShiftActions::data::addShifts',
-  removeAddedShifts: 'ShiftActions::data::removeAddedShifts',
-  editShifts: 'ShiftActions::data::editShifts',
-  removeEditedShifts: 'ShiftActions::data::removeEditedShifts',
-  deleteShifts: 'ShiftActions::data::deleteShifts',
-  removeDeletedShifts: 'ShiftActions::data::removeDeletedShifts',
+  add: 'ShiftActions::data::add',
+  removeAdd: 'ShiftActions::data::removeAdd',
+  edit: 'ShiftActions::data::edit',
+  removeEdit: 'ShiftActions::data::removeEdit',
+  delete: 'ShiftActions::data::delete',
+  removeDelete: 'ShiftActions::data::removeDelete',
 
   // editor
   updateEditedShift: 'ShiftActions::editor::updateEditedShift',

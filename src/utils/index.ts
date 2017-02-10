@@ -7,5 +7,6 @@ export * from './typeChecking.util'
 export * from './getAllOtherKeys'
 export * from './validatorFactory'
 export * from './errorArrayToString'
-export * from './crudActionFactories'
-export * from './getUpdatedEntitiesFactory'
+
+export * from './crudFactories'
+

@@ -21,10 +21,10 @@ export const actionTypeStringFormatter = curry(function actionTypeFormatter(enti
  */
 
 
-export const actionTypeObjectFormatter = curry(function actionTypeObjectFormatter(entityName: string, oldActionObj: any) {
+export const actionTypeObjectFormatter = curry(function actionTypeObjectFormatter<T>(entityName: string, oldActionObj: any): T {
   if (Array.isArray(oldActionObj)) {
     oldActionObj = oldActionObj.reduce((res, key) => (Object.assign({}, res, { [key]: key })), {})
   }
 
-  return map((key: string) => actionTypeStringFormatter(entityName, key), oldActionObj)
+  return map((val: string) => actionTypeStringFormatter(entityName, val), oldActionObj)
 })

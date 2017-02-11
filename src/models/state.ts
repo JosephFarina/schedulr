@@ -47,7 +47,7 @@ export interface RShift {
   editor?: RShiftEditor
 }
 
-export interface RShiftData extends CrudState {
+export interface RShiftData extends CrudState<RShift> {
   shiftCacheTimeRange?: string
   shiftCacheIsValid?: boolean
   shifts?: EntityModels.Shifts

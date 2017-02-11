@@ -1,29 +1,40 @@
-import * as M from 'moment'
-const union = require('lodash.union')
-
-import {
-  Action,
-  RShiftData,
-} from 'src/models'
-import { ShiftActions } from 'src/state/actionTypes'
-
-import {
-  generateShifts
-} from 'src/testUtils'
-
-import { deleteKeysFromObject } from 'src/utils'
-
+import { Action } from 'src/models'
 import * as Crud from 'src/modules/entityCrudFactories'
 
-export const initialState: RShiftData = Crud.InitialState.mergeWith({
-  shifts: generateShifts(M().format()),
-  addedShifts: {},
-  editedShifts: {},
-  deletedShifts: [],
-  shiftCacheIsValid: false,
-  shiftCacheTimeRange: null,
-})
+export const mergeWith = <T>(crudActionTypeObj: Crud.ActionTypes.CrudActionTypes, reducer) => (state, action: Action<any>): T => {
+  const crudState = crudReducer(crudActionTypeObj, state, action)
+  return crudState === null ? reducer(state, action) : crudState
+}
 
+function crudReducer(crudActionTypeObj: Crud.ActionTypes.CrudActionTypes, state, action) {
+
+  switch (action.type) {
+
+    case crudActionTypeObj.add:
+    case crudActionTypeObj.removeAdd:
+      return Object.assign({}, state, {
+        added: action.payload
+      })
+
+    case crudActionTypeObj.edit:
+    case crudActionTypeObj.removeEdit:
+      return Object.assign({}, state, {
+        edited: action.payload
+      })
+
+    case crudActionTypeObj.delete:
+    case crudActionTypeObj.removeDelete:
+      return Object.assign({}, state, {
+        deleted: action.payload
+      })
+
+    default:
+      return null
+  }
+}
+
+
+/*
 const shiftData = (state = initialState, action: Action<RShiftData>): RShiftData => {
   switch (action.type) {
 
@@ -64,5 +75,4 @@ const shiftData = (state = initialState, action: Action<RShiftData>): RShiftData
       return state
   }
 }
-
-export default shiftData
+*/

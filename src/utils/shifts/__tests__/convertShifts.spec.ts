@@ -5,7 +5,7 @@ import {
 
 import {
   convertEntityArrToObj,
-  convertShiftObjectToArray
+  convertEntityObjectToArray
 } from './../convertShifts'
 
 const shiftObject: Shifts = {
@@ -25,7 +25,7 @@ const shiftArray: ShiftTemplate[] = Object.keys(shiftObject).map(shiftId => shif
 
 describe('#convertShiftObjectToArray', () => {
   it('should convert', () => {
-    const res = convertShiftObjectToArray(shiftObject)
+    const res = convertEntityObjectToArray(shiftObject)
     expect(res).toEqual(shiftArray)
   })
 })

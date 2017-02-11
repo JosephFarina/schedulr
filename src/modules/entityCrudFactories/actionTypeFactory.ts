@@ -8,20 +8,20 @@ import {
 
 export const crudTypes = [
   'add',
-  'removeAdd',
+  'removeAdded',
   'edit',
-  'removeEdit',
+  'removeEdited',
   'delete',
-  'removeDelete'
+  'removeDeleted'
 ]
 
 export interface CrudActionTypes {
   add: string
-  removeAdd: string
+  removeAdded: string
   edit: string
-  removeEdit: string
+  removeEdited: string
   delete: string
-  removeDelete: string
+  removeDeleted: string
 }
 
 type Partial<T> = {

@@ -11,19 +11,19 @@ function crudReducer(crudActionTypeObj: Crud.ActionTypes.CrudActionTypes, state,
   switch (action.type) {
 
     case crudActionTypeObj.add:
-    case crudActionTypeObj.removeAdd:
+    case crudActionTypeObj.removeAdded:
       return Object.assign({}, state, {
         added: action.payload
       })
 
     case crudActionTypeObj.edit:
-    case crudActionTypeObj.removeEdit:
+    case crudActionTypeObj.removeEdited:
       return Object.assign({}, state, {
         edited: action.payload
       })
 
     case crudActionTypeObj.delete:
-    case crudActionTypeObj.removeDelete:
+    case crudActionTypeObj.removeDeleted:
       return Object.assign({}, state, {
         deleted: action.payload
       })

@@ -21,16 +21,16 @@ export const client: Client = {
 }
 
 export const clientsOne: Clients = {
-  'c243243334': {
-    id: 'c243243334',
-    alias: 'asfahfjk fnA',
+  'clientOne::1': {
+    id: 'clientOne::1',
+    alias: 'client one 1',
     locations: [
       '12123434'
     ]
   },
-  'c444411kfadsf': {
-    id: 'c444411kfadsf',
-    alias: '1rq3eagfqafh',
+  'clientOne:2': {
+    id: 'clientOne:2',
+    alias: 'clientOne 2',
     locations: ['12grrqwf']
   }
 }
@@ -38,15 +38,15 @@ export const clientsOne: Clients = {
 export const clientsOneArray: Employee[] = Object.keys(clientsOne).map(id => Object.assign({}, clientsOne[id]))
 
 export const clientsTwo: Clients = {
-  'c1234344311144': {
-    id: 'c243243334',
-    alias: 'casqaf kafadhfasf',
+  'clientTwo:1': {
+    id: 'clientTwo:1',
+    alias: 'clientTwo 1',
     locations: ['3qgefwg3rqwafs']
   },
-  'c532141432434': {
-    id: 'c444411kfadsf',
-    alias: 'cavqekhafsdf d',
-    locations: ['1rrqegwqacva']
+  'clientTwo:2': {
+    id: 'clientTwo:2',
+    alias: 'clientTwo 2',
+    locations: ['1rrqelwqacva']
   }
 }
 

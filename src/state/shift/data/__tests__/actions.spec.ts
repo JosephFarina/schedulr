@@ -35,16 +35,16 @@ describe('Shift State', () => {
       }
     }
 
-    const testAddFactory = testCrudActionFactory(makeState, shiftSetOne, shiftSetTwo)
+    // const testAddFactory = testCrudActionFactory(makeState, shiftSetOne, shiftSetTwo)
 
-    testAddFactory(A.addShifts, 'addedShifts', 'add')
-    testAddFactory(A.removeAddedShifts, 'addedShifts', 'remove')
+    // testAddFactory(A.addShifts, 'add')
+    // testAddFactory(A.removeAddedShifts, 'remove')
 
-    testAddFactory(A.editShifts, 'editedShifts', 'add')
-    testAddFactory(A.removeEditedShifts, 'editedShifts', 'remove')
+    // testAddFactory(A.editShifts, 'edit')
+    // testAddFactory(A.removeEditedShifts, 'dEdit')
 
-    testAddFactory(A.deleteShifts, 'deletedShifts', 'dAdd')
-    testAddFactory(A.removeDeletedShifts, 'deletedShifts', 'dRemove')
+    // testAddFactory(A.deleteShifts, 'dAdd')
+    // testAddFactory(A.removeDeletedShifts, 'dRemove')
   })
 
 })

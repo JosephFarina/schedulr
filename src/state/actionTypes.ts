@@ -1,16 +1,24 @@
+import * as Crud from 'src/modules/entityCrudFactories'
+
 export const CalendarActions = {
   updateDate: 'CalendarActions::updateDate',
   updateTimeRange: 'CalendarActions::updateTimeRange',
 }
 
+export const ShiftEntityActions = Crud.ActionTypes.mergeWith<{}>('Shifts', {})
+
+
+
+
+
 export const ShiftActions = {
   // data
-  add: 'ShiftActions::data::add',
-  removeAdd: 'ShiftActions::data::removeAdd',
-  edit: 'ShiftActions::data::edit',
-  removeEdit: 'ShiftActions::data::removeEdit',
-  delete: 'ShiftActions::data::delete',
-  removeDelete: 'ShiftActions::data::removeDelete',
+  // add: 'ShiftActions::data::add',
+  // removeAdd: 'ShiftActions::data::removeAdd',
+  // edit: 'ShiftActions::data::edit',
+  // removeEdit: 'ShiftActions::data::removeEdit',
+  // delete: 'ShiftActions::data::delete',
+  // removeDelete: 'ShiftActions::data::removeDelete',
 
   // editor
   updateEditedShift: 'ShiftActions::editor::updateEditedShift',

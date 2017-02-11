@@ -7,7 +7,7 @@ import {
   SharedShiftData
 } from 'src/models'
 
-export function convertShiftObjectToArray(shifts: Shifts): Shift[] {
+export function convertEntityObjectToArray(shifts: Shifts): Shift[] {
   return Object.keys(shifts).map(shiftId => Object.assign({}, shifts[shiftId]))
 }
 

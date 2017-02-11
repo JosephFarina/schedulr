@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 
 import { RState, Entities } from 'src/models'
 import { getFirstDispatchPayload } from 'src/testUtils'
-import { convertShiftObjectToArray } from 'src/utils'
+import { convertEntityObjectToArray } from 'src/utils'
 
 const middlewares: any = [thunk]
 const mockStore = configureStore(middlewares)
@@ -14,14 +14,23 @@ export const testCrudActionFactory = curry((
   setOne: Entities<any>,
   setTwo: Entities<any>,
   action,
-  stateKey: string,
-  removeOrAdd: 'remove' | 'add' | 'dRemove' | 'dAdd',
+  removeOrAdd: 'remove' | 'add' | 'dRemove' | 'dAdd' | 'edit' | 'dEdit',
 ) => {
-  it(`#${removeOrAdd} should add added shifts to the state ${stateKey}`, () => {
+  it(`#${removeOrAdd} should add added shifts to the state ${removeOrAdd}`, () => {
     let combined = Object.assign({}, setOne, setTwo)
 
     let storeVal
     let expectedVal
+
+    let stateKey
+    if (removeOrAdd === 'remove' || removeOrAdd === 'dRemove') {
+      stateKey = 'deleted'
+    } else if (removeOrAdd === 'add' || removeOrAdd === 'dAdd') {
+      stateKey = 'added'
+    } else if (removeOrAdd === 'edit' || removeOrAdd === 'dEdit') {
+      stateKey = 'edited'
+    }
+
 
     // if where testing the delete function turn the expected and state into [id]
     if (removeOrAdd === 'dRemove' || removeOrAdd === 'dAdd') {
@@ -29,16 +38,16 @@ export const testCrudActionFactory = curry((
       combined = Object.keys(combined).sort()
     }
 
-    if (removeOrAdd === 'add' || removeOrAdd === 'dAdd') {
+    if (removeOrAdd === 'add' || removeOrAdd === 'edit' || removeOrAdd === 'remove') {
       storeVal = setOne
       expectedVal = combined
-    } else if (removeOrAdd === 'remove' || removeOrAdd === 'dRemove') {
+    } else if (removeOrAdd === 'dRemove' || removeOrAdd === 'dAdd' || removeOrAdd === 'dEdit') {
       storeVal = combined
       expectedVal = setOne
     }
 
     const store = mockStore(makeState({ [stateKey]: storeVal }))
-    store.dispatch(action(convertShiftObjectToArray(setTwo)))
+    store.dispatch(action(convertEntityObjectToArray(setTwo)))
     expect(getFirstDispatchPayload(store)).toEqual(expectedVal)
   })
 })

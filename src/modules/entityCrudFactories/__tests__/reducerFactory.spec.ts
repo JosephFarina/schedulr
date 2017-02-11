@@ -62,7 +62,7 @@ describe('entityCrudFactory: reducerfactory', () => {
     })
 
     it('removeAdded', () => {
-      const res = crudReducer(undefined, { type: crudActionTypes.removeAdd, payload })
+      const res = crudReducer(undefined, { type: crudActionTypes.removeAdded, payload })
       expect(res.added).toEqual(payload)
     })
 
@@ -72,7 +72,7 @@ describe('entityCrudFactory: reducerfactory', () => {
     })
 
     it('removeEdited', () => {
-      const res = crudReducer(undefined, { type: crudActionTypes.removeEdit, payload })
+      const res = crudReducer(undefined, { type: crudActionTypes.removeEdited, payload })
       expect(res.edited).toEqual(payload)
     })
 
@@ -82,7 +82,7 @@ describe('entityCrudFactory: reducerfactory', () => {
     })
 
     it('removeDeleted', () => {
-      const res = crudReducer(undefined, { type: crudActionTypes.removeDelete, payload })
+      const res = crudReducer(undefined, { type: crudActionTypes.removeDeleted, payload })
       expect(res.deleted).toEqual(payload)
     })
   })

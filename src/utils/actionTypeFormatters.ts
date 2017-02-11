@@ -1,13 +1,25 @@
 import { curry, map } from 'ramda'
-import { actionTypeStringFormatter } from 'src/utils'
+
 
 /**
  * 
- * Takes in an array or object and formats each key
- * if it takes in an array it outputs an object where each key was the array value
- * and each value is a actionTypeStringFormatter value of the key
+ * Generates an action type with context
  * 
  */
+
+
+export const actionTypeStringFormatter = curry(function actionTypeFormatter(entityName: string, type: string) {
+  return entityName + '::' + type.replace(/ /g, '_')
+})
+
+
+/**
+ * 
+ * Maps over an objects values or an array and returns 
+ * a new object with properlly formatted action types
+ * 
+ */
+
 
 export const actionTypeObjectFormatter = curry(function actionTypeObjectFormatter(entityName: string, oldActionObj: any) {
   if (Array.isArray(oldActionObj)) {

@@ -47,7 +47,7 @@ export interface RShift {
   editor?: RShiftEditor
 }
 
-export interface RShiftData {
+export interface RShiftData extends CrudState {
   shiftCacheTimeRange?: string
   shiftCacheIsValid?: boolean
   shifts?: EntityModels.Shifts
@@ -67,24 +67,26 @@ export interface RShiftEditor {
 }
 
 
-
 /**
  * 
  * Entity State
  * 
  */
 
+// Extend state interfaces with this if they implement the crud actions
+export interface CrudState<T> {
+  raw: EntityModels.Entities<T>
+  added: EntityModels.Entities<T>
+  edited: EntityModels.Entities<T>
+  deleted: string[]
+}
+
+
 export interface REntities {
-  clients?: EntityModels.Clients
-  locations?: EntityModels.Locations
-  employees?: EntityModels.Employees
+  clients?: CrudState<EntityModels.Clients>
+  locations?: CrudState<EntityModels.Locations>
+  employees?: CrudState<EntityModels.Employees>
 }
-
-export interface RCrud {
-  added: EntityModels.Entities<any>
-  edited: EntityModels.Entities<any>
-}
-
 
 /**
  * 

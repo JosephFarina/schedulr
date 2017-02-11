@@ -1,4 +1,10 @@
 import * as Actions from './actionFactories'
-// export * from './actionFactories'
+import * as ActionTypes from './actionTypeFactory'
+import { getUpdatedEntitiesFactory } from './getUpdatedEntitiesFactory'
 
-export { Actions }
+export {
+  Actions,
+  ActionTypes,
+  getUpdatedEntitiesFactory
+}
+

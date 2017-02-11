@@ -20,5 +20,18 @@ export function getUpdatedEntitiesFactory(
 
 function getUpdatedEntities(raw: Entities<any>, edited: Entities<any>, added: Entities<any>, deleted: string[]) {
   const rawAddedEdited = Object.assign({}, raw, added, edited)
-  return Object.keys(rawAddedEdited).map(id => rawAddedEdited[id]).filter(ent => !~deleted.indexOf(ent.id))
+
+  console.log(
+    rawAddedEdited,
+    deleted
+  )
+
+  return Object.keys(rawAddedEdited).reduce((res, entId) => {
+    if (deleted.indexOf(entId) < 0) {
+      console.log('should not be deleted: ' + entId)
+      return res.concat([rawAddedEdited[entId]])
+    }
+
+    return res
+  }, [])
 }

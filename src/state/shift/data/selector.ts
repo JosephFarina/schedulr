@@ -7,7 +7,7 @@ import {
 
 import * as I from 'src/models'
 import { RState } from 'src/models'
-import { getUpdatedEntitiesFactory } from 'src/utils'
+import { getUpdatedEntitiesFactory } from 'src/modules/entityCrudFactories'
 
 export const getRawShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.shifts)
 export const getEditedShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.editedShifts)

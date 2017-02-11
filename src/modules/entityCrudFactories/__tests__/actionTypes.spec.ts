@@ -1,14 +1,15 @@
 import { keys } from 'ramda'
-import { mergeCrudActionsWith, crudTypes } from 'src/utils'
+import * as CRUD from 'src/modules/entityCrudFactories'
 
-describe('crud: #mergeCrudActionsWith', () => {
+describe('entityCrudFactories: actionTypes', () => {
   const entityName = 'SOMENAME'
   const otherActions = {
     'one': 'two',
     'three': 'four',
     'five': 'six'
   }
-  const actions = mergeCrudActionsWith(entityName, otherActions)
+
+  const actions = CRUD.ActionTypes.mergeWith(entityName, otherActions)
 
   it('should still have other actions', () => {
     expect(keys(actions)).toEqual(jasmine.arrayContaining(keys(otherActions)))
@@ -17,9 +18,9 @@ describe('crud: #mergeCrudActionsWith', () => {
   it('should have every crud actions', () => {
     const actionKeys = keys(actions)
 
-    crudTypes.forEach(type => {
+    CRUD.ActionTypes.crudTypes.forEach(type => {
       expect(~actionKeys.indexOf(type)).toBeTruthy()
     })
   })
-
 })
+

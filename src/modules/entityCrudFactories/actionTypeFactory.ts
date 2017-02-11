@@ -1,5 +1,10 @@
 import { curry } from 'ramda'
-import { actionTypeObjectFormatter, actionTypeStringFormatter, checkForOverlappingKeys } from 'src/utils'
+
+import {
+  checkForOverlappingKeys,
+  actionTypeObjectFormatter,
+  actionTypeStringFormatter
+} from 'src/utils'
 
 export const crudTypes = [
   'add',
@@ -17,7 +22,7 @@ function generateCrudActionTypes(entityName: string) {
   })), {})
 }
 
-export const mergeCrudActionsWith = curry(function mergeCrudActionsWith(entityName: string, otherActions: any) {
+export const mergeWith = curry(function mergeCrudActionsWith(entityName: string, otherActions: any) {
   const actionTypes = generateCrudActionTypes(entityName)
   // format the inputted actions that arent the crud actions also
   const formattedOtherActions = actionTypeObjectFormatter(entityName, otherActions)

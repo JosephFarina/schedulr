@@ -1,9 +1,11 @@
 import { checkForOverlappingKeys } from 'src/utils'
-import { RCrud } from 'src/models'
+import { CrudState } from 'src/models'
 
-const initialCrudState: RCrud = {
+const initialCrudState: CrudState<any> = {
+  raw: {},
   added: {},
   edited: {},
+  deleted: []
 }
 
 export function mergeCrudInitialStateWith(initialState) {

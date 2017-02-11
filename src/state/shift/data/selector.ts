@@ -1,18 +1,12 @@
-import * as M from 'moment'
-import { createSelector } from 'reselect'
-import {
-  MorString,
-  cloneOrCreateMo,
-} from 'src/utils'
+import { Shift, RState, Shifts } from 'src/models'
+import * as Crud from 'src/modules/entityCrudFactories'
+import { MorString, cloneOrCreateMo, } from 'src/utils'
 
-import * as I from 'src/models'
-import { RState } from 'src/models'
-import { getUpdatedEntitiesFactory } from 'src/modules/entityCrudFactories'
+export const getRawShifts = (state: RState): Shifts => Object.assign({}, state.shift.data.raw)
+export const getEditedShifts = (state: RState): Shifts => Object.assign({}, state.shift.data.edited)
+export const getAddedShifts = (state: RState): Shifts => Object.assign({}, state.shift.data.added)
+export const getDeletedShifts = (state: RState): string[] => Object.assign([], state.shift.data.deleted)
 
-export const getRawShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.shifts)
-export const getEditedShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.editedShifts)
-export const getAddedShifts = (state: I.RState): I.Shifts => Object.assign({}, state.shift.data.addedShifts)
-export const getDeletedShifts = (state: I.RState): string[] => Object.assign([], state.shift.data.deletedShifts)
 
 /**
  * 
@@ -20,9 +14,7 @@ export const getDeletedShifts = (state: I.RState): string[] => Object.assign([],
  * 
  */
 
-
-export const getShifts = getUpdatedEntitiesFactory(getRawShifts, getEditedShifts, getAddedShifts, getDeletedShifts)
-
+export const getShifts = Crud.getUpdatedEntitiesFactory(getRawShifts, getEditedShifts, getAddedShifts, getDeletedShifts)
 
 /**
  * 
@@ -30,7 +22,7 @@ export const getShifts = getUpdatedEntitiesFactory(getRawShifts, getEditedShifts
  * 
  */
 
-export function getShiftsByDay(inputDate: MorString, shifts: I.Shift[]): I.Shift[] {
+export function getShiftsByDay(inputDate: MorString, shifts: Shift[]): Shift[] {
   const date = cloneOrCreateMo(inputDate)
 
   if (shifts) {

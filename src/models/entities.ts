@@ -54,7 +54,7 @@ export interface Location extends Entity {
   alias?: string
 }
 
-export interface Locations extends Entities<Locations> { }
+export interface Locations extends Entities<Location> { }
 
 /**
  * 

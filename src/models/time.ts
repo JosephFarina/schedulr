@@ -1,4 +1,4 @@
-import { Shifts } from './shift'
+import { Shifts } from './'
 
 export declare type TimeRangeOption = 'week' | 'month'
 

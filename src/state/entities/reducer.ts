@@ -15,9 +15,9 @@ import {
 import { EntitiesActions } from 'src/state/actionTypes'
 
 export const initialState: REntities = {
-  clients: clientsOne,
-  employees: employeesOne,
-  locations: locationsOne
+  // clients: clientsOne,
+  // employees: employeesOne,
+  // locations: locationsOne
 }
 
 const entities = (state = initialState, action: Action<any>): REntities => {

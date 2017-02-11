@@ -50,10 +50,6 @@ export interface RShift {
 export interface RShiftData extends CrudState<RShift> {
   shiftCacheTimeRange?: string
   shiftCacheIsValid?: boolean
-  shifts?: EntityModels.Shifts
-  editedShifts?: EntityModels.Shifts
-  addedShifts?: EntityModels.Shifts
-  deletedShifts?: string[]
 }
 
 export interface RShiftEditor {

@@ -11,6 +11,7 @@ describe('entityCrudFactories: actionTypes', () => {
 
   const actions = CRUD.ActionTypes.mergeWith(entityName, otherActions)
 
+
   it('should still have other actions', () => {
     expect(keys(actions)).toEqual(jasmine.arrayContaining(keys(otherActions)))
   })

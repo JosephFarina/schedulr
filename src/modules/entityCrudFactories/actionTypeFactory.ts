@@ -6,26 +6,27 @@ import {
   actionTypeStringFormatter
 } from 'src/utils'
 
-export const crudTypes = [
+export declare type ActionOptions =
+  'add' |
+  'removeAdded' |
+  'edit' |
+  'removeEdited' |
+  'delete' |
+  'removeDeleted' |
+  'setRaw'
+
+export const crudTypes: ActionOptions[] = [
   'add',
   'removeAdded',
   'edit',
   'removeEdited',
   'delete',
-  'removeDeleted'
+  'removeDeleted',
+  'setRaw'
 ]
 
-export interface CrudActionTypes {
-  add: string
-  removeAdded: string
-  edit: string
-  removeEdited: string
-  delete: string
-  removeDeleted: string
-}
-
-type Partial<T> = {
-  [P in keyof T]: T[P];
+export declare type CrudActionTypes = {
+  [P in ActionOptions]: string
 }
 
 function generateCrudActionTypes(entityName: string) {
@@ -35,16 +36,9 @@ function generateCrudActionTypes(entityName: string) {
   })), {})
 }
 
-// export const mergeWith = curry(function mergeCrudActionsWith<T>(entityName: string, otherActions: T): CrudActionTypes  {
-//   const actionTypes = generateCrudActionTypes(entityName)
-//   // format the inputted actions that arent the crud actions also
-//   const formattedOtherActions = actionTypeObjectFormatter(entityName, otherActions)
-//   checkForOverlappingKeys(actionTypes, formattedOtherActions)
-//   return Object.assign({}, formattedOtherActions, actionTypes)
-// })
-
 export function mergeWith<T>(entityName: string, otherActions: T): CrudActionTypes & T {
   const actionTypes = generateCrudActionTypes(entityName)
+
   // format the inputted actions that arent the crud actions also
   const formattedOtherActions = actionTypeObjectFormatter(entityName, otherActions)
   checkForOverlappingKeys(actionTypes, formattedOtherActions)
@@ -52,4 +46,3 @@ export function mergeWith<T>(entityName: string, otherActions: T): CrudActionTyp
 }
 
 
-// export const mergeWith = curry(mergeCrudActionsWith)

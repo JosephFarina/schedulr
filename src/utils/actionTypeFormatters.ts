@@ -26,5 +26,5 @@ export const actionTypeObjectFormatter = curry(function actionTypeObjectFormatte
     oldActionObj = oldActionObj.reduce((res, key) => (Object.assign({}, res, { [key]: key })), {})
   }
 
-  return map((val: string) => actionTypeStringFormatter(entityName, val), oldActionObj)
+  return <any> map((val: string) => actionTypeStringFormatter(entityName, val), oldActionObj)
 })

@@ -128,14 +128,17 @@ export const location: Location = {
 }
 
 export const locationsOne: Locations = {
-  '12123434': {
-    alias: 'asdfvvas',
-    id: '12123434'
-  },
-  '12grrqwf': {
-    alias: 'asdvasdv',
-    id: '12grrqwf'
+  'asdfsdf': {
+    id: 'asdf'
   }
+  // '12123434': {
+  //   alias: 'asdfvvas',
+  //   id: '12123434'
+  // },
+  // '12grrqwf': {
+  //   alias: 'asdvasdv',
+  //   id: '12grrqwf'
+  // }
 }
 
 export const locationsOneArray: Location[] = Object.keys(locationsOne).map(id => Object.assign({}, locationsOne[id]))

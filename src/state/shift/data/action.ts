@@ -1,11 +1,6 @@
 import { ShiftActions } from 'src/state/actionTypes'
 
-import {
-  removeDeletedEntitiesActionFactory,
-  removeAddedEntitiesActionFactory,
-  deleteEntitiesActionFactory,
-  addEntitiesActionFactory
-} from 'src/utils'
+import { Actions } from 'src/modules/entityCrudFactories'
 
 import {
   getAddedShifts,
@@ -21,19 +16,19 @@ import {
  */
 
 
-export const addShifts = addEntitiesActionFactory(ShiftActions.add, getAddedShifts)
-export const removeAddedShifts = removeAddedEntitiesActionFactory(ShiftActions.removeAdd, getAddedShifts)
+export const addShifts = Actions.addEntity(ShiftActions.add, getAddedShifts)
+export const removeAddedShifts = Actions.removeAddedEntity(ShiftActions.removeAdd, getAddedShifts)
 
 /**
  * Add an edited shift / remove an edited shift
  */
 
-export const editShifts = addEntitiesActionFactory(ShiftActions.edit, getEditedShifts)
-export const removeEditedShifts = removeAddedEntitiesActionFactory(ShiftActions.removeEdit, getEditedShifts)
+export const editShifts = Actions.addEntity(ShiftActions.edit, getEditedShifts)
+export const removeEditedShifts = Actions.removeAddedEntity(ShiftActions.removeEdit, getEditedShifts)
 
 /**
  * Add a deleted shift / remove a deleted shift
  */
 
-export const deleteShifts = deleteEntitiesActionFactory(ShiftActions.delete, getDeletedShifts)
-export const removeDeletedShifts = removeDeletedEntitiesActionFactory(ShiftActions.removeDelete, getDeletedShifts)
+export const deleteShifts = Actions.deleteEntity(ShiftActions.delete, getDeletedShifts)
+export const removeDeletedShifts = Actions.removeDeletedEntity(ShiftActions.removeDelete, getDeletedShifts)

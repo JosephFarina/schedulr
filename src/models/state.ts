@@ -80,6 +80,11 @@ export interface REntities {
   employees?: EntityModels.Employees
 }
 
+export interface RCrud {
+  added: EntityModels.Entities<any>
+  edited: EntityModels.Entities<any>
+}
+
 
 /**
  * 

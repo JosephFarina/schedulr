@@ -27,7 +27,7 @@ import { convertEntityArrToObj, deleteKeysFromObject } from 'src/utils'
  */
 
 
-export const addEntitiesActionFactory = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
+export const addEntity = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
   (dispatch, getState) => {
     dispatch({
       type,
@@ -36,7 +36,7 @@ export const addEntitiesActionFactory = curry((type, selector: (state: RState) =
   }
 )
 
-export const removeAddedEntitiesActionFactory = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
+export const removeAddedEntity = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
   (dispatch, getState) => {
     const added = selector(getState())
     const idsToDelete = entities.map(entity => entity.id)
@@ -44,13 +44,13 @@ export const removeAddedEntitiesActionFactory = curry((type, selector: (state: R
   }
 )
 
-export const deleteEntitiesActionFactory = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
+export const deleteEntity = curry((type, selector: (state: RState) => Entities<any>, entities: Entity[]) =>
   (dispatch, getState) => {
     dispatch({ type, payload: union(entities.map(entity => entity.id), selector(getState())) })
   }
 )
 
-export const removeDeletedEntitiesActionFactory = curry((type, selector: (state: RState), entities: Entity[]) =>
+export const removeDeletedEntity = curry((type, selector: (state: RState) => string[], entities: Entity[]) =>
   (dispatch, getState) => {
     const idsToUndelete = entities.map(entity => entity.id)
     dispatch({

@@ -6,6 +6,6 @@ import { curry } from 'ramda'
  * 
  */
 
-export const actionTypeFormatter = curry(function actionTypeFormatter(entityName: string, type: string) {
+export const actionTypeStringFormatter = curry(function actionTypeFormatter(entityName: string, type: string) {
   return entityName + '::' + type.replace(/ /g, '_')
 })

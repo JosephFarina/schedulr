@@ -5,8 +5,7 @@ import * as React from 'react'
 import { values } from 'ramda'
 
 import { ShiftEditor } from './../ShiftEditor'
-import { ButtonGroup } from 'src/shared/components/'
-import { updateNewShift, } from 'src/state/shift'
+import { updateNewShift } from 'src/state/shift'
 
 import {
   clientsOne,
@@ -27,23 +26,23 @@ describe('ShiftEditor', () => {
     wrapper = mount(<ShiftEditor
       clients={values(clientsOne)}
       locations={values(locationsOne)}
-      dispatch={mockDispatch} />)
+      dispatch={mockDispatch}
+    />)
   })
 
   it('should render', () => {
     mount(<ShiftEditor />)
   })
 
-
   describe('Actions work as expected', () => {
 
     it('#updateClient should also update the location the clients first loc', () => {
-      const clientId = Object.keys(clientsOne)[0]
+      const client = values(clientsOne)[0]
       const expected = updateNewShift({
-        client: clientId,
-        location: clientsOne[clientId].locations[0]
+        client: client.id,
+        location: client.locations[0]
       })
-      wrapper.instance()['updateClient'](clientId)
+      wrapper.instance()['updateClient'](client.id)
       expect(mockDispatch.calls.mostRecent().args[0]).toEqual(expected)
     })
 
@@ -99,15 +98,4 @@ describe('ShiftEditor', () => {
 
   })
 
-
 })
-
-
-function getTextInButtonGroup(wrapper: any): string[] {
-  const btnGroup = wrapper.find(ButtonGroup)
-  const text = btnGroup.children().map((child: any) => {
-    return child.text()
-  })
-
-  return text.length > 0 ? text : null
-}

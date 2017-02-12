@@ -140,7 +140,8 @@ export class ShiftEditor extends React.Component<Props, State> {
 
   public updateClient(clientId: string): void {
     const { dispatch, clients } = this.props
-    const clientsFirstLocation = clients[clientId].locations[0]
+    const clientsFirstLocation = clients.filter(client => client.id === clientId)[0].locations[0]
+
     dispatch(updateNewShift({
       client: clientId,
       location: clientsFirstLocation

@@ -1,22 +1,22 @@
-import {
-  Client,
-  Clients,
-  Employee,
-  Employees,
-  Location,
-  Locations,
-  REntities
-} from 'src/models'
+// import {
+//   Client,
+//   Clients,
+//   Employee,
+//   Employees,
+//   Location,
+//   Locations,
+//   REntities
+// } from 'src/models'
 
-import {
-  addClient,
-  addEmployee,
-  addLocation,
-  setClients,
-  setEmployees,
-  setLocations,
-} from './../action'
-import entities from './../reducer'
+// import {
+//   addClient,
+//   addEmployee,
+//   addLocation,
+//   setClients,
+//   setEmployees,
+//   setLocations,
+// } from './../action'
+// import entities from './../reducer'
 
 // import {
 //   client,

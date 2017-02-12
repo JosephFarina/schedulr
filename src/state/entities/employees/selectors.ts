@@ -9,7 +9,7 @@ export const getDeletedEmployees = (state: RState): string[] => Object.assign([]
 
 /**
  * 
- * Get all shifts -- it gives updated version
+ * Get all Employee -- it gives updated version
  * 
  */
 

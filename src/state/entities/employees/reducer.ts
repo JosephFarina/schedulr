@@ -1,6 +1,6 @@
 import * as Crud from 'src/modules/entityCrudFactories'
 import { Action, Employees } from 'src/models'
-import { ShiftEntityActions } from 'src/state/actionTypes'
+import { EmployeeEntityActions } from 'src/state/actionTypes'
 
 export const initialState: Employees = Crud.InitialState.mergeWith({
 
@@ -14,4 +14,4 @@ const employeesReducer = (state = initialState, action: Action<Employees>): Empl
   }
 }
 
-export default Crud.Reducer.mergeWith(ShiftEntityActions, employeesReducer)
+export default Crud.Reducer.mergeWith(EmployeeEntityActions, employeesReducer)

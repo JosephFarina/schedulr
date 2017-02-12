@@ -15,11 +15,14 @@ import {
 } from 'src/state/ui/modal'
 
 import {
-  addShifts,
   getGeneratedShifts,
   removeEmployeeFromShift,
   resetShiftEditor
 } from 'src/state/shift'
+
+import {
+  addShifts
+} from 'src/state/entities'
 
 import {
   RState,

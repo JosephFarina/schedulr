@@ -7,9 +7,9 @@ import {
 } from 'react-redux'
 
 import {
-  Clients,
-  Employees,
-  Locations,
+  Client,
+  Employee,
+  Location,
   RState,
   ShiftTemplate
 } from 'src/models'
@@ -62,9 +62,9 @@ interface Props {
   datePickerMonth?: string
 
   // Entities
-  clients?: Clients
-  employees?: Employees
-  locations?: Locations
+  clients?: Client[]
+  employees?: Employee[]
+  locations?: Location[]
 
   handleSubmit?(): void
   handleReset?(): void
@@ -80,12 +80,12 @@ export class ShiftEditor extends React.Component<Props, State> {
     handleReset: () => { },
     handleSubmit: () => { },
     newShift: {},
-    employees: {},
+    employees: [],
     employeesInShift: [],
     datePickerMonth: '',
     shiftDate: '',
-    clients: {},
-    locations: {}
+    clients: [],
+    locations: []
   }
 
   constructor(props: Props) {

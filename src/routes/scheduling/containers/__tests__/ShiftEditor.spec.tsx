@@ -2,19 +2,14 @@ import * as M from 'moment'
 
 import { mount, } from 'enzyme'
 import * as React from 'react'
+import { values } from 'ramda'
 
 import { ShiftEditor } from './../ShiftEditor'
-
 import { ButtonGroup } from 'src/shared/components/'
-
-import {
-  removeEmployeeFromShift,
-  updateNewShift,
-} from 'src/state/shift'
+import { updateNewShift, } from 'src/state/shift'
 
 import {
   clientsOne,
-  employeesOne,
   locationsOne,
 } from 'src/testUtils'
 
@@ -30,8 +25,8 @@ describe('ShiftEditor', () => {
   beforeEach(() => {
     mockDispatch = jasmine.createSpy('mockDispatch')
     wrapper = mount(<ShiftEditor
-      clients={clientsOne}
-      locations={locationsOne}
+      clients={values(clientsOne)}
+      locations={values(locationsOne)}
       dispatch={mockDispatch} />)
   })
 

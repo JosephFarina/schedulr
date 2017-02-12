@@ -5,21 +5,14 @@ export const CalendarActions = {
   updateTimeRange: 'CalendarActions::updateTimeRange',
 }
 
+
 export const ShiftEntityActions = Crud.ActionTypes.mergeWith<{}>('Shifts', {})
-
-
-
+export const EmployeeEntityActions = Crud.ActionTypes.mergeWith<{}>('Employee', {})
+export const ClientEntityActions = Crud.ActionTypes.mergeWith<{}>('Client', {})
+export const LocationEntityActions = Crud.ActionTypes.mergeWith<{}>('Location', {})
 
 
 export const ShiftActions = {
-  // data
-  // add: 'ShiftActions::data::add',
-  // removeAdd: 'ShiftActions::data::removeAdd',
-  // edit: 'ShiftActions::data::edit',
-  // removeEdit: 'ShiftActions::data::removeEdit',
-  // delete: 'ShiftActions::data::delete',
-  // removeDelete: 'ShiftActions::data::removeDelete',
-
   // editor
   updateEditedShift: 'ShiftActions::editor::updateEditedShift',
   updateNewShift: 'ShiftActions::editor::updateNewShift',

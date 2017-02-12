@@ -32,17 +32,17 @@ import {
 } from 'src/shared/components'
 
 import { getMomentDate } from 'src/state/calendar'
-import { getShifts } from 'src/state/shift'
+import { getShifts } from 'src/state/entities'
 
-interface SchedulingCalendarProps {
+interface Props {
   dispatch?: Function,
   date: Moment
   shifts: ShiftTemplate[]
 }
 
-interface SchedulingCalendarState { }
+interface State { }
 
-class SchedulingCalendar extends React.Component<SchedulingCalendarProps, SchedulingCalendarState> {
+class SchedulingCalendar extends React.Component<Props, State> {
   public render() {
     const {
       date,
@@ -66,7 +66,7 @@ class SchedulingCalendar extends React.Component<SchedulingCalendarProps, Schedu
   }
 }
 
-const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: SchedulingCalendarProps) => {
+const mapStateToProps: MapStateToProps<any, any> = (state: RState, ownProps: Props) => {
   return {
     date: getMomentDate(state),
     shifts: getShifts(state)

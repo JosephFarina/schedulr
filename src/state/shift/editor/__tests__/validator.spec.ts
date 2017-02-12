@@ -1,4 +1,4 @@
-// TODO: FIXME: GET THE TESTS TO PASS SINCE CHANGING THE ENTTIY LAYOUT
+// // TODO: FIXME: GET THE TESTS TO PASS SINCE CHANGING THE ENTTIY LAYOUT
 
 // import * as M from 'moment'
 
@@ -6,7 +6,6 @@
 //   RState,
 //   Shift,
 //   ShiftTemplate,
-//   Shifts,
 //   Employee,
 //   ValidatorResponseObject
 // } from 'src/models'
@@ -15,9 +14,7 @@
 //   validateNewShifts
 // } from './../validator'
 
-// import {
-//   getEmployeeById
-// } from 'src/state/entities'
+// import { getEmployeeById } from 'src/state/entities'
 
 // const expectedMessages = {
 //   duration: {
@@ -30,7 +27,10 @@
 //     location: ['Location must be present']
 //   },
 //   startTime: (employees: Employee[]) => ({
-//     startTime: employees.map(employee => `${employee.alias} is already scheduled at this time`)
+//     startTime: employees.map(employee => {
+//       console.log(employee, 'alias fails here')
+//       return `${employee.alias} is already scheduled at this time`
+//     })
 //   })
 // }
 

@@ -5,7 +5,6 @@ import {
 
 import {
   getGeneratedShifts,
-  getShifts
 } from './..'
 
 import {
@@ -16,7 +15,8 @@ import {
 } from 'src/models'
 
 import {
-  getEmployeeById
+  getEmployeeById,
+  getShifts
 } from 'src/state/entities'
 
 function createValidator(state: RState, shiftBeingValidated: Shift): Validator<Shift> {

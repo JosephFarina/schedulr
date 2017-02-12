@@ -5,7 +5,7 @@ import {
   getAddedShifts,
   getEditedShifts,
   getDeletedShifts
-} from './selector'
+} from './'
 
 /**
  * 

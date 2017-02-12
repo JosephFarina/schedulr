@@ -43,7 +43,7 @@ export interface RCalendar {
  */
 
 export interface RShift {
-  data?: RShiftData
+  // data?: RShiftData
   editor?: RShiftEditor
 }
 
@@ -82,6 +82,7 @@ export interface REntities {
   clients?: CrudState<EntityModels.Clients>
   locations?: CrudState<EntityModels.Locations>
   employees?: CrudState<EntityModels.Employees>
+  shifts?: CrudState<EntityModels.Shifts>
 }
 
 /**

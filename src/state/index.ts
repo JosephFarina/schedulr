@@ -6,7 +6,7 @@ import {
 
 import auth from './auth'
 import calendar from './calendar/reducer'
-import entities from './entities/reducer'
+import entitiesReducer from './entities'
 import shift from './shift'
 import ui from './ui'
 
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   calendar,
   shift,
   ui,
-  entities,
+  entities: entitiesReducer,
   auth,
   routing: routerReducer
 })

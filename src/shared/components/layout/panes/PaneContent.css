@@ -16,6 +16,10 @@
   }
 }
 
+.scrollable {
+  overflow: scroll;
+}
+
 .sidebarContainer {
   composes: container from "./PaneSidebar.css";
 }

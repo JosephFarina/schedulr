@@ -58,7 +58,7 @@ class SchedulingCalendar extends React.Component<Props, State> {
             <Button to="/scheduling"><img className={iconStyles.toolbarIcon} src={inspectIcon} /></Button>
           </ButtonGroup>
         </PaneHeader>
-        <PaneContent>
+        <PaneContent scrollable>
           <Calendar shifts={shifts} week={date} />
         </PaneContent>
       </PaneBody>

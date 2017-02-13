@@ -6,17 +6,20 @@ const styles = require('./PaneContent.css')
 interface Props {
   children?: React.ReactChild
   noHeader?: boolean
+  scrollable?: boolean
 }
 
 const PaneContent: React.StatelessComponent<any> = (props: Props) => {
   const {
     children,
-    noHeader
+    noHeader,
+    scrollable
   } = props
 
   const klass = ctx({
     [styles.container]: true,
-    [styles.noHeader]: noHeader
+    [styles.noHeader]: noHeader,
+    [styles.scrollable]: scrollable
   })
 
   return (

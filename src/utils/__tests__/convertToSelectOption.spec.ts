@@ -1,67 +1,30 @@
-// TODO: FIXME: GET THIS WORKNG AGAIN
+import { values } from 'ramda'
+import { clientsOne } from 'src/testUtils/mockData'
 
-// import {
-//   Clients,
-//   Employees,
-//   Locations,
-//   SelectOption,
-//   SelectOptions,
-// } from 'src/models'
+import { convertEntityToSelectOptions } from 'src/utils'
 
-// import { values } from 'ramda'
-// import { clientsOne } from 'src/testUtils/mockData'
-// import { convertEntityToSelectOptions } from 'src/utils'
+describe('Utils#convertEntityToSelectOptions', () => {
 
-// describe('ConvertToSelectOption', () => {
-//   let res
+  it('should convert object of entities to array select options', () => {
+    const res = convertEntityToSelectOptions(clientsOne)
+    expect(Array.isArray(res)).toBeTruthy()
+    expect(values(clientsOne).length).toEqual(res.length)
+    res.forEach(option => {
+      const ent = clientsOne[option.value]
+      expect(ent.id).toEqual(option.value)
+      expect(ent.alias).toEqual(option.label)
+    })
+  })
 
-//   beforeEach(() => {
-//     res = convertEntityToSelectOptions(clientsOne)
-//   })
+  it('should convert object of entities to array select options', () => {
+    const res = convertEntityToSelectOptions(values(clientsOne))
 
-//   describe('should work for an array of entites:', () => {
-//     it('length should be the same', () => {
-//       res = convertEntityToSelectOptions(values(clientsOne))
-//       expect(res.length).toEqual(values(clientsOne).length)
-//     })
-//   })
+    expect(values(clientsOne).length).toEqual(res.length)
+    res.forEach(option => {
+      const ent = clientsOne[option.value]
+      expect(ent.id).toEqual(option.value)
+      expect(ent.alias).toEqual(option.label)
+    })
+  })
 
-//   describe('should work for an entities Object', () => {
-
-//     it('should return an array of the same length as the number of keys', () => {
-//       expect(res.length).toEqual(Object.keys(clientsOne).length)
-//     })
-
-//   })
-
-
-//   it('each array value should have the id as a value', () => {
-//     // testForCorrectValues(res, clientsOne)
-//   })
-
-//   it('each array display should be the clients name', () => {
-//     // testForCorrectDisplay(res, clientsOne)
-
-//   })
-
-// })
-
-// function testForCorrectValues(res: SelectOptions, entity: Clients | Employees | Locations) {
-//   const values = getSelectOptionsValue(res)
-//   const expectedValues = Object.keys(entity).map(entityId => entity[entityId].id).sort()
-//   expect(values).toEqual(expectedValues)
-// }
-
-// function testForCorrectDisplay(res: SelectOptions, entity: Clients | Employees | Locations) {
-//   const displays = getSelectOptionsDisplay(res)
-//   const expectedDisplays = Object.keys(entity).map(entityId => entity[entityId].alias).sort()
-//   expect(displays).toEqual(expectedDisplays)
-// }
-
-// function getSelectOptionsDisplay(options: SelectOptions) {
-//   return options.map(option => option.display).sort()
-// }
-
-// function getSelectOptionsValue(options: SelectOptions) {
-//   return options.map(option => option.value).sort()
-// }
+})

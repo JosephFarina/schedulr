@@ -1,10 +1,11 @@
-import { ShiftEntityActions } from 'src/state/actionTypes'
+import { EmployeeEntityActions } from 'src/state/actionTypes'
 import * as Crud from 'src/modules/entityCrudFactories'
 
 import {
   getAddedEmployees,
   getDeletedEmployees,
-  getEditedEmployees
+  getEditedEmployees,
+  getRawEmployees
 } from './'
 
 /**
@@ -13,7 +14,10 @@ import {
  * 
  */
 
-const actionFactory = Crud.Actions.actionFactory(ShiftEntityActions)
+const actionFactory = Crud.Actions.actionFactory(EmployeeEntityActions)
+
+const rawFactory = actionFactory(getRawEmployees)
+export const setEmployees = rawFactory('setRaw')
 
 const addFactory = actionFactory(getAddedEmployees)
 export const addEmployees = addFactory('add')

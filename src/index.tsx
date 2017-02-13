@@ -1,4 +1,5 @@
 require('normalize.css/normalize.css')
+require('react-select/dist/react-select.css')
 require('./index.css')
 
 import * as React from 'react'

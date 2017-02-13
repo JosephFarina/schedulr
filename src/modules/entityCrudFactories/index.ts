@@ -15,10 +15,12 @@ import * as Actions from './actionFactories'
 import * as ActionTypes from './actionTypeFactory'
 import * as InitialState from './initialStateFactory'
 import * as Reducer from './reducerFactory'
+import * as Selectors from './selectorFactories'
 import { getUpdatedEntitiesFactory } from './getEntitiesFactory'
 
 export {
   Actions,
+  Selectors,
   ActionTypes,
   getUpdatedEntitiesFactory,
   InitialState,

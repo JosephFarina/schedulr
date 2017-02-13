@@ -1,6 +1,6 @@
 export * from './shifts'
 export * from './time'
-export * from './convertToSelectOption'
+export * from './convertEntityToSelectOptions'
 export * from './deleteKeysFromObject'
 export * from './math.utils'
 export * from './typeChecking.util'

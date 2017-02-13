@@ -20,4 +20,4 @@ export const getEmployees = Crud.getUpdatedEntitiesFactory(
   getDeletedEmployees
 )
 
-export const getEmployeeById = (state: RState, id: string): Employee => getEmployees(state)[id]
+export const getEmployeeById = (state: RState, id: string) => Crud.Selectors.getEntityById(getEmployees(state))(id)

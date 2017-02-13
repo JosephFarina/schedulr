@@ -1,12 +1,11 @@
 @import "./Input.scss";
 
 .container {
-  // composes: container from "./Input.scss";
-  // @extends .container;
   cursor: pointer;
   display: flex;
   align-items: center;
-  /*overflow-x: scroll;*/
+  height: auto;
+  border: none;
 
   &:focus {
     outline: none;

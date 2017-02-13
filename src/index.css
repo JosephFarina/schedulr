@@ -1,3 +1,38 @@
+@import "css-vars/index.css";
+
+:global {
+  @import "../node_modules/react-select/dist/react-select.css";
+  @import "../node_modules/react-dates/lib/css/_datepicker.css";
+
+  /* React-DatePicker style overrides */
+  .SingleDatePicker,
+  .DateInput {
+    width: 100%;
+  }
+
+  .DateInput__input {
+    cursor: pointer;
+  }
+
+  .SingleDatePickerInput,
+  .DateInput {
+    border-radius: 5px;
+  }
+
+  .DateInput {
+    padding: 3px;
+  }
+
+  .DateInput__display-text--focused,
+  .CalendarDay--selected-start,
+  .CalendarDay--selected-end,
+  .CalendarDay--selected {
+    background: $color-Brand;
+    border-color: $color-Brand;
+    color: white;
+  }
+}
+
 html {
   height: 100%;
 }

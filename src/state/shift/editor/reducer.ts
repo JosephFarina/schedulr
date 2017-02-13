@@ -24,7 +24,35 @@ export const initialState: RShiftEditor = {
 
 const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShiftEditor => {
   switch (action.type) {
+    // New Vlaues
 
+    case ShiftActions.setEmployeesInShift:
+      return Object.assign({}, state, {
+        employeesInShift: action.payload
+      })
+
+    case ShiftActions.setClientInShift:
+      return Object.assign({}, state, {
+        newShift: Object.assign({}, state.newShift, {
+          client: action.payload
+        })
+      })
+
+    case ShiftActions.setLocationInShift:
+      return Object.assign({}, state, {
+        newShift: Object.assign({}, state.newShift, {
+          location: action.payload
+        })
+      })
+
+
+
+
+
+
+
+
+    // Old values
     /**
      * 
      * Add and remove employee shift

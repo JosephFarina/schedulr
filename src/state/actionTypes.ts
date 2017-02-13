@@ -13,7 +13,12 @@ export const LocationEntityActions = Crud.ActionTypes.mergeWith<{}>('Location', 
 
 
 export const ShiftActions = {
-  // editor
+  // new
+  setEmployeesInShift: 'ShiftActions::editor::setEmployeesInShift',
+  setClientInShift: 'ShiftActions::editor::setClientInShift',
+  setLocationInShift: 'ShiftActions::editor::setLocationInShift',
+
+  // old
   updateEditedShift: 'ShiftActions::editor::updateEditedShift',
   updateNewShift: 'ShiftActions::editor::updateNewShift',
   clearShiftEditor: 'ShiftActions::editor::clearShiftEditor',

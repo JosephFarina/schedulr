@@ -1,8 +1,8 @@
+import { Option } from 'react-select'
 import * as M from 'moment'
 import {
   Action,
   RShiftEditor,
-  RUI,
   ShiftTemplate,
   ValidatorResponseObject
 } from 'src/models'
@@ -29,11 +29,57 @@ import {
   openNewShiftApprovalModal
 } from 'src/state/ui/modal'
 
+
+export function setEmployeesInShift(employees: Option[]): Action<RShiftEditor> {
+  return {
+    type: ShiftActions.setEmployeesInShift,
+    payload: employees.map(option => option.value)
+  }
+}
+
+export const setClientInShift = (client: Option) => (dispatch, getState) => {
+  dispatch({
+    type: ShiftActions.setClientInShift,
+    payload: client ? client.value : ''
+  })
+  dispatch(setLocationInShift(''))
+}
+
+export function setLocationInShift(location: Option): Action<RShiftEditor> {
+  return {
+    type: ShiftActions.setLocationInShift,
+    payload: location ? location.value : ''
+  }
+}
+
+export function setShiftDate(date: MorString): Action<string> {
+  return {
+    type: ShiftActions.updateShiftDate,
+    payload: cloneOrCreateMo(date).hour(12).minutes(0).format()
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * 
  * Adding and removing employees from the new shift
  * 
  */
+
 
 export function addEmployeeToShift(employeeId: string): Action<RShiftEditor> {
   return {

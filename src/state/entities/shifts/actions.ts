@@ -4,7 +4,8 @@ import * as Crud from 'src/modules/entityCrudFactories'
 import {
   getAddedShifts,
   getEditedShifts,
-  getDeletedShifts
+  getDeletedShifts,
+  getRawShifts
 } from './'
 
 /**
@@ -14,6 +15,9 @@ import {
  */
 
 const actionFactory = Crud.Actions.actionFactory(ShiftEntityActions)
+
+const rawFactory = actionFactory(getRawShifts)
+export const setShifts = rawFactory('setRaw')
 
 const addFactory = actionFactory(getAddedShifts)
 export const addShifts = addFactory('add')

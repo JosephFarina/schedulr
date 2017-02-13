@@ -6,7 +6,7 @@
   max-width: $pane-Sidebar--width;
   border-right: $border;
   padding: 0;
-  overflow: scroll;
+  // overflow: scroll;
   background-color: $color-Mono--white;
   /*padding: 1rem;*/
   /*padding-top: 5rem;*/

@@ -9,6 +9,10 @@ export const mergeWith = <T>(crudActionTypeObj: Crud.ActionTypes.CrudActionTypes
 function crudReducer(crudActionTypeObj: Crud.ActionTypes.CrudActionTypes, state, action) {
 
   switch (action.type) {
+    case crudActionTypeObj.setRaw:
+      return Object.assign({}, state, {
+        raw: action.payload
+      })
 
     case crudActionTypeObj.add:
     case crudActionTypeObj.removeAdded:

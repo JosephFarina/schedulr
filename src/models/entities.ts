@@ -1,5 +1,6 @@
 export interface Entity {
   id?: string
+  alias?: string
 }
 
 export interface Entities<T> {

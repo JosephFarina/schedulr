@@ -2,15 +2,30 @@ import * as React from 'react'
 
 import { Provider } from 'react-redux'
 import {
-  IndexRoute,
   Route,
   Router,
   browserHistory,
 } from 'react-router'
 import { syncHistoryWithStore, } from 'react-router-redux'
 
+import {
+  setClients,
+  setEmployees,
+  setLocations,
+  setShifts
+} from 'src/state/entities'
+
+import {
+  clientsOne,
+  employeesOne,
+  locationsOne,
+  generateShifts
+} from 'src/testUtils'
+
 import configureStore from './state/configureStore'
 import Root from 'src/shared/components/Root'
+
+
 
 /**
  * 
@@ -19,9 +34,11 @@ import Root from 'src/shared/components/Root'
  */
 
 
+
 // Scheduling
-import NewShiftSideBar from 'src/routes/scheduling/containers/NewShiftSideBar'
+import NewShiftSideBar from 'src/routes/scheduling/components/NewShiftSideBar'
 import Scheduling from 'src/routes/scheduling/Scheduling'
+
 
 // Auth
 import Auth from 'src/routes/auth/Auth'
@@ -36,6 +53,13 @@ import {
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
+
+
+// if DEV ENV -- seed the redux store with mock data for development
+store.dispatch((setClients(clientsOne) as any))
+store.dispatch((setEmployees(employeesOne) as any))
+store.dispatch((setLocations(locationsOne) as any))
+
 
 const Routes = () => (
   <Provider store={store}>

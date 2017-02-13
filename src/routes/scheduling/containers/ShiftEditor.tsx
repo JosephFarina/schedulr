@@ -117,13 +117,12 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
           onDateChange={dateChange}
         />
 
+        <Button block={true} >Create</Button>
+
         {/*{this.renderTimeSelector() */}
 
       </div>
 
-      <div style={{ marginTop: '.8rem' }}>
-        <Button block={true} >Create</Button>
-      </div>
     </div>
   )
 }

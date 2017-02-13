@@ -23,6 +23,11 @@
     padding: 3px;
   }
 
+  .DateInput__display-text {
+    font-size: 1rem;
+    color: $color-Mono--base;
+  }
+
   .DateInput__display-text--focused,
   .CalendarDay--selected-start,
   .CalendarDay--selected-end,

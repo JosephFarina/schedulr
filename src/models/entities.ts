@@ -31,7 +31,6 @@ export interface Shift extends SharedShiftData {
 
 export interface Shifts extends Entities<Shift> { }
 
-
 /**
  * 
  * Client Entity

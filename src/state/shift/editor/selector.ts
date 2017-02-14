@@ -1,4 +1,3 @@
-import * as M from 'moment'
 import { Option } from 'react-select'
 
 import {
@@ -13,7 +12,6 @@ import {
   getEmployeeById,
   getClientById,
   getLocationById,
-  getClients
 } from 'src/state/entities'
 
 import {
@@ -58,31 +56,6 @@ export const getGeneratedShifts = (state: RState): Shift[] => {
   })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Get Employees In Shift Being Created
- */
-
-
 export const getEmployeeOptionsInShiftBeingCreated = (state: RState): Option[] => {
   const employees = getEmployeeIdsInShiftBeingCreated(state).map(id => getEmployeeById(state, id))
   return convertEntityToSelectOptions(employees)
@@ -122,13 +95,6 @@ export const getLocationOptionInShiftBeingCreated = (state: RState): Option => {
   return locationId ? convertEntityToSelectOptions(location)[0] : null
 }
 
-
-
-
-
-
-
-
 // Allows for checking if some shift is equal to the intial state
 export const shiftIsEqualToInitialState = (shift: Shift) => {
   const { client, duration, id, location, startTime } = initialState.newShift
@@ -141,25 +107,3 @@ export const shiftIsEqualToInitialState = (shift: Shift) => {
     startTime === shift.startTime
   )
 }
-
-// export const getSelectedShiftId = (state: RState): string => state.shift.editor.selectedShift
-// export const getShiftBeingEdited = (state: RState): ShiftTemplate => Object.assign({}, state.shift.editor.editedShift)
-// export const getShiftBeingCreated = (state: RState): ShiftTemplate => Object.assign({}, state.shift.editor.newShift)
-
-// export const getEmployeeIdsInShiftBeingCreated = (state: RState): string[] => state.shift.editor.employeesInShift
-
-// export const getEmployeeOptionsInShiftBeingCreated = (state: RState): Option[] => {
-//   console.log(getEmployeeIdsInShiftBeingCreated(state))
-//   const employees = getEmployeeIdsInShiftBeingCreated(state).map(id => getEmployeeById(state, id))
-//   console.log(employees)
-//   return employees.length > 0 ? convertEntityToSelectOptions(employees) : []
-// }
-
-
-
-
-
-
-
-// export const getDatePickerMonth = (state: RState): string => state.shift.editor.datePickerMonth
-

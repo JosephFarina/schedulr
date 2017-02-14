@@ -78,7 +78,9 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
 
     return (
       <Modal title={`${shifts.length} Shift${shifts.length === 1 ? '' : 's'} To Approve`} onRequestClose={this.closeModal}>
-        <div>{shifts.map((shift, i) => <ShiftPreview key={i} shift={shift} onRequestDelete={this.removeShiftFromEditor} />)}</div>
+        <div>
+          {shifts.map((shift, i) => <ShiftPreview key={i} shift={shift} onRequestDelete={this.removeShiftFromEditor} />)}
+        </div>
         <ModalFooter>
           <ButtonGroup justified={true}>
             <Button onClick={this.closeModal} block={true}>Cancel</Button>

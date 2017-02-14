@@ -17,6 +17,7 @@ export const ShiftActions = {
   setEmployeesInShift: 'ShiftActions::editor::setEmployeesInShift',
   setClientInShift: 'ShiftActions::editor::setClientInShift',
   setLocationInShift: 'ShiftActions::editor::setLocationInShift',
+  setShiftTimeAndDuration: 'ShiftActions::editor::setShiftTimeAndDuration',
 
   // old
   updateEditedShift: 'ShiftActions::editor::updateEditedShift',

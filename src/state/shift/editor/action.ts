@@ -13,12 +13,13 @@ import {
   MorString,
   cloneOrCreateMo,
   nextMonth,
-  previousMonth
+  previousMonth,
+  timeDuration
 } from 'src/utils'
 
 import {
   getShiftBeingCreated,
-  validateNewShifts
+  newShiftValidator
 } from './../'
 
 import {
@@ -58,6 +59,41 @@ export function setShiftDate(date: MorString): Action<string> {
     payload: cloneOrCreateMo(date).hour(12).minutes(0).format()
   }
 }
+
+export const setShiftTime = (times: M.Moment[]) => (dispatch, getState) => {
+  if (times !== null) {
+    const [start, end] = times
+    dispatch({
+      type: ShiftActions.setShiftTimeAndDuration,
+      payload: {
+        startTime: start.format(),
+        duration: timeDuration(start, end)
+      }
+    })
+  } else {
+    // if time is invalid it will be null instead of an array -- set state to null for error checking
+    dispatch({
+      type: ShiftActions.setShiftTimeAndDuration,
+      payload: {
+        startTime: null,
+        duration: null
+      }
+    })
+  }
+}
+
+export function generateShifts() {
+  return (dispatch: Function, getState: Function): void => {
+    const validationErrors = newShiftValidator(getState())
+
+    if (validationErrors === null) {
+      dispatch(openNewShiftApprovalModal())
+    } else {
+      dispatch(alertUserOfErrorsInNewShift(validationErrors))
+    }
+  }
+}
+
 
 
 
@@ -154,7 +190,7 @@ export function clearShiftEditor(): Action<RShiftEditor> {
     type: ShiftActions.clearShiftEditor,
     payload: {
       newShift: null,
-      selectedShift: null
+      // selectedShift: null
     }
   }
 }
@@ -166,18 +202,7 @@ export function clearShiftEditor(): Action<RShiftEditor> {
  * 
  */
 
-export function generateShifts() {
-  return (dispatch: Function, getState: Function): void => {
-    const validationErrors = validateNewShifts(getState())
 
-    // FIXME: make a function that checks if there are no validation errors
-    if (Object.keys(validationErrors).length === 0) {
-      dispatch(openNewShiftApprovalModal())
-    } else {
-      dispatch(alertUserOfErrorsInNewShift(validationErrors))
-    }
-  }
-}
 
 export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<ShiftTemplate>): (dispatch: any, getState: any) => any {
   const messages: string[] = Object.keys(errors).map(i => errors[i])

@@ -53,12 +53,9 @@ export interface RShiftData extends CrudState<RShift> {
 }
 
 export interface RShiftEditor {
-  newShift?: EntityModels.ShiftTemplate
   employeesInShift?: string[]
   shiftDate?: string
-  datePickerMonth?: string
-  editedShift?: EntityModels.ShiftTemplate
-  selectedShift?: string
+  newShift?: EntityModels.ShiftTemplate
   generateShift?: boolean
 }
 

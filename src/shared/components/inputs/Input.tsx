@@ -1,11 +1,8 @@
 // FIXME: Chrome autofill does not tigger event to raise label on type="password"
 
 import * as React from 'react'
-import * as ReactTooltip from 'react-tooltip'
-const debounce = require('lodash.debounce')
 
 import { InputProps } from 'src/models'
-import { errorArrayToString } from 'src/utils'
 
 const styles = require('./Input.scss')
 const ctx = require('classnames')
@@ -14,10 +11,9 @@ export interface Props extends InputProps { }
 
 export interface State {
   focused?: boolean
-  touched?: boolean
 }
 
-export class Input extends React.Component<Props, State> {
+class UncontrolledInput extends React.Component<Props, State> {
   public static defaultProps: Props = {
     label: '',
     value: '',
@@ -37,49 +33,25 @@ export class Input extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      focused: false,
-      touched: false
+      focused: false
     }
 
     this.onFocus = this.onFocus.bind(this)
     this.onBlur = this.onBlur.bind(this)
-    this.onChange = this.onChange.bind(this)
-    this.onChangeEnd = debounce(this.onChangeEnd, 500)
   }
 
-  /**
-   * 
-   * Public API that can be used by ref
-   * 
-   */
-
   public focus(): void {
+    this.setState({ focused: true })
     this.textInput.focus()
   }
 
   public blur(): void {
+    this.setState({ focused: false })
     this.textInput.blur()
   }
 
-  /**
-   * 
-   * Event Handler
-   * 
-   */
-
-  private onChange(event: any): void {
-    this.props.onChange(event.target.value)
-    this.onChangeEnd()
-  }
-
-  // debounced function calls props.onChangeEnd on typing break
-  private onChangeEnd(): void {
-    const { onChangeEnd } = this.props
-    onChangeEnd()
-  }
-
   private onFocus(): void {
-    this.setState({ focused: true, touched: true })
+    this.setState({ focused: true })
     this.props.onFocus()
   }
 
@@ -88,53 +60,10 @@ export class Input extends React.Component<Props, State> {
     this.props.onBlur()
   }
 
-  /**
-   * 
-   * Helpers
-   * 
-   */
-
   private hasValue(): boolean {
     const { value } = this.props
-    return value && value.length > 0 || false
+    return value && (value as any[]).length > 0 || false
   }
-
-  // FIXME: handle auto fill -- it can be valid but not touched
-  private isValid(): boolean {
-    const { valid } = this.props
-    const { touched } = this.state
-
-    return touched && (valid === true || !this.foundInValidateObj())
-  }
-
-  private isInvalid(): boolean {
-    const { valid, displayErrors } = this.props
-    const { touched } = this.state
-
-    return (touched || displayErrors) && (valid === false || this.foundInValidateObj())
-  }
-
-  // If true that means that the curr name of the input is present in the in the supplied validateObj meaning its invalid
-  private foundInValidateObj(): boolean {
-    const { validateObj, name } = this.props
-    return (!!validateObj && !!~Object.keys(validateObj).indexOf(name))
-  }
-
-  private getErrorMessage(): string | null {
-    const { displayErrors} = this.props
-    return displayErrors && this.foundInValidateObj() ? errorArrayToString(this.getErrorMessages()) : null
-  }
-
-  private getErrorMessages(): string[] | null {
-    const { displayErrors, validateObj, name } = this.props
-    return displayErrors && this.foundInValidateObj() ? validateObj[name] : []
-  }
-
-  /**
-   * 
-   * Renderers
-   * 
-   */
 
   public render() {
     const { focused } = this.state
@@ -143,16 +72,9 @@ export class Input extends React.Component<Props, State> {
       value,
       children,
       type,
-      name
+      name,
+      onChange
     } = this.props
-
-
-    const containerClass = ctx({
-      [styles.container]: true,
-      [styles.containerWithMessage]: !!this.getErrorMessage(),
-      [styles.invalid]: this.isInvalid(),
-      [styles.valid]: this.isValid()
-    })
 
     const labelClass = ctx({
       [styles.label]: true,
@@ -160,24 +82,19 @@ export class Input extends React.Component<Props, State> {
     })
 
     return (
-      <div className={containerClass}>
+      <div className={styles.inputContainer}>
         <input
           className={styles.inputText}
           name={name}
-          value={value}
+          value={(value as string)}
           type={type}
           onBlur={this.onBlur}
           onFocus={this.onFocus}
-          onChange={this.onChange}
+          onChange={e => onChange((e as any).target.value)}
           ref={input => { this.textInput = input }} />
 
         <label className={labelClass}>{label}</label>
         <div className={styles.bar}></div>
-
-        <div data-tip data-for={`inputMessageFor${name}`} className={styles.message}>{this.getErrorMessage()}</div>
-        <ReactTooltip id={`inputMessageFor${name}`} place="bottom" type="error" >
-          <ul>{this.getErrorMessages().map((err, i) => <li>{err}</li>)}</ul>
-        </ReactTooltip>
 
         {children}
       </div>
@@ -185,4 +102,4 @@ export class Input extends React.Component<Props, State> {
   }
 }
 
-export default Input
+export default UncontrolledInput

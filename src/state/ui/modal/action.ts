@@ -1,6 +1,5 @@
 import {
   Action,
-  ModalMode,
   RModal,
 } from 'src/models'
 

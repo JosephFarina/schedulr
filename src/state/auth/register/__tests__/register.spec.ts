@@ -32,13 +32,6 @@ const apiRegisterSpy = createApiSpy(API, 'register')
 describe('Auth — Registration', () => {
   beforeEach(() => { jasmine.DEFAULT_TIMEOUT_INTERVAL = 150000 })
 
-  it('#handleRegistrationCredentialChange() should update the creds', () => {
-    const state = register(undefined, handleRegistrationCredentialChange(registrationFields))
-    Object.keys(registrationFields).forEach(key => {
-      expect(state[key]).toEqual(registrationFields[key])
-    })
-  })
-
   it('#initated() should set fetching to true', () => {
     const state = register(undefined, registerInitiated())
     expect(state.fetching).toBeTruthy()

@@ -13,7 +13,8 @@ import {
   Employee,
   Location,
   RState,
-  ShiftTemplate
+  ShiftTemplate,
+  ValidatorResponseObject
 } from 'src/models'
 
 import {
@@ -30,19 +31,24 @@ import {
   getLocationIdsOfClientInShiftBeingCreated,
   getLocationOptionInShiftBeingCreated,
   getShiftDate,
-  setShiftDate
+  setShiftDate,
+  newShiftValidator,
+  setShiftTime,
+  generateShifts
 } from 'src/state/shift'
 
 import {
   Select,
   DatePicker,
-  Button
+  Button,
+  TimeInput
 } from 'src/shared/components'
 
 interface Props {
   dispatch?: Function
   newShift?: ShiftTemplate
   shiftDate?: string
+  validatorObj?: ValidatorResponseObject<any>
 
   // Entities
   clients?: Client[]
@@ -59,6 +65,7 @@ interface Props {
   clientChange?: (option: Option) => void
   locationChange?: (option: Option) => void
   dateChange?: (moment: M.Moment) => void
+  timeChange?: (moments: M.Moment[]) => void
 
   handleSubmit?(): void
   handleReset?(): void
@@ -67,6 +74,7 @@ interface Props {
 const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
   const {
     shiftDate,
+    validatorObj,
 
     // entities
     clients,
@@ -82,21 +90,27 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
     employeeChange,
     clientChange,
     locationChange,
-    dateChange
+    dateChange,
+    timeChange,
+    handleSubmit
   } = props
 
   return (
-    <div>
+    <form onSubmit={e => e.preventDefault()}>
 
       <Select
+        name="employee"
         placeholder="Employees"
         multi
+        validateObj={validatorObj}
         entities={employees}
         value={selectedEmployees}
         onChange={employeeChange}
       />
 
       <Select
+        name="client"
+        validateObj={validatorObj}
         placeholder="Clients"
         value={selectedClient}
         entities={clients}
@@ -104,6 +118,8 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
       />
 
       <Select
+        name="location"
+        validateObj={validatorObj}
         placeholder="Location"
         value={selectedLocation}
         entities={locations}
@@ -111,16 +127,24 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
       />
 
       <DatePicker
+        name="date"
+        validateObj={validatorObj}
         id="id"
         date={M(shiftDate)}
         onDateChange={dateChange}
       />
 
-      {/* TODO: TimeInput here */}
+      <TimeInput
+        name="startTime"
+        label="Time Range"
+        date={M(shiftDate)}
+        validateObj={validatorObj}
+        onChangeEnd={timeChange}
+      />
 
-      <Button block={true} >Create</Button>
+      <Button onClick={handleSubmit} block={true} >Create</Button>
 
-    </div>
+    </form>
   )
 }
 
@@ -132,7 +156,8 @@ const mapStateToProps: MapStateToProps<Props, RState> = (state: RState, ownProps
     selectedClient: getClientOptionInShiftBeingCreated(state),
     locations: getLocationIdsOfClientInShiftBeingCreated(state),
     selectedLocation: getLocationOptionInShiftBeingCreated(state),
-    shiftDate: getShiftDate(state)
+    shiftDate: getShiftDate(state),
+    validatorObj: newShiftValidator(state)
   }
 }
 
@@ -149,6 +174,12 @@ const MapDispatchToProps = (dispatch) => {
     },
     dateChange(m: M.Moment) {
       dispatch(setShiftDate(m))
+    },
+    timeChange(m: M.Moment[]) {
+      dispatch(setShiftTime(m))
+    },
+    handleSubmit() {
+      dispatch(generateShifts())
     }
   }
 }

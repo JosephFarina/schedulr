@@ -8,10 +8,8 @@ import {
 } from 'src/models'
 
 export const initialState: RShiftEditor = {
-  editedShift: null,
   employeesInShift: [],
   shiftDate: M().format(),
-  datePickerMonth: M().format(),
   generateShift: false,
   newShift: {
     duration: null,
@@ -45,9 +43,15 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
         })
       })
 
+    case ShiftActions.updateShiftDate:
+      return Object.assign({}, state, {
+        shiftDate: action.payload
+      })
 
-
-
+    case ShiftActions.setShiftTimeAndDuration:
+      return Object.assign({}, state, {
+        newShift: Object.assign({}, state.newShift, action.payload)
+      })
 
 
 
@@ -77,10 +81,7 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
      * 
      */
 
-    case ShiftActions.updateShiftDate:
-      return Object.assign({}, state, {
-        shiftDate: action.payload
-      })
+
 
     /**
      * 
@@ -117,10 +118,10 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
      * 
      */
 
-    case ShiftActions.updateEditedShift:
-      return Object.assign({}, state, {
-        editedShift: Object.assign({}, action.payload.editedShift)
-      })
+    // case ShiftActions.updateEditedShift:
+    //   return Object.assign({}, state, {
+    //     editedShift: Object.assign({}, action.payload.editedShift)
+    //   })
 
 
     case ShiftActions.clearShiftEditor:

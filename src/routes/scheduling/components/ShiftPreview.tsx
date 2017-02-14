@@ -122,7 +122,7 @@ export class ShiftPreview extends React.Component<ShiftPreviewProps, ShiftPrevie
 
           <div className={styles.itemContainer}>
             <label className={styles.label}>Date</label>
-            <div className={styles.values}>{M(startTime).format('ddd, MMM Mo')}</div>
+            <div className={styles.values}>{M(startTime).format('MM/DD/YYYY')}</div>
           </div>
 
           <div className={styles.itemContainer}>

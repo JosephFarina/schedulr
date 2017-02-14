@@ -11,18 +11,18 @@ describe('Login Container', () => {
     expect(wrapper).toBeTruthy()
   })
 
-  describe('Test input dispatching event to sync state with store on change end', () => {
-    const fields = {
-      email: 'Jrf61194@gmail.com',
-      password: 'Passw0rd1',
-    }
-    const dispatch = jasmine.createSpy('dispatch')
-    const wrapper = mount(<Login dispatch={dispatch} />)
-    const testFactory = containerCrudTestFactory(wrapper, dispatch, fields, handleAuthCredentialChange)
+  // describe('Test input dispatching event to sync state with store on change end', () => {
+  //   const fields = {
+  //     email: 'Jrf61194@gmail.com',
+  //     password: 'Passw0rd1',
+  //   }
+  //   const dispatch = jasmine.createSpy('dispatch')
+  //   const wrapper = mount(<Login dispatch={dispatch} />)
+  //   const testFactory = containerCrudTestFactory(wrapper, dispatch, fields, handleAuthCredentialChange)
 
-    // Run through each of the fields to test
-    Object.keys(fields).forEach(testFactory)
-  })
+  //   // Run through each of the fields to test
+  //   Object.keys(fields).forEach(testFactory)
+  // })
 
 
 })

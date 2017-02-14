@@ -3,6 +3,11 @@ $sidePadding: 10px;
 $borderRadius: 5px;
 
 .container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.inputContainer {
   width: 100%;
   position: relative;
   height: 50px;
@@ -14,7 +19,6 @@ $borderRadius: 5px;
     box-shadow: 0 0 3px -0.4px rgba(0,0,0,0.2);
   }
 }
-
 
 .containerWithMessage {
   margin-bottom: 1.8rem;

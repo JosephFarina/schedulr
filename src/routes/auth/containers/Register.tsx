@@ -29,12 +29,6 @@ interface Props {
 
 interface State {
   attemptedSubmition?: boolean
-  fields?: {
-    email?: string
-    password?: string
-    confirmPassword?: string
-    orgName?: string
-  }
 }
 
 export class Register extends React.Component<Props, State> {
@@ -43,12 +37,6 @@ export class Register extends React.Component<Props, State> {
     super(props)
     this.state = {
       attemptedSubmition: false,
-      fields: {
-        orgName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      }
     }
     this.syncWithStore = this.syncWithStore.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -68,15 +56,9 @@ export class Register extends React.Component<Props, State> {
     }
   }
 
-  private handleInputChange(property: RegistrationFields, val: string) {
-    this.setState(prevState => ({
-      fields: Object.assign({}, prevState.fields, { [property]: val })
-    }))
-  }
-
-  private syncWithStore() {
+  private syncWithStore(property: RegistrationFields, val: string) {
     const {dispatch} = this.props
-    dispatch(handleRegistrationCredentialChange(this.state.fields))
+    dispatch(handleRegistrationCredentialChange(property, val))
   }
 
   public render() {
@@ -116,10 +98,8 @@ export class Register extends React.Component<Props, State> {
               type={field.type}
               name={field.value}
               validateObj={validatorObj}
-              value={this.state.fields[field.value]}
               displayErrors={attemptedSubmition}
-              onChange={val => this.handleInputChange(field.value, val)}
-              onChangeEnd={this.syncWithStore}
+              onChangeEnd={val => this.syncWithStore(field.value, val)}
               label={field.label} />)}
             <Button loading={fetching} role="submit" onClick={this.handleSubmit} block>Submit</Button>
           </form>

@@ -1,3 +1,88 @@
+import * as M from 'moment'
+
+import { RState, RShiftEditor } from 'src/models'
+import { newShiftValidator } from './../../'
+
+
+describe('Shift Editor Auth', () => {
+
+  it('should tell you you need client if absent', () => {
+    const state: RState = makeState({
+      newShift: {
+        client: ''
+      }
+    })
+
+    expect(newShiftValidator(state).client).toEqual(['Client must be present'])
+  })
+
+  it('should be null if client included', () => {
+    const state = makeState({
+      newShift: {
+        client: 'A Client name'
+      }
+    })
+
+    expect(newShiftValidator(state).client).toBeUndefined()
+  })
+
+  it('should tell you if location is absent', () => {
+    const state = makeState({
+      newShift: {
+        location: ''
+      }
+    })
+
+    expect(newShiftValidator(state).location).toEqual(['Location must be present'])
+  })
+
+  it('should be null if location is included', () => {
+    const state = makeState({
+      newShift: {
+        location: 'a location'
+      }
+    })
+
+    expect(newShiftValidator(state).location).toBeUndefined()
+  })
+
+  it('should tell you if startime is absent', () => {
+    const state = makeState({
+      newShift: {
+        startTime: ''
+      }
+    })
+
+    expect(newShiftValidator(state).startTime).toEqual(['Must be a valid time range'])
+  })
+
+  it('should be null if startTime is a valid time', () => {
+    const state = makeState({
+      newShift: {
+        startTime: M().format()
+      }
+    })
+
+    expect(newShiftValidator(state).startTime).toBeUndefined()
+  })
+})
+
+function makeState(editor: RShiftEditor): RState {
+  return {
+    shift: {
+      editor
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
 // // TODO: FIXME: GET THE TESTS TO PASS SINCE CHANGING THE ENTTIY LAYOUT
 
 // import * as M from 'moment'

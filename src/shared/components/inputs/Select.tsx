@@ -1,12 +1,13 @@
 import * as React from 'react'
 import * as ReactSelect from 'react-select'
 import { Creatable, ReactCreatableSelectProps } from 'react-select'
-import { Entities, Entity } from 'src/models'
+import { Entities, Entity, InputProps } from 'src/models'
 import { convertEntityToSelectOptions } from 'src/utils'
+import { InputValidatorWrapper } from './InputValidatorWrapper'
 
 const styles = require('./Select.scss')
 
-interface SelectProps extends ReactCreatableSelectProps {
+interface SelectProps extends InputProps {
   creatable?: boolean
   entities?: Entities<any> | Entity[]
   entity?: Entity
@@ -24,8 +25,8 @@ const defaultProps: SelectProps = {
  * 
  */
 
-const Select: React.StatelessComponent<SelectProps> = (props: SelectProps) => {
-  const {entities, entity, creatable} = props
+const UnwrappedSelect: React.StatelessComponent<SelectProps> = (props: SelectProps) => {
+  const {entities, entity, creatable, onFocus} = props
   const entityOptions = entities ? convertEntityToSelectOptions(entities) : []
   // const entityOption = entity ? convertEntityToSelectOptions([entity])[0] : null
 
@@ -34,7 +35,7 @@ const Select: React.StatelessComponent<SelectProps> = (props: SelectProps) => {
     (
       <Creatable
         options={entityOptions}
-        className={styles.container}
+        onFocus={onFocus}
         {...props}
       />
     )
@@ -42,12 +43,14 @@ const Select: React.StatelessComponent<SelectProps> = (props: SelectProps) => {
     (
       <ReactSelect
         options={entityOptions}
-        className={styles.container}
+        onFocus={onFocus}
         {...props}
       />
     )
 }
 
-Select.defaultProps = defaultProps
+UnwrappedSelect.defaultProps = defaultProps
+
+const Select = InputValidatorWrapper(UnwrappedSelect)
 
 export { Select }

@@ -15,19 +15,13 @@ import { LOCALSTORAGE_JWT_TOKEN, PAGE_TO_REDIRECT_TO_AFTER_SUCCESFUL_REGISTRATIO
  */
 
 
-export const handleRegistrationCredentialChange = (data: RAuthRegister): Action<RAuthRegister> => {
-  return {
+export const handleRegistrationCredentialChange = (property, val) => (dispatch, getState) => {
+  dispatch({
     type: RegisterActions.updateRegistrationField,
-    payload: Object.assign({}, data)
-  }
+    payload: Object.assign({}, getAuthRegister(getState()), { [property]: val })
+  })
 }
 
-
-/**
- * 
- * 
- * 
- */
 
 export const successfulRegistration = (): Action<RAuthRegister> => ({ type: RegisterActions.succesfull, payload: null })
 

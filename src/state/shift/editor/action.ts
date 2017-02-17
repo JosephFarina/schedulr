@@ -15,9 +15,7 @@ import {
   timeDuration
 } from 'src/utils'
 
-import {
-  newShiftValidator
-} from './../'
+import * as Editor from './'
 
 import {
   triggerNotification
@@ -27,36 +25,43 @@ import {
   openNewShiftApprovalModal
 } from 'src/state/ui/modal'
 
-export function setEmployeesInShift(employees: Option[]): Action<RShiftEditor> {
+export function setEmployee(employees: Option[]): Action<RShiftEditor> {
   return {
     type: ShiftActions.setEmployeesInShift,
     payload: employees.map(option => option.value)
   }
 }
 
-export const setClientInShift = (client: Option) => (dispatch, getState) => {
+export const setClient = (client: Option) => (dispatch, getState) => {
   dispatch({
     type: ShiftActions.setClientInShift,
     payload: client ? client.value : ''
   })
-  dispatch(setLocationInShift(''))
+  dispatch(setLocation(''))
 }
 
-export function setLocationInShift(location: Option): Action<RShiftEditor> {
+export function setLocation(location: Option): Action<RShiftEditor> {
   return {
     type: ShiftActions.setLocationInShift,
     payload: location ? location.value : ''
   }
 }
 
-export function setShiftDate(date: MorString): Action<string> {
+export function setDate(date: MorString): Action<string> {
   return {
     type: ShiftActions.updateShiftDate,
     payload: cloneOrCreateMo(date).hour(12).minutes(0).format()
   }
 }
 
-export const setShiftTime = (times: M.Moment[]) => (dispatch, getState) => {
+export function setUnparsedTimeRange(range: string): Action<string> {
+  return {
+    type: ShiftActions.setUnparsedTimeRange,
+    payload: range
+  }
+}
+
+export const setTime = (times: M.Moment[]) => (dispatch, getState) => {
   if (times !== null) {
     const [start, end] = times
     dispatch({
@@ -78,38 +83,38 @@ export const setShiftTime = (times: M.Moment[]) => (dispatch, getState) => {
   }
 }
 
-export function generateShifts() {
+export function generate() {
   return (dispatch: Function, getState: Function): void => {
-    const validationErrors = newShiftValidator(getState())
+    const validationErrors = Editor.Validators.newShiftValidator(getState())
 
     if (validationErrors === null) {
       dispatch(openNewShiftApprovalModal())
     } else {
-      dispatch(alertUserOfErrorsInNewShift(validationErrors))
+      dispatch(alertErrors(validationErrors))
     }
   }
 }
 
-export function alertUserOfErrorsInNewShift(errors: ValidatorResponseObject<ShiftTemplate>): (dispatch: any, getState: any) => any {
+export function alertErrors(errors: ValidatorResponseObject<ShiftTemplate>): (dispatch: any, getState: any) => any {
   const messages: string[] = Object.keys(errors).map(i => errors[i])
   return triggerNotification(messages)
 }
 
-export function resetShiftEditor(): Action<RShiftEditor> {
+export function reset(): Action<RShiftEditor> {
   return {
     type: ShiftActions.resetEditor,
     payload: null
   }
 }
 
-export function addEmployeeToShift(employeeId: string): Action<RShiftEditor> {
+export function addEmployee(employeeId: string): Action<RShiftEditor> {
   return {
     type: ShiftActions.addEmployeeToShift,
     payload: employeeId
   }
 }
 
-export function removeEmployeeFromShift(employeeId: string): Action<RShiftEditor> {
+export function removeEmployee(employeeId: string): Action<RShiftEditor> {
   return {
     type: ShiftActions.removeEmployeeFromShift,
     payload: employeeId

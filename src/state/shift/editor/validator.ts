@@ -3,10 +3,12 @@ import {
   validatorFactory,
 } from 'src/utils'
 
-import {
-  getGeneratedShifts,
-  getShiftBeingCreated
-} from './..'
+// import {
+//   getGeneratedShifts,
+//   getState
+// } from './..'
+
+import * as ShiftEditor from './'
 
 import {
   RState,
@@ -43,9 +45,8 @@ function createValidator(state: RState): Validator<ShiftTemplate> {
 }
 
 
-export const newShiftValidator = (state: RState) => validatorFactory<ShiftTemplate>(createValidator(state))(getShiftBeingCreated(state))
-
-
+export const newShiftValidator = (state: RState) =>
+  validatorFactory<ShiftTemplate>(createValidator(state))(ShiftEditor.Selectors.getState(state))
 
 
 

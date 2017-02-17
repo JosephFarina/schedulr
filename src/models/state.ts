@@ -55,6 +55,7 @@ export interface RShiftData extends CrudState<RShift> {
 export interface RShiftEditor {
   employeesInShift?: string[]
   shiftDate?: string
+  unparsedTimeRange?: string
   newShift?: EntityModels.ShiftTemplate
   generateShift?: boolean
 }

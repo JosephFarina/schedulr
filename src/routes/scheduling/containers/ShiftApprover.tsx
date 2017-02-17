@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   Modal,
   ModalFooter,
+  ModalHeader
 } from 'src/shared/components'
 
 import { ShiftPreview } from './../components'
@@ -14,27 +15,21 @@ import {
   closeModal
 } from 'src/state/ui/modal'
 
-import {
-  getGeneratedShifts,
-  removeEmployeeFromShift,
-  resetShiftEditor
-} from 'src/state/shift'
+import * as Shift from 'src/state/shift'
+
 
 import {
   addShifts
 } from 'src/state/entities'
 
-import {
-  RState,
-  Shift
-} from 'src/models'
+import * as I from 'src/models'
 
 // const styles = require('./ShiftApproIver.css')
 const ctx = require('classnames')
 
 interface ShiftApproverProps {
   dispatch?: Function
-  shifts: Shift[]
+  shifts: I.Shift[]
 }
 
 interface ShiftApproverState {
@@ -57,7 +52,7 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
   private addShifts() {
     const { dispatch, shifts } = this.props
     dispatch(addShifts(shifts))
-    dispatch(resetShiftEditor())
+    dispatch(Shift.Editor.Actions.reset())
     this.closeModal()
   }
 
@@ -66,9 +61,9 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
     dispatch(closeModal())
   }
 
-  private removeShiftFromEditor(shift: Shift) {
+  private removeShiftFromEditor(shift: I.Shift) {
     const { dispatch } = this.props
-    dispatch(removeEmployeeFromShift(shift.employee))
+    dispatch(Shift.Editor.Actions.removeEmployee(shift.employee))
   }
 
   public render() {
@@ -92,9 +87,9 @@ class ShiftApprover extends React.Component<ShiftApproverProps, ShiftApproverSta
   }
 }
 
-const mapStateToProps = (state: RState) => {
+const mapStateToProps = (state: I.RState) => {
   return {
-    shifts: getGeneratedShifts(state)
+    shifts: Shift.Editor.Selectors.getGeneratedShifts(state)
   }
 }
 

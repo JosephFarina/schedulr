@@ -1,6 +1,6 @@
 import { compose } from 'ramda'
 
-import UncontrolledInput from './Input'
+import I from './Input'
 export * from './Select'
 export * from './DatePicker'
 
@@ -11,6 +11,8 @@ import { InputTimeWrapper } from './InputTimeWrapper'
 export const Input = compose(
   InputControlWrapper,
   InputValidatorWrapper,
-)(UncontrolledInput)
+)(I)
+
+export const UncontrolledInput = InputValidatorWrapper(I)
 
 export const TimeInput = InputTimeWrapper(Input)

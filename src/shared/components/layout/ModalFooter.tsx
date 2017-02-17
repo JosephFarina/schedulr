@@ -7,24 +7,30 @@ interface ModalFooterMProps {
   children?: React.ReactChildren
 }
 
+interface ModalHeaderProps {
+  children?: React.ReactChildren
+}
+
 const defaultProps: ModalFooterMProps = {
 
 }
 
-const ModalFooter: React.StatelessComponent<ModalFooterMProps> = (props: ModalFooterMProps) => {
-  const {
-    children
-  } = props
-
-  return (
-    <div className={styles.footerContainer}>
-      <div className={styles.footerInnerContainer}>
-        {children}
-      </div>
+const ModalFooter: React.StatelessComponent<ModalFooterMProps> = ({children}: ModalFooterMProps) => (
+  <div className={styles.footerContainer}>
+    <div className={styles.footerInnerContainer}>
+      {children}
     </div>
-  )
-}
+  </div>
+)
+
+
+const ModalHeader: React.StatelessComponent<ModalHeaderProps> = ({children}: ModalHeaderProps) => (
+  <div>
+    {children}
+  </div>
+)
+
 
 ModalFooter.defaultProps = defaultProps
 
-export { ModalFooter }
+export { ModalFooter, ModalHeader }

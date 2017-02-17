@@ -36,24 +36,23 @@ export function rangeParser(_day: MorString, time: string): M.Moment[] {
   return null
 }
 
-/*
+/**
+ * rounds to the nearest 15
 
-rounds to the nearest 15
+ * accepted values:
+ * - 5a
+ * - 5am
+ * - 6p
+ * - 5pm
+ * - 3:15pm
+ * - 12:30am
 
-accepted values:
-- 5a
-- 5am
-- 6p
-- 5pm
-- 3:15pm
-- 12:30am
-
-- 12
-- 15
-- 2
-- 5:30
-- 5:40 == 5:45
-*/
+ * - 12
+ * - 15
+ * - 2
+ * - 5:30
+ * - 5:40 == 5:45
+ */
 
 export function timeParser(day: MorString, time: string): M.Moment {
   const meridiem = isAmOrPm(time)

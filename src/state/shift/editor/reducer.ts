@@ -11,6 +11,7 @@ export const initialState: RShiftEditor = {
   employeesInShift: [],
   shiftDate: M().format(),
   generateShift: false,
+  unparsedTimeRange: '',
   newShift: {
     duration: null,
     startTime: '',
@@ -53,7 +54,10 @@ const shiftEditor = (state = initialState, action: Action<RShiftEditor>): RShift
         newShift: Object.assign({}, state.newShift, action.payload)
       })
 
-
+    case ShiftActions.setUnparsedTimeRange:
+      return Object.assign({}, state, {
+        unparsedTimeRange: action.payload
+      })
 
 
     // Old values

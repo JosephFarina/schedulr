@@ -32,11 +32,6 @@ describe('ShiftPreview', () => {
     expect(wrapper.text()).toContain("Open Shift")
   })
 
-  it('should format the startTime properlly', () => {
-    const expectedDate = M(shift.startTime).format('ddd, MMM Mo')
-    expect(wrapper.text()).toContain(expectedDate)
-  })
-
   it('should have a formated startTime', () => {
     const expectedStartTime = M(shift.startTime).format('hh:mmA')
     expect(wrapper.text()).toContain(expectedStartTime)

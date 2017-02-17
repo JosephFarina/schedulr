@@ -8,6 +8,9 @@ const shift = combineReducers({
 
 export default shift
 
-export * from './editor/selector'
-export * from './editor/action'
-export * from './editor/validator'
+import * as Editor from './editor'
+
+export {
+  Editor
+}
+

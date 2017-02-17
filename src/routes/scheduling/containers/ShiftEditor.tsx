@@ -22,25 +22,13 @@ import {
   getClients
 } from 'src/state/entities'
 
-import {
-  setEmployeesInShift,
-  setClientInShift,
-  setLocationInShift,
-  getEmployeeOptionsInShiftBeingCreated,
-  getClientOptionInShiftBeingCreated,
-  getLocationIdsOfClientInShiftBeingCreated,
-  getLocationOptionInShiftBeingCreated,
-  getShiftDate,
-  setShiftDate,
-  newShiftValidator,
-  setShiftTime,
-  generateShifts
-} from 'src/state/shift'
+import * as Shift from 'src/state/shift'
 
 import {
   Select,
   DatePicker,
   Button,
+  UncontrolledInput,
   TimeInput
 } from 'src/shared/components'
 
@@ -48,6 +36,7 @@ interface Props {
   dispatch?: Function
   newShift?: ShiftTemplate
   shiftDate?: string
+  unparsedTimeRange?: string
   validatorObj?: ValidatorResponseObject<any>
 
   // Entities
@@ -66,6 +55,7 @@ interface Props {
   locationChange?: (option: Option) => void
   dateChange?: (moment: M.Moment) => void
   timeChange?: (moments: M.Moment[]) => void
+  timeRangeChange?: (e: any) => void
 
   handleSubmit?(): void
   handleReset?(): void
@@ -75,6 +65,7 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
   const {
     shiftDate,
     validatorObj,
+    unparsedTimeRange,
 
     // entities
     clients,
@@ -92,7 +83,8 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
     locationChange,
     dateChange,
     timeChange,
-    handleSubmit
+    handleSubmit,
+    timeRangeChange
   } = props
 
   return (
@@ -134,12 +126,13 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
         onDateChange={dateChange}
       />
 
-      <TimeInput
+      <UncontrolledInput
         name="startTime"
         label="Time Range"
         date={M(shiftDate)}
         validateObj={validatorObj}
-        onChangeEnd={timeChange}
+        value={unparsedTimeRange}
+        onChange={timeRangeChange}
       />
 
       <Button onClick={handleSubmit} block={true} >Create</Button>
@@ -151,35 +144,39 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
 const mapStateToProps: MapStateToProps<Props, RState> = (state: RState, ownProps: Props) => {
   return {
     employees: getEmployees(state),
-    selectedEmployees: getEmployeeOptionsInShiftBeingCreated(state),
+    selectedEmployees: Shift.Editor.Selectors.getEmployeeOptions(state),
     clients: getClients(state),
-    selectedClient: getClientOptionInShiftBeingCreated(state),
-    locations: getLocationIdsOfClientInShiftBeingCreated(state),
-    selectedLocation: getLocationOptionInShiftBeingCreated(state),
-    shiftDate: getShiftDate(state),
-    validatorObj: newShiftValidator(state)
+    selectedClient: Shift.Editor.Selectors.getClientOptionInShiftBeingCreated(state),
+    locations: Shift.Editor.Selectors.getLocationIdsOfClientInShiftBeingCreated(state),
+    selectedLocation: Shift.Editor.Selectors.getLocationOptionInShiftBeingCreated(state),
+    shiftDate: Shift.Editor.Selectors.getDate(state),
+    validatorObj: Shift.Editor.Validators.newShiftValidator(state),
+    unparsedTimeRange: Shift.Editor.Selectors.getUnparsedTimeRange(state)
   }
 }
 
 const MapDispatchToProps = (dispatch) => {
   return {
     employeeChange(options: Option[]) {
-      dispatch(setEmployeesInShift(options))
+      dispatch(Shift.Editor.Actions.setEmployee(options))
     },
     clientChange(option: Option) {
-      dispatch(setClientInShift(option))
+      dispatch(Shift.Editor.Actions.setClient(option))
     },
     locationChange(option: Option) {
-      dispatch(setLocationInShift(option))
+      dispatch(Shift.Editor.Actions.setLocation(option))
     },
     dateChange(m: M.Moment) {
-      dispatch(setShiftDate(m))
+      dispatch(Shift.Editor.Actions.setDate(m))
     },
     timeChange(m: M.Moment[]) {
-      dispatch(setShiftTime(m))
+      dispatch(Shift.Editor.Actions.setTime(m))
+    },
+    timeRangeChange(val) {
+      dispatch(Shift.Editor.Actions.setUnparsedTimeRange(val))
     },
     handleSubmit() {
-      dispatch(generateShifts())
+      dispatch(Shift.Editor.Actions.generate())
     }
   }
 }

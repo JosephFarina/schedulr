@@ -3,6 +3,7 @@ import { Option } from 'react-select'
 import {
   RState,
   Shift,
+  RShiftEditor,
   ShiftTemplate,
   Client
 } from 'src/models'
@@ -17,28 +18,34 @@ import {
 import {
   convertEntityToSelectOptions,
   mergeTimeIntoDate,
-  uuid
+  uuid,
+  rangeParser,
+  timeDuration
 } from 'src/utils'
 
-export const getShiftBeingCreated = (state: RState): ShiftTemplate => state.shift.editor.newShift
-export const getEmployeeIdsInShiftBeingCreated = (state: RState): string[] => state.shift.editor.employeesInShift
-export const getShiftDate = (state: RState): string => state.shift.editor.shiftDate
+export const getState = (state: RState): RShiftEditor => state.shift.editor
+export const getShift = (state: RState): ShiftTemplate => getState(state).newShift
+export const getEmployeeIds = (state: RState): string[] => state.shift.editor.employeesInShift
+export const getDate = (state: RState): string => state.shift.editor.shiftDate
+export const getUnparsedTimeRange = (state: RState): string => state.shift.editor.unparsedTimeRange
 
 export const getGeneratedShifts = (state: RState): Shift[] => {
-  const employeesInShift = getEmployeeIdsInShiftBeingCreated(state)
-  const shiftBeingCreated = getShiftBeingCreated(state)
+  const employeesInShift = getEmployeeIds(state)
+  const shiftBeingCreated = getShift(state)
+  const {unparsedTimeRange, shiftDate} = getState(state)
   const {
     client,
-    location,
-    duration,
-    startTime
+    location
   } = shiftBeingCreated
+
+  // TODO: test and make sure shift is being generated properly from the unparsed time range
+  const [startTime, endTime] = rangeParser(shiftDate, unparsedTimeRange)
 
   const shift: Shift = {
     employee: null,
-    startTime: mergeTimeIntoDate(getShiftDate(state), startTime),
+    startTime: startTime.format(),
     location,
-    duration,
+    duration: timeDuration(startTime, endTime),
     client
   }
 
@@ -56,8 +63,8 @@ export const getGeneratedShifts = (state: RState): Shift[] => {
   })
 }
 
-export const getEmployeeOptionsInShiftBeingCreated = (state: RState): Option[] => {
-  const employees = getEmployeeIdsInShiftBeingCreated(state).map(id => getEmployeeById(state, id))
+export const getEmployeeOptions = (state: RState): Option[] => {
+  const employees = getEmployeeIds(state).map(id => getEmployeeById(state, id))
   return convertEntityToSelectOptions(employees)
 }
 
@@ -65,10 +72,10 @@ export const getEmployeeOptionsInShiftBeingCreated = (state: RState): Option[] =
  * Get Client In Shift Being Created 
  */
 
-export const getClientIdInShiftBeingCreated = (state: RState): string => state.shift.editor.newShift.client
+export const getClientId = (state: RState): string => state.shift.editor.newShift.client
 
 export const getClientOptionInShiftBeingCreated = (state: RState): Option => {
-  const clientId = getClientIdInShiftBeingCreated(state)
+  const clientId = getClientId(state)
 
   // FIXME: wrapping in an array to convertEntity -- make it so a single value can also be converted into an option
   const client = [getClientById(state, clientId)]
@@ -80,7 +87,7 @@ export const getClientOptionInShiftBeingCreated = (state: RState): Option => {
  */
 
 export const getLocationIdsOfClientInShiftBeingCreated = (state: RState): Location[] => {
-  const clientId = getClientIdInShiftBeingCreated(state)
+  const clientId = getClientId(state)
   const client: Client = getClientById(state, clientId)
   return client ? client.locations.map(id => getLocationById(state, id)) : []
 }

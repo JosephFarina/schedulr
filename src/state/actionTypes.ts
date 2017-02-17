@@ -18,6 +18,7 @@ export const ShiftActions = {
   setClientInShift: 'ShiftActions::editor::setClientInShift',
   setLocationInShift: 'ShiftActions::editor::setLocationInShift',
   setShiftTimeAndDuration: 'ShiftActions::editor::setShiftTimeAndDuration',
+  setUnparsedTimeRange: 'ShiftActions::editor::setUnparsedTimeRange',
 
   // old
   updateEditedShift: 'ShiftActions::editor::updateEditedShift',

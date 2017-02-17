@@ -1,55 +1,55 @@
-import { Option } from 'react-select'
+// import { Option } from 'react-select'
 
-import * as M from 'moment'
-import {
-  RShiftEditor,
-  RState,
-  ShiftTemplate,
-} from 'src/models'
+// import * as M from 'moment'
+// import {
+//   RShiftEditor,
+//   RState,
+//   ShiftTemplate,
+// } from 'src/models'
 
-import {
-  clientsOne,
-  locationsOne,
-} from 'src/testUtils'
+// import {
+//   clientsOne,
+//   locationsOne,
+// } from 'src/testUtils'
 
-import { validatorFactory } from 'src/utils'
+// import { validatorFactory } from 'src/utils'
 
-import {
-  // addEmployeeToShift,
-  // alertUserOfErrorsInNewShift,
-  // clearShiftEditor,
-  // generateShifts,
-  // removeEmployeeFromShift,
-  // updateNewShift,
-  // updateShiftDate,
-  setEmployeesInShift
-} from './../action'
+// import {
+//   // addEmployeeToShift,
+//   // alertUserOfErrorsInNewShift,
+//   // clearShiftEditor,
+//   // generateShifts,
+//   // removeEmployeeFromShift,
+//   // updateNewShift,
+//   // updateShiftDate,
+//   setEmployee
+// } from './../action'
 
-import shiftEditor from './../reducer'
+// import shiftEditor from './../reducer'
 
-// import { getShiftBeingEdited } from './../selector'
+// // import { getShiftBeingEdited } from './../selector'
 
-const shift: ShiftTemplate = {
-  duration: 24343,
-  id: '432434',
-  startTime: '234343',
-  client: 'a423f',
-  location: 'asdf32'
-}
+// const shift: ShiftTemplate = {
+//   duration: 24343,
+//   id: '432434',
+//   startTime: '234343',
+//   client: 'a423f',
+//   location: 'asdf32'
+// }
 
 
-describe('shiftEditor', () => {
+// describe('shiftEditor', () => {
 
-  it('set employees in shift by employee Options', () => {
-    const employeeIds = ['one', 'two', 'three'].sort()
-    const employeeOptions: Option[] = employeeIds.map(value => ({
-      label: 'any',
-      value
-    }))
+//   it('set employees in shift by employee Options', () => {
+//     const employeeIds = ['one', 'two', 'three'].sort()
+//     const employeeOptions: Option[] = employeeIds.map(value => ({
+//       label: 'any',
+//       value
+//     }))
 
-    const state = shiftEditor(undefined, setEmployeesInShift(employeeOptions))
-    expect(state.employeesInShift.sort()).toEqual(employeeIds)
-  })
+//     const state = shiftEditor(undefined, setEmployee(employeeOptions))
+//     expect(state.employeesInShift.sort()).toEqual(employeeIds)
+//   })
 
   // it('add employee to shift should not add duplicated', () => {
   //   const employeeId = '134t1433reg'
@@ -166,4 +166,4 @@ describe('shiftEditor', () => {
   //   // expect(dispatch.calls.mostRecent().args[0]).toEqual(alertUserOfErrorsInNewShift(errorMessages))
   // })
 
-})
+// })

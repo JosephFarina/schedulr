@@ -1,7 +1,7 @@
 import * as M from 'moment'
 
 import { RState, RShiftEditor } from 'src/models'
-import { newShiftValidator } from './../../'
+import * as Editor from './../'
 
 
 describe('Shift Editor Auth', () => {
@@ -13,7 +13,7 @@ describe('Shift Editor Auth', () => {
       }
     })
 
-    expect(newShiftValidator(state).client).toEqual(['Client must be present'])
+    expect(Editor.Validators.newShiftValidator(state).client).toEqual(['Client must be present'])
   })
 
   it('should be null if client included', () => {
@@ -23,7 +23,7 @@ describe('Shift Editor Auth', () => {
       }
     })
 
-    expect(newShiftValidator(state).client).toBeUndefined()
+    expect(Editor.Validators.newShiftValidator(state).client).toBeUndefined()
   })
 
   it('should tell you if location is absent', () => {
@@ -33,7 +33,7 @@ describe('Shift Editor Auth', () => {
       }
     })
 
-    expect(newShiftValidator(state).location).toEqual(['Location must be present'])
+    expect(Editor.Validators.newShiftValidator(state).location).toEqual(['Location must be present'])
   })
 
   it('should be null if location is included', () => {
@@ -43,7 +43,7 @@ describe('Shift Editor Auth', () => {
       }
     })
 
-    expect(newShiftValidator(state).location).toBeUndefined()
+    expect(Editor.Validators.newShiftValidator(state).location).toBeUndefined()
   })
 
   it('should tell you if startime is absent', () => {
@@ -53,7 +53,7 @@ describe('Shift Editor Auth', () => {
       }
     })
 
-    expect(newShiftValidator(state).startTime).toEqual(['Must be a valid time range'])
+    expect(Editor.Validators.newShiftValidator(state).startTime).toEqual(['Must be a valid time range'])
   })
 
   it('should be null if startTime is a valid time', () => {
@@ -63,7 +63,7 @@ describe('Shift Editor Auth', () => {
       }
     })
 
-    expect(newShiftValidator(state).startTime).toBeUndefined()
+    expect(Editor.Validators.newShiftValidator(state).startTime).toBeUndefined()
   })
 })
 
@@ -74,8 +74,6 @@ function makeState(editor: RShiftEditor): RState {
     }
   }
 }
-
-
 
 
 

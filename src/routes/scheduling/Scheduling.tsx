@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 import SchedulingCalendar from './containers/SchedulingCalendar'
-import { PaneContainer } from 'src/shared/components/layout'
-import { Navbar } from 'src/shared/components/layout'
+import { PaneContainer } from 'src/shared/ui/layout'
+import { Navbar } from 'src/shared/ui/layout'
 
 interface SchedulingProps {
   sidebar: React.ReactChildren

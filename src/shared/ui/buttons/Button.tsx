@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Link } from 'react-router'
 
-import { Loading } from 'src/shared/components'
+import { Loading } from 'src/shared/ui'
 
 const styles = require('./Button.css')
 const ctx = require('classnames')

@@ -4,7 +4,7 @@ import ShiftEditor from './../containers/ShiftEditor'
 import {
   PaneContent,
   PaneSidebar,
-} from 'src/shared/components'
+} from 'src/shared/ui'
 
 const NewShiftSideBar = (props) => (
   <PaneSidebar>

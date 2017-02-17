@@ -23,7 +23,7 @@ import {
 } from 'src/testUtils'
 
 import configureStore from './state/configureStore'
-import Root from 'src/shared/components/Root'
+import Root from './Root'
 
 
 

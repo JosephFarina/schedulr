@@ -7,7 +7,7 @@ import {
   Modal,
   ModalFooter,
   ModalHeader
-} from 'src/shared/components'
+} from 'src/shared/ui'
 
 import { ShiftPreview } from './../components'
 

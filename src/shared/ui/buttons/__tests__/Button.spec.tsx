@@ -2,7 +2,7 @@ import { mount } from 'enzyme'
 import * as React from 'react'
 import { Link } from 'react-router'
 
-import { Button, Loading } from 'src/shared/components'
+import { Button, Loading } from 'src/shared/ui'
 
 describe('Button', () => {
   const childText = 'Hello Im in a button'

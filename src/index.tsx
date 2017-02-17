@@ -1,6 +1,5 @@
 require('normalize.css/normalize.css')
-require('react-select/dist/react-select.css')
-require('./index.css')
+require('./vendor.css')
 
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'

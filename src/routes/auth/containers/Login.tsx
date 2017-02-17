@@ -14,7 +14,7 @@ const ctx = require('classnames')
 import {
   Button,
   Input,
-} from 'src/shared/components'
+} from 'src/shared/ui'
 
 interface Props {
   dispatch?: Function

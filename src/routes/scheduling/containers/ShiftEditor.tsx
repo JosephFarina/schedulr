@@ -30,7 +30,7 @@ import {
   Button,
   UncontrolledInput,
   TimeInput
-} from 'src/shared/components'
+} from 'src/shared/ui'
 
 interface Props {
   dispatch?: Function

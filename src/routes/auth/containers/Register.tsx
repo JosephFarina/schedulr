@@ -17,7 +17,7 @@ import {
 import {
   Input,
   Button
-} from 'src/shared/components'
+} from 'src/shared/ui'
 
 const styles = require('./Register.scss')
 

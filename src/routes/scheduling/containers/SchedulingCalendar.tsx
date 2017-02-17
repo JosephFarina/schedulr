@@ -5,11 +5,7 @@ import { Moment } from 'moment'
 const newIcon = require('public/icons/new.svg')
 const inspectIcon = require('public/icons/eye.svg')
 
-const iconStyles = require('src/index.css')
-
-import {
-  Link
-} from 'react-router'
+const iconStyles = require('src/vendor.css')
 
 import {
   RState,
@@ -21,7 +17,7 @@ import {
   connect,
 } from 'react-redux'
 
-import Calendar from 'src/shared/components/calendar/Calendar'
+import Calendar from 'src/shared/ui/calendar/Calendar'
 
 import {
   Button,
@@ -29,7 +25,7 @@ import {
   PaneBody,
   PaneContent,
   PaneHeader,
-} from 'src/shared/components'
+} from 'src/shared/ui'
 
 import { getMomentDate } from 'src/state/calendar'
 import { getShifts } from 'src/state/entities'

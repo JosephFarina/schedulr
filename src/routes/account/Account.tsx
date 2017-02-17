@@ -8,7 +8,7 @@ import {
   PaneBody,
   PaneHeader,
   PaneContent
-} from 'src/shared/components/layout'
+} from 'src/shared/ui/layout'
 
 interface Props {
   children: React.ReactChildren

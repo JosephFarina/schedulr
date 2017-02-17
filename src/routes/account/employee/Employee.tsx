@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import {
   PaneHeader,
   PaneContent,
-} from 'src/shared/components'
+} from 'src/shared/ui'
 
 import EmployeeRow from './components/EmployeeRow'
 

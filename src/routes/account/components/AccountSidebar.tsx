@@ -6,7 +6,7 @@ import { } from 'src/models'
 import {
   PaneSidebar,
   PaneContent
-} from 'src/shared/components/layout'
+} from 'src/shared/ui/layout'
 
 const styles = require('./AccountSidebar.scss')
 const ctx = require('classnames')

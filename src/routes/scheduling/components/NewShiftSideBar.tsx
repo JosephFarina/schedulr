@@ -2,16 +2,13 @@ import * as React from 'react'
 import ShiftEditor from './../containers/ShiftEditor'
 
 import {
-  PaneContent,
-  PaneSidebar,
-} from 'src/shared/ui'
+  SidePane
+} from 'src/shared'
 
 const NewShiftSideBar = (props) => (
-  <PaneSidebar>
-    <PaneContent noHeader>
-      <ShiftEditor />
-    </PaneContent>
-  </PaneSidebar>
+  <SidePane>
+    <ShiftEditor />
+  </SidePane>
 )
 
 export default NewShiftSideBar

@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 
 import { Loading } from 'src/shared/ui'
 
+import { AntButton } from './'
 const styles = require('./Button.css')
 const ctx = require('classnames')
 
@@ -48,12 +49,14 @@ const Button: React.StatelessComponent<any> = (props: Props) => {
 
   const child = loading ? <Loading /> : children
   const link = to ? <Link to={to}>{child}</Link> : child
-  const isDisabled = disabled || loading
 
   return (
-    <button disabled={isDisabled} onClick={onClick} className={className}>
-      {link}
-    </button>
+    <AntButton
+      className={className}
+      {...props}
+      // override ants loading system
+      loading={false}
+    >{link}</AntButton>
   )
 }
 

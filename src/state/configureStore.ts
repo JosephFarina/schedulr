@@ -9,20 +9,16 @@ import thunk from 'redux-thunk'
 import DevTools from '../shared/containers/DevTools'
 import rootReducer from './'
 
-const configureStore = (preloadedState: any = undefined) => {
-  const store = createStore(
-    rootReducer,
-    preloadedState,
-    compose(
-      applyMiddleware(
-        thunk,
-        createLogger()
-      ),
-      DevTools.instrument()
-    )
+const configureStore = (preloadedState: any = undefined) => createStore(
+  rootReducer,
+  preloadedState,
+  compose(
+    applyMiddleware(
+      thunk,
+      createLogger()
+    ),
+    DevTools.instrument()
   )
-
-  return store
-}
+)
 
 export default configureStore

@@ -4,6 +4,8 @@ import * as React from 'react'
 
 import { InputProps } from 'src/models'
 
+import { Input } from 'antd'
+
 const styles = require('./Input.scss')
 const ctx = require('classnames')
 
@@ -76,28 +78,13 @@ class UncontrolledInput extends React.Component<Props, State> {
       onChange
     } = this.props
 
-    const labelClass = ctx({
-      [styles.label]: true,
-      [styles.labelActive]: focused || this.hasValue(),
-    })
 
     return (
-      <div className={styles.inputContainer}>
-        <input
-          className={styles.inputText}
-          name={name}
-          value={(value as string)}
-          type={type}
-          onBlur={this.onBlur}
-          onFocus={this.onFocus}
-          onChange={e => onChange((e as any).target.value)}
-          ref={input => { this.textInput = input }} />
+      <Input
+        size="large"
+        {...this.props}
 
-        <label className={labelClass}>{label}</label>
-        <div className={styles.bar}></div>
-
-        {children}
-      </div>
+      />
     )
   }
 }

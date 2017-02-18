@@ -45,20 +45,7 @@ class SchedulingCalendar extends React.Component<Props, State> {
       shifts
     } = this.props
 
-    return (
-      <PaneBody>
-        <PaneHeader>
-          Toolbar Header
-          <ButtonGroup maxWidth={400} buttonBar={true}>
-            <Button to="/scheduling/new-shift"><img className={iconStyles.toolbarIcon} src={newIcon} /></Button>
-            <Button to="/scheduling"><img className={iconStyles.toolbarIcon} src={inspectIcon} /></Button>
-          </ButtonGroup>
-        </PaneHeader>
-        <PaneContent scrollable>
-          <Calendar shifts={shifts} week={date} />
-        </PaneContent>
-      </PaneBody>
-    )
+    return <Calendar shifts={shifts} week={date} />
   }
 }
 

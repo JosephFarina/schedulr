@@ -1,13 +1,54 @@
 @import "css-vars/index.css";
+$inputFontSize: 1rem;
+$inputHeight: 37px;
+$inputBorder: 1px solid lightgrey;
+$inputBorderRadius: 5px;
+$inputFontColor: $color-Mono--base;
 
 :global {
   @import "../node_modules/react-select/dist/react-select.css";
   @import "../node_modules/react-dates/lib/css/_datepicker.css";
+  @import "../node_modules/antd/dist/antd.css";
+
+  /* Antd overrides */
+
+  .ant-input {
+    height: $inputHeight;
+    font-size: $inputFontSize;
+    border: $inputBorder;
+    border-radius: $inputBorderRadius;
+    color: $inputFontColor;
+  }
+
+  // this centers the tabs
+  .ant-tabs-nav-scroll {
+    display: flex;
+  }
+
+  /* Select overrides */
+
+  .Select-control {
+    height: $inputHeight;
+    border: $inputBorder;
+    border-radius: $inputBorderRadius;
+  }
+
+  .Select-placeholder {
+    color: $inputFontColor;
+    font-size: $inputFontSize;
+  }
 
   /* React-DatePicker style overrides */
   .SingleDatePicker,
   .DateInput {
     width: 100%;
+
+    input {
+      font-size: $inputFontSize;
+      border: $inputBorder;
+      border-radius: $inputBorderRadius;
+      color: $inputFontColor;
+    }
   }
 
   .DateInput__input {
@@ -21,6 +62,7 @@
 
   .DateInput {
     padding: 3px;
+    height: $inputHeight;
   }
 
   .DateInput__display-text {
@@ -51,7 +93,7 @@ body {
 * {
   box-sizing: border-box;
   font-family: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-  color: #4d4d4d;
+  // color: #4d4d4d;
   font-weight: 300;
 }
 
@@ -81,6 +123,10 @@ a {
   list-style: none;
   line-height: 1.3rem;
   text-align: center;
+}
+
+ul {
+  list-style: none;
 }
 
 html,

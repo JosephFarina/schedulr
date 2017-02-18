@@ -10,6 +10,7 @@ var InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 var WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 var getClientEnvironment = require('./env');
 var paths = require('./paths');
+var postcsssassmixins = require('postcss-sassy-mixins')
 
 var path = require('path')
 
@@ -140,7 +141,7 @@ module.exports = {
       {
         test: /\.tsx$/,
         include: paths.appSrc,
-        loader: 'ts-loader?sourceMap',
+        loader: 'babel!ts-loader?sourceMap',
         exclude: [
           '*.spec*'
         ]
@@ -149,7 +150,7 @@ module.exports = {
       {
         test: /\.ts$/,
         include: paths.appSrc,
-        loader: 'ts-loader?sourceMap',
+        loader: 'babel!ts-loader?sourceMap',
         exclude: [
           '*.spec*'
         ]
@@ -225,6 +226,7 @@ module.exports = {
       precss(),
       customMedia(),
       cssNesting(),
+      postcsssassmixins(),
       autoprefixer({
         browsers: [
           '>1%',

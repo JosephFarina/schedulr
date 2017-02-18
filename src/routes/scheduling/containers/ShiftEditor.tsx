@@ -88,7 +88,7 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
   } = props
 
   return (
-    <form onSubmit={e => e.preventDefault()}>
+    <form onSubmit={e => e.preventDefault()} style={{padding: '10px'}} >
 
       <Select
         name="employee"
@@ -135,7 +135,7 @@ const ShiftEditor: React.StatelessComponent<any> = (props: Props) => {
         onChange={timeRangeChange}
       />
 
-      <Button onClick={handleSubmit} block={true} >Create</Button>
+      <Button type="primary" onClick={handleSubmit} block={true} >Create</Button>
 
     </form>
   )
@@ -172,8 +172,8 @@ const MapDispatchToProps = (dispatch) => {
     timeChange(m: M.Moment[]) {
       dispatch(Shift.Editor.Actions.setTime(m))
     },
-    timeRangeChange(val) {
-      dispatch(Shift.Editor.Actions.setUnparsedTimeRange(val))
+    timeRangeChange({target}) {
+      dispatch(Shift.Editor.Actions.setUnparsedTimeRange(target.value))
     },
     handleSubmit() {
       dispatch(Shift.Editor.Actions.generate())

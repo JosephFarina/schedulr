@@ -7,8 +7,9 @@ import {
   Navbar,
   PaneBody,
   PaneHeader,
-  PaneContent
-} from 'src/shared/ui/layout'
+  PaneContent,
+  Menu
+} from 'src/shared/ui'
 
 interface Props {
   children: React.ReactChildren

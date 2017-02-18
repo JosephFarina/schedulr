@@ -1,6 +1,7 @@
 import * as EntityModels from './entities'
 // import * as ShiftModels from './shift'
 import * as TimeModels from './time'
+import { RouterState } from 'react-router'
 
 export interface Action<T> {
   type: string

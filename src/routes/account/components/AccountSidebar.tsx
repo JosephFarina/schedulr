@@ -5,8 +5,9 @@ import { } from 'src/models'
 
 import {
   PaneSidebar,
-  PaneContent
-} from 'src/shared/ui/layout'
+  PaneContent,
+  Menu
+} from 'src/shared/ui'
 
 const styles = require('./AccountSidebar.scss')
 const ctx = require('classnames')
@@ -23,10 +24,29 @@ const AccountSidebar: React.StatelessComponent<Props> = (props: Props) => {
   return (
     <PaneSidebar>
       <PaneContent noHeader>
-        <div className={styles.tab}>Employees</div>
+        <Menu.Label>Employees</Menu.Label>
+        <Menu.List>
+          <Menu.Item>asdf</Menu.Item>
+          <li>
+            <ul>
+              <Menu.Item>asdf</Menu.Item>
+            </ul>
+          </li>
+        </Menu.List>
+        <Menu.Label>Clients</Menu.Label>
+        <Menu.List>
+          <Menu.Item>asdf</Menu.Item>
+          <li>
+            <ul>
+              <Menu.Item>asdf</Menu.Item>
+            </ul>
+          </li>
+        </Menu.List>
+
+        {/*<div className={styles.tab}>Employees</div>
         <div className={styles.tab}>Clients</div>
         <div className={styles.tab}>Locations</div>
-        <div className={styles.tab}>Positions</div>
+        <div className={styles.tab}>Positions</div>*/}
       </PaneContent>
     </PaneSidebar>
   )

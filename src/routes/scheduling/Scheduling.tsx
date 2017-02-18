@@ -1,8 +1,7 @@
 import * as React from 'react'
 
 import SchedulingCalendar from './containers/SchedulingCalendar'
-import { PaneContainer } from 'src/shared/ui/layout'
-import { Navbar } from 'src/shared/ui/layout'
+import { Pane, MainPane } from 'src/shared'
 
 interface SchedulingProps {
   sidebar: React.ReactChildren
@@ -13,11 +12,12 @@ const Scheduling: React.StatelessComponent<SchedulingProps> = (props: Scheduling
 
   return (
     <div>
-      <Navbar></Navbar>
-      <PaneContainer>
+      <Pane>
         {sidebar}
-        <SchedulingCalendar />
-      </PaneContainer>
+        <MainPane>
+          <SchedulingCalendar />
+        </MainPane>
+      </Pane>
     </div>
   )
 }

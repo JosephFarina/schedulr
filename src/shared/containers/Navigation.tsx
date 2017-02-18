@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 
 import { } from 'src/models'
 import { SubNav } from 'src/shared'
-import { Tabs } from 'antd'
+const Tabs = require('antd/lib/tabs')
+
 
 // const styles = require('./Navigation.scss')
 const ctx = require('classnames')

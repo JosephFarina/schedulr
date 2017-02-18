@@ -1,7 +1,11 @@
 import * as React from 'react'
-import { shallow } from 'enzyme'
+import { mount } from 'enzyme'
+import { Link } from 'react-router'
 import { BreadCrumbs } from './../BreadCrumbs'
-import { Breadcrumb } from 'antd'
+
+const Breadcrumb = require('antd/lib/breadcrumb')
+const changeCase = require('change-case')
+
 
 describe('BreadCrumbs', () => {
   const routes = [
@@ -10,11 +14,32 @@ describe('BreadCrumbs', () => {
     { path: 'new-shift' }
   ]
 
+  const expected = [
+    {
+      text: 'Home',
+      link: '/'
+    },
+    {
+      text: 'Scheduling',
+      link: '/scheduling'
+    },
+    {
+      text: 'New Shift',
+      link: '/scheduling/new-shift'
+    }
+  ]
+
   it('should convert route path into breadcrumbs', () => {
-    const wrapper = shallow(<BreadCrumbs routes={routes} />)
-    console.log(wrapper.find(Breadcrumb.Item).debug())
-    wrapper.find(Breadcrumb.Item).forEach((crumb, i) => {
-      expect(crumb.text()).toEqual(routes[i].path)
+    const wrapper = mount(<BreadCrumbs routes={routes} />)
+    const items = wrapper.find(Breadcrumb.Item)
+
+    items.forEach((crumb, ...weirdTypeScriptErrorForIndex) => {
+      const [i] = weirdTypeScriptErrorForIndex
+      const link = crumb.find(Link).props().to
+
+      expect(crumb.text()).toContain(expected[i].text)
+      expect(link).toEqual(expected[i].link)
+
     })
   })
 

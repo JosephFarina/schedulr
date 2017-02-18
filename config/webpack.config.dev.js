@@ -141,7 +141,7 @@ module.exports = {
       {
         test: /\.tsx$/,
         include: paths.appSrc,
-        loader: 'babel!ts-loader?sourceMap',
+        loader: 'ts-loader?sourceMap',
         exclude: [
           '*.spec*'
         ]
@@ -150,7 +150,7 @@ module.exports = {
       {
         test: /\.ts$/,
         include: paths.appSrc,
-        loader: 'babel!ts-loader?sourceMap',
+        loader: 'ts-loader?sourceMap',
         exclude: [
           '*.spec*'
         ]

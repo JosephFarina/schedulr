@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { InputProps } from 'src/models'
 
-import { Input } from 'antd'
+const Input = require('antd/lib/input')
 
 const styles = require('./Input.scss')
 const ctx = require('classnames')

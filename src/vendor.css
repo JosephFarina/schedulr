@@ -8,6 +8,7 @@ $inputFontColor: $color-Mono--base;
 :global {
   @import "../node_modules/react-select/dist/react-select.css";
   @import "../node_modules/react-dates/lib/css/_datepicker.css";
+  /* Todo: import this modularly */
   @import "../node_modules/antd/dist/antd.css";
 
   /* Antd overrides */
@@ -20,9 +21,10 @@ $inputFontColor: $color-Mono--base;
     color: $inputFontColor;
   }
 
-  // this centers the tabs
+  /* this centers the tabs */
   .ant-tabs-nav-scroll {
     display: flex;
+    justify-content: center;
   }
 
   /* Select overrides */

@@ -31,7 +31,7 @@ export const BreadCrumbs: React.StatelessComponent<Props> = (props: Props) => {
 
       {
         routesWithoutHome.map((route, i) => (
-          <Breadcrumb.Item>
+          <Breadcrumb.Item key={route.path}>
             <Link to={getRoute(i)}>{changeCase.titleCase(route.path)}</Link>
           </Breadcrumb.Item>
         ))}

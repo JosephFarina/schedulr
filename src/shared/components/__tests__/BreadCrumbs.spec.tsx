@@ -10,7 +10,7 @@ const changeCase = require('change-case')
 describe('BreadCrumbs', () => {
   const routes = [
     { path: '/' },
-    { path: 'scheduling' },
+    { path: 'schedule' },
     { path: 'new-shift' }
   ]
 
@@ -20,12 +20,12 @@ describe('BreadCrumbs', () => {
       link: '/'
     },
     {
-      text: 'Scheduling',
-      link: '/scheduling'
+      text: 'Schedule',
+      link: '/schedule'
     },
     {
       text: 'New Shift',
-      link: '/scheduling/new-shift'
+      link: '/schedule/new-shift'
     }
   ]
 

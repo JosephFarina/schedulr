@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import { TopNav } from 'src/shared'
 import { BreadCrumbs } from './BreadCrumbs'
 

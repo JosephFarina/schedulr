@@ -46,10 +46,7 @@ import Login from 'src/routes/auth/containers/Login'
 import Register from 'src/routes/auth/containers/Register'
 
 // Account
-import {
-  Account,
-  Employee
-} from './routes/account'
+import Employee from './routes/employees/Employees'
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
@@ -66,7 +63,7 @@ const Routes = () => (
     <Router history={history}>
       <Route path="/" component={Root} >
 
-        <Route path="scheduling" component={Scheduling}>
+        <Route path="schedule" component={Scheduling}>
           <Route path="new-shift" components={{ sidebar: NewShiftSideBar }} />
         </Route>
 
@@ -75,9 +72,7 @@ const Routes = () => (
           <Route path="register" component={Register} />
         </Route>
 
-        <Route path="account" component={Account}>
-          <Route path="employee" component={Employee}></Route>
-        </Route>
+        <Route path="employees" component={Employee}></Route>
 
       </Route>
     </Router>

@@ -3,13 +3,6 @@ import * as React from 'react'
 import { } from 'src/models'
 import { connect } from 'react-redux'
 
-import {
-  PaneHeader,
-  PaneContent,
-} from 'src/shared/ui'
-
-import EmployeeRow from './components/EmployeeRow'
-
 const styles = require('./Employee.scss')
 const ctx = require('classnames')
 
@@ -24,12 +17,7 @@ const Employee: React.StatelessComponent<Props> = (props: Props) => {
 
   return (
     <div>
-      <PaneHeader></PaneHeader>
-      <PaneContent>
-        <ul className={styles.container}>
-          <EmployeeRow />
-        </ul>
-      </PaneContent>
+    Employee
     </div>
   )
 }

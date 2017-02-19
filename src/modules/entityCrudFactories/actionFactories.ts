@@ -1,5 +1,5 @@
 const union = require('lodash.union')
-import { curry } from 'ramda'
+import { curry, merge, map } from 'ramda'
 
 import {
   RState,
@@ -32,8 +32,15 @@ function getPayload(option: Crud.ActionTypes.ActionOptions, stateSlice: Entities
       return Object.assign({}, input)
 
     case 'add':
-    case 'edit':
       return Object.assign({}, stateSlice, convertEntityArrToObj((<Entity[]> input)))
+
+    case 'edit':
+      const mergedWithState = (<Entity[]> input).map(ent => {
+        const stateEnt = stateSlice[ent.id] || {}
+        return merge(stateEnt, ent)
+      })
+
+      return merge(stateSlice, convertEntityArrToObj(mergedWithState))
 
     case 'removeAdded':
     case 'removeEdited':

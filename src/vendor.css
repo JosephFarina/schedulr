@@ -10,9 +10,11 @@ $inputFontColor: $color-Mono--base;
   @import "../node_modules/react-dates/lib/css/_datepicker.css";
   /* Todo: import this modularly */
   @import "../node_modules/antd/dist/antd.css";
+  @import "../node_modules/antd/lib/style/index.css";
 
   /* Antd overrides */
 
+  /*
   .ant-input {
     height: $inputHeight;
     font-size: $inputFontSize;
@@ -20,6 +22,7 @@ $inputFontColor: $color-Mono--base;
     border-radius: $inputBorderRadius;
     color: $inputFontColor;
   }
+  */
 
   /* this centers the tabs */
   .ant-tabs-nav-scroll {

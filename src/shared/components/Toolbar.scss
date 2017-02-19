@@ -1,7 +1,21 @@
 .toolbar {
   display: flex;
-  padding: 10px;
+  padding: 10px 20px;
   align-items: center;
   justify-content: space-between;
   margin-top: -15px;
+  background: rgba(245,245,245, 1);
+}
+
+.buttonBar {
+  display: flex;
+  align-items: center;
+
+  // FIXME: this may need to be less general than div -- maybe use a class name 
+  div,
+  button {
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
 }

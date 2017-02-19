@@ -92,14 +92,36 @@ describe('entityCrudFactories: actionFactories', () => {
     )
   })
 
-  it('edit should add entities to edit', () => {
-    const {actionVal, expectedVal, storeVal} = dataGenerator('add')
-    testPayloadIsCorrect(
-      makeState({ edited: storeVal }),
-      editActions('edit')(actionVal),
-      expectedVal
-    )
+  describe('edit', () => {
+    it('should add entities to edit', () => {
+      const {actionVal, expectedVal, storeVal} = dataGenerator('add')
+
+      testPayloadIsCorrect(
+        makeState({ edited: storeVal }),
+        editActions('edit')(actionVal),
+        expectedVal
+      )
+    })
+
+    it('should accept partial objects and merge into exisiting id', () => {
+      const editedClientId = Object.keys(clientsOne)[0]
+      const editedAliasVal = 'this is a new val'
+      const storeVal = { [editedClientId]: { ...clientsOne[editedClientId] } }
+      const actionVal = [{
+        id: editedClientId,
+        alias: editedAliasVal
+      }]
+      const expectedVal = { [editedClientId]: { ...storeVal[editedClientId] } }
+      expectedVal[editedClientId].alias = editedAliasVal
+
+      testPayloadIsCorrect(
+        makeState({ edited: storeVal }),
+        editActions('edit')(actionVal),
+        expectedVal
+      )
+    })
   })
+
 
   it('removeEdited should remove entities from the edited', () => {
     const {actionVal, expectedVal, storeVal} = dataGenerator('remove')

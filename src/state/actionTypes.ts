@@ -1,3 +1,4 @@
+import { employeeViewOptions } from 'src/models'
 import * as Crud from 'src/modules/entityCrudFactories'
 
 export const CalendarActions = {
@@ -7,7 +8,14 @@ export const CalendarActions = {
 
 
 export const ShiftEntityActions = Crud.ActionTypes.mergeWith<{}>('Shifts', {})
-export const EmployeeEntityActions = Crud.ActionTypes.mergeWith<{}>('Employee', {})
+export const EmployeeEntityActions = Crud.ActionTypes.mergeWith<{
+  search: string
+  changeView: string
+}>('Employee', {
+  search: 'search',
+  changeView: 'changeView'
+})
+
 export const ClientEntityActions = Crud.ActionTypes.mergeWith<{}>('Client', {})
 export const LocationEntityActions = Crud.ActionTypes.mergeWith<{}>('Location', {})
 

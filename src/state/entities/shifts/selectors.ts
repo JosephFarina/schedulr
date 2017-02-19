@@ -17,7 +17,7 @@ export const getDeletedShifts = (state: RState): string[] => Object.assign([], s
 
 export const getShifts = Crud.getUpdatedEntitiesFactory(getRawShifts, getEditedShifts, getAddedShifts, getDeletedShifts)
 
-export const getShiftById = (state: RState, id: string) => Crud.Selectors.getEntityById(getShifts(state))(id)
+export const getShiftById = (state: RState, id: string) => Crud.Selectors.getById(getShifts(state))(id)
 
 /**
  * 

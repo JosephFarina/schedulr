@@ -13,5 +13,5 @@ import { curry, find, propEq } from 'ramda'
  * then it will take an input and output a single entity
  */
 
-export const getEntityById = curry((entities: Entity[], id: string) => find(propEq('id', id))(entities))
-
+export const getById = curry((entities: Entity[], id: string) => find(propEq('id', id))(entities))
+export const getCount = curry((selector: (a: any) => any, state: RState) => selector(state).length)

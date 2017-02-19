@@ -80,9 +80,16 @@ export interface CrudState<T> {
 export interface REntities {
   clients?: CrudState<EntityModels.Clients>
   locations?: CrudState<EntityModels.Locations>
-  employees?: CrudState<EntityModels.Employees>
+  employees?: REmployees
   shifts?: CrudState<EntityModels.Shifts>
 }
+
+export declare type employeeViewOptions = 'hierarchy' | 'grid'
+export interface REmployees extends CrudState<EntityModels.Employees> {
+  search?: string
+  view?: employeeViewOptions
+}
+
 
 /**
  * 

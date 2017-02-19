@@ -4,7 +4,7 @@ import { RState, Employee } from 'src/models'
 import { Pane, MainPane } from 'src/shared'
 import { connect } from 'react-redux'
 
-import { EmployeeToolbar } from './components/EmployeeToolbar'
+import EmployeeToolbar from './containers/EmployeeToolbar'
 import { getEmployees } from 'src/state/entities/employees'
 
 const Table = require('antd/lib/table')

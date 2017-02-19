@@ -20,4 +20,4 @@ export const getLocations = Crud.getUpdatedEntitiesFactory(
   getDeletedLocations
 )
 
-export const getLocationById = (state: RState, id: string) => Crud.Selectors.getEntityById(getLocations(state))(id)
+export const getLocationById = (state: RState, id: string) => Crud.Selectors.getById(getLocations(state))(id)

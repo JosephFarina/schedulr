@@ -21,4 +21,4 @@ export const getClients = Crud.getUpdatedEntitiesFactory(
   getDeletedClients
 )
 
-export const getClientById = (state: RState, id: string) => Crud.Selectors.getEntityById(getClients(state))(id)
+export const getClientById = (state: RState, id: string) => Crud.Selectors.getById(getClients(state))(id)

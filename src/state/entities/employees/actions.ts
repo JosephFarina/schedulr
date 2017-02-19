@@ -1,3 +1,4 @@
+import { Action, employeeViewOptions } from 'src/models'
 import { EmployeeEntityActions } from 'src/state/actionTypes'
 import * as Crud from 'src/modules/entityCrudFactories'
 
@@ -7,6 +8,21 @@ import {
   getEditedEmployees,
   getRawEmployees
 } from './'
+
+export function searchForEmployee(val: string): Action<string> {
+  return {
+    type: EmployeeEntityActions.search,
+    payload: val
+  }
+}
+
+export function changeEmployeeView(val: employeeViewOptions): Action<employeeViewOptions> {
+  return {
+    type: EmployeeEntityActions.changeView,
+    payload: val
+  }
+}
+
 
 /**
  * 

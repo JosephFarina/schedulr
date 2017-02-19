@@ -75,7 +75,7 @@ describe('entityCrudFactorys: getEntitiesFactory', () => {
 
   it('should remove the delete shifts', () => {
     const res = getShifts(state)
-    const resIds = res.map(r => r.id)
+    const resIds = res.map(r => (<any> r).id)
     deleted.forEach(deletedId => {
       expect(resIds.indexOf(deletedId) < 0).toBeTruthy()
     })

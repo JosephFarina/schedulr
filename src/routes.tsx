@@ -12,13 +12,15 @@ import {
   setClients,
   setEmployees,
   setLocations,
-  setShifts
+  setShifts,
+  setPositions
 } from 'src/state/entities'
 
 import {
   clientsOne,
   employeesOne,
   locationsOne,
+  positionsOne,
   generateShifts
 } from 'src/testUtils'
 
@@ -56,7 +58,7 @@ const history = syncHistoryWithStore(browserHistory, store)
 store.dispatch((setClients(clientsOne) as any))
 store.dispatch((setEmployees(employeesOne) as any))
 store.dispatch((setLocations(locationsOne) as any))
-
+store.dispatch((setPositions(positionsOne) as any))
 
 const Routes = () => (
   <Provider store={store}>

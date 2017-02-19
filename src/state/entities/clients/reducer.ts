@@ -1,12 +1,12 @@
 import * as Crud from 'src/modules/entityCrudFactories'
-import { Action, Clients } from 'src/models'
+import { Action, Client, Clients } from 'src/models'
 import { ClientEntityActions } from 'src/state/actionTypes'
 
-export const initialState: Clients = Crud.InitialState.mergeWith({
+export const initialState = Crud.InitialState.mergeWith({
 
 })
 
-const clientsReducer = (state = initialState, action: Action<Clients>): Clients => {
+const clientsReducer = (state = initialState, action: Action<Clients>) => {
   switch (action.type) {
 
     default:

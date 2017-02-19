@@ -8,7 +8,7 @@ const initialCrudState: CrudState<any> = {
   deleted: []
 }
 
-export function mergeWith(initialState) {
+export function mergeWith<E, T>(initialState): CrudState<E> & T {
   checkForOverlappingKeys(initialState, initialCrudState)
   return Object.assign({}, initialCrudState, initialState)
 }

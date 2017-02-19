@@ -82,6 +82,7 @@ export interface REntities {
   locations?: CrudState<EntityModels.Locations>
   employees?: REmployees
   shifts?: CrudState<EntityModels.Shifts>
+  positions?: CrudState<EntityModels.Positions>
 }
 
 export declare type employeeViewOptions = 'hierarchy' | 'grid'

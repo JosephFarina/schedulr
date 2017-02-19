@@ -1,8 +1,8 @@
 import * as Crud from 'src/modules/entityCrudFactories'
-import { Action, REmployees } from 'src/models'
+import { Action, REmployees, Employee } from 'src/models'
 import { EmployeeEntityActions } from 'src/state/actionTypes'
 
-export const initialState: REmployees = Crud.InitialState.mergeWith({
+export const initialState = Crud.InitialState.mergeWith<Employee, REmployees>({
   search: '',
   view: 'grid'
 })

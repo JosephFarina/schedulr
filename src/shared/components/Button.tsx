@@ -13,12 +13,11 @@ interface Props {
 
 export const Button: React.StatelessComponent<Props> = (props: Props) => {
   const {to} = props
-  // console.log(context.router.isActive(this.props.to, true))
-  console.log(History)
+
   return to ?
     <AntButton
       {...props}
-    ><Link activeStyle={{background: 'blue'}} to={to}>{props.children}</Link></AntButton>
+    ><Link to={to}>{props.children}</Link></AntButton>
     :
     <AntButton
       {...props}

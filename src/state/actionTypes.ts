@@ -18,7 +18,7 @@ export const EmployeeEntityActions = Crud.ActionTypes.mergeWith<{
 
 export const ClientEntityActions = Crud.ActionTypes.mergeWith<{}>('Client', {})
 export const LocationEntityActions = Crud.ActionTypes.mergeWith<{}>('Location', {})
-
+export const PositionEntityActions = Crud.ActionTypes.mergeWith<{}>('Position', {})
 
 export const ShiftActions = {
   // new

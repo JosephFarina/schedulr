@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import { RState, Employee } from 'src/models'
+import { RState, Employee, EmployeeWithPosition } from 'src/models'
 import { Pane, MainPane } from 'src/shared'
 import { connect } from 'react-redux'
 
 import EmployeeToolbar from './containers/EmployeeToolbar'
-import { getEmployees } from 'src/state/entities/employees'
+import { getEmployeesWithPositions } from 'src/state/entities/employees'
 
 const Table = require('antd/lib/table')
 const Input = require('antd/lib/input')
@@ -14,7 +14,7 @@ const Button = require('antd/lib/button')
 
 interface Props {
   dispatch?: Function
-  employees?: Employee[]
+  employees?: EmployeeWithPosition[]
 }
 
 
@@ -154,7 +154,7 @@ Employees.defaultProps = defaultProps
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    employees: getEmployees(state)
+    employees: getEmployeesWithPositions(state)
   }
 }
 

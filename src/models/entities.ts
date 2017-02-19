@@ -67,6 +67,8 @@ export interface Employee extends Entity {
   firstName?: string
   lastName?: string
   manager?: string
+
+  position?: string | Position
 }
 
 /**
@@ -79,3 +81,17 @@ export interface NestedEmployee extends Employee {
 }
 
 export interface Employees extends Entities<Employee> { }
+
+export interface EmployeeWithPosition extends Employee {
+  position: Position
+}
+
+/**
+ * 
+ * Position entity
+ * 
+ */
+
+export interface Position extends Entity { }
+
+export interface Positions extends Entities<Position> { }

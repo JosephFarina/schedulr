@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect'
 import { RState, Entities } from 'src/models'
 
-export function getUpdatedEntitiesFactory(
+export function getUpdatedEntitiesFactory<T>(
   rawSelector: (a: RState) => Entities<any>,
   editedSelector: (a: RState) => Entities<any>,
   addedSelector: (a: RState) => Entities<any>,
   deletedSelector: (a: RState) => string[]
-) {
+): (state: RState) => T[] {
   return createSelector(
     rawSelector,
     editedSelector,

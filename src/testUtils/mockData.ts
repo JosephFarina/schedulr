@@ -1,11 +1,9 @@
 import {
-  Client,
   Clients,
-  Employee,
   Employees,
-  Location,
   Locations,
-  REntities
+  Position,
+  Positions
 } from 'src/models'
 
 /**
@@ -13,12 +11,6 @@ import {
  * Default Client Values
  * 
  */
-
-export const client: Client = {
-  id: 'cgf3rga23',
-  alias: '21rqwaf af',
-  locations: ['rfee2', '2wff']
-}
 
 export const clientsOne: Clients = {
   'clientOne:1': {
@@ -35,8 +27,6 @@ export const clientsOne: Clients = {
   }
 }
 
-export const clientsOneArray: Employee[] = Object.keys(clientsOne).map(id => Object.assign({}, clientsOne[id]))
-
 export const clientsTwo: Clients = {
   'clientTwo:1': {
     id: 'clientTwo:1',
@@ -50,82 +40,70 @@ export const clientsTwo: Clients = {
   }
 }
 
-export const clientsTwoArray: Employee[] = Object.keys(clientsTwo).map(id => Object.assign({}, clientsTwo[id]))
-
 /**
  * 
  * Default Employee Values
  * 
  */
 
-export const employee: Employee = {
-  id: 'asdfdfdafs',
-  alias: 'a asdfdsaf34fed',
-  firstName: 'asfdf',
-  lastName: 'asdfdsaf34fed'
-}
-
 export const employeesOne: Employees = {
   '0': {
     id: '0',
-    alias: 'Employee 0',
-    firstName: '0First',
-    lastName: '0Last',
+    alias: 'Joey Farina',
+    firstName: 'joseph',
+    lastName: 'farina',
+    position: '0',
     manager: null
   },
   '1': {
     id: '1',
-    alias: 'Employee 1',
-    firstName: '1First',
-    lastName: '1Last',
+    alias: 'Shaya Alarfaj',
+    firstName: 'bashayer',
+    lastName: 'alarfaj',
+    position: '1',
     manager: '0'
   },
   '2': {
     id: '2',
-    alias: 'Employee 2',
-    firstName: '2First',
-    lastName: '2Last',
+    alias: 'Benito',
+    firstName: 'lenny',
+    lastName: 'cat',
+    position: '1',
     manager: '1'
   },
   '3': {
     id: '3',
-    alias: 'Employee 3',
-    firstName: '3First',
-    lastName: '3Last',
+    alias: 'Sasha',
+    firstName: 'sasha',
+    lastName: 'cat',
+    position: '1',
     manager: '1'
   },
   '4': {
     id: '4',
-    alias: 'Employee 4',
-    firstName: '4First',
-    lastName: '4Last',
+    alias: 'Bobby H.',
+    firstName: 'bob',
+    lastName: 'herrington',
+    position: '2',
     manager: null
   }
 }
-
-export const employeesOneArray: Employee[] = Object.keys(employeesOne).map(id => Object.assign({}, employeesOne[id]))
 
 export const employeesTwo: Employees = {
   'af3ijwekfas': {
     id: 'af3ijwekfas',
     alias: 'af fq3ewdfadsf',
     firstName: 'af3qwav',
+    position: '3',
     lastName: 'fq3ewdfadsf'
   }
 }
-
-export const employeesTwoArray: Employee[] = Object.keys(employeesTwo).map(id => Object.assign({}, employeesTwo[id]))
 
 /**
  * 
  * Default Location Values
  * 
  */
-
-export const location: Location = {
-  alias: 'location',
-  id: 'location'
-}
 
 export const locationsOne: Locations = {
   'locationsOne:1': {
@@ -142,8 +120,6 @@ export const locationsOne: Locations = {
   }
 }
 
-export const locationsOneArray: Location[] = Object.keys(locationsOne).map(id => Object.assign({}, locationsOne[id]))
-
 export const locationsTwo: Locations = {
   'locationsTwo:1': {
     alias: 'locationsTwo 1',
@@ -155,5 +131,30 @@ export const locationsTwo: Locations = {
   }
 }
 
-export const locationsTwoArray: Location[] = Object.keys(locationsTwo).map(id => Object.assign({}, locationsTwo[id]))
+/**
+ * 
+ * Positions Value
+ * 
+ */
 
+export const positionsOne: Positions = {
+  '0': {
+    id: '0',
+    alias: 'Manager'
+  },
+  '1': {
+    id: '1',
+    alias: 'Crew Member'
+  },
+  '2': {
+    id: '2',
+    alias: 'Supervisor'
+  }
+}
+
+export const positionsTwo: Positions = {
+  '3': {
+    id: '3',
+    alias: 'Project Manager'
+  }
+}

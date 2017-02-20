@@ -8,7 +8,9 @@ import {
   getEmployeeInspectorUpcomingShifts,
   fetchEmployeeDetails,
   fetchingEmployeeInspectorDetails,
-  getPositions
+  getPositions,
+  getEmployees,
+  editEmployees
 } from 'src/state/entities'
 
 import { EditableText } from 'src/shared'
@@ -26,25 +28,29 @@ const Timeline = require('antd/lib/timeline')
 const Rate = require('antd/lib/rate')
 
 interface Props {
-  dispatch?: Function
   employee?: Employee
+  employees?: Employee[]
   fetchingData?: boolean
   positions?: Position[]
   upcomingShifts?: UnnormalizedShift[]
-
+  getEmployeeDetails: (id: string) => void
   params?: {
     inspector: string
   }
+
+  onDetailChange: (id: string) => (key: string) => (value: string) => void
 }
 
 class EmployeeInspector extends React.Component<Props, {}> {
   componentDidMount() {
-    const {dispatch, params} = this.props
-    dispatch(fetchEmployeeDetails(params.inspector))
+    const {getEmployeeDetails, params} = this.props
+    getEmployeeDetails(params.inspector)
   }
 
   render() {
-    const { fetchingData, upcomingShifts, employee, positions } = this.props
+    const { fetchingData, upcomingShifts, employee, positions, employees, onDetailChange } = this.props
+
+    console.log(employee)
 
     return (
       <div className={styles.cardGrid}>
@@ -54,14 +60,21 @@ class EmployeeInspector extends React.Component<Props, {}> {
           </Card>
           <Card loading={fetchingData} title="Details" style={{ flex: '1 1 100%', margin: '10px' }}>
 
-            <EmployeeDetailsEditor onChange={e => console.log(e)} fields={[
-              { fieldName: 'First Name', value: this.props.employee.firstName },
-              { fieldName: 'Last Name', value: this.props.employee.lastName },
-              { fieldName: 'Alias', value: this.props.employee.alias },
+            <EmployeeDetailsEditor onChange={onDetailChange(employee.id)} fields={[
+              { fieldName: 'First Name', value: this.props.employee.firstName, key: 'firstName' },
+              { fieldName: 'Last Name', value: this.props.employee.lastName, key: 'lastName' },
+              { fieldName: 'Alias', value: this.props.employee.alias, key: 'alias' },
               {
                 fieldName: 'Position',
                 value: typeof this.props.employee.position === 'string' ? this.props.employee.position : null,
+                key: 'position',
                 selectOptions: positions
+              },
+              {
+                fieldName: 'Manager',
+                value: typeof this.props.employee.manager === 'string' ? this.props.employee.manager : null,
+                key: 'manager',
+                selectOptions: employees
               }
             ]} />
 
@@ -91,6 +104,7 @@ class EmployeeInspector extends React.Component<Props, {}> {
 
 const mapStateToProps = (state, ownProps: Props) => {
   return {
+    employees: getEmployees(state),
     employee: getEmployeeById(state, ownProps.params.inspector),
     upcomingShifts: getEmployeeInspectorUpcomingShifts(state),
     fetchingData: fetchingEmployeeInspectorDetails(state),
@@ -98,4 +112,15 @@ const mapStateToProps = (state, ownProps: Props) => {
   }
 }
 
-export default connect(mapStateToProps)((EmployeeInspector as any))
+const mapDispatchToProps = dispatch => ({
+  onDetailChange: (id: string) => (key: string) => (value: string) => {
+    dispatch(editEmployees([{
+      id, [key]: value
+    }]))
+  },
+  getEmployeeDetails(id) {
+    dispatch(fetchEmployeeDetails(id))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)((EmployeeInspector as any))

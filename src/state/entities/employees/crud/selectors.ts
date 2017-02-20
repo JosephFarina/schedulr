@@ -40,5 +40,5 @@ export const getEmployeesWithPositions = (state: RState): EmployeeWithPosition[]
   })
 }
 
-export const getEmployeeById = (state: RState, id: string) => Crud.Selectors.getById(getEmployees(state))(id)
+export const getEmployeeById = (state: RState, id: string) => getEmployees(state)[id]
 export const getEmployeeCount = Crud.Selectors.getCount(getEmployees)

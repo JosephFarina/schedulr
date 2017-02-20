@@ -49,8 +49,10 @@ function getPayload(option: Crud.ActionTypes.ActionOptions, selector: any, state
     case 'edit':
       console.log(selector)
       const mergedWithState = (<Entity[]> input).map(inputEnt => {
-        const stateEnt = selector.raw(state)[inputEnt.id] || {}
-        return merge(stateEnt, inputEnt)
+        const rawState = selector.raw(state)[inputEnt.id] || {}
+        const editedState = selector.default(state)[inputEnt.id] || {}
+        // merge with edited before merging with raw to get previous updates
+        return merge(rawState, merge(editedState, inputEnt))
       })
 
       return merge(selector.default(state), convertEntityArrToObj(mergedWithState))

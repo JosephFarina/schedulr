@@ -79,7 +79,6 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onCellChange: (record, key) => (value) => {
-      console.log(record, key, value)
       dispatch(editEmployees([{
         id: record.id,
         [key]: value

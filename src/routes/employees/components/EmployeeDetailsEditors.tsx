@@ -15,16 +15,17 @@ interface Props {
   fields?: {
     fieldName: string
     display?: string
-    value: string,
+    value: string
+    key: string
     selectOptions?: Entity[]
   }[]
-  onChange: (val: string) => any
+  onChange: (key: string) => (val: string) => any
 }
 
 const EmployeeDetailsEditor = (props: Props) => {
   const {fields, onChange} = props
   return <div>
-    {fields.map(field => <Field {...field} onChange={onChange} />)}
+    {fields.map(field => <Field {...field} onChange={onChange(field.key)} />)}
   </div>
 }
 

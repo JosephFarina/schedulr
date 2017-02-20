@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { RState, Employee, EmployeeWithPosition } from 'src/models'
+import { RState, Employee, EmployeeWithPosition , Entity, Position} from 'src/models'
 import {
   Pane,
   MainPane,
@@ -13,27 +13,30 @@ import { curry } from 'ramda'
 import EmployeeToolbar from './containers/EmployeeToolbar'
 import {
   getEmployeesWithPositions,
-  editEmployees
-} from 'src/state/entities/employees'
+  editEmployees,
+  getPositions
+} from 'src/state/entities'
 
 interface Props {
   dispatch?: Function
   employees?: EmployeeWithPosition[]
+  positions?: Position[]
 
   onCellChange?: (record: any, key: string) => (val: string) => void
 }
 
 
-const renderCell = curry(function renderCell(onCellChange, keyName, text, record, index) {
-  return <EntityTableCell
+function renderCell(onCellChange, keyName, select: Entity[] = null) {
+  return (text, record, index) => <EntityTableCell
     value={text}
+    selectOptions={select}
     onChange={onCellChange(record, keyName)}
   />
-})
+}
 
 
 const Employees: React.StatelessComponent<Props> = (props: Props) => {
-  const { employees, onCellChange } = props
+  const { employees, onCellChange, positions } = props
   const columns = [
     {
       title: 'First Name',
@@ -50,7 +53,8 @@ const Employees: React.StatelessComponent<Props> = (props: Props) => {
     {
       title: 'Position',
       dataIndex: 'position.alias',
-      key: 'position.id'
+      key: 'position.id',
+      render: renderCell(onCellChange, 'position', positions),
     }
   ]
 
@@ -84,7 +88,8 @@ Employees.defaultProps = defaultProps
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    employees: getEmployeesWithPositions(state)
+    employees: getEmployeesWithPositions(state),
+    positions: getPositions(state)
   }
 }
 

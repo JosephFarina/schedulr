@@ -1,14 +1,17 @@
 import * as React from 'react'
 
+import { Entity } from 'src/models'
 const styles = require('./EntityTableCell.scss')
 
 const Icon = require('antd/lib/icon')
 const Input = require('antd/lib/input')
+const Select = require('antd/lib/select')
 
 interface Props {
   value?: string
 
   onChange?: (val: string) => any
+  selectOptions?: Entity[]
 }
 
 interface State {
@@ -34,6 +37,25 @@ const InputCell = ({value, handleChange, handleSubmit, handleExit}) => (
   </div>
 )
 
+const SelectCell = ({value, handleChange, handleSubmit, handleExit, entities}) => (
+  <div className={styles.inputWrapper}>
+    <Select
+      style={{ width: '100%' }}
+      value={value}
+      onChange={handleChange}
+    >
+      {entities.map(ent => <Select.Option value={ent.id}>{ent.alias}</Select.Option>)}
+
+    </Select>
+    <Icon
+      type="check"
+      className={styles.iconCheck}
+      onClick={handleSubmit}
+    />
+    <Icon type="close" className={styles.iconClose}
+      onClick={handleExit} />
+  </div>
+)
 
 const TextCell = ({value, handleEditRequest}) => (
   <div className={styles.textWrapper}>
@@ -49,16 +71,21 @@ const TextCell = ({value, handleEditRequest}) => (
 
 
 export class EntityTableCell extends React.Component<Props, State> {
+  static defaultProps: Props = {
+    selectOptions: null
+  }
+
   constructor(props) {
     super(props)
     this.state = {
       editable: false,
-      value: this.props.value
+      value: this.props.value,
     }
   }
 
-  handleChange = ({target}) => {
-    const value = target.value
+  handleChange = e => {
+    const value = e.target ? e.target.value : e
+    console.log(value)
     this.setState({ value })
   }
 
@@ -76,18 +103,27 @@ export class EntityTableCell extends React.Component<Props, State> {
   }
 
   render() {
-    const { editable, value: stateValue } = this.state
-    const { value: propsValue } = this.props
+    const {editable, value: stateValue } = this.state
+    const {value: propsValue, selectOptions } = this.props
     return (
       <div className={styles.editableCell}>
         {
           editable ?
-            <InputCell
-              handleChange={this.handleChange}
-              value={stateValue}
-              handleSubmit={this.handleSubmit}
-              handleExit={this.handleExit}
-            />
+            selectOptions ?
+              <SelectCell
+                handleChange={this.handleChange}
+                value={stateValue}
+                entities={selectOptions}
+                handleSubmit={this.handleSubmit}
+                handleExit={this.handleExit}
+              />
+              :
+              <InputCell
+                handleChange={this.handleChange}
+                value={stateValue}
+                handleSubmit={this.handleSubmit}
+                handleExit={this.handleExit}
+              />
             :
             <TextCell
               handleEditRequest={this.edit}

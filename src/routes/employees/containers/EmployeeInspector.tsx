@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 
 import { getEmployeeById } from 'src/state/entities'
 
+import UpcomingShiftPreview from './../components/UpcomingShiftsPreview'
+
 const styles = require('./EmployeeInspector.scss')
 const ctx = require('classnames')
 
@@ -41,30 +43,7 @@ const EmployeeInspector: React.StatelessComponent<Props> = (props: Props) => {
       </div>
       <div className={styles.cardColumn}>
         <Card title="Upcoming Shifts" style={{ flex: '1 1', margin: '10px' }} >
-          <Timeline pending={<a href="#">See more</a>}>
-
-            <Timeline.Item>
-              <h3> <strong>Wed, February 25th</strong> </h3>
-              <div><strong>Time:</strong> 12:00pm—5:00pm</div>
-              <div><strong>Client:</strong> Client One</div>
-              <div><strong>Location:</strong> Client's Location One</div>
-            </Timeline.Item>
-
-            <Timeline.Item>
-              <h3> <strong>Wed, February 25th</strong> </h3>
-              <div><strong>Time:</strong> 12:00pm—5:00pm</div>
-              <div><strong>Client:</strong> Client One</div>
-              <div><strong>Location:</strong> Client's Location One</div>
-            </Timeline.Item>
-
-            <Timeline.Item>
-              <h3> <strong>Wed, February 25th</strong> </h3>
-              <div><strong>Time:</strong> 12:00pm—5:00pm</div>
-              <div><strong>Client:</strong> Client One</div>
-              <div><strong>Location:</strong> Client's Location One</div>
-            </Timeline.Item>
-
-          </Timeline>
+          <UpcomingShiftPreview />
         </Card>
       </div>
     </div>

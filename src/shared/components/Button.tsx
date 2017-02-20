@@ -5,9 +5,11 @@ const AntButton = require('antd/lib/button')
 
 interface Props {
   dispatch?: Function
-  type?: 'primary' | 'secondary'
+  type?: 'primary' | 'secondary' | 'danger'
   to?: string
   children?: any
+  shape?: string
+  icon?: string
   onClick?: (val: any) => any
 }
 

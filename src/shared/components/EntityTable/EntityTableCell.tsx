@@ -128,7 +128,7 @@ export class EntityTableCell extends React.Component<Props, State> {
     this.setState({ value, hasBeenEdited: true })
   }
 
-  resetToText() {
+  resetToText = () => {
     this.setState({ editable: false, value: '' })
   }
 

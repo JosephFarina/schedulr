@@ -1,0 +1,12 @@
+.popoverContainer {
+  display: flex;
+  // flex-direction: column;
+
+  button {
+    margin-right: 5px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

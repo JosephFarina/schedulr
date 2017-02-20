@@ -1,0 +1,9 @@
+.cardGrid {
+  display: flex;
+}
+
+.cardColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}

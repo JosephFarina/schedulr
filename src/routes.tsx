@@ -47,8 +47,9 @@ import Auth from 'src/routes/auth/Auth'
 import Login from 'src/routes/auth/containers/Login'
 import Register from 'src/routes/auth/containers/Register'
 
-// Account
-import Employee from './routes/employees/Employees'
+
+import EmployeeRoutes from './routes/employees/EmployeeRoutes'
+
 
 const store = configureStore()
 const history = syncHistoryWithStore(browserHistory, store)
@@ -59,6 +60,8 @@ store.dispatch((setClients(clientsOne) as any))
 store.dispatch((setEmployees(employeesOne) as any))
 store.dispatch((setLocations(locationsOne) as any))
 store.dispatch((setPositions(positionsOne) as any))
+
+
 
 const Routes = () => (
   <Provider store={store}>
@@ -74,7 +77,7 @@ const Routes = () => (
           <Route path="register" component={Register} />
         </Route>
 
-        <Route path="employees" component={Employee}></Route>
+        {EmployeeRoutes}
 
       </Route>
     </Router>

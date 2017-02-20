@@ -17,7 +17,7 @@ interface State {
 }
 
 
-const InputCell = ({value, handleChange, handleSubmit}) => (
+const InputCell = ({value, handleChange, handleSubmit, handleExit}) => (
   <div className={styles.inputWrapper}>
     <Input
       value={value}
@@ -29,6 +29,8 @@ const InputCell = ({value, handleChange, handleSubmit}) => (
       className={styles.iconCheck}
       onClick={handleSubmit}
     />
+    <Icon type="close" className={styles.iconClose}
+      onClick={handleExit} />
   </div>
 )
 
@@ -55,15 +57,18 @@ export class EntityTableCell extends React.Component<Props, State> {
     }
   }
 
-  handleChange = e => {
-    const value = e.target.value
-    console.log(value)
+  handleChange = ({target}) => {
+    const value = target.value
     this.setState({ value })
   }
 
   handleSubmit = e => {
     this.setState({ editable: false })
     this.props.onChange(this.state.value)
+  }
+
+  handleExit = e => {
+    this.setState({ editable: false })
   }
 
   edit = e => {
@@ -81,6 +86,7 @@ export class EntityTableCell extends React.Component<Props, State> {
               handleChange={this.handleChange}
               value={stateValue}
               handleSubmit={this.handleSubmit}
+              handleExit={this.handleExit}
             />
             :
             <TextCell

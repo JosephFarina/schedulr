@@ -6,9 +6,11 @@
   }
 }
 
+$iconWidth: 20px;
+
 .inputWrapper,
 .textWrapper {
-  padding-right: 24px;
+  padding-right: ($iconWidth * 2) + 8;
 }
 
 .textWrapper {
@@ -16,10 +18,11 @@
 }
 
 .icon,
-.iconCheck {
+.iconCheck,
+.iconClose {
   position: absolute;
   right: 0;
-  width: 20px;
+  width: $iconWidth;
   cursor: pointer;
 }
 
@@ -30,6 +33,20 @@
 
 .iconCheck {
   line-height: 28px;
+  right: $iconWidth + 2;
+
+  &:hover {
+    color: green;
+  }
+}
+
+.iconClose {
+  line-height: 28px;
+  right: 0;
+
+  &:hover {
+    color: red;
+  }
 }
 
 .editable-cell-icon:hover,

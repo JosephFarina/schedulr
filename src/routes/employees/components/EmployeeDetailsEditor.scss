@@ -1,0 +1,13 @@
+.field {
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  white-space: nowrap;
+  margin-right: 15px;
+}
+
+.input {
+  flex: 1 1 100%;
+}

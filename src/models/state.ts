@@ -85,11 +85,22 @@ export interface REntities {
   positions?: CrudState<EntityModels.Positions>
 }
 
+export interface REmployees {
+  crud: REmployeesCrud
+  inspector: REmployeeInspector
+}
+
 export declare type employeeViewOptions = 'hierarchy' | 'grid'
-export interface REmployees extends CrudState<EntityModels.Employees> {
+export interface REmployeesCrud extends CrudState<EntityModels.Employees> {
   search?: string
   view?: employeeViewOptions
 }
+
+export interface REmployeeInspector {
+  fetching?: boolean
+  upcomingShifts?: EntityModels.UnnormalizedShift[]
+}
+
 
 
 /**

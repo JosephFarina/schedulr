@@ -13,8 +13,8 @@ const UpcomingShift = ({client, location, startTime, duration}: UnnormalizedShif
 
   return (
     <Timeline.Item>
-      <h3><strong>{range.start.format()}</strong></h3>
-      <div><strong>Time:</strong> {range.start.format('hh:mm')}—{range.end.format('hh:mm')}</div>
+      <h3><strong>{range.start.format('ddd, MMM Do YYYY')}</strong></h3>
+      <div><strong>Time:</strong> {range.start.format('hh:mm')} — {range.end.format('hh:mm')}</div>
       <div><strong>Client:</strong> {client.alias}</div>
       <div><strong>Location:</strong> {location.alias}</div>
     </Timeline.Item>
@@ -23,7 +23,7 @@ const UpcomingShift = ({client, location, startTime, duration}: UnnormalizedShif
 
 const UpcomingShiftsPreview = (props: Props) => (
   <Timeline pending={<a href="#">See more</a>}>
-    {props.shifts.map(shift => <UpcomingShift {...shift} />)}
+    {props.shifts.slice(0, 3).map(shift => <UpcomingShift {...shift} />)}
   </Timeline>
 )
 

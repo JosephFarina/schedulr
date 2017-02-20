@@ -1,0 +1,59 @@
+.editableCell {
+  position: relative;
+
+  &:hover .icon {
+    display: inline-block;
+  }
+}
+
+$iconWidth: 20px;
+
+.inputWrapper,
+.textWrapper {
+  padding-right: ($iconWidth * 2) + 8;
+}
+
+.textWrapper {
+  padding: 5px 24px 5px 5px;
+}
+
+.icon,
+.iconCheck,
+.iconClose {
+  position: absolute;
+  right: 0;
+  width: $iconWidth;
+  cursor: pointer;
+}
+
+.icon {
+  line-height: 18px;
+  display: none;
+}
+
+.iconCheck {
+  line-height: 28px;
+  right: $iconWidth + 2;
+
+  &:hover {
+    color: green;
+  }
+}
+
+.iconClose {
+  line-height: 28px;
+  right: 0;
+
+  &:hover {
+    color: red;
+  }
+}
+
+.editable-cell-icon:hover,
+.editable-cell-icon-check:hover {
+  color: #2db7f5;
+}
+
+.editable-add-btn {
+  margin-bottom: 8px;
+}

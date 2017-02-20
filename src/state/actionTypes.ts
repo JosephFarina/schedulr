@@ -11,9 +11,15 @@ export const ShiftEntityActions = Crud.ActionTypes.mergeWith<{}>('Shifts', {})
 export const EmployeeEntityActions = Crud.ActionTypes.mergeWith<{
   search: string
   changeView: string
+  fetchingEmployeeDetails: string
+  receiveEmployeeDetails: string
+  errorFetchingEmployeeDetails: string
 }>('Employee', {
   search: 'search',
-  changeView: 'changeView'
+  changeView: 'changeView',
+  receiveEmployeeDetails: 'receiveEmployeeDetails',
+  fetchingEmployeeDetails: 'fetchingEmployeeDetails',
+  errorFetchingEmployeeDetails: 'errorFetchingEmployeeDetails'
 })
 
 export const ClientEntityActions = Crud.ActionTypes.mergeWith<{}>('Client', {})

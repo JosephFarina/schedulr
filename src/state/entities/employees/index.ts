@@ -1,5 +1,13 @@
-import employeesReducer from './reducer'
-export default employeesReducer
+import { combineReducers } from 'redux'
 
-export * from './selectors'
-export * from './actions'
+import employeeCrudReducer from './crud'
+import employeeInspectorReducer from './inspector'
+
+const employeeReducer = combineReducers({
+  crud: employeeCrudReducer,
+  inspector: employeeInspectorReducer
+})
+
+export default employeeReducer
+export * from './crud'
+export * from './inspector'

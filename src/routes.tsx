@@ -17,10 +17,10 @@ import {
 } from 'src/state/entities'
 
 import {
-  clientsOne,
-  employeesOne,
-  locationsOne,
-  positionsOne,
+  CLIENTS,
+  EMPLOYEES,
+  LOCATIONS,
+  POSITIONS,
   generateShifts
 } from 'src/testUtils'
 
@@ -56,10 +56,10 @@ const history = syncHistoryWithStore(browserHistory, store)
 
 
 // if DEV ENV -- seed the redux store with mock data for development
-store.dispatch((setClients(clientsOne) as any))
-store.dispatch((setEmployees(employeesOne) as any))
-store.dispatch((setLocations(locationsOne) as any))
-store.dispatch((setPositions(positionsOne) as any))
+store.dispatch((setClients(CLIENTS) as any))
+store.dispatch((setEmployees(EMPLOYEES) as any))
+store.dispatch((setLocations(LOCATIONS) as any))
+store.dispatch((setPositions(POSITIONS) as any))
 
 
 

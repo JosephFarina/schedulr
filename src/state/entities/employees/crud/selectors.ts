@@ -1,9 +1,9 @@
 import { RState, Employees, Employee, EmployeeWithPosition } from 'src/models'
-import { getPositionById } from './../'
+import { getPositionById } from './../../'
 import * as Crud from 'src/modules/entityCrudFactories'
 
-export const getEmployeeSearchValue = (state: RState) => state.entities.employees.search
-export const getEmployeeView = (state: RState) => state.entities.employees.view
+export const getEmployeeSearchValue = (state: RState) => state.entities.employees.crud.search
+export const getEmployeeView = (state: RState) => state.entities.employees.crud.view
 
 /**
  * 
@@ -11,10 +11,10 @@ export const getEmployeeView = (state: RState) => state.entities.employees.view
  * 
  */
 
-export const getRawEmployees = (state: RState): Employees => Object.assign({}, state.entities.employees.raw)
-export const getEditedEmployees = (state: RState): Employees => Object.assign({}, state.entities.employees.edited)
-export const getAddedEmployees = (state: RState): Employees => Object.assign({}, state.entities.employees.added)
-export const getDeletedEmployees = (state: RState): string[] => Object.assign([], state.entities.employees.deleted)
+export const getRawEmployees = (state: RState): Employees => Object.assign({}, state.entities.employees.crud.raw)
+export const getEditedEmployees = (state: RState): Employees => Object.assign({}, state.entities.employees.crud.edited)
+export const getAddedEmployees = (state: RState): Employees => Object.assign({}, state.entities.employees.crud.added)
+export const getDeletedEmployees = (state: RState): string[] => Object.assign([], state.entities.employees.crud.deleted)
 
 /**
  * 

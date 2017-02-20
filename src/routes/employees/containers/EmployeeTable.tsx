@@ -2,7 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import { EmployeeWithPosition, Entity, Position } from 'src/models'
-import { EntityTable, EntityTableCell } from 'src/shared'
+import { EntityTable, EditableText } from 'src/shared'
 
 import EmployeeTableOptions from './EmployeeTableOptions'
 
@@ -20,13 +20,21 @@ interface Props {
 }
 
 
-function renderCell(onCellChange, keyName, entities: Entity[] = null) {
-  return (text, record, index) => <EntityTableCell
+function renderCell(onCellChange, keyName) {
+  return (text, record, index) => <EditableText
     value={text}
+    onChange={onCellChange(record, keyName)}
+  />
+}
+
+function renderSelect(onCellChange, keyName, entities: Entity[] = null) {
+  return (text, record, index) => <EditableText
+    value={record.position.id}
     selectOptions={entities}
     onChange={onCellChange(record, keyName)}
   />
 }
+
 
 const EmployeeTable: React.StatelessComponent<Props> = (props: Props) => {
   const { employees, onCellChange, positions } = props
@@ -47,7 +55,7 @@ const EmployeeTable: React.StatelessComponent<Props> = (props: Props) => {
       title: 'Position',
       dataIndex: 'position.alias',
       key: 'position.id',
-      render: renderCell(onCellChange, 'position', positions),
+      render: renderSelect(onCellChange, 'position', positions),
     },
     {
       title: '',
@@ -57,7 +65,7 @@ const EmployeeTable: React.StatelessComponent<Props> = (props: Props) => {
       render: (text, record, index) => <EmployeeTableOptions employee={record} />,
     }
   ]
-
+  console.log(employees)
   return <EntityTable dataSource={employees} columns={columns} />
 }
 

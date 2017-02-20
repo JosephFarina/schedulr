@@ -32,11 +32,13 @@ export interface Shift extends SharedShiftData {
 export interface Shifts extends Entities<Shift> { }
 
 export interface UnnormalizedShift extends Entity {
+  employee?: Employee
   startTime?: string
   duration?: number
   location: Location
   client?: Client
 }
+
 
 /**
  * 

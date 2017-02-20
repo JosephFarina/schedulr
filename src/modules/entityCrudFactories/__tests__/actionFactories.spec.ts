@@ -7,8 +7,8 @@ import thunk from 'redux-thunk'
 import { RState, Clients, Entities, CrudState } from 'src/models'
 import {
   getFirstDispatchPayload,
-  clientsOne,
-  clientsTwo
+  CLIENTS,
+  CLIENTS_TWO
 } from 'src/testUtils'
 
 const middlewares: any = [thunk]
@@ -37,7 +37,7 @@ const getDataSets = curry(function getDataSets(setOne, setTwo, addOrDelete: 'add
   }
 })
 
-const dataGenerator = getDataSets(clientsOne, clientsTwo)
+const dataGenerator = getDataSets(CLIENTS, CLIENTS_TWO)
 
 function makeState(clients: Partial<CrudState<Clients>>): RState {
   return {
@@ -107,9 +107,9 @@ describe('entityCrudFactories: actionFactories', () => {
     })
 
     it('should accept partial objects and merge into exisiting id', () => {
-      const editedClientId = Object.keys(clientsOne)[0]
+      const editedClientId = Object.keys(CLIENTS)[0]
       const editedAliasVal = 'this is a new val'
-      const storeVal = { [editedClientId]: { ...clientsOne[editedClientId] } }
+      const storeVal = { [editedClientId]: { ...CLIENTS[editedClientId] } }
       const actionVal = [{
         id: editedClientId,
         alias: editedAliasVal
@@ -156,8 +156,8 @@ describe('entityCrudFactories: actionFactories', () => {
   it('setRaw should set the raw entities', () => {
     const store = mockStore(makeState({ raw: {} }))
 
-    store.dispatch(rawActions('setRaw')(clientsOne))
-    expect(getFirstDispatchPayload(store)).toEqual(clientsOne)
+    store.dispatch(rawActions('setRaw')(CLIENTS))
+    expect(getFirstDispatchPayload(store)).toEqual(CLIENTS)
   })
 
 })

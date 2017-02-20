@@ -2,9 +2,11 @@ import {
   Clients,
   Employees,
   Locations,
-  Position,
-  Positions
+  Positions,
+  UnnormalizedShift
 } from 'src/models'
+
+import { identity, times, compose, length, keys } from 'ramda'
 
 /**
  * 
@@ -12,7 +14,7 @@ import {
  * 
  */
 
-export const clientsOne: Clients = {
+export const CLIENTS: Clients = {
   'clientOne:1': {
     id: 'clientOne:1',
     alias: 'client one 1',
@@ -27,7 +29,7 @@ export const clientsOne: Clients = {
   }
 }
 
-export const clientsTwo: Clients = {
+export const CLIENTS_TWO: Clients = {
   'clientTwo:1': {
     id: 'clientTwo:1',
     alias: 'clientTwo 1',
@@ -42,11 +44,72 @@ export const clientsTwo: Clients = {
 
 /**
  * 
+ * Default Location Values
+ * 
+ */
+
+export const LOCATIONS: Locations = {
+  'locationsOne:1': {
+    id: 'locationsOne:1',
+    alias: 'locationOne 1'
+  },
+  'locationsOne:2': {
+    alias: 'locationsOne 2',
+    id: 'locationsOne:2'
+  },
+  'locationsOne:3': {
+    alias: 'locationsOne 3',
+    id: 'locationsOne:3'
+  }
+}
+
+export const LOCATIONS_TWO: Locations = {
+  'locationsTwo:1': {
+    alias: 'locationsTwo 1',
+    id: 'locationsTwo:1'
+  },
+  'locationsTwo:2': {
+    alias: 'locationsTwo 2',
+    id: 'locationsTwo:2'
+  }
+}
+
+/**
+ * 
+ * Positions Value
+ * 
+ */
+
+export const POSITIONS: Positions = {
+  '0': {
+    id: '0',
+    alias: 'Manager'
+  },
+  '1': {
+    id: '1',
+    alias: 'Crew Member'
+  },
+  '2': {
+    id: '2',
+    alias: 'Supervisor'
+  }
+}
+
+export const POSITIONS_TWO: Positions = {
+  '3': {
+    id: '3',
+    alias: 'Project Manager'
+  }
+}
+
+
+/**
+ * 
  * Default Employee Values
  * 
  */
 
-export const employeesOne: Employees = {
+export const EMPLOYEES: Employees = {
   '0': {
     id: '0',
     alias: 'Joey Farina',
@@ -89,7 +152,7 @@ export const employeesOne: Employees = {
   }
 }
 
-export const employeesTwo: Employees = {
+export const EMPLOYEES_TWO: Employees = {
   'af3ijwekfas': {
     id: 'af3ijwekfas',
     alias: 'af fq3ewdfadsf',
@@ -101,60 +164,31 @@ export const employeesTwo: Employees = {
 
 /**
  * 
- * Default Location Values
+ * Generate Shifts
  * 
  */
 
-export const locationsOne: Locations = {
-  'locationsOne:1': {
-    id: 'locationsOne:1',
-    alias: 'locationOne 1'
-  },
-  'locationsOne:2': {
-    alias: 'locationsOne 2',
-    id: 'locationsOne:2'
-  },
-  'locationsOne:3': {
-    alias: 'locationsOne 3',
-    id: 'locationsOne:3'
-  }
-}
+import * as M from 'moment'
 
-export const locationsTwo: Locations = {
-  'locationsTwo:1': {
-    alias: 'locationsTwo 1',
-    id: 'locationsTwo:1'
-  },
-  'locationsTwo:2': {
-    alias: 'locationsTwo 2',
-    id: 'locationsTwo:2'
-  }
-}
+export function getUnnormalizedShifts(employeeId: string): UnnormalizedShift[] {
+  return times(index => {
+    const randomClientKeyIndex = compose(
+      x => Math.floor(Math.random() * x),
+      length,
+      keys
+    )(CLIENTS)
+    const clientId = '' + keys(CLIENTS)[randomClientKeyIndex]
+    const client = Object.assign({}, CLIENTS[clientId])
+    const location = LOCATIONS[client.locations[0]]
+    const employee = Object.assign({}, EMPLOYEES[employeeId])
 
-/**
- * 
- * Positions Value
- * 
- */
-
-export const positionsOne: Positions = {
-  '0': {
-    id: '0',
-    alias: 'Manager'
-  },
-  '1': {
-    id: '1',
-    alias: 'Crew Member'
-  },
-  '2': {
-    id: '2',
-    alias: 'Supervisor'
-  }
-}
-
-export const positionsTwo: Positions = {
-  '3': {
-    id: '3',
-    alias: 'Project Manager'
-  }
+    return {
+      id: '' + index,
+      startTime: M().add(index, 'day').hour(9).minute(0).format(),
+      duration: 60 * 8,
+      client,
+      location,
+      employee
+    }
+  }, 15)
 }

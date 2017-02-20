@@ -17,6 +17,7 @@ interface Props {
 interface State {
   editable?: boolean
   value?: string
+  hasBeenEdited?: boolean
 }
 
 
@@ -37,7 +38,7 @@ const InputCell = ({value, handleChange, handleSubmit, handleExit}) => (
   </div>
 )
 
-const SelectCell = ({value, handleChange, handleSubmit, handleExit, entities}) => (
+const SelectCell = ({value, handleChange, handleSubmit, handleExit, entities, hasBeenEdited}) => (
   <div className={styles.inputWrapper}>
     <Select
       style={{ width: '100%' }}
@@ -47,11 +48,11 @@ const SelectCell = ({value, handleChange, handleSubmit, handleExit, entities}) =
       {entities.map(ent => <Select.Option value={ent.id}>{ent.alias}</Select.Option>)}
 
     </Select>
-    <Icon
+    {hasBeenEdited && <Icon
       type="check"
       className={styles.iconCheck}
       onClick={handleSubmit}
-    />
+    />}
     <Icon type="close" className={styles.iconClose}
       onClick={handleExit} />
   </div>
@@ -80,13 +81,13 @@ export class EntityTableCell extends React.Component<Props, State> {
     this.state = {
       editable: false,
       value: this.props.value,
+      hasBeenEdited: false
     }
   }
 
   handleChange = e => {
     const value = e.target ? e.target.value : e
-    console.log(value)
-    this.setState({ value })
+    this.setState({ value, hasBeenEdited: true })
   }
 
   handleSubmit = e => {
@@ -99,7 +100,7 @@ export class EntityTableCell extends React.Component<Props, State> {
   }
 
   edit = e => {
-    this.setState({ editable: true, value: this.props.value })
+    this.setState({ editable: true, value: this.props.value, hasBeenEdited: false })
   }
 
   render() {
@@ -111,6 +112,7 @@ export class EntityTableCell extends React.Component<Props, State> {
           editable ?
             selectOptions ?
               <SelectCell
+                {...this.state}
                 handleChange={this.handleChange}
                 value={stateValue}
                 entities={selectOptions}

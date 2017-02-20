@@ -31,8 +31,7 @@ export const getEmployees = Crud.getUpdatedEntitiesFactory<Employee>(
 
 // todo: reselect me
 export const getEmployeesWithPositions = (state: RState): EmployeeWithPosition[] => {
-  const employees = getEmployees(state)
-  return employees.map(emp => {
+  return getEmployees(state).map(emp => {
     const positionId = typeof emp.position === 'string' ? emp.position : null
 
     return Object.assign({}, emp, {

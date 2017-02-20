@@ -70,7 +70,10 @@ const testActionFactory = Crud.Actions.actionFactory(actionTypes)
 
 describe('entityCrudFactories: actionFactories', () => {
   const addActions = testActionFactory(getAddedClients)
-  const editActions = testActionFactory(getEditedClients)
+  const editActions = testActionFactory({
+    default: getEditedClients,
+    raw: getRawClients
+  })
   const deleteActions = testActionFactory(getDeletedClients)
   const rawActions = testActionFactory(getRawClients)
 
@@ -97,7 +100,7 @@ describe('entityCrudFactories: actionFactories', () => {
       const {actionVal, expectedVal, storeVal} = dataGenerator('add')
 
       testPayloadIsCorrect(
-        makeState({ edited: storeVal }),
+        makeState({ edited: storeVal, raw: {} }),
         editActions('edit')(actionVal),
         expectedVal
       )
@@ -115,7 +118,7 @@ describe('entityCrudFactories: actionFactories', () => {
       expectedVal[editedClientId].alias = editedAliasVal
 
       testPayloadIsCorrect(
-        makeState({ edited: storeVal }),
+        makeState({ raw: storeVal, edited: {} }),
         editActions('edit')(actionVal),
         expectedVal
       )

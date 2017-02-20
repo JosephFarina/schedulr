@@ -1,123 +1,56 @@
 import * as React from 'react'
 
 import { RState, Employee, EmployeeWithPosition } from 'src/models'
-import { Pane, MainPane } from 'src/shared'
+import {
+  Pane,
+  MainPane,
+  EntityTable,
+  EntityTableCell
+} from 'src/shared'
 import { connect } from 'react-redux'
+import { curry } from 'ramda'
 
 import EmployeeToolbar from './containers/EmployeeToolbar'
-import { getEmployeesWithPositions } from 'src/state/entities/employees'
-
-const Table = require('antd/lib/table')
-const Input = require('antd/lib/input')
-const Icon = require('antd/lib/icon')
-const Button = require('antd/lib/button')
+import {
+  getEmployeesWithPositions,
+  editEmployees
+} from 'src/state/entities/employees'
 
 interface Props {
   dispatch?: Function
   employees?: EmployeeWithPosition[]
+
+  onCellChange?: (record: any, key: string) => (val: string) => void
 }
 
 
-
-interface State {
-  editable?: boolean
-  value?: string
-}
-
-class Cell extends React.Component<any, any> {
-  constructor(props) {
-    super(props)
-    this.state = {
-      editable: false,
-      value: this.props.value
-    }
-  }
-
-  handleChange = e => {
-    const value = e.target.value
-    this.setState({ value })
-  }
-
-  check = e => {
-    this.setState({ editable: false })
-    if (this.props.onChange) {
-      this.props.onChange(this.state.value)
-      this.setState({ value: this.props.value })
-    }
-  }
-
-  edit = e => {
-    this.setState({ editable: true })
-  }
-
-  render() {
-    const { value, editable } = this.state
-    return (<div className="editable-cell">
-      {
-        editable ?
-          <div className="editable-cell-input-wrapper">
-            <Input
-              value={value}
-              onChange={this.handleChange}
-              onPressEnter={this.check}
-            />
-            <Icon
-              type="check"
-              className="editable-cell-icon-check"
-              onClick={this.check}
-            />
-          </div>
-          :
-          <div className="editable-cell-text-wrapper">
-            {value || ' '}
-            <Icon
-              type="edit"
-              className="editable-cell-icon"
-              onClick={this.edit}
-            />
-          </div>
-      }
-    </div>)
-  }
-}
-
-
-
-function onCellChange(index, key) {
-  return (value) => {
-    console.log(index, key, value)
-  }
-}
-
+const renderCell = curry(function renderCell(onCellChange, keyName, text, record, index) {
+  return <EntityTableCell
+    value={text}
+    onChange={onCellChange(record, keyName)}
+  />
+})
 
 
 const Employees: React.StatelessComponent<Props> = (props: Props) => {
-  const { employees } = props
-
-
+  const { employees, onCellChange } = props
   const columns = [
     {
       title: 'First Name',
       dataIndex: 'firstName',
       key: 'firstName',
-      render: (text, record, index) => (
-        <Cell
-          value={text}
-          onChange={onCellChange(index, 'name')}
-        />
-      ),
-
+      render: renderCell(onCellChange, 'firstName'),
     },
     {
       title: 'Last Name',
       dataIndex: 'lastName',
       key: 'lastName',
-      render: (text, record, index) => (
-        <Cell
-          value={text}
-          onChange={onCellChange(index, 'name')}
-        />
-      ),
+      render: renderCell(onCellChange, 'lastName'),
+    },
+    {
+      title: 'Position',
+      dataIndex: 'position.alias',
+      key: 'position.id'
     }
   ]
 
@@ -127,11 +60,8 @@ const Employees: React.StatelessComponent<Props> = (props: Props) => {
       <EmployeeToolbar />
       <Pane>
         <MainPane>
-          <Table
-            bordered
-            rowKey={employee => employee.id}
+          <EntityTable
             dataSource={employees}
-            style={{ maxWidth: '1000px', margin: '25px auto' }}
             columns={columns}
             expandedRowRender={record =>
               <div>
@@ -158,4 +88,16 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps)((Employees as any))
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCellChange: (record, key) => (value) => {
+      console.log(record, key, value)
+      dispatch(editEmployees([{
+        id: record.id,
+        [key]: value
+      }]))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)((Employees as any))

@@ -11,47 +11,62 @@ import * as Crud from './'
 
 import { convertEntityArrToObj, deleteKeysFromObject } from 'src/utils'
 
+
+declare type a = {
+  default: (state: RState) => Entities<any>,
+  raw: (state: RState) => Entities<any>,
+}
+
+/*
+  selector:(state: RState) => Entities<any> | {
+    default?: (state: RState) => Entities<any>,
+    raw?: (state: RState) => Entities<any>,
+  }
+*/
+
 export const actionFactory = curry(function actionFactory(
   types: Crud.ActionTypes.CrudActionTypes,
-  selector: (state: RState) => Entities<any>,
+  selector: any,
   option: Crud.ActionTypes.ActionOptions,
-  input: Entity[] | Entities<any>
 ) {
-  return (dispatch, getState) => {
+  return (input: Entity[] | Entities<any>) => (dispatch, getState) => {
     dispatch({
       type: types[option],
-      payload: getPayload(option, selector(getState()), input)
+      payload: getPayload(option, selector, getState(), input)
     })
   }
 })
 
-function getPayload(option: Crud.ActionTypes.ActionOptions, stateSlice: Entities<any> | string[], input: Entity[] | Entities<any>) {
+function getPayload(option: Crud.ActionTypes.ActionOptions, selector: any, state: RState, input: Entity[] | Entities<any>) {
   switch (option) {
 
     case 'setRaw':
       return Object.assign({}, input)
 
     case 'add':
-      return Object.assign({}, stateSlice, convertEntityArrToObj((<Entity[]> input)))
+      return Object.assign({}, selector(state), convertEntityArrToObj((<Entity[]> input)))
 
     case 'edit':
-      const mergedWithState = (<Entity[]> input).map(ent => {
-        const stateEnt = stateSlice[ent.id] || {}
-        return merge(stateEnt, ent)
+      console.log(selector)
+      const mergedWithState = (<Entity[]> input).map(inputEnt => {
+        const stateEnt = selector.raw(state)[inputEnt.id] || {}
+        return merge(stateEnt, inputEnt)
       })
 
-      return merge(stateSlice, convertEntityArrToObj(mergedWithState))
+      return merge(selector.default(state), convertEntityArrToObj(mergedWithState))
+
+    case 'removeEdited':
+      return deleteKeysFromObject((<Entity[]> input).map(x => x.id), selector.default(state))
 
     case 'removeAdded':
-    case 'removeEdited':
-      return deleteKeysFromObject((<Entity[]> input).map(x => x.id), stateSlice)
+       return deleteKeysFromObject((<Entity[]> input).map(x => x.id), selector(state))
 
     case 'delete':
-      return union((<Entity[]> input).map(x => x.id), stateSlice)
+      return union((<Entity[]> input).map(x => x.id), selector(state))
 
     case 'removeDeleted':
       const idsToRemove = (<Entity[]> input).map(x => x.id)
-      return (<string[]> stateSlice).filter(id => !~idsToRemove.indexOf(id))
+      return (<string[]> selector(state)).filter(id => !~idsToRemove.indexOf(id))
 
     default:
       throw new Error('Cant find the type given in the action factory')

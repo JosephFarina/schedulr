@@ -39,7 +39,11 @@ const addFactory = actionFactory(getAddedEmployees)
 export const addEmployees = addFactory('add')
 export const removeAddedEmployees = addFactory('removeAdded')
 
-const editFactory = actionFactory(getEditedEmployees)
+const editFactory = actionFactory({
+  default: getEditedEmployees,
+  raw: getRawEmployees
+})
+
 export const editEmployees = editFactory('edit')
 export const removeEditedEmployees = editFactory('removeEdited')
 

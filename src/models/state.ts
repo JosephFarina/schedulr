@@ -83,6 +83,7 @@ export interface REntities {
   employees?: REmployees
   shifts?: CrudState<EntityModels.Shifts>
   positions?: CrudState<EntityModels.Positions>
+  employeeFavorability?: CrudState<EntityModels.EmployeeFavorability>
 }
 
 export interface REmployees {

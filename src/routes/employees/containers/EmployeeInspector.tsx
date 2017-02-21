@@ -55,24 +55,24 @@ class EmployeeInspector extends React.Component<Props, {}> {
     return (
       <div className={styles.cardGrid}>
         <div className={styles.cardColumn}>
-          <Card loading={fetchingData} style={{ flex: '1 1 30%', margin: '10px' }}>
+          <Card loading={fetchingData} title="Availability" style={{ flex: '1 1 100%', margin: '10px' }} bodyStyle={{ display: 'none' }}>
             <h2>{employee.alias}</h2>
           </Card>
           <Card loading={fetchingData} title="Details" style={{ flex: '1 1 100%', margin: '10px' }}>
 
             <EmployeeDetailsEditor onChange={onDetailChange(employee.id)} fields={[
-              { fieldName: 'First Name', value: this.props.employee.firstName, key: 'firstName' },
-              { fieldName: 'Last Name', value: this.props.employee.lastName, key: 'lastName' },
-              { fieldName: 'Alias', value: this.props.employee.alias, key: 'alias' },
+              { fieldName: 'First Name', value: employee.firstName, key: 'firstName' },
+              { fieldName: 'Last Name', value: employee.lastName, key: 'lastName' },
+              { fieldName: 'Alias', value: employee.alias, key: 'alias' },
               {
                 fieldName: 'Position',
-                value: typeof this.props.employee.position === 'string' ? this.props.employee.position : null,
+                value: typeof employee.position === 'string' ? employee.position : null,
                 key: 'position',
                 selectOptions: positions
               },
               {
                 fieldName: 'Manager',
-                value: typeof this.props.employee.manager === 'string' ? this.props.employee.manager : null,
+                value: typeof employee.manager === 'string' ? employee.manager : null,
                 key: 'manager',
                 selectOptions: employees
               }

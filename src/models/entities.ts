@@ -104,3 +104,19 @@ export interface EmployeeWithPosition extends Employee {
 export interface Position extends Entity { }
 
 export interface Positions extends Entities<Position> { }
+
+
+/**
+ * 
+ * EmployeeFavorability entity
+ * 
+ */
+
+export interface EmployeeFavorability extends Entity {
+  client: string
+  employee: string
+  rating: number
+  isDefaultRating: boolean
+}
+
+export interface EmployeeFavorabilies extends Entities<EmployeeFavorability> { }

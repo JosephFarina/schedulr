@@ -3,7 +3,8 @@ import {
   Employees,
   Locations,
   Positions,
-  UnnormalizedShift
+  UnnormalizedShift,
+  EmployeeFavorabilies
 } from 'src/models'
 
 import { identity, times, compose, length, keys } from 'ramda'
@@ -161,6 +162,29 @@ export const EMPLOYEES_TWO: Employees = {
     lastName: 'fq3ewdfadsf'
   }
 }
+
+
+
+export function generateEmployeeFavorability(): EmployeeFavorabilies {
+  return Object.keys(CLIENTS).reduce((clientsRes, clientKey, clientIndex) => {
+
+    const employeesRes = Object.keys(EMPLOYEES).reduce((empRes, employeeKey, employeeIndex) => {
+      return Object.assign({}, empRes, {
+        ['' + clientIndex + employeeIndex]: {
+          id: '' + clientIndex + employeeIndex,
+          alias: '' + clientIndex + employeeIndex,
+          client: clientKey,
+          rating: 3,
+          employee: employeeKey,
+          isDefaultRating: false
+        }
+      })
+    }, {})
+
+    return { ...clientsRes, ...employeesRes }
+  }, {})
+}
+
 
 /**
  * 

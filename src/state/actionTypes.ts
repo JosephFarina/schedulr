@@ -21,10 +21,18 @@ export const EmployeeEntityActions = Crud.ActionTypes.mergeWith<{
   fetchingEmployeeDetails: 'fetchingEmployeeDetails',
   errorFetchingEmployeeDetails: 'errorFetchingEmployeeDetails'
 })
-
 export const ClientEntityActions = Crud.ActionTypes.mergeWith<{}>('Client', {})
 export const LocationEntityActions = Crud.ActionTypes.mergeWith<{}>('Location', {})
 export const PositionEntityActions = Crud.ActionTypes.mergeWith<{}>('Position', {})
+export const EmployeeFavorabilityActions = Crud.ActionTypes.mergeWith<{}>('EmployeeFavorability', {})
+
+
+
+
+
+
+
+
 
 export const ShiftActions = {
   // new

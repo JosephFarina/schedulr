@@ -13,7 +13,8 @@ import {
   setEmployees,
   setLocations,
   setShifts,
-  setPositions
+  setPositions,
+  setEmployeeFavorabilities
 } from 'src/state/entities'
 
 import {
@@ -21,7 +22,8 @@ import {
   EMPLOYEES,
   LOCATIONS,
   POSITIONS,
-  generateShifts
+  generateShifts,
+  generateEmployeeFavorability
 } from 'src/testUtils'
 
 import configureStore from './state/configureStore'
@@ -60,8 +62,7 @@ store.dispatch((setClients(CLIENTS) as any))
 store.dispatch((setEmployees(EMPLOYEES) as any))
 store.dispatch((setLocations(LOCATIONS) as any))
 store.dispatch((setPositions(POSITIONS) as any))
-
-
+store.dispatch((setEmployeeFavorabilities(generateEmployeeFavorability())))
 
 const Routes = () => (
   <Provider store={store}>

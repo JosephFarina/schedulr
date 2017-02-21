@@ -43,7 +43,7 @@ interface Props {
   upcomingShifts?: UnnormalizedShift[]
   employeeFavorabilities?: EmployeeFavorability[]
   getEmployeeDetails: (id: string) => void
-  updateEmployeeFavorabilityRating: (id: string) => (val: number) => any
+  updateEmployeeFavorability: (id: string) => (key: 'rating' | 'canWorkWith') => (val: number) => any
   params?: {
     inspector: string
   }
@@ -66,7 +66,7 @@ class EmployeeInspector extends React.Component<Props, {}> {
       employees,
       onDetailChange,
       employeeFavorabilities,
-      updateEmployeeFavorabilityRating
+      updateEmployeeFavorability
     } = this.props
 
     console.log(employee)
@@ -102,7 +102,10 @@ class EmployeeInspector extends React.Component<Props, {}> {
 
         <div className={styles.cardColumn}>
           <Card loading={fetchingData} title="Client Rapport" style={{ flex: '1 1', margin: '10px' }}>
-            <EmployeeFavorabilityEditor employeeFavorabilies={employeeFavorabilities} onChange={updateEmployeeFavorabilityRating} />
+            <EmployeeFavorabilityEditor
+              employeeFavorabilies={employeeFavorabilities}
+              onChange={updateEmployeeFavorability}
+            />
           </Card>
         </div>
 
@@ -129,18 +132,13 @@ const mapStateToProps = (state, ownProps: Props) => {
 
 const mapDispatchToProps = dispatch => ({
   onDetailChange: (id: string) => (key: string) => (value: string) => {
-    dispatch(editEmployees([{
-      id, [key]: value
-    }]))
+    dispatch(editEmployees([{ id, [key]: value }]))
   },
   getEmployeeDetails(id) {
     dispatch(fetchEmployeeDetails(id))
   },
-  updateEmployeeFavorabilityRating: (id: string) => (rating: number) => {
-    dispatch(editEmployeeFavorabilities([{
-      id,
-      rating
-    }]))
+  updateEmployeeFavorability: (id: string) => (key: 'rating' | 'canWorkWith') => (val: number) => {
+    dispatch(editEmployeeFavorabilities([{ id, [key]: val }]))
   }
 })
 

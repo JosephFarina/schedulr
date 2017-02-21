@@ -46,14 +46,11 @@ export const getEmployeeFavorabilitiesByClientId = (state: RState, id: string): 
 
 function unnormalizeEmployeeFavorability(state: RState) {
   return (empFav: EmployeeFavorability): UnnormalizedEmployeeFavorability => {
-    const {alias, client, employee, id, isDefaultRating, rating} = empFav
+    const {client, employee} = empFav
     return {
-      alias,
-      id,
-      isDefaultRating,
-      rating,
+      ...empFav,
       client: getClientById(state, client),
-      employee: getEmployeeById(state, employee)
+      employee: getEmployeeById(state, employee),
     }
   }
 }

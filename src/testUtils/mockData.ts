@@ -177,6 +177,7 @@ export function generateEmployeeFavorability(): EmployeeFavorabilies {
           alias: '' + clientIndex + employeeIndex,
           client: clientKey,
           rating: 3,
+          canWorkWith: Math.random() > .5,
           employee: employeeKey,
           isDefaultRating: false
         }

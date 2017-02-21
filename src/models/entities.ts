@@ -116,6 +116,7 @@ export interface EmployeeFavorability extends Entity {
   client: string
   employee: string
   rating: number
+  canWorkWith: boolean
   isDefaultRating: boolean
 }
 
@@ -123,6 +124,7 @@ export interface UnnormalizedEmployeeFavorability extends Entity {
   client: Client
   employee: Employee
   rating: number
+  canWorkWith: boolean
   isDefaultRating: boolean
 }
 

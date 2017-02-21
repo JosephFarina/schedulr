@@ -20,7 +20,13 @@ import {
   editEmployeeFavorabilities
 } from 'src/state/entities'
 
-import { EditableText } from 'src/shared'
+import {
+  EditableText,
+  Panel,
+  PanelColumn,
+  PanelContainer,
+  PanelCard
+} from 'src/shared'
 
 import UpcomingShiftPreview from './../components/UpcomingShiftsPreview'
 import EmployeeDetailsEditor from './../components/EmployeeDetailsEditors'
@@ -69,52 +75,49 @@ class EmployeeInspector extends React.Component<Props, {}> {
       updateEmployeeFavorability
     } = this.props
 
-    console.log(employee)
+    const employeeEditorFields = [
+      { fieldName: 'First Name', value: employee.firstName, key: 'firstName' },
+      { fieldName: 'Last Name', value: employee.lastName, key: 'lastName' },
+      { fieldName: 'Alias', value: employee.alias, key: 'alias' },
+      {
+        fieldName: 'Position',
+        value: typeof employee.position === 'string' ? employee.position : null,
+        key: 'position',
+        selectOptions: positions
+      },
+      {
+        fieldName: 'Manager',
+        value: typeof employee.manager === 'string' ? employee.manager : null,
+        key: 'manager',
+        selectOptions: employees
+      }
+    ]
 
     return (
-      <div className={styles.cardGrid}>
-        <div className={styles.cardColumn}>
-          <Card loading={fetchingData} title="Availability" style={{ flex: '1 1 100%', margin: '10px' }} bodyStyle={{ display: 'none' }}>
-            <h2>{employee.alias}</h2>
-          </Card>
-          <Card loading={fetchingData} title="Details" style={{ flex: '1 1 100%', margin: '10px' }}>
-
-            <EmployeeDetailsEditor onChange={onDetailChange(employee.id)} fields={[
-              { fieldName: 'First Name', value: employee.firstName, key: 'firstName' },
-              { fieldName: 'Last Name', value: employee.lastName, key: 'lastName' },
-              { fieldName: 'Alias', value: employee.alias, key: 'alias' },
-              {
-                fieldName: 'Position',
-                value: typeof employee.position === 'string' ? employee.position : null,
-                key: 'position',
-                selectOptions: positions
-              },
-              {
-                fieldName: 'Manager',
-                value: typeof employee.manager === 'string' ? employee.manager : null,
-                key: 'manager',
-                selectOptions: employees
-              }
-            ]} />
-
-          </Card>
-        </div>
-
-        <div className={styles.cardColumn}>
-          <Card loading={fetchingData} title="Client Rapport" style={{ flex: '1 1', margin: '10px' }}>
-            <EmployeeFavorabilityEditor
+      <PanelContainer>
+        <PanelColumn>
+          <Panel
+            title={'Availability'}
+            body={<EmployeeDetailsEditor
+              onChange={onDetailChange(employee.id)}
+              fields={employeeEditorFields}
+            />}
+          />
+          <Panel
+            title="Client Rapport"
+            body={<EmployeeFavorabilityEditor
               employeeFavorabilies={employeeFavorabilities}
               onChange={updateEmployeeFavorability}
-            />
-          </Card>
-        </div>
-
-        <div className={styles.cardColumn}>
-          <Card loading={fetchingData} title="Upcoming Shifts" style={{ flex: '1 1', margin: '10px' }} >
-            <UpcomingShiftPreview shifts={upcomingShifts} />
-          </Card>
-        </div>
-      </div>
+            />}
+          />
+        </PanelColumn>
+        <PanelColumn>
+          <Panel
+            title="Upcoming Shifts"
+            body={<UpcomingShiftPreview shifts={upcomingShifts} />}
+          />
+        </PanelColumn>
+      </PanelContainer>
     )
   }
 }

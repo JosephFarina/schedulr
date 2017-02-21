@@ -1,9 +1,39 @@
 import * as React from 'react'
 import { UnnormalizedEmployeeFavorability } from 'src/models'
 
+const ctx = require('classnames')
+const styles = require('./EmployeeFavorabilityEditor.scss')
+
 const Switch = require('antd/lib/switch')
 const Icon = require('antd/lib/icon')
 const Rate = require('antd/lib/rate')
+
+interface EmployeeFavorabilityRowProps {
+  employeeFavorabily: UnnormalizedEmployeeFavorability
+  onChange: (id: string) => (key: 'rating' | 'canWorkWith') => (val: number) => any
+}
+
+const EmployeeFavorabilityRow = ({employeeFavorabily, onChange}: EmployeeFavorabilityRowProps) => (
+  <div className={styles.row}>
+    <div className={styles.rowItem}> {employeeFavorabily.client.alias} </div>
+    <div className={styles.rowItem}>
+      <Switch
+        checkedChildren={<Icon type="like" />}
+        unCheckedChildren={<Icon type="dislike" />}
+        onChange={onChange(employeeFavorabily.id)('canWorkWith')}
+        checked={employeeFavorabily.canWorkWith}
+      />
+    </div>
+    <div className={styles.rowItem}>
+      <Rate
+        allowHalf
+        value={employeeFavorabily.rating}
+        onChange={onChange(employeeFavorabily.id)('rating')}
+        disabled={!employeeFavorabily.canWorkWith}
+      />
+    </div>
+  </div>
+)
 
 interface Props {
   employeeFavorabilies: UnnormalizedEmployeeFavorability[]
@@ -12,17 +42,21 @@ interface Props {
 
 const EmployeeFavorabilityEditor = ({employeeFavorabilies, onChange}: Props) => (
   <div>
-    {employeeFavorabilies.map(empFav => (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <h2><strong>{empFav.client.alias}</strong></h2>
-        <Switch checkedChildren={<Icon type="like" />}
-          unCheckedChildren={<Icon type="dislike" />}
-          onChange={onChange(empFav.id)('canWorkWith')}
-          checked={empFav.canWorkWith}
-        />
-        <Rate allowHalf value={empFav.rating} onChange={onChange(empFav.id)('rating')} disabled={!empFav.canWorkWith} />
+    <div className={ctx(styles.row, styles.header)}>
+      <div className={styles.rowItem}>
+        <strong>Client Name</strong>
       </div>
-    ))}
+      <div className={styles.rowItem}>
+        <strong>Works With</strong>
+      </div>
+      <div className={styles.rowItem}>
+        <strong>Favorability</strong>
+      </div>
+    </div>
+    {employeeFavorabilies.map(empFav => <EmployeeFavorabilityRow
+      employeeFavorabily={empFav}
+      onChange={onChange}
+    />)}
   </div>
 )
 

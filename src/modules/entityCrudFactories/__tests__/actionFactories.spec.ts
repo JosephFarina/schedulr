@@ -114,7 +114,7 @@ describe('entityCrudFactories: actionFactories', () => {
         id: editedClientId,
         alias: editedAliasVal
       }]
-      const expectedVal = { [editedClientId]: { ...storeVal[editedClientId] } }
+      const expectedVal: Clients = { [editedClientId]: { ...storeVal[editedClientId] } }
       expectedVal[editedClientId].alias = editedAliasVal
 
       testPayloadIsCorrect(

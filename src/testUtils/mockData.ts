@@ -1,10 +1,12 @@
 import {
   Clients,
+  Client,
   Employees,
   Locations,
   Positions,
   UnnormalizedShift,
-  EmployeeFavorabilies
+  EmployeeFavorabilies,
+  Entities
 } from 'src/models'
 
 import { identity, times, compose, length, keys } from 'ramda'
@@ -15,7 +17,7 @@ import { identity, times, compose, length, keys } from 'ramda'
  * 
  */
 
-export const CLIENTS: Clients = {
+export const CLIENTS: Entities<Clients> = {
   'clientOne:1': {
     id: 'clientOne:1',
     alias: 'client one 1',
@@ -30,7 +32,7 @@ export const CLIENTS: Clients = {
   }
 }
 
-export const CLIENTS_TWO: Clients = {
+export const CLIENTS_TWO: Entities<Clients> = {
   'clientTwo:1': {
     id: 'clientTwo:1',
     alias: 'clientTwo 1',
@@ -49,7 +51,7 @@ export const CLIENTS_TWO: Clients = {
  * 
  */
 
-export const LOCATIONS: Locations = {
+export const LOCATIONS: Entities<Locations> = {
   'locationsOne:1': {
     id: 'locationsOne:1',
     alias: 'locationOne 1'
@@ -64,7 +66,7 @@ export const LOCATIONS: Locations = {
   }
 }
 
-export const LOCATIONS_TWO: Locations = {
+export const LOCATIONS_TWO: Entities<Locations> = {
   'locationsTwo:1': {
     alias: 'locationsTwo 1',
     id: 'locationsTwo:1'
@@ -81,7 +83,7 @@ export const LOCATIONS_TWO: Locations = {
  * 
  */
 
-export const POSITIONS: Positions = {
+export const POSITIONS: Entities<Positions> = {
   '0': {
     id: '0',
     alias: 'Manager'
@@ -96,7 +98,7 @@ export const POSITIONS: Positions = {
   }
 }
 
-export const POSITIONS_TWO: Positions = {
+export const POSITIONS_TWO: Entities<Positions> = {
   '3': {
     id: '3',
     alias: 'Project Manager'
@@ -110,7 +112,7 @@ export const POSITIONS_TWO: Positions = {
  * 
  */
 
-export const EMPLOYEES: Employees = {
+export const EMPLOYEES: Entities<Employees> = {
   '0': {
     id: '0',
     alias: 'Joey Farina',
@@ -153,7 +155,7 @@ export const EMPLOYEES: Employees = {
   }
 }
 
-export const EMPLOYEES_TWO: Employees = {
+export const EMPLOYEES_TWO: Entities<Employees> = {
   'af3ijwekfas': {
     id: 'af3ijwekfas',
     alias: 'af fq3ewdfadsf',
@@ -202,7 +204,7 @@ export function getUnnormalizedShifts(employeeId: string): UnnormalizedShift[] {
       keys
     )(CLIENTS)
     const clientId = '' + keys(CLIENTS)[randomClientKeyIndex]
-    const client = Object.assign({}, CLIENTS[clientId])
+    const client: Client = Object.assign({}, CLIENTS)[clientId]
     const location = LOCATIONS[client.locations[0]]
     const employee = Object.assign({}, EMPLOYEES[employeeId])
 

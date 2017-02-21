@@ -1,5 +1,6 @@
-import { RState, EmployeeFavorabilies } from 'src/models'
+import { RState, EmployeeFavorabilies, EmployeeFavorability, UnnormalizedEmployeeFavorability } from 'src/models'
 import * as Crud from 'src/modules/entityCrudFactories'
+import { getEmployeeById, getClientById } from 'src/state/entities'
 
 export const getRawEmployeeFavorabilies =
   (state: RState): EmployeeFavorabilies => Object.assign({}, state.entities.employeeFavorability.raw)
@@ -19,9 +20,40 @@ export const getDeletedEmployeeFavorabilies =
  * 
  */
 
-export const getEmployeeFavorabilities = Crud.getUpdatedEntitiesFactory(
+export const getEmployeeFavorabilities = Crud.getUpdatedEntitiesFactory<EmployeeFavorability>(
   getRawEmployeeFavorabilies,
   getEditedEmployeeFavorabilies,
   getAddedEmployeeFavorabilies,
   getDeletedEmployeeFavorabilies
 )
+
+/**
+ * 
+ * 
+ */
+
+export const getEmployeeFavorabilitiesByEmployeeId = (state: RState, id: string): UnnormalizedEmployeeFavorability[] => {
+  return getEmployeeFavorabilities(state)
+    .filter(empFav => empFav.employee === id)
+    .map(unnormalizeEmployeeFavorability(state))
+}
+
+export const getEmployeeFavorabilitiesByClientId = (state: RState, id: string): UnnormalizedEmployeeFavorability[] => {
+  return getEmployeeFavorabilities(state)
+    .filter(empFav => empFav.client === id)
+    .map(unnormalizeEmployeeFavorability(state))
+}
+
+function unnormalizeEmployeeFavorability(state: RState) {
+  return (empFav: EmployeeFavorability): UnnormalizedEmployeeFavorability => {
+    const {alias, client, employee, id, isDefaultRating, rating} = empFav
+    return {
+      alias,
+      id,
+      isDefaultRating,
+      rating,
+      client: getClientById(state, client),
+      employee: getEmployeeById(state, employee)
+    }
+  }
+}

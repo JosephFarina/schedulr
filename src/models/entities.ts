@@ -119,4 +119,11 @@ export interface EmployeeFavorability extends Entity {
   isDefaultRating: boolean
 }
 
+export interface UnnormalizedEmployeeFavorability extends Entity {
+  client: Client
+  employee: Employee
+  rating: number
+  isDefaultRating: boolean
+}
+
 export interface EmployeeFavorabilies extends Entities<EmployeeFavorability> { }

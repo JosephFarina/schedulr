@@ -23,7 +23,10 @@ const addFactory = actionFactory(getAddedEmployeeFavorabilies)
 export const addEmployeeFavorabilities = addFactory('add')
 export const removeAddedEmployeeFavorabilities = addFactory('removeAdded')
 
-const editFactory = actionFactory(getEditedEmployeeFavorabilies)
+const editFactory = actionFactory({
+  default: getEditedEmployeeFavorabilies,
+  raw: getRawEmployeeFavorabilies
+})
 export const editEmployeeFavorabilities = editFactory('edit')
 export const removeEditedEmployeeFavorabilities = editFactory('removeEdited')
 

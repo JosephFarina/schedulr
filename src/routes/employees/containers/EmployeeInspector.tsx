@@ -1,6 +1,11 @@
 import * as React from 'react'
 
-import { Employee, UnnormalizedShift, Position } from 'src/models'
+import {
+  Employee,
+  UnnormalizedShift,
+  Position,
+  EmployeeFavorability
+} from 'src/models'
 import { connect } from 'react-redux'
 
 import {
@@ -10,13 +15,16 @@ import {
   fetchingEmployeeInspectorDetails,
   getPositions,
   getEmployees,
-  editEmployees
+  editEmployees,
+  getEmployeeFavorabilitiesByEmployeeId,
+  editEmployeeFavorabilities
 } from 'src/state/entities'
 
 import { EditableText } from 'src/shared'
 
 import UpcomingShiftPreview from './../components/UpcomingShiftsPreview'
 import EmployeeDetailsEditor from './../components/EmployeeDetailsEditors'
+import EmployeeFavorabilityEditor from './../components/EmployeeFavorabilityEditor'
 
 const styles = require('./EmployeeInspector.scss')
 const ctx = require('classnames')
@@ -33,7 +41,9 @@ interface Props {
   fetchingData?: boolean
   positions?: Position[]
   upcomingShifts?: UnnormalizedShift[]
+  employeeFavorabilities?: EmployeeFavorability[]
   getEmployeeDetails: (id: string) => void
+  updateEmployeeFavorabilityRating: (id: string) => (val: number) => any
   params?: {
     inspector: string
   }
@@ -48,7 +58,16 @@ class EmployeeInspector extends React.Component<Props, {}> {
   }
 
   render() {
-    const { fetchingData, upcomingShifts, employee, positions, employees, onDetailChange } = this.props
+    const {
+      fetchingData,
+      upcomingShifts,
+      employee,
+      positions,
+      employees,
+      onDetailChange,
+      employeeFavorabilities,
+      updateEmployeeFavorabilityRating
+    } = this.props
 
     console.log(employee)
 
@@ -83,12 +102,7 @@ class EmployeeInspector extends React.Component<Props, {}> {
 
         <div className={styles.cardColumn}>
           <Card loading={fetchingData} title="Client Rapport" style={{ flex: '1 1', margin: '10px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <h2><strong>Client One:</strong></h2>
-              <Switch checkedChildren={<Icon type="like" />} unCheckedChildren={<Icon type="dislike" />} />
-              <Rate allowHalf></Rate>
-            </div>
-            <div style={{ width: '100%', height: '1px', background: '#e9e9e9' }} />
+            <EmployeeFavorabilityEditor employeeFavorabilies={employeeFavorabilities} onChange={updateEmployeeFavorabilityRating} />
           </Card>
         </div>
 
@@ -108,7 +122,8 @@ const mapStateToProps = (state, ownProps: Props) => {
     employee: getEmployeeById(state, ownProps.params.inspector),
     upcomingShifts: getEmployeeInspectorUpcomingShifts(state),
     fetchingData: fetchingEmployeeInspectorDetails(state),
-    positions: getPositions(state)
+    positions: getPositions(state),
+    employeeFavorabilities: getEmployeeFavorabilitiesByEmployeeId(state, ownProps.params.inspector)
   }
 }
 
@@ -120,6 +135,12 @@ const mapDispatchToProps = dispatch => ({
   },
   getEmployeeDetails(id) {
     dispatch(fetchEmployeeDetails(id))
+  },
+  updateEmployeeFavorabilityRating: (id: string) => (rating: number) => {
+    dispatch(editEmployeeFavorabilities([{
+      id,
+      rating
+    }]))
   }
 })
 

@@ -87,8 +87,8 @@ export interface REntities {
 }
 
 export interface REmployees {
-  crud: REmployeesCrud
-  inspector: REmployeeInspector
+  crud?: REmployeesCrud
+  inspector?: REmployeeInspector
 }
 
 export declare type employeeViewOptions = 'hierarchy' | 'grid'

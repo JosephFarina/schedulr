@@ -45,7 +45,7 @@ export const EmployeeToolbar = (props: Props) => {
         onChange={searchChange}
       />
 
-      <Button to="employees">New</Button>
+      <Button to="/employees/new">New</Button>
       <ButtonGroup>
         <Button type={view === 'grid' ? 'primary' : 'secondary'} onClick={gridView}>Grid</Button>
         <Button type={view === 'hierarchy' ? 'primary' : 'secondary'} onClick={hierarchyView}>Heirarchy</Button>
